@@ -1,8 +1,8 @@
 class CreateRecommendations < ActiveRecord::Migration
   def change
     create_table :recommendations do |t|
-      t.integer  :sender_id
-      t.integer  :receiver_id
+      t.integer  :sender
+      t.integer  :receiver
       t.integer  :media_id
 
       t.timestamps null: false

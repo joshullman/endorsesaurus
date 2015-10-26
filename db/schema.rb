@@ -11,25 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928235101) do
+ActiveRecord::Schema.define(version: 20151026204442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "media_id"
+    t.integer  "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "media", force: :cascade do |t|
-    t.integer  "imdb_id"
+    t.string   "title"
+    t.string   "year"
+    t.string   "rated"
+    t.string   "released"
+    t.string   "runtime"
+    t.string   "genre"
+    t.string   "director"
+    t.string   "writer"
+    t.string   "actors"
+    t.string   "plot"
+    t.string   "awards"
+    t.string   "poster"
     t.integer  "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "recommendations", force: :cascade do |t|
-    t.integer  "sender_id"
-    t.integer  "receiver_id"
+    t.integer  "sender"
+    t.integer  "receiver"
     t.integer  "media_id"
-    t.boolean  "liked"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150928235101) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.integer  "points",                 default: 0
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
