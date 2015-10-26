@@ -1,0 +1,25 @@
+<h3><%= @user.email %></h3>
+<div class="rec_wrapper">
+	<% @recs.each do |rec| %>
+		<div id=<%="#{rec.info.id}"%> >
+<!-- 			# upvote button -->
+			<h5>User Points: <%= rec.user_points %></h5>
+			<h5>Media Points: <%= rec.info.points %></h5>
+			<h5>Title: <%= rec.info.title %></h5>
+			<h5>Year: <%= rec.info.year %></h5>
+			<h5>Rated: <%= rec.info.rated %></h5>
+			<h5>Released: <%= rec.info.released %></h5>
+			<h5>Runtime: <%= rec.info.runtime %></h5>
+			<h5>Genre: <%= rec.info.genre %></h5>
+			<h5>Director: <%= rec.info.director %></h5>
+			<h5>Writer: <%= rec.info.writer %></h5>
+			<h5>Actors: <%= rec.info.actors %></h5>
+			<h5>Plot: <%= rec.info.plot %></h5>
+			<h5>Awards: <%= rec.info.awards %></h5>
+			<h5>Poster: <%= rec.info.poster %></h5>
+			<h5>Recommended By: <%= rec.rec_by %></h5>
+<!-- 			# opinion/seen button
+			#  -->
+		</div>
+	<% end %>
+</div>

@@ -1,7 +1,7 @@
 class RecommendationController < ApplicationController
 	before_action :find_recommendations, only: [:show, :edit, :update, :destroy]
 	
-def index
+  def index
     @recommendations = Recommendation.all
   end
 

@@ -37,7 +37,7 @@ media.each do |imdb_url|
 		series = {"Response" => "True"}
 		season = 1
 		while series["Response"] == "True"
-			url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"]}\&Season\=#{season}")
+			url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season}")
 			req = Net::HTTP::Get.new(url.to_s)
 			res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
 			series = JSON.parse(res.body)
@@ -70,118 +70,20 @@ media.each do |imdb_url|
 	)
 end
 
-
-Like.create(user_id: 1, media_id: 1, value: 1)
-user = User.find(1)
-user.points = user.points + Medium.find(1).points
-
-Like.create(user_id: 2, media_id: 1, value: 1)
-user = User.find(2)
-user.points = user.points + Medium.find(1).points
-
-Like.create(user_id: 3, media_id: 1, value: 1)
-user = User.find(3)
-user.points = user.points + Medium.find(1).points
-
-Like.create(user_id: 4, media_id: 1, value: 0)
-user = User.find(4)
-user.points = user.points + Medium.find(1).points
-
-Like.create(user_id: 5, media_id: 1, value: 0)
-user = User.find(5)
-user.points = user.points + Medium.find(1).points
-
-Like.create(user_id: 6, media_id: 1, value: -1)
-user = User.find(6)
-user.points = user.points + Medium.find(1).points
-
-Like.create(user_id: 7, media_id: 1, value: -1)
-user = User.find(7)
-user.points = user.points + Medium.find(1).points
-
-Like.create(user_id: 1, media_id: 2, value: 0)
-user = User.find(1)
-user.points = user.points + Medium.find(2).points
-
-Like.create(user_id: 2, media_id: 2, value: 0)
-user = User.find(2)
-user.points = user.points + Medium.find(2).points
-
-Like.create(user_id: 3, media_id: 3, value: -1)
-user = User.find(3)
-user.points = user.points + Medium.find(3).points
-
-Like.create(user_id: 4, media_id: 3, value: 0)
-user = User.find(4)
-user.points = user.points + Medium.find(3).points
-
-Like.create(user_id: 5, media_id: 4, value: 1)
-user = User.find(5)
-user.points = user.points + Medium.find(4).points
-
-Like.create(user_id: 6, media_id: 4, value: 0)
-user = User.find(6)
-user.points = user.points + Medium.find(4).points
-
-Like.create(user_id: 7, media_id: 5, value: 1)
-user = User.find(7)
-user.points = user.points + Medium.find(5).points
-
-Like.create(user_id: 1, media_id: 5, value: 0)
-user = User.find(1)
-user.points = user.points + Medium.find(5).points
-
-Like.create(user_id: 2, media_id: 6, value: -1)
-user = User.find(2)
-user.points = user.points + Medium.find(6).points
-
-Like.create(user_id: 3, media_id: 6, value: 0)
-user = User.find(3)
-user.points = user.points + Medium.find(6).points
-
-Like.create(user_id: 4, media_id: 7, value: 1)
-user = User.find(4)
-user.points = user.points + Medium.find(7).points
-
-Like.create(user_id: 5, media_id: 7, value: 0)
-user = User.find(5)
-user.points = user.points + Medium.find(7).points
-
-Like.create(user_id: 6, media_id: 8, value: 1)
-user = User.find(6)
-user.points = user.points + Medium.find(8).points
-
-Like.create(user_id: 7, media_id: 8, value: 0)
-user = User.find(7)
-user.points = user.points + Medium.find(8).points
-
-Like.create(user_id: 1, media_id: 9, value: -1)
-user = User.find(1)
-user.points = user.points + Medium.find(9).points
-
-Like.create(user_id: 2, media_id: 9, value: 0)
-user = User.find(2)
-user.points = user.points + Medium.find(9).points
-
-Like.create(user_id: 3, media_id: 9, value: -1)
-user = User.find(3)
-user.points = user.points + Medium.find(9).points
-
-Like.create(user_id: 4, media_id: 9, value: 0)
-user = User.find(4)
-user.points = user.points + Medium.find(9).points
-
-Like.create(user_id: 5, media_id: 9, value: 1)
-user = User.find(5)
-user.points = user.points + Medium.find(9).points
-
-Like.create(user_id: 6, media_id: 9, value: 0)
-user = User.find(6)
-user.points = user.points + Medium.find(9).points
-
-Like.create(user_id: 7, media_id: 10, value: -1)
-user = User.find(7)
-user.points = user.points + Medium.find(10).points
+28.times do
+	user = 0
+	media = 0
+	value = 0
+	until Like.where(user_id: user, media: media).first == nil
+		user = rand(7) + 1
+		media = rand(9) + 1
+		value = rand(2) - 1
+	end
+	Like.create(user_id: user, media: media, value: value)
+	u = User.find(user)
+	u.points = u.points + Medium.find(media).points
+	u.save
+end
 
 28.times do 
 	sender = 0
