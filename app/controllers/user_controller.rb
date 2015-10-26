@@ -50,8 +50,8 @@ class UserController < ApplicationController
   def show
   	@user = User.find(params[:id])
   	recommendations = Recommendation.where(receiver: @user.id).group_by(&:media_id)
-
-
+  	@likes = Like.where(user_id: @user.id).group_by(&:value)
+  	
   	@recs = []
   	recommendations.each_value do |array|
   		rec = Rec.new(array)

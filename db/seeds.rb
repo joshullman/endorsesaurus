@@ -23,7 +23,12 @@ media = [
 	"tt2861424",
 	"tt0417373",
 	"tt0082971",
-	"tt1475582"
+	"tt1475582",
+	"tt0407887",
+	"tt1375666",
+	"tt0120737",
+	"tt0133093",
+	"tt0177789"
 ]
 
 media.each do |imdb_url|
@@ -52,7 +57,6 @@ media.each do |imdb_url|
 		media_points = (runtime.to_f/30).ceil
 	end
 
-
 	Medium.create(
 		title: api["Title"],
 		year: api["Year"],
@@ -71,15 +75,18 @@ media.each do |imdb_url|
 end
 
 28.times do
-	user = 0
-	media = 0
+	user = 1
+	media = 1
 	value = 0
-	until Like.where(user_id: user, media: media).first == nil
+	until Like.where(user_id: user, media_id: media).first == nil
 		user = rand(7) + 1
-		media = rand(9) + 1
-		value = rand(2) - 1
+		media = rand(14) + 1
+		value = rand(3) - 1
 	end
-	Like.create(user_id: user, media: media, value: value)
+	p user
+	p media
+	p value
+	Like.create(user_id: user, media_id: media, value: value)
 	u = User.find(user)
 	u.points = u.points + Medium.find(media).points
 	u.save
@@ -92,7 +99,7 @@ end
 		sender = rand(7) + 1
 		receiver = rand(7) + 1
 	end
-	media = rand(10) + 1
+	media = rand(14) + 1
 	unless Like.where(user_id: receiver, media_id: media).first
 		Recommendation.create(sender: sender, receiver: receiver, media_id: media)
 	end

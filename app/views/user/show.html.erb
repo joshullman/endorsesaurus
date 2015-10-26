@@ -1,4 +1,5 @@
 <h3><%= @user.email %></h3>
+<h4>Recommendations:</h4>
 <div class="rec_wrapper">
 	<% @recs.each do |rec| %>
 		<div id=<%="#{rec.info.id}"%> >
@@ -20,6 +21,14 @@
 			<h5>Recommended By: <%= rec.rec_by %></h5>
 <!-- 			# opinion/seen button
 			#  -->
+		</div>
+	<% end %>
+</div>
+
+<h4>Opionions:</h4>
+<div class="like_wrapper">
+	<% @likes.each_key do |key| %>
+		<div id=<%="#{like.id}"%> >
 		</div>
 	<% end %>
 </div>
