@@ -1,0 +1,23 @@
+<div class="rec_wrapper">
+	<% @recommendations.each do |recommendation| %>
+		<div id=<%="#{recommendation.id}"%> >
+			# upvote button
+			<%= recommendation.user_points %>
+			<%= recommendation.media_points %>
+			<%= recommendation.api["Title"] %>
+			<%= recommendation.api["Year"] %>
+			<%= recommendation.api["Rated"] %>
+			<%= recommendation.api["Released"] %>
+			<%= recommendation.api["Runtime"] %>
+			<%= recommendation.api["Genre"] %>
+			<%= recommendation.api["Director"] %>
+			<%= recommendation.api["Writer"] %>
+			<%= recommendation.api["Actors"] %>
+			<%= recommendation.api["Plot"] %>
+			<%= recommendation.api["Awards"] %>
+			<%= recommendation.api["Poster"] %>
+			<%= recommendation.recommenders %>
+			# opinion/seen button
+			# 
+		</div>
+</div>
