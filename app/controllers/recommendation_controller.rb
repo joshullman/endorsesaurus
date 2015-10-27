@@ -38,7 +38,7 @@ class RecommendationController < ApplicationController
 	end
 
 	def recommendation_params
-		params.require(:recommendation).permit(:sender_id, :receiver_id, :media_id, :liked)
+		params.require(:recommendation).permit(:sender_id, :receiver_id, :media_id)
 	end
 
 end
