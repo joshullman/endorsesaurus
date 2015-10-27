@@ -1,12 +1,12 @@
+# recommendations should be simple - they either exist or they dont.  The user controller
+# handles the logic behind displaying the recommendation.  All that needs to be done here
+# is handling the creation of recommendations and maybe the logic behind de-recommending
+# if you decide you don't want to include your recommendation.  Either way, the logic
+# will be handled on the profile.
+
+
 class RecommendationController < ApplicationController
 	before_action :find_recommendations, only: [:show, :edit, :update, :destroy]
-	
-  def index
-    @recommendations = Recommendation.all
-  end
-
-  def show
-  end
 
   def new
     @recommendation = Recommendation.new
@@ -16,6 +16,9 @@ class RecommendationController < ApplicationController
   end
 
   def create
+    # if recommendation exists, ignore
+    # else, make recommendation
+
     @recommendation = Recommendation.new(params[:recommendation])
 
     if @recommendation.save

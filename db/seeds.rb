@@ -80,7 +80,7 @@ end
 	value = 0
 	until Like.where(user_id: user, media_id: media).first == nil
 		user = rand(7) + 1
-		media = rand(14) + 1
+		media = rand(15) + 1
 		value = rand(3) - 1
 	end
 	p user
@@ -95,12 +95,12 @@ end
 28.times do 
 	sender = 0
 	receiver = 0
-	until sender != receiver
+	until sender != receiver && Recommendation.where(sender: sender, receiver: receiver, media_id: media).first == nil
 		sender = rand(7) + 1
 		receiver = rand(7) + 1
+		media = rand(15) + 1
 	end
-	media = rand(14) + 1
-	unless Like.where(user_id: receiver, media_id: media).first
+	if Like.where(user_id: receiver, media_id: media).first == nil
 		Recommendation.create(sender: sender, receiver: receiver, media_id: media)
 	end
 end
