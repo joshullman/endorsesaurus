@@ -12,9 +12,6 @@ class RecommendationController < ApplicationController
     @recommendation = Recommendation.new
   end
 
-  def edit
-  end
-
   def create
     # if recommendation exists, ignore
     # else, make recommendation
@@ -25,15 +22,6 @@ class RecommendationController < ApplicationController
       redirect_to @recommendation, notice: 'Recommendation was successfully created.'
     else
       render action: "new"
-    end
-  end
-
-  def update
-
-    if @recommendation.update_attributes(params[:recommendation])
-      redirect_to @recommendation, notice: 'Recommendation was successfully updated.'
-    else
-      render action: "edit"
     end
   end
 

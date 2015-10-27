@@ -95,6 +95,7 @@ end
 28.times do 
 	sender = 0
 	receiver = 0
+	media = 0
 	until sender != receiver && Recommendation.where(sender: sender, receiver: receiver, media_id: media).first == nil
 		sender = rand(7) + 1
 		receiver = rand(7) + 1
