@@ -1,6 +1,8 @@
-<h3><%= @user.email %></h3>
-<h3>My Points: <%= @user.points %></h3>
-<h4>Recommendations:</h4>
+<h1><%= @user.email %></h1>
+<h1>My Points: <%= @user.points %></h1>
+<br>
+<br>
+<h3>Recommendations:</h3>
 <div class="rec_wrapper">
 	<% @recs.each do |rec| %>
 		<div id=<%="#{rec.info.id}"%> >
@@ -27,12 +29,17 @@
 <!-- 			# opinion/seen button
 			#  -->
 		</div>
+		<br>
+		<br>
 	<% end %>
 </div>
+<br>
+<br>
+<br>
 
 <div class="like_wrapper">
 	<% if @likes[1] %>
-		<h4>Likes:</h4>
+		<h3>Likes:</h3>
 		<% @likes[1].each do |like| %>
 			<div id=<%="#{like.id}"%> >
 				<h5>Title: <%= like.title %></h5>
@@ -48,10 +55,15 @@
 				<h5>Awards: <%= like.awards %></h5>
 				<h5>Poster: <%= like.poster %></h5>
 			</div>
+			<br>
+			<br>
 		<% end %>
 	<% end %>
+	<br>
+	<br>
+	<br>
 	<% if @likes[0] %>
-		<h4>Seen:</h4>
+		<h3>Seen:</h3>
 		<% @likes[0].each do |seen| %>
 			<div id=<%="#{seen.id}"%> >
 				<h5>Title: <%= seen.title %></h5>
@@ -67,10 +79,15 @@
 				<h5>Awards: <%= seen.awards %></h5>
 				<h5>Poster: <%= seen.poster %></h5>
 			</div>
+			<br>
+			<br>
 		<% end %>
 	<% end %>
+	<br>
+	<br>
+	<br>
 	<% if @likes[-1] %>
-		<h4>Dislikes:</h4>
+		<h3>Dislikes:</h3>
 		<% @likes[-1].each do |dislike| %>
 			<div id=<%="#{dislike.id}"%> >
 				<h5>Title: <%= dislike.title %></h5>
@@ -86,6 +103,8 @@
 				<h5>Awards: <%= dislike.awards %></h5>
 				<h5>Poster: <%= dislike.poster %></h5>
 			</div>
+			<br>
+			<br>
 		<% end %>
 	<% end %>
 </div>
