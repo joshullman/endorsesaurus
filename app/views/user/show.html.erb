@@ -25,10 +25,62 @@
 	<% end %>
 </div>
 
-<h4>Opionions:</h4>
 <div class="like_wrapper">
-	<% @likes.each_key do |key| %>
-		<div id=<%="#{like.id}"%> >
-		</div>
+	<% if @likes[1] %>
+		<h4>Likes:</h4>
+		<% @likes[1].each do |like| %>
+			<div id=<%="#{like.id}"%> >
+				<h5>Title: <%= like.title %></h5>
+				<h5>Year: <%= like.year %></h5>
+				<h5>Rated: <%= like.rated %></h5>
+				<h5>Released: <%= like.released %></h5>
+				<h5>Runtime: <%= like.runtime %></h5>
+				<h5>Genre: <%= like.genre %></h5>
+				<h5>Director: <%= like.director %></h5>
+				<h5>Writer: <%= like.writer %></h5>
+				<h5>Actors: <%= like.actors %></h5>
+				<h5>Plot: <%= like.plot %></h5>
+				<h5>Awards: <%= like.awards %></h5>
+				<h5>Poster: <%= like.poster %></h5>
+			</div>
+		<% end %>
+	<% end %>
+	<% if @likes[0] %>
+		<h4>Seen:</h4>
+		<% @likes[0].each do |seen| %>
+			<div id=<%="#{seen.id}"%> >
+				<h5>Title: <%= seen.title %></h5>
+				<h5>Year: <%= seen.year %></h5>
+				<h5>Rated: <%= seen.rated %></h5>
+				<h5>Released: <%= seen.released %></h5>
+				<h5>Runtime: <%= seen.runtime %></h5>
+				<h5>Genre: <%= seen.genre %></h5>
+				<h5>Director: <%= seen.director %></h5>
+				<h5>Writer: <%= seen.writer %></h5>
+				<h5>Actors: <%= seen.actors %></h5>
+				<h5>Plot: <%= seen.plot %></h5>
+				<h5>Awards: <%= seen.awards %></h5>
+				<h5>Poster: <%= seen.poster %></h5>
+			</div>
+		<% end %>
+	<% end %>
+	<% if @likes[-1] %>
+		<h4>Dislikes:</h4>
+		<% @likes[-1].each do |dislike| %>
+			<div id=<%="#{dislike.id}"%> >
+				<h5>Title: <%= dislike.title %></h5>
+				<h5>Year: <%= dislike.year %></h5>
+				<h5>Rated: <%= dislike.rated %></h5>
+				<h5>Released: <%= dislike.released %></h5>
+				<h5>Runtime: <%= dislike.runtime %></h5>
+				<h5>Genre: <%= dislike.genre %></h5>
+				<h5>Director: <%= dislike.director %></h5>
+				<h5>Writer: <%= dislike.writer %></h5>
+				<h5>Actors: <%= dislike.actors %></h5>
+				<h5>Plot: <%= dislike.plot %></h5>
+				<h5>Awards: <%= dislike.awards %></h5>
+				<h5>Poster: <%= dislike.poster %></h5>
+			</div>
+		<% end %>
 	<% end %>
 </div>
