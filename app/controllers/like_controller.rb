@@ -41,13 +41,6 @@ class LikeController < ApplicationController
     end
   end
 
-  def show
-  end
-
-  def edit
-
-  end
-
   def update
   	#find users that and update their points accordingly
 		recommendations = Recommendation.where(receiver_id: current_user.id, media_id: @like.media_id)
