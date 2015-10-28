@@ -5,39 +5,39 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create(username: "CaptainPlanet@aol.com", password: "password")
-User.create(username: "Kuzy@aol.com", password: "password")
-User.create(username: "BuffaloKing@aol.com", password: "password")
-User.create(username: "TheWizard@aol.com", password: "password")
-User.create(username: "Banana@aol.com", password: "password")
-User.create(username: "BlackWidow@aol.com", password: "password")
-User.create(username: "TheSaxMan@aol.com", password: "password")
-User.create(username: "Carissi@aol.com", password: "password")
-User.create(username: "Chompy@aol.com", password: "password")
-User.create(username: "WolfMan@aol.com", password: "password")
-User.create(username: "MasterMike@aol.com", password: "password")
-User.create(username: "WhitePearl@aol.com", password: "password")
-User.create(username: "Kassanova@aol.com", password: "password")
-User.create(username: "Scoobs@aol.com", password: "password")
-User.create(username: "Chefe@aol.com", password: "password")
-User.create(username: "TheAdmiral@aol.com", password: "password")
-User.create(username: "Jenga@aol.com", password: "password")
-User.create(username: "Banner@aol.com", password: "password")
-User.create(username: "BigKahuna@aol.com", password: "password")
-User.create(username: "BennyAndTheJets@aol.com", password: "password")
-User.create(username: "TheDragon@aol.com", password: "password")
-User.create(username: "EZE@aol.com", password: "password")
-User.create(username: "ActionHank@aol.com", password: "password")
-User.create(username: "TheMatador@aol.com", password: "password")
-User.create(username: "SubZero@aol.com", password: "password")
-User.create(username: "WildCard@aol.com", password: "password")
-User.create(username: "Tasty@aol.com", password: "password")
-User.create(username: "KarateKid@aol.com", password: "password")
-User.create(username: "Boomer@aol.com", password: "password")
-User.create(username: "TomTom@aol.com", password: "password")
-User.create(username: "BrickThorn@aol.com", password: "password")
-User.create(username: "ChampMan@aol.com", password: "password")
-User.create(username: "FrogPrince@aol.com", password: "password")
+User.create(email: "CaptainPlanet@aol.com", password: "password")
+User.create(email: "Kuzy@aol.com", password: "password")
+User.create(email: "BuffaloKing@aol.com", password: "password")
+User.create(email: "TheWizard@aol.com", password: "password")
+User.create(email: "Banana@aol.com", password: "password")
+User.create(email: "BlackWidow@aol.com", password: "password")
+User.create(email: "TheSaxMan@aol.com", password: "password")
+User.create(email: "Carissi@aol.com", password: "password")
+User.create(email: "Chompy@aol.com", password: "password")
+User.create(email: "WolfMan@aol.com", password: "password")
+User.create(email: "MasterMike@aol.com", password: "password")
+User.create(email: "WhitePearl@aol.com", password: "password")
+User.create(email: "Kassanova@aol.com", password: "password")
+User.create(email: "Scoobs@aol.com", password: "password")
+User.create(email: "Chefe@aol.com", password: "password")
+User.create(email: "TheAdmiral@aol.com", password: "password")
+User.create(email: "Jenga@aol.com", password: "password")
+User.create(email: "Banner@aol.com", password: "password")
+User.create(email: "BigKahuna@aol.com", password: "password")
+User.create(email: "BennyAndTheJets@aol.com", password: "password")
+User.create(email: "TheDragon@aol.com", password: "password")
+User.create(email: "EZE@aol.com", password: "password")
+User.create(email: "ActionHank@aol.com", password: "password")
+User.create(email: "TheMatador@aol.com", password: "password")
+User.create(email: "SubZero@aol.com", password: "password")
+User.create(email: "WildCard@aol.com", password: "password")
+User.create(email: "Tasty@aol.com", password: "password")
+User.create(email: "KarateKid@aol.com", password: "password")
+User.create(email: "Boomer@aol.com", password: "password")
+User.create(email: "TomTom@aol.com", password: "password")
+User.create(email: "BrickThorn@aol.com", password: "password")
+User.create(email: "ChampMan@aol.com", password: "password")
+User.create(email: "FrogPrince@aol.com", password: "password")
 
 
 media = [
@@ -130,13 +130,15 @@ media.each do |imdb_url|
 
 end
 
+p Medium.all.length
+
 128.times do
 	user = 1
 	media = 1
 	value = 0
 	until Like.where(user_id: user, media_id: media).first == nil
 		user = rand(32) + 1
-		media = rand(100) + 1
+		media = rand(48) + 1
 		value = rand(3) - 1
 	end
 	p user
@@ -155,7 +157,7 @@ end
 	until sender != receiver && Recommendation.where(sender: sender, receiver: receiver, media_id: media).first == nil
 		sender = rand(32) + 1
 		receiver = rand(32) + 1
-		media = rand(100) + 1
+		media = rand(48) + 1
 	end
 	if Like.where(user_id: receiver, media_id: media).first == nil
 		Recommendation.create(sender: sender, receiver: receiver, media_id: media)

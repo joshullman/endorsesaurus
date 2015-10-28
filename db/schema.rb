@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20151026204442) do
     t.string   "awards"
     t.string   "poster"
     t.string   "media_type"
+    t.string   "imdb_id"
     t.integer  "season"
     t.integer  "points"
     t.datetime "created_at", null: false
