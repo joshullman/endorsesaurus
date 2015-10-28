@@ -47,40 +47,57 @@ media.each do |imdb_url|
 			res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
 			series = JSON.parse(res.body)
 			break if series["Response"] != "True"
-			media_points += series["Episodes"].length
+			runtime = api["Runtime"].gsub(" min", "").to_i
+			media_points = series["Episodes"].length * (runtime.to_f/30).ceil
+			Medium.create(
+				title: api["Title"],
+				year: api["Year"],
+				rated: api["Rated"],
+				released: api["Released"],
+				runtime: api["Runtime"],
+				genre: api["Genre"],
+				director: api["Director"],
+				writer: api["Writer"],
+				actors: api["Actors"],
+				plot: api["Plot"],
+				awards: api["Awards"],
+				poster: api["Poster"],
+				media_type: api["Type"],
+				season: season,
+				points: media_points
+				)
 			season += 1
 		end
-		runtime = api["Runtime"].gsub(" min", "").to_i
-		media_points = media_points * (runtime.to_f/30).ceil
 	else
 		runtime = api["Runtime"].gsub(" min", "").to_i
 		media_points = (runtime.to_f/30).ceil
+		Medium.create(
+			title: api["Title"],
+			year: api["Year"],
+			rated: api["Rated"],
+			released: api["Released"],
+			runtime: api["Runtime"],
+			genre: api["Genre"],
+			director: api["Director"],
+			writer: api["Writer"],
+			actors: api["Actors"],
+			plot: api["Plot"],
+			awards: api["Awards"],
+			poster: api["Poster"],
+			media_type: api["Type"],
+			points: media_points
+		)
 	end
 
-	Medium.create(
-		title: api["Title"],
-		year: api["Year"],
-		rated: api["Rated"],
-		released: api["Released"],
-		runtime: api["Runtime"],
-		genre: api["Genre"],
-		director: api["Director"],
-		writer: api["Writer"],
-		actors: api["Actors"],
-		plot: api["Plot"],
-		awards: api["Awards"],
-		poster: api["Poster"],
-		points: media_points
-	)
 end
 
-28.times do
+35.times do
 	user = 1
 	media = 1
 	value = 0
 	until Like.where(user_id: user, media_id: media).first == nil
 		user = rand(7) + 1
-		media = rand(15) + 1
+		media = rand(25) + 1
 		value = rand(3) - 1
 	end
 	p user
@@ -90,19 +107,21 @@ end
 	u = User.find(user)
 	u.points = u.points + Medium.find(media).points
 	u.save
+	sleep(0.5)
 end
 
-28.times do 
+35.times do 
 	sender = 0
 	receiver = 0
 	media = 0
 	until sender != receiver && Recommendation.where(sender: sender, receiver: receiver, media_id: media).first == nil
 		sender = rand(7) + 1
 		receiver = rand(7) + 1
-		media = rand(15) + 1
+		media = rand(25) + 1
 	end
 	if Like.where(user_id: receiver, media_id: media).first == nil
 		Recommendation.create(sender: sender, receiver: receiver, media_id: media)
 	end
+	sleep(0.5)
 end
 

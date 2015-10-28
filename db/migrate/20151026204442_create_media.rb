@@ -13,6 +13,8 @@ class CreateMedia < ActiveRecord::Migration
       t.string   :plot
       t.string   :awards
       t.string   :poster
+      t.string   :media_type
+      t.integer  :season, default: nil
       t.integer  :points
 
       t.timestamps null: false

@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20151026204442) do
     t.string   "plot"
     t.string   "awards"
     t.string   "poster"
+    t.string   "media_type"
+    t.integer  "season"
     t.integer  "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
