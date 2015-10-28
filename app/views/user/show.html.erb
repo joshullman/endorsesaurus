@@ -1,27 +1,90 @@
 <h1><%= @user.email %></h1>
 <h1>My Points: <%= @user.points %></h1>
-<br>
-<br>
+<h3>Recently Watched:</h3>
+<div class="recent_wrapper">
+	<% @recently_watched.each_key do |like| %>
+		<div id=<%="#{like.id}"%> >
+			<% if @recently_watched[like] == 1 %>
+				Liked :)
+				<br>
+			<% elsif @recently_watched[like] == -1 %>
+				Disliked :(
+				<br>
+			<% else %>
+				Meh :|
+				<br>
+			<% end %>
+			Title: <%= like.title %>
+			<br>
+			<% if like.media_type == "series" %>
+				Season: <%= like.season %>
+				<br>
+			<% end %>
+			Year: <%= like.year %>
+			<br>
+			Rated: <%= like.rated %>
+			<br>
+			Released: <%= like.released %>
+			<br>
+			Runtime: <%= like.runtime %>
+			<br>
+			Genre: <%= like.genre %>
+			<br>
+			Director: <%= like.director %>
+			<br>
+			Writer: <%= like.writer %>
+			<br>
+			Actors: <%= like.actors %>
+			<br>
+			Plot: <%= like.plot %>
+			<br>
+			Awards: <%= like.awards %>
+			<br>
+			Poster: 
+			<br>
+			<img src="<%= like.poster %>">
+			<br>
+		</div>
+		<br>
+	<% end %>
+</div>
 <h3>Recommendations:</h3>
 <div class="rec_wrapper">
 	<% @recs.each do |rec| %>
 		<div id=<%="#{rec.info.id}"%> >
 <!-- 			# upvote button -->
-			<h5>User Points: <%= rec.user_points %></h5>
-			<h5>Media Points: <%= rec.info.points %></h5>
-			<h5>Title: <%= rec.info.title %></h5>
-			<h5>Year: <%= rec.info.year %></h5>
-			<h5>Rated: <%= rec.info.rated %></h5>
-			<h5>Released: <%= rec.info.released %></h5>
-			<h5>Runtime: <%= rec.info.runtime %></h5>
-			<h5>Genre: <%= rec.info.genre %></h5>
-			<h5>Director: <%= rec.info.director %></h5>
-			<h5>Writer: <%= rec.info.writer %></h5>
-			<h5>Actors: <%= rec.info.actors %></h5>
-			<h5>Plot: <%= rec.info.plot %></h5>
-			<h5>Awards: <%= rec.info.awards %></h5>
-			<h5>Poster: <%= rec.info.poster %></h5>
-			<h5>Recommended By: </h5>
+			User Points: <%= rec.user_points %>
+			<br>
+			Media Points: <%= rec.info.points %>
+			<br>
+			Title: <%= rec.info.title %>
+			<br>
+			Year: <%= rec.info.year %>
+			<br>
+			Rated: <%= rec.info.rated %>
+			<br>
+			Released: <%= rec.info.released %>
+			<br>
+			Runtime: <%= rec.info.runtime %>
+			<br>
+			Genre: <%= rec.info.genre %>
+			<br>
+			Director: <%= rec.info.director %>
+			<br>
+			Writer: <%= rec.info.writer %>
+			<br>
+			Actors: <%= rec.info.actors %>
+			<br>
+			Plot: <%= rec.info.plot %>
+			<br>
+			Awards: <%= rec.info.awards %>
+			<br>
+			Poster: 
+			<br>
+			<img src="<%= rec.info.poster %>">
+			<br>
+			Recommended By: 
+			<br>
 			<% rec.rec_by.each do |user| %>
 				<%= user.email %>
 				<%= user.points %>
@@ -30,80 +93,109 @@
 			#  -->
 		</div>
 		<br>
-		<br>
 	<% end %>
 </div>
-<br>
-<br>
-<br>
-
 <div class="like_wrapper">
 	<% if @likes[1] %>
 		<h3>Likes:</h3>
 		<% @likes[1].each do |like| %>
 			<div id=<%="#{like.id}"%> >
-				<h5>Title: <%= like.title %></h5>
-				<h5>Year: <%= like.year %></h5>
-				<h5>Rated: <%= like.rated %></h5>
-				<h5>Released: <%= like.released %></h5>
-				<h5>Runtime: <%= like.runtime %></h5>
-				<h5>Genre: <%= like.genre %></h5>
-				<h5>Director: <%= like.director %></h5>
-				<h5>Writer: <%= like.writer %></h5>
-				<h5>Actors: <%= like.actors %></h5>
-				<h5>Plot: <%= like.plot %></h5>
-				<h5>Awards: <%= like.awards %></h5>
-				<h5>Poster: <%= like.poster %></h5>
+				Title: <%= like.title %>
+				<br>
+				Year: <%= like.year %>
+				<br>
+				Rated: <%= like.rated %>
+				<br>
+				Released: <%= like.released %>
+				<br>
+				Runtime: <%= like.runtime %>
+				<br>
+				Genre: <%= like.genre %>
+				<br>
+				Director: <%= like.director %>
+				<br>
+				Writer: <%= like.writer %>
+				<br>
+				Actors: <%= like.actors %>
+				<br>
+				Plot: <%= like.plot %>
+				<br>
+				Awards: <%= like.awards %>
+				<br>
+				Poster: 
+				<br>
+				<img src="<%= like.poster %>">
+				<br>
 			</div>
-			<br>
 			<br>
 		<% end %>
 	<% end %>
-	<br>
-	<br>
-	<br>
 	<% if @likes[0] %>
 		<h3>Seen:</h3>
 		<% @likes[0].each do |seen| %>
 			<div id=<%="#{seen.id}"%> >
-				<h5>Title: <%= seen.title %></h5>
-				<h5>Year: <%= seen.year %></h5>
-				<h5>Rated: <%= seen.rated %></h5>
-				<h5>Released: <%= seen.released %></h5>
-				<h5>Runtime: <%= seen.runtime %></h5>
-				<h5>Genre: <%= seen.genre %></h5>
-				<h5>Director: <%= seen.director %></h5>
-				<h5>Writer: <%= seen.writer %></h5>
-				<h5>Actors: <%= seen.actors %></h5>
-				<h5>Plot: <%= seen.plot %></h5>
-				<h5>Awards: <%= seen.awards %></h5>
-				<h5>Poster: <%= seen.poster %></h5>
+				Title: <%= seen.title %>
+				<br>
+				Year: <%= seen.year %>
+				<br>
+				Rated: <%= seen.rated %>
+				<br>
+				Released: <%= seen.released %>
+				<br>
+				Runtime: <%= seen.runtime %>
+				<br>
+				Genre: <%= seen.genre %>
+				<br>
+				Director: <%= seen.director %>
+				<br>
+				Writer: <%= seen.writer %>
+				<br>
+				Actors: <%= seen.actors %>
+				<br>
+				Plot: <%= seen.plot %>
+				<br>
+				Awards: <%= seen.awards %>
+				<br>
+				Poster:
+				<br>
+				<img src="<%= seen.poster %>">
+				<br>
 			</div>
-			<br>
 			<br>
 		<% end %>
 	<% end %>
-	<br>
-	<br>
-	<br>
 	<% if @likes[-1] %>
 		<h3>Dislikes:</h3>
 		<% @likes[-1].each do |dislike| %>
 			<div id=<%="#{dislike.id}"%> >
-				<h5>Title: <%= dislike.title %></h5>
-				<h5>Year: <%= dislike.year %></h5>
-				<h5>Rated: <%= dislike.rated %></h5>
-				<h5>Released: <%= dislike.released %></h5>
-				<h5>Runtime: <%= dislike.runtime %></h5>
-				<h5>Genre: <%= dislike.genre %></h5>
-				<h5>Director: <%= dislike.director %></h5>
-				<h5>Writer: <%= dislike.writer %></h5>
-				<h5>Actors: <%= dislike.actors %></h5>
-				<h5>Plot: <%= dislike.plot %></h5>
-				<h5>Awards: <%= dislike.awards %></h5>
-				<h5>Poster: <%= dislike.poster %></h5>
+				Title: <%= dislike.title %>
+				<br>
+				Year: <%= dislike.year %>
+				<br>
+				Rated: <%= dislike.rated %>
+				<br>
+				Released: <%= dislike.released %>
+				<br>
+				Runtime: <%= dislike.runtime %>
+				<br>
+				Genre: <%= dislike.genre %>
+				<br>
+				Director: <%= dislike.director %>
+				<br>
+				Writer: <%= dislike.writer %>
+				<br>
+				Actors: <%= dislike.actors %>
+				<br>
+				Plot: <%= dislike.plot %>
+				<br>
+				Awards: <%= dislike.awards %>
+				<br>
+				Poster:
+				<br>
+				<img src="<%= dislike.poster %>">
+				<br>
+				</div>
 			</div>
-			<br>
 			<br>
 		<% end %>
 	<% end %>

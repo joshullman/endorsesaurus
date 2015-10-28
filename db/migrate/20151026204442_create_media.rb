@@ -14,6 +14,7 @@ class CreateMedia < ActiveRecord::Migration
       t.string   :awards
       t.string   :poster
       t.string   :media_type
+      t.string   :imdb_id
       t.integer  :season, default: nil
       t.integer  :points
 

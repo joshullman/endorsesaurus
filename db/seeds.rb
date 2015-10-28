@@ -63,6 +63,7 @@ media.each do |imdb_url|
 				awards: api["Awards"],
 				poster: api["Poster"],
 				media_type: api["Type"],
+				imdb_id: imdb_url,
 				season: season,
 				points: media_points
 				)
@@ -85,6 +86,7 @@ media.each do |imdb_url|
 			awards: api["Awards"],
 			poster: api["Poster"],
 			media_type: api["Type"],
+			imdb_id: imdb_url,
 			points: media_points
 		)
 	end
