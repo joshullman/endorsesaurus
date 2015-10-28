@@ -5,13 +5,40 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create(email: "Jon@got.com", password: "password")
-User.create(email: "Cersei@got.com", password: "password")
-User.create(email: "The_Hound@got.com", password: "password")
-User.create(email: "Mad_King_Aerys@got.com", password: "password")
-User.create(email: "Danerys@got.com", password: "password")
-User.create(email: "Arya@got.com", password: "password")
-User.create(email: "Sansa@got.com", password: "password")
+User.create(username: "CaptainPlanet@aol.com", password: "password")
+User.create(username: "Kuzy@aol.com", password: "password")
+User.create(username: "BuffaloKing@aol.com", password: "password")
+User.create(username: "TheWizard@aol.com", password: "password")
+User.create(username: "Banana@aol.com", password: "password")
+User.create(username: "BlackWidow@aol.com", password: "password")
+User.create(username: "TheSaxMan@aol.com", password: "password")
+User.create(username: "Carissi@aol.com", password: "password")
+User.create(username: "Chompy@aol.com", password: "password")
+User.create(username: "WolfMan@aol.com", password: "password")
+User.create(username: "MasterMike@aol.com", password: "password")
+User.create(username: "WhitePearl@aol.com", password: "password")
+User.create(username: "Kassanova@aol.com", password: "password")
+User.create(username: "Scoobs@aol.com", password: "password")
+User.create(username: "Chefe@aol.com", password: "password")
+User.create(username: "TheAdmiral@aol.com", password: "password")
+User.create(username: "Jenga@aol.com", password: "password")
+User.create(username: "Banner@aol.com", password: "password")
+User.create(username: "BigKahuna@aol.com", password: "password")
+User.create(username: "BennyAndTheJets@aol.com", password: "password")
+User.create(username: "TheDragon@aol.com", password: "password")
+User.create(username: "EZE@aol.com", password: "password")
+User.create(username: "ActionHank@aol.com", password: "password")
+User.create(username: "TheMatador@aol.com", password: "password")
+User.create(username: "SubZero@aol.com", password: "password")
+User.create(username: "WildCard@aol.com", password: "password")
+User.create(username: "Tasty@aol.com", password: "password")
+User.create(username: "KarateKid@aol.com", password: "password")
+User.create(username: "Boomer@aol.com", password: "password")
+User.create(username: "TomTom@aol.com", password: "password")
+User.create(username: "BrickThorn@aol.com", password: "password")
+User.create(username: "ChampMan@aol.com", password: "password")
+User.create(username: "FrogPrince@aol.com", password: "password")
+
 
 media = [
 	"tt1520211",
@@ -28,7 +55,17 @@ media = [
 	"tt1375666",
 	"tt0120737",
 	"tt0133093",
-	"tt0177789"
+	"tt0177789",
+	"tt0303461",
+	"tt0112159",
+	"tt0117705",
+	"tt1185834",
+	"tt0783233",
+	"tt0314331",
+	"tt0364725",
+	"tt0838283",
+	"tt0196229",
+	"tt0116483"
 ]
 
 media.each do |imdb_url|
@@ -93,13 +130,13 @@ media.each do |imdb_url|
 
 end
 
-35.times do
+128.times do
 	user = 1
 	media = 1
 	value = 0
 	until Like.where(user_id: user, media_id: media).first == nil
-		user = rand(7) + 1
-		media = rand(25) + 1
+		user = rand(32) + 1
+		media = rand(100) + 1
 		value = rand(3) - 1
 	end
 	p user
@@ -109,21 +146,19 @@ end
 	u = User.find(user)
 	u.points = u.points + Medium.find(media).points
 	u.save
-	sleep(0.5)
 end
 
-35.times do 
+128.times do 
 	sender = 0
 	receiver = 0
 	media = 0
 	until sender != receiver && Recommendation.where(sender: sender, receiver: receiver, media_id: media).first == nil
-		sender = rand(7) + 1
-		receiver = rand(7) + 1
-		media = rand(25) + 1
+		sender = rand(32) + 1
+		receiver = rand(32) + 1
+		media = rand(100) + 1
 	end
 	if Like.where(user_id: receiver, media_id: media).first == nil
 		Recommendation.create(sender: sender, receiver: receiver, media_id: media)
 	end
-	sleep(0.5)
 end
 
