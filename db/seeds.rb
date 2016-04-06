@@ -130,8 +130,6 @@ media.each do |imdb_url|
 
 end
 
-p Medium.all.length
-
 128.times do
 	user = 1
 	media = 1
