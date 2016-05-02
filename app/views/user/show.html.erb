@@ -3,7 +3,7 @@
 <h3>Recently Watched:</h3>
 <div class="recent_wrapper">
 	<% @recently_watched.each_key do |like| %>
-		<div id=<%="#{like.id}"%> >
+		<div id=<%="#{like.id}"%> class="recent_row">
 			<% if @recently_watched[like] == 1 %>
 				Liked :)
 				<br>
@@ -51,9 +51,9 @@
 <h3>Recommendations:</h3>
 <div class="rec_wrapper">
 	<% @recs.each do |rec| %>
-		<div id=<%="#{rec.info.id}"%> >
+		<div id=<%="#{rec.info.id}"%> class="rec_row">
 <!-- 			# upvote button -->
-			User Points: <%= rec.user_points %>
+			Recommendation Points: <%= rec.user_points %>
 			<br>
 			Media Points: <%= rec.info.points %>
 			<br>
@@ -99,7 +99,7 @@
 	<% if @likes[1] %>
 		<h3>Likes:</h3>
 		<% @likes[1].each do |like| %>
-			<div id=<%="#{like.id}"%> >
+			<div id=<%="#{like.id}"%> class="like_row">
 				Title: <%= like.title %>
 				<br>
 				Year: <%= like.year %>
@@ -133,7 +133,7 @@
 	<% if @likes[0] %>
 		<h3>Seen:</h3>
 		<% @likes[0].each do |seen| %>
-			<div id=<%="#{seen.id}"%> >
+			<div id=<%="#{seen.id}"%> class="seen_row">
 				Title: <%= seen.title %>
 				<br>
 				Year: <%= seen.year %>
@@ -167,7 +167,7 @@
 	<% if @likes[-1] %>
 		<h3>Dislikes:</h3>
 		<% @likes[-1].each do |dislike| %>
-			<div id=<%="#{dislike.id}"%> >
+			<div id=<%="#{dislike.id}"%> class="dislike_row">
 				Title: <%= dislike.title %>
 				<br>
 				Year: <%= dislike.year %>
