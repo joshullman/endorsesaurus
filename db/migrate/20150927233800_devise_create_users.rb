@@ -31,6 +31,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.datetime :locked_at
 
       t.integer :points, default: 0
+      t.string  :photo_url
 
 
       t.timestamps null: false
