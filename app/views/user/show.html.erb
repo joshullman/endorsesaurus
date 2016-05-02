@@ -1,101 +1,109 @@
-<h1><%= @user.email %></h1>
-<h1>My Points: <%= @user.points %></h1>
-<h3>Recently Watched:</h3>
-<div class="recent_wrapper">
-	<% @recently_watched.each_key do |like| %>
-		<div id=<%="#{like.id}"%> class="recent_row">
-			<% if @recently_watched[like] == 1 %>
-				Liked :)
+<div class="left_col">
+	<div class="photo"></div>
+	<h1><%= @user.email %></h1>
+	<h1>My Points: <%= @user.points %></h1>
+	<h3>Recently Watched:</h3>
+	<div class="recent_wrapper">
+		<% @recently_watched.each_key do |like| %>
+			<div id=<%="#{like.id}"%> class="recent_row">
+				<% if @recently_watched[like] == 1 %>
+					Liked :)
+					<br>
+				<% elsif @recently_watched[like] == -1 %>
+					Disliked :(
+					<br>
+				<% else %>
+					Meh :|
+					<br>
+				<% end %>
+				Title: <%= like.title %>
 				<br>
-			<% elsif @recently_watched[like] == -1 %>
-				Disliked :(
+				<% if like.media_type == "series" %>
+					Season: <%= like.season %>
+					<br>
+				<% end %>
+				Year: <%= like.year %>
 				<br>
-			<% else %>
-				Meh :|
+				Rated: <%= like.rated %>
 				<br>
-			<% end %>
-			Title: <%= like.title %>
-			<br>
-			<% if like.media_type == "series" %>
-				Season: <%= like.season %>
+				Released: <%= like.released %>
 				<br>
-			<% end %>
-			Year: <%= like.year %>
+				Runtime: <%= like.runtime %>
+				<br>
+				Genre: <%= like.genre %>
+				<br>
+				Director: <%= like.director %>
+				<br>
+				Writer: <%= like.writer %>
+				<br>
+				Actors: <%= like.actors %>
+				<br>
+				Plot: <%= like.plot %>
+				<br>
+				Awards: <%= like.awards %>
+				<br>
+				Poster: 
+				<br>
+				<img src="<%= like.poster %>">
+				<br>
+			</div>
 			<br>
-			Rated: <%= like.rated %>
-			<br>
-			Released: <%= like.released %>
-			<br>
-			Runtime: <%= like.runtime %>
-			<br>
-			Genre: <%= like.genre %>
-			<br>
-			Director: <%= like.director %>
-			<br>
-			Writer: <%= like.writer %>
-			<br>
-			Actors: <%= like.actors %>
-			<br>
-			Plot: <%= like.plot %>
-			<br>
-			Awards: <%= like.awards %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= like.poster %>">
-			<br>
-		</div>
-		<br>
-	<% end %>
+		<% end %>
+	</div>
 </div>
-<h3>Recommendations:</h3>
-<div class="rec_wrapper">
-	<% @recs.each do |rec| %>
-		<div id=<%="#{rec.info.id}"%> class="rec_row">
-<!-- 			# upvote button -->
-			Recommendation Points: <%= rec.user_points %>
+
+<div class="center_col">
+	<h3>Recommendations:</h3>
+	<div class="rec_wrapper">
+		<% @recs.each do |rec| %>
+			<div id=<%="#{rec.info.id}"%> class="rec_row">
+	<!-- 			# upvote button -->
+				Recommendation Points: <%= rec.user_points %>
+				<br>
+				Media Points: <%= rec.info.points %>
+				<br>
+				Title: <%= rec.info.title %>
+				<br>
+				Year: <%= rec.info.year %>
+				<br>
+				Rated: <%= rec.info.rated %>
+				<br>
+				Released: <%= rec.info.released %>
+				<br>
+				Runtime: <%= rec.info.runtime %>
+				<br>
+				Genre: <%= rec.info.genre %>
+				<br>
+				Director: <%= rec.info.director %>
+				<br>
+				Writer: <%= rec.info.writer %>
+				<br>
+				Actors: <%= rec.info.actors %>
+				<br>
+				Plot: <%= rec.info.plot %>
+				<br>
+				Awards: <%= rec.info.awards %>
+				<br>
+				Poster: 
+				<br>
+				<img src="<%= rec.info.poster %>">
+				<br>
+				Recommended By: 
+				<br>
+				<% rec.rec_by.each do |user| %>
+					<%= user.email %>
+					<%= user.points %>
+				<% end %>
+	<!-- 			# opinion/seen button
+				#  -->
+			</div>
 			<br>
-			Media Points: <%= rec.info.points %>
-			<br>
-			Title: <%= rec.info.title %>
-			<br>
-			Year: <%= rec.info.year %>
-			<br>
-			Rated: <%= rec.info.rated %>
-			<br>
-			Released: <%= rec.info.released %>
-			<br>
-			Runtime: <%= rec.info.runtime %>
-			<br>
-			Genre: <%= rec.info.genre %>
-			<br>
-			Director: <%= rec.info.director %>
-			<br>
-			Writer: <%= rec.info.writer %>
-			<br>
-			Actors: <%= rec.info.actors %>
-			<br>
-			Plot: <%= rec.info.plot %>
-			<br>
-			Awards: <%= rec.info.awards %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= rec.info.poster %>">
-			<br>
-			Recommended By: 
-			<br>
-			<% rec.rec_by.each do |user| %>
-				<%= user.email %>
-				<%= user.points %>
-			<% end %>
-<!-- 			# opinion/seen button
-			#  -->
-		</div>
-		<br>
-	<% end %>
+		<% end %>
+	</div>
 </div>
-<div class="like_wrapper">
+
+
+<div class="right_col">
 	<% if @likes[1] %>
 		<h3>Likes:</h3>
 		<% @likes[1].each do |like| %>

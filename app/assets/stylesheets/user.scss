@@ -2,9 +2,63 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.left_col {
+	width: 30%;
+	float: left;
+}
+
+.center_col {
+	width: 30%;
+	margin: auto;
+}
+
+.right_col {
+	width: 30%;
+	float: right;	
+}
+
+.photo {
+	height: 300px;
+	width: 300px;
+	background-color: black;
+}
+
 .recent_wrapper {
+	float: left;
 }
 
 .recent_row {
+	border: 1px solid black;
+}
+
+.rec_wrapper {
+	float: left;
+}
+
+.rec_row {
+	border: 1px solid black;
+}
+
+.like_wrapper {
+	float: left;
+}
+
+.like_row {
+	border: 1px solid black;
+}
+
+.seen_wrapper {
+	float: left;
+}
+
+.seen_row {
+	border: 1px solid black;
+}
+
+.dislike_wrapper {
+	float: left;
+}
+
+.dislike_row {
 	border: 1px solid black;
 }
