@@ -3,22 +3,50 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .left_col {
-	margin-left: 2%;
+	height: 100%;
 	width: 30%;
 	float: left;
+	margin-left: 2%;
 }
 
 .center_col {
+	height: 100%;
 	width: 30%;
 	float: left;
 	margin-left: 1%;
 }
 
 .right_col {
+	height: 100%;
 	width: 30%;
 	float: left;	
 	margin-left: 1%;
 	margin-right: 2%;
+}
+
+.recent_wrapper {
+	height: 400px;
+	overflow: auto;
+}
+
+.rec_wrapper {
+	height: 800px;
+	overflow: auto;
+}
+
+.seen_wrapper {
+	height: 800px;
+	overflow: auto;
+}
+
+.icons {
+	float: left;
+	height: 15px;
+	width: 15px;
+}
+
+.title {
+	float: left;
 }
 
 img {

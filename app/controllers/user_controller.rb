@@ -76,6 +76,8 @@ class UserController < ApplicationController
   		@recently_watched[Medium.find(like.media_id)] = like.value
   	end
 
+  	#finding what the user has recommended to others
+
   	p @likes
   end
 
