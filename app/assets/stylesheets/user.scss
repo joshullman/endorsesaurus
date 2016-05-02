@@ -9,12 +9,14 @@
 
 .center_col {
 	width: 30%;
-	margin: auto;
+	float: left;
+	margin-left: 5%;
 }
 
 .right_col {
 	width: 30%;
-	float: right;	
+	float: left;	
+	margin-left: 5%;
 }
 
 .photo {
@@ -23,40 +25,20 @@
 	background-color: black;
 }
 
-.recent_wrapper {
-	float: left;
-}
-
 .recent_row {
 	border: 1px solid black;
-}
-
-.rec_wrapper {
-	float: left;
 }
 
 .rec_row {
 	border: 1px solid black;
 }
 
-.like_wrapper {
-	float: left;
-}
-
 .like_row {
 	border: 1px solid black;
 }
 
-.seen_wrapper {
-	float: left;
-}
-
 .seen_row {
 	border: 1px solid black;
-}
-
-.dislike_wrapper {
-	float: left;
 }
 
 .dislike_row {

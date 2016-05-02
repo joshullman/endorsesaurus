@@ -2,7 +2,7 @@
 	<div class="photo"></div>
 	<h1><%= @user.email %></h1>
 	<h1>My Points: <%= @user.points %></h1>
-	<h3>Recently Watched:</h3>
+	<h3>Recent Activity:</h3>
 	<div class="recent_wrapper">
 		<% @recently_watched.each_key do |like| %>
 			<div id=<%="#{like.id}"%> class="recent_row">
@@ -202,7 +202,6 @@
 				<br>
 				<img src="<%= dislike.poster %>">
 				<br>
-				</div>
 			</div>
 			<br>
 		<% end %>
