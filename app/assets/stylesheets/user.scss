@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .left_col {
+	padding-top: 5%;
 	height: 100%;
 	width: 30%;
 	float: left;
@@ -25,7 +26,7 @@
 }
 
 .recent_wrapper {
-	height: 312px;
+	height: 420px;
 	overflow: auto;
 }
 
@@ -55,9 +56,8 @@ img {
 }
 
 .photo {
-	width: 300px;
-	height: 300px;
-	background-color: black;
+	width: 200px;
+	height: 200px;
 }
 
 .recent_row {
@@ -81,21 +81,26 @@ img {
 }
 
 .ex_recent_row {
+	display: none;
 	border: 1px solid black;
 }
 
 .ex_rec_row {
+	display: none;
 	border: 1px solid black;
 }
 
 .ex_like_row {
+	display: none;
 	border: 1px solid black;
 }
 
 .ex_seen_row {
+	display: none;
 	border: 1px solid black;
 }
 
 .ex_dislike_row {
+	display: none;
 	border: 1px solid black;
 }
