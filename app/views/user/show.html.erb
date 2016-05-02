@@ -32,10 +32,15 @@
 				<br>
 				Genre: <%= like.genre %>
 				<br>
-				Director: <%= like.director %>
-				<br>
-				Writer: <%= like.writer %>
-				<br>
+				<% if like.media_type == "series" %>
+					Creator: <%= like.writer %>
+					<br>
+				<% else %>
+					Director: <%= like.director %>
+					<br>
+					Writer: <%= like.writer %>
+					<br>
+				<% end %>
 				Actors: <%= like.actors %>
 				<br>
 				Plot: <%= like.plot %>
@@ -64,6 +69,10 @@
 				<br>
 				Title: <%= rec.info.title %>
 				<br>
+				<% if rec.info.media_type == "series" %>
+					Season: <%= rec.info.season %>
+					<br>
+				<% end %>
 				Year: <%= rec.info.year %>
 				<br>
 				Rated: <%= rec.info.rated %>
@@ -74,10 +83,15 @@
 				<br>
 				Genre: <%= rec.info.genre %>
 				<br>
-				Director: <%= rec.info.director %>
-				<br>
-				Writer: <%= rec.info.writer %>
-				<br>
+				<% if rec.info.media_type == "series" %>
+					Creator: <%= rec.info.writer %>
+					<br>
+				<% else %>
+					Director: <%= rec.info.director %>
+					<br>
+					Writer: <%= rec.info.writer %>
+					<br>
+				<% end %>
 				Actors: <%= rec.info.actors %>
 				<br>
 				Plot: <%= rec.info.plot %>
@@ -110,6 +124,10 @@
 			<div id=<%="#{like.id}"%> class="like_row">
 				Title: <%= like.title %>
 				<br>
+				<% if like.media_type == "series" %>
+					Season: <%= like.season %>
+					<br>
+				<% end %>
 				Year: <%= like.year %>
 				<br>
 				Rated: <%= like.rated %>
@@ -120,10 +138,15 @@
 				<br>
 				Genre: <%= like.genre %>
 				<br>
-				Director: <%= like.director %>
-				<br>
-				Writer: <%= like.writer %>
-				<br>
+				<% if like.media_type == "series" %>
+					Creator: <%= like.writer %>
+					<br>
+				<% else %>
+					Director: <%= like.director %>
+					<br>
+					Writer: <%= like.writer %>
+					<br>
+				<% end %>
 				Actors: <%= like.actors %>
 				<br>
 				Plot: <%= like.plot %>
@@ -144,6 +167,10 @@
 			<div id=<%="#{seen.id}"%> class="seen_row">
 				Title: <%= seen.title %>
 				<br>
+				<% if seen.media_type == "series" %>
+					Season: <%= seen.season %>
+					<br>
+				<% end %>
 				Year: <%= seen.year %>
 				<br>
 				Rated: <%= seen.rated %>
@@ -154,10 +181,15 @@
 				<br>
 				Genre: <%= seen.genre %>
 				<br>
-				Director: <%= seen.director %>
-				<br>
-				Writer: <%= seen.writer %>
-				<br>
+				<% if seen.media_type == "series" %>
+					Creator: <%= seen.writer %>
+					<br>
+				<% else %>
+					Director: <%= seen.director %>
+					<br>
+					Writer: <%= seen.writer %>
+					<br>
+				<% end %>
 				Actors: <%= seen.actors %>
 				<br>
 				Plot: <%= seen.plot %>
@@ -178,6 +210,10 @@
 			<div id=<%="#{dislike.id}"%> class="dislike_row">
 				Title: <%= dislike.title %>
 				<br>
+				<% if dislike.media_type == "series" %>
+					Season: <%= dislike.season %>
+					<br>
+				<% end %>
 				Year: <%= dislike.year %>
 				<br>
 				Rated: <%= dislike.rated %>
@@ -188,10 +224,15 @@
 				<br>
 				Genre: <%= dislike.genre %>
 				<br>
-				Director: <%= dislike.director %>
-				<br>
-				Writer: <%= dislike.writer %>
-				<br>
+				<% if dislike.media_type == "series" %>
+					Creator: <%= dislike.writer %>
+					<br>
+				<% else %>
+					Director: <%= dislike.director %>
+					<br>
+					Writer: <%= dislike.writer %>
+					<br>
+				<% end %>
 				Actors: <%= dislike.actors %>
 				<br>
 				Plot: <%= dislike.plot %>
