@@ -26,10 +26,19 @@
 				<% end %>
 				<%= like.created_at %>
 				<br>
-				<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-				<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<div class="icons"><%= image_tag 'red_circle.png' %></div>
+				<!--  if record of "like/seen/dislike exists" for current user
+						    display corresponding/changeable circle
+				-->
+				<!--  else
+						    display all 3 circles
+				-->
+				<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+				<!-- open up a new window that contains current_user.friends
+									select which friends you'd like to recommend it to
+									press recommend button to confirm
+									(This creates however many new recommendations)
+					-->
 				<br>
 			</div>
 
@@ -104,11 +113,17 @@
 				<% end %>
 				<%= rec.rec_by.count %>
 				<br>
+				<!-- if profile is not the current_user's
+					if recommendation for media exists
+						arrow will be green
+					else
+						arrow will be transparent
+
+						(toggle for arrow will remove points and make arrow transparent)
+
+				-->
 				<div class="icons"><%= image_tag 'green_arrow.png' %></div>
-				<div class="icons"><%= image_tag 'red_arrow.png' %></div>
-				<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-				<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<div class="icons"><%= image_tag 'red_circle.png' %></div>
+				<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 				<br>
 
@@ -193,10 +208,19 @@
 						Season: <%= like.season %>
 						<br>
 					<% end %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
+					<!--  if record of "like/seen/dislike exists" for current user
+							    display corresponding/changeable circle
+					-->
+					<!--  else
+							    display transparent circle
+					-->
+					<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+					<!-- open up a new window that contains current_user.friends
+									select which friends you'd like to recommend it to
+									press recommend button to confirm
+									(This creates however many new recommendations)
+					-->
 					<br>
 				</div>
 
@@ -252,10 +276,19 @@
 						Season: <%= seen.season %>
 						<br>
 					<% end %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
+					<!--  if record of "like/seen/dislike exists" for current user
+							    display corresponding/changeable circle
+					-->
+					<!--  else
+							    display transparent circle
+					-->
+					<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+					<!-- open up a new window that contains current_user.friends
+									select which friends you'd like to recommend it to
+									press recommend button to confirm
+									(This creates however many new recommendations)
+					-->
 					<br>
 				</div>
 
@@ -311,10 +344,19 @@
 						Season: <%= dislike.season %>
 						<br>
 					<% end %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
+					<!--  if record of "like/seen/dislike exists" for current user
+							    display corresponding/changeable circle
+					-->
+					<!--  else
+							    display transparent circle
+					-->
+					<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+					<!-- open up a new window that contains current_user.friends
+									select which friends you'd like to recommend it to
+									press recommend button to confirm
+									(This creates however many new recommendations)
+					-->
 					<br>
 				</div>
 
