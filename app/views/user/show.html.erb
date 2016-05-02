@@ -3,9 +3,32 @@
 	<h1><%= @user.email %></h1>
 	<h1>My Points: <%= @user.points %></h1>
 	<h3>Recent Activity:</h3>
+
 	<div class="recent_wrapper">
 		<% @recently_watched.each_key do |like| %>
+
 			<div id=<%="#{like.id}"%> class="recent_row">
+				<% if @recently_watched[like] == 1 %>
+					Liked :)
+					<br>
+				<% elsif @recently_watched[like] == -1 %>
+					Disliked :(
+					<br>
+				<% else %>
+					Meh :|
+					<br>
+				<% end %>
+				Title: <%= like.title %>
+				<br>
+				<% if like.media_type == "series" %>
+					Season: <%= like.season %>
+					<br>
+				<% end %>
+				<%= like.created_at %>
+				<br>
+			</div>
+
+			<div id=<%="ex_recent_#{like.id}"%> class="ex_recent_row">
 				<% if @recently_watched[like] == 1 %>
 					Liked :)
 					<br>
@@ -61,7 +84,21 @@
 	<h3>Recommendations:</h3>
 	<div class="rec_wrapper">
 		<% @recs.each do |rec| %>
+
 			<div id=<%="#{rec.info.id}"%> class="rec_row">
+				Recommendation Points: <%= rec.user_points %>
+				<br>
+				Media Points: <%= rec.info.points %>
+				<br>
+				Title: <%= rec.info.title %>
+				<br>
+				<% if rec.info.media_type == "series" %>
+					Season: <%= rec.info.season %>
+					<br>
+				<% end %>
+			</div>
+
+			<div id=<%="ex_rec_#{rec.info.id}"%> class="ex_rec_row">
 	<!-- 			# upvote button -->
 				Recommendation Points: <%= rec.user_points %>
 				<br>
@@ -118,10 +155,21 @@
 
 
 <div class="right_col">
+
 	<% if @likes[1] %>
 		<h3>Likes:</h3>
 		<% @likes[1].each do |like| %>
+
 			<div id=<%="#{like.id}"%> class="like_row">
+				Title: <%= like.title %>
+				<br>
+				<% if like.media_type == "series" %>
+					Season: <%= like.season %>
+					<br>
+				<% end %>
+			</div>
+
+			<div id=<%="ex_like_#{like.id}"%> class="ex_like_row">
 				Title: <%= like.title %>
 				<br>
 				<% if like.media_type == "series" %>
@@ -161,10 +209,21 @@
 			<br>
 		<% end %>
 	<% end %>
+
 	<% if @likes[0] %>
 		<h3>Seen:</h3>
 		<% @likes[0].each do |seen| %>
+
 			<div id=<%="#{seen.id}"%> class="seen_row">
+				Title: <%= seen.title %>
+				<br>
+				<% if seen.media_type == "series" %>
+					Season: <%= seen.season %>
+					<br>
+				<% end %>
+			</div>
+
+			<div id=<%="ex_seen_#{seen.id}"%> class="ex_seen_row">
 				Title: <%= seen.title %>
 				<br>
 				<% if seen.media_type == "series" %>
@@ -204,10 +263,21 @@
 			<br>
 		<% end %>
 	<% end %>
+
 	<% if @likes[-1] %>
 		<h3>Dislikes:</h3>
 		<% @likes[-1].each do |dislike| %>
+
 			<div id=<%="#{dislike.id}"%> class="dislike_row">
+				Title: <%= dislike.title %>
+				<br>
+				<% if dislike.media_type == "series" %>
+					Season: <%= dislike.season %>
+					<br>
+				<% end %>
+			</div>
+
+			<div id=<%="ex_dislike_#{dislike.id}"%> class="ex_dislike_row">
 				Title: <%= dislike.title %>
 				<br>
 				<% if dislike.media_type == "series" %>
@@ -247,4 +317,5 @@
 			<br>
 		<% end %>
 	<% end %>
+
 </div>
