@@ -121,7 +121,7 @@
 				<%= rec.rec_by.count %>
 				<br>
 				<!-- if profile is not the current_user's
-					if rec.sender == current_user.id
+					if rec.rec_by_user?(current_user.id)
 						display green arrow
 					else
 						display transparent arrow

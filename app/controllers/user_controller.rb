@@ -16,31 +16,13 @@ class Rec
 		@rec_by.each {|user| @user_points += user.points}
 	end
 
-	# def determine_media_points
-		# if rec.type == "series"
-		# 	series = {"Response" => "True"}
-		# 	season = 1
-		# 	while series["Response"] == "True"
-		# 		url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"]}\&Season\=#{season}")
-		# 		req = Net::HTTP::Get.new(url.to_s)
-		# 		res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
-		# 		series = JSON.parse(res.body)
-		# 		break if series["Response"] != "True"
-		# 		media_points += series["Episodes"].length
-		# 		season += 1
-		# 	end
-		# 	runtime = api["Runtime"].gsub(" min", "").to_i
-		# 	media_points = media_points * (runtime.to_f/30).ceil
-		# else
-		# 	runtime = api["Runtime"].gsub(" min", "").to_i
-		# 	media_points = (runtime.to_f/30).ceil
-		# end
-	# end
+	def rec_by_user?(user_id)
+		@rec_by.any? {|rec| rec.id == user_id}
+	end
 
 	def do_all_the_stuff
 		push_reccommenders
 		determine_user_points
-		# determine_media_points
 	end
 
 end
