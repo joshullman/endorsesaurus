@@ -27,10 +27,16 @@
 				<%= like.created_at %>
 				<br>
 				<!--  if record of "like/seen/dislike exists" for current user
-						    display corresponding/changeable circle
-				-->
-				<!--  else
-						    display all 3 circles
+							case @current_user_likes[like]
+								when -1
+									display red circle
+								when 0
+									display yellow circle
+								when 1
+									display green circle
+								else
+									display transparent circle
+							end
 				-->
 				<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
@@ -38,6 +44,7 @@
 									select which friends you'd like to recommend it to
 									press recommend button to confirm
 									(This creates however many new recommendations)
+							current_user.friends
 					-->
 				<br>
 			</div>
@@ -114,10 +121,11 @@
 				<%= rec.rec_by.count %>
 				<br>
 				<!-- if profile is not the current_user's
-					if recommendation for media exists
-						arrow will be green
+					if rec.sender == current_user.id
+						display green arrow
 					else
-						arrow will be transparent
+						display transparent arrow
+					end
 
 						(toggle for arrow will remove points and make arrow transparent)
 

@@ -48,6 +48,7 @@ end
 class UserController < ApplicationController
 
   def show
+  	# Profile information
   	@user = User.find(params[:id])
   	recommendations = Recommendation.where(receiver: @user.id).group_by(&:media_id)
   	likes = Like.where(user_id: @user.id).group_by(&:value)
@@ -62,12 +63,15 @@ class UserController < ApplicationController
 
   	# finding the media assosciated with Likes
   	@likes = {}
-  	likes.each_key do |key|
-  		@likes[key] = []
-  		likes[key].each do |like|
-  			@likes[key] << Medium.find(like.media_id)
-  		end
+  	def organize_likes(likes, instance_likes)
+	  	likes.each_key do |key|
+	  		instance_likes[key] = []
+	  		likes[key].each do |like|
+	  			instance_likes[key] << Medium.find(like.media_id)
+	  		end
+	  	end
   	end
+  	organize_likes(likes, @likes)
 
   	# finding recently watched
   	recents = Like.where(user_id: @user.id).last(5).reverse
@@ -76,9 +80,13 @@ class UserController < ApplicationController
   		@recently_watched[Medium.find(like.media_id)] = like.value
   	end
 
-  	#finding what the user has recommended to others
-
   	p @likes
+
+  	#current_user information
+
+  	# current_user_likes = Like.where(user_id: current_user.id).group_by(&:value)
+  	# @current_user_likes = {}
+  	# organize_likes(current_user_likes, @current_user_likes)
   end
 
 end
