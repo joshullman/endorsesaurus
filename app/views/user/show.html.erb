@@ -217,7 +217,7 @@
 			<h3>Likes:</h3>
 			<% @likes[1].each do |like| %>
 
-				<div id=<%="#{like.id}"%> class="like_row">
+				<div id=<%="#{like.id}"%> class="like_row" style="background-color:green;">
 					Title: <%= like.title %>
 					<br>
 					<% if like.media_type == "series" %>
@@ -285,7 +285,7 @@
 			<h3>Seen:</h3>
 			<% @likes[0].each do |seen| %>
 
-				<div id=<%="#{seen.id}"%> class="seen_row">
+				<div id=<%="#{seen.id}"%> class="seen_row" style="background-color:yellow;">
 					Title: <%= seen.title %>
 					<br>
 					<% if seen.media_type == "series" %>
@@ -353,7 +353,7 @@
 			<h3>Dislikes:</h3>
 			<% @likes[-1].each do |dislike| %>
 
-				<div id=<%="#{dislike.id}"%> class="dislike_row">
+				<div id=<%="#{dislike.id}"%> class="dislike_row" style="background-color:red;">
 					Title: <%= dislike.title %>
 					<br>
 					<% if dislike.media_type == "series" %>
