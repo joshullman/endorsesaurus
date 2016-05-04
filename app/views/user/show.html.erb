@@ -1,23 +1,22 @@
 <div class="left_col">
 	<div class="photo"><%= image_tag 'profile.jpg' %></div>
-	<h1><%= @user.email %></h1>
-	<h1>My Points: <%= @user.points %></h1>
+	<div class=profile_info>
+		<h2><%= @user.email %></h2>
+		<h2>My Points: <%= @user.points %></h2>
+	</div>
 	<h3>Recent Activity:</h3>
 
 	<div class="recent_wrapper">
 		<% @recently_watched.each_key do |like| %>
 
-			<div id=<%="#{like.id}"%> class="recent_row">
-				<% if @recently_watched[like] == 1 %>
-					Liked :)
-					<br>
+			<div id=<%="#{like.id}"%> class="recent_row"
+				<%if @recently_watched[like] == 1 %>
+					style="background-color:green;"
 				<% elsif @recently_watched[like] == -1 %>
-					Disliked :(
-					<br>
+					style="background-color:red;"
 				<% else %>
-					Meh :|
-					<br>
-				<% end %>
+					style="background-color:yellow;"
+				<% end %>	>
 				Title: <%= like.title %>
 				<br>
 				<% if like.media_type == "series" %>
@@ -37,14 +36,6 @@
 					<% else %>
 						<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 				<% end %>
-				<!-- 
-				Also need to distinguish between 'you like' & 'they like'
-				Recent activity for instance will say 'jimmy liked this on this day'
-				should that be displayed as a colored circle?
-				Or maybe even a colored container?
-				This should also apply to other user's dislikes/seen/likes
-				how do we cleary differentiate between when you like something and they like something?
-				-->
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 				<!-- open up a new window that contains current_user.friends
 									select which friends you'd like to recommend it to
@@ -55,17 +46,14 @@
 				<br>
 			</div>
 
-			<div id=<%="ex_recent_#{like.id}"%> class="ex_recent_row">
-				<% if @recently_watched[like] == 1 %>
-					Liked :)
-					<br>
+			<div id=<%="ex_recent_#{like.id}"%> class="ex_recent_row"
+				<%if @recently_watched[like] == 1 %>
+					style="background-color:green;"
 				<% elsif @recently_watched[like] == -1 %>
-					Disliked :(
-					<br>
+					style="background-color:red;"
 				<% else %>
-					Meh :|
-					<br>
-				<% end %>
+					style="background-color:yellow;"
+				<% end %>	>
 				Title: <%= like.title %>
 				<br>
 				<% if like.media_type == "series" %>
