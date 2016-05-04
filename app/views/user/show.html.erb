@@ -26,18 +26,17 @@
 				<% end %>
 				<%= like.created_at %>
 				<br>
-				<!--  if record of "like/seen/dislike exists" for current user
-							case @current_user_likes[like]
-								when -1
-									display red circle
-								when 0
-									display yellow circle
-								when 1
-									display green circle
-								else
-									display transparent circle
-							end
-				-->
+
+				<% case @current_user_likes[like] %>
+					<% when 1 %>
+						<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+					<% when 0 %>
+						<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+					<% when -1 %>
+						<div class="icons"><%= image_tag 'red_circle.png' %></div>
+					<% else %>
+						<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+				<% end %>
 				<!-- 
 				Also need to distinguish between 'you like' & 'they like'
 				Recent activity for instance will say 'jimmy liked this on this day'
@@ -46,7 +45,6 @@
 				This should also apply to other user's dislikes/seen/likes
 				how do we cleary differentiate between when you like something and they like something?
 				-->
-				<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 				<!-- open up a new window that contains current_user.friends
 									select which friends you'd like to recommend it to
@@ -128,18 +126,24 @@
 				<% end %>
 				<%= rec.rec_by.count %>
 				<br>
-				<!-- if profile is not the current_user's
-					if rec.rec_by_user?(current_user.id)
-						display green arrow
-					else
-						display transparent arrow
-					end
 
-						(toggle for arrow will remove points and make arrow transparent)
+				<% case @current_user_likes[rec.info] %>
+					<% when 1 %>
+						<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+					<% when 0 %>
+						<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+					<% when -1 %>
+						<div class="icons"><%= image_tag 'red_circle.png' %></div>
+					<% else %>
+						<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+				<% end %>
+				<!-- if profile is not the current_user's -->
+				<% if rec.rec_by_user?(current_user.id) %>
+					<div class="icons"><%= image_tag 'blue_arrow.png' %></div>
+				<% else %>
+					<div class="icons"><%= image_tag 'transparent_arrow.png' %></div>
+				<% end %>
 
-				-->
-				<div class="icons"><%= image_tag 'blue_arrow.png' %></div>
-				<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 				<br>
 
@@ -224,13 +228,16 @@
 						Season: <%= like.season %>
 						<br>
 					<% end %>
-					<!--  if record of "like/seen/dislike exists" for current user
-							    display corresponding/changeable circle
-					-->
-					<!--  else
-							    display transparent circle
-					-->
-					<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+					<% case @current_user_likes[like] %>
+						<% when 1 %>
+							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+						<% when 0 %>
+							<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+						<% when -1 %>
+							<div class="icons"><%= image_tag 'red_circle.png' %></div>
+						<% else %>
+							<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+					<% end %>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 					<!-- open up a new window that contains current_user.friends
 									select which friends you'd like to recommend it to
@@ -292,13 +299,16 @@
 						Season: <%= seen.season %>
 						<br>
 					<% end %>
-					<!--  if record of "like/seen/dislike exists" for current user
-							    display corresponding/changeable circle
-					-->
-					<!--  else
-							    display transparent circle
-					-->
-					<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+					<% case @current_user_likes[seen] %>
+						<% when 1 %>
+							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+						<% when 0 %>
+							<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+						<% when -1 %>
+							<div class="icons"><%= image_tag 'red_circle.png' %></div>
+						<% else %>
+							<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+					<% end %>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 					<!-- open up a new window that contains current_user.friends
 									select which friends you'd like to recommend it to
@@ -360,13 +370,16 @@
 						Season: <%= dislike.season %>
 						<br>
 					<% end %>
-					<!--  if record of "like/seen/dislike exists" for current user
-							    display corresponding/changeable circle
-					-->
-					<!--  else
-							    display transparent circle
-					-->
-					<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+					<% case @current_user_likes[dislike] %>
+						<% when 1 %>
+							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+						<% when 0 %>
+							<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+						<% when -1 %>
+							<div class="icons"><%= image_tag 'red_circle.png' %></div>
+						<% else %>
+							<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+					<% end %>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 					<!-- open up a new window that contains current_user.friends
 									select which friends you'd like to recommend it to
