@@ -38,6 +38,14 @@
 									display transparent circle
 							end
 				-->
+				<!-- 
+				Also need to distinguish between 'you like' & 'they like'
+				Recent activity for instance will say 'jimmy liked this on this day'
+				should that be displayed as a colored circle?
+				Or maybe even a colored container?
+				This should also apply to other user's dislikes/seen/likes
+				how do we cleary differentiate between when you like something and they like something?
+				-->
 				<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 				<!-- open up a new window that contains current_user.friends
@@ -130,7 +138,7 @@
 						(toggle for arrow will remove points and make arrow transparent)
 
 				-->
-				<div class="icons"><%= image_tag 'green_arrow.png' %></div>
+				<div class="icons"><%= image_tag 'blue_arrow.png' %></div>
 				<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 				<br>
