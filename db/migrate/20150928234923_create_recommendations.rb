@@ -3,7 +3,7 @@ class CreateRecommendations < ActiveRecord::Migration
     create_table :recommendations do |t|
       t.integer  :sender
       t.integer  :receiver
-      t.integer  :media_id
+      t.integer  :medium_id
 
       t.timestamps null: false
     end

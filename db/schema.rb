@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20160506202929) do
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "media_id"
+    t.integer  "medium_id"
     t.integer  "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160506202929) do
   create_table "recommendations", force: :cascade do |t|
     t.integer  "sender"
     t.integer  "receiver"
-    t.integer  "media_id"
+    t.integer  "medium_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

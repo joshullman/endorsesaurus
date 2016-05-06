@@ -146,7 +146,7 @@ end
 	user = 1
 	media = 1
 	value = 0
-	until Like.where(user_id: user, media_id: media).first == nil
+	until Like.where(user_id: user, medium_id: media).first == nil
 		user = rand(32) + 1
 		media = rand(48) + 1
 		value = rand(3) - 1
@@ -154,7 +154,7 @@ end
 	p user
 	p media
 	p value
-	Like.create(user_id: user, media_id: media, value: value)
+	Like.create(user_id: user, medium_id: media, value: value)
 	u = User.find(user)
 	u.points = u.points + Medium.find(media).points
 	u.save
@@ -164,13 +164,13 @@ end
 	sender = 0
 	receiver = 0
 	media = 0
-	until sender != receiver && Recommendation.where(sender: sender, receiver: receiver, media_id: media).first == nil
+	until sender != receiver && Recommendation.where(sender: sender, receiver: receiver, medium_id: media).first == nil
 		sender = rand(32) + 1
 		receiver = rand(32) + 1
 		media = rand(48) + 1
 	end
-	if Like.where(user_id: receiver, media_id: media).first == nil
-		Recommendation.create(sender: sender, receiver: receiver, media_id: media)
+	if Like.where(user_id: receiver, medium_id: media).first == nil
+		Recommendation.create(sender: sender, receiver: receiver, medium_id: media)
 	end
 end
 

@@ -8,7 +8,7 @@ class MediaController < ApplicationController
 		current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
   	current_user_likes.each do |like|
-  		@current_user_likes[Medium.find(like.media_id)] = like.value
+  		@current_user_likes[Medium.find(like.medium_id)] = like.value
   	end
 	end
 
@@ -20,7 +20,7 @@ class MediaController < ApplicationController
   	current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
   	current_user_likes.each do |like|
-  		@current_user_likes[Medium.find(like.media_id)] = like.value
+  		@current_user_likes[Medium.find(like.medium_id)] = like.value
   	end
   end
 

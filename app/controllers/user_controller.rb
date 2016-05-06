@@ -2,7 +2,7 @@ class Rec
 	attr_reader :rec_array, :user_points, :media_points, :rec_by, :info
 	def initialize(rec_array = [])
 		@rec_array = rec_array
-		@info = Medium.find(rec_array.first.media_id)
+		@info = Medium.find(rec_array.first.medium_id)
 		@media_points = 0
 		@user_points = 0
 		@rec_by = []
@@ -32,7 +32,7 @@ class UserController < ApplicationController
   def show
   	# Profile information
   	@user = User.find(params[:id])
-  	recommendations = Recommendation.where(receiver: @user.id).group_by(&:media_id)
+  	recommendations = Recommendation.where(receiver: @user.id).group_by(&:medium_id)
   	likes = Like.where(user_id: @user.id).group_by(&:value)
 
   	@recs = []
@@ -49,7 +49,7 @@ class UserController < ApplicationController
 	  	likes.each_key do |key|
 	  		instance_likes[key] = []
 	  		likes[key].each do |like|
-	  			instance_likes[key] << Medium.find(like.media_id)
+	  			instance_likes[key] << Medium.find(like.medium_id)
 	  		end
 	  	end
   	end
@@ -59,7 +59,7 @@ class UserController < ApplicationController
   	recents = Like.where(user_id: @user.id).last(5).reverse
   	@recently_watched = {}
   	recents.each do |like|
-  		@recently_watched[Medium.find(like.media_id)] = like.value
+  		@recently_watched[Medium.find(like.medium_id)] = like.value
   	end
 
   	p @likes
@@ -69,7 +69,7 @@ class UserController < ApplicationController
   	current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
   	current_user_likes.each do |like|
-  		@current_user_likes[Medium.find(like.media_id)] = like.value
+  		@current_user_likes[Medium.find(like.medium_id)] = like.value
   	end
   end
 

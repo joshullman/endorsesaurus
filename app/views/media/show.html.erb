@@ -52,4 +52,17 @@
 	Number of people who dislike this media: <%= @medium.disliked_count %>
 	<br>
 	Number of people who have recommended this media: <%= @medium.recommended_count %>
+	<br>
+	You have recommended this to:
+	<br>
+	<% @medium.recommended_to(current_user.id).each do |person| %>
+		<%= person.email %>
+	<% end %>
+	<br>
+	Has recommended this to you:
+	<br>
+	<% @medium.recommended_by(current_user.id).each do |person| %>
+		<%= person.email %>
+	<% end %>
+	<br>
 </div>

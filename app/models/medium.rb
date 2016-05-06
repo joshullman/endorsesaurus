@@ -3,13 +3,6 @@ class Medium < ActiveRecord::Base
 	has_many :likes
 	belongs_to :show
 
-	# likes = Like.where(media_id: self.id)
-	# @users_watched = likes.count
-	# @users_like = likes.where(value: 1).count
-	# @users_seen = likes.where(value: 0).count
-	# @users_dislike = likes.where(value: -1).count
-	# @recommendation_count = Recommendation.where(media_id: @medium.id).count
-
 	def watched_count
 		Like.where(media_id: self.id).count || 0
 	end
@@ -30,4 +23,11 @@ class Medium < ActiveRecord::Base
 		Recommendation.where(media_id: self.id).count || 0
 	end
 
+	def recommended_to(user_id)
+		User.where(Recommendation.where(sender: user_id).sender)
+	end
+
+	def recommended_by(user_id)
+		Recommendation.where(receiver: user_id)
+	end
 end
