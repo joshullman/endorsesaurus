@@ -2,8 +2,9 @@ class MediaController < ApplicationController
 	before_action :find_media, only: [:show, :edit, :update, :destroy]
 
 	def index
-		@media = Medium.all
-
+		@movies = Medium.all.where(media_type: "movie")
+		@shows = Show.all
+		
 		current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
   	current_user_likes.each do |like|
@@ -39,7 +40,7 @@ class MediaController < ApplicationController
   def create
   	title = params[:title]
   	title.gsub(" ", "%20")
-  	
+
   	url = URI.parse("http://www.omdbapi.com/\?t\=#{title}")
   	req = Net::HTTP::Get.new(url.to_s)
   	res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
