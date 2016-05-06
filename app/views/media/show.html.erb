@@ -43,13 +43,13 @@
 	<br>
 	<img src="<%= @medium.poster %>">
 	<br>
-	Number of people who have watched this media: <%= @users_watched || 0%>
+	Number of people who have watched this media: <%= @medium.watched_count %>
 	<br>
-	Number of people who like this media: <%= @users_like || 0 %>
+	Number of people who like this media: <%= @medium.liked_count %>
 	<br>
-	Number of people who meh this media: <%= @users_seen || 0 %>
+	Number of people who meh this media: <%= @medium.seen_count %>
 	<br>
-	Number of people who dislike this media: <%= @users_dislike || 0 %>
+	Number of people who dislike this media: <%= @medium.disliked_count %>
 	<br>
-	Number of people who have recommended this media: <%= @recommendation_count || 0 %>
+	Number of people who have recommended this media: <%= @medium.recommended_count %>
 </div>

@@ -4,7 +4,7 @@ class MediaController < ApplicationController
 	def index
 		@movies = Medium.all.where(media_type: "movie")
 		@shows = Show.all
-		
+
 		current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
   	current_user_likes.each do |like|
@@ -17,19 +17,6 @@ class MediaController < ApplicationController
   end
 
   def show
-  	# Info that I want to display:
-  	# How many people overall have watched this media
-  	# How many people have recommended this media
-  	# How many people Like this media
-  	# How many people Seen this media
-  	# How many people Dislike this media
-  	likes = Like.where(media_id: @medium.id)
-  	@users_watched = likes.count
-  	@users_like = likes.where(value: 1).count
-  	@users_seen = likes.where(value: 0).count
-  	@users_dislike = likes.where(value: -1).count
-  	@recommendation_count = Recommendation.where(media_id: @medium.id).count
-
   	current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
   	current_user_likes.each do |like|
