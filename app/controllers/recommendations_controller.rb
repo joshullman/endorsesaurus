@@ -5,7 +5,7 @@
 # will be handled on the profile.
 
 
-class RecommendationController < ApplicationController
+class RecommendationsController < ApplicationController
 	before_action :find_recommendations, only: [:show, :edit, :update, :destroy]
 
   def new

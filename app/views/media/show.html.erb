@@ -1,0 +1,57 @@
+<h1><%= @medium.title %></h1>
+<% if @medium.media_type == "series" %>
+	<h3>Season: <%= @medium.season %></h3>
+<% end %>
+
+<div id=<%="media_#{@medium.id}"%> class="media_row">
+	<% case @current_user_likes[@medium] %>
+		<% when 1 %>
+			<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+		<% when 0 %>
+			<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+		<% when -1 %>
+			<div class="icons"><%= image_tag 'red_circle.png' %></div>
+		<% else %>
+			<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
+	<% end %>
+	<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+	<br>
+	Year: <%= @medium.year %>
+	<br>
+	Rated: <%= @medium.rated %>
+	<br>
+	Released: <%= @medium.released %>
+	<br>
+	Runtime: <%= @medium.runtime %>
+	<br>
+	Genre: <%= @medium.genre %>
+	<br>
+	<% if @medium.media_type == "series" %>
+		Creator: <%= @medium.writer %>
+		<br>
+	<% else %>
+		Director: <%= @medium.director %>
+		<br>
+		Writer: <%= @medium.writer %>
+		<br>
+	<% end %>
+	Actors: <%= @medium.actors %>
+	<br>
+	Plot: <%= @medium.plot %>
+	<br>
+	Awards: <%= @medium.awards %>
+	<br>
+	Poster: 
+	<br>
+	<img src="<%= @medium.poster %>">
+	<br>
+	Number of people who have watched this media: <%= @users_watched || 0%>
+	<br>
+	Number of people who like this media: <%= @users_like || 0 %>
+	<br>
+	Number of people who meh this media: <%= @users_seen || 0 %>
+	<br>
+	Number of people who dislike this media: <%= @users_dislike || 0 %>
+	<br>
+	Number of people who have recommended this media: <%= @recommendation_count || 0 %>
+</div>

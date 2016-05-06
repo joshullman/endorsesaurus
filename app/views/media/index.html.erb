@@ -1,0 +1,53 @@
+<h1>Media</h1>
+
+<% @media.each do |medium| %>
+	<div id=<%="media_#{medium.id}"%> class="media_row">
+		<% case @current_user_likes[medium] %>
+			<% when 1 %>
+				<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+			<% when 0 %>
+				<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+			<% when -1 %>
+				<div class="icons"><%= image_tag 'red_circle.png' %></div>
+			<% else %>
+				<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
+		<% end %>
+		<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+		<br>
+		Title: <%= medium.title %>
+		<br>
+		<% if medium.media_type == "series" %>
+			Season: <%= medium.season %>
+			<br>
+		<% end %>
+		Year: <%= medium.year %>
+		<br>
+		Rated: <%= medium.rated %>
+		<br>
+		Released: <%= medium.released %>
+		<br>
+		Runtime: <%= medium.runtime %>
+		<br>
+		Genre: <%= medium.genre %>
+		<br>
+		<% if medium.media_type == "series" %>
+			Creator: <%= medium.writer %>
+			<br>
+		<% else %>
+			Director: <%= medium.director %>
+			<br>
+			Writer: <%= medium.writer %>
+			<br>
+		<% end %>
+		Actors: <%= medium.actors %>
+		<br>
+		Plot: <%= medium.plot %>
+		<br>
+		Awards: <%= medium.awards %>
+		<br>
+		Poster: 
+		<br>
+		<img src="<%= medium.poster %>">
+		<br>
+	</div>
+<% end %>
