@@ -7,13 +7,13 @@ Stuff To Watch is an application that allows users to give and receive film and 
 ###User Stories
 
 ##Miscellaneous Media
-* As a User, I'd like to be able to browse media
+* ~~As a User, I'd like to be able to browse media~~
 * ~~As a User, I'd like to be able to see the poster for media~~
 * ~~As a User, I'd like to be able to see a synopsis for media~~
 * ~~As a User, I'd like to be able to see which actors are in media~~
-* As a User, I'd like to be able to see how often media is recommended
-* As a User, I'd like to be able to see how often media is liked
-* As a User, I'd like to be able to see how often media is disliked
+* ~~As a User, I'd like to be able to see how often media is recommended~~
+* ~~As a User, I'd like to be able to see how often media is liked~~
+* ~~As a User, I'd like to be able to see how often media is disliked~~
 * As a User, I'd like to be able to see comments on media
 
 ##Media I've Already Seen
