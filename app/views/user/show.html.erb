@@ -34,7 +34,7 @@
 					<% when -1 %>
 						<div class="icons"><%= image_tag 'red_circle.png' %></div>
 					<% else %>
-						<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+						<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
 				<% end %>
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 				<!-- open up a new window that contains current_user.friends
@@ -123,13 +123,14 @@
 					<% when -1 %>
 						<div class="icons"><%= image_tag 'red_circle.png' %></div>
 					<% else %>
-						<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+						<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
 				<% end %>
 				<!-- if profile is not the current_user's -->
 				<% if rec.rec_by_user?(current_user.id) %>
 					<div class="icons"><%= image_tag 'blue_arrow.png' %></div>
 				<% else %>
-					<div class="icons"><%= image_tag 'transparent_arrow.png' %></div>
+					<div class="icons"><%= image_tag 'white_arrow.jpg' %></div>
+					<%= link_to, action: "create", create_recommendations_path %>
 				<% end %>
 
 				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
@@ -224,7 +225,7 @@
 						<% when -1 %>
 							<div class="icons"><%= image_tag 'red_circle.png' %></div>
 						<% else %>
-							<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+							<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
 					<% end %>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 					<!-- open up a new window that contains current_user.friends
@@ -295,7 +296,7 @@
 						<% when -1 %>
 							<div class="icons"><%= image_tag 'red_circle.png' %></div>
 						<% else %>
-							<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+							<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
 					<% end %>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 					<!-- open up a new window that contains current_user.friends
@@ -366,7 +367,7 @@
 						<% when -1 %>
 							<div class="icons"><%= image_tag 'red_circle.png' %></div>
 						<% else %>
-							<div class="icons"><%= image_tag 'transparent_circle.jpeg' %></div>
+							<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
 					<% end %>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 					<!-- open up a new window that contains current_user.friends
