@@ -20,6 +20,11 @@
     <ul class="navbar-nav">
     	<li><%= link_to "Profile", @current_user %></li>
     	<li><%= link_to "Media", media_path %></li>
+<!--     	<% if user_signed_in? %>
+    		<li><%= button_to "Sign Out" %></li>
+    	<% else %>
+    		<li><%= button_to "Sign In" %></li>
+    	<% end %> -->
     </ul>
   </div>
 </header>

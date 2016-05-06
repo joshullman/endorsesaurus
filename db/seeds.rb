@@ -78,6 +78,19 @@ media.each do |imdb_url|
 	if api["Type"] == "series"
 		series = {"Response" => "True"}
 		season = 1
+		show = Show.create(
+			title: api["Title"],
+			year: api["Year"],
+			rated: api["Rated"],
+			released: api["Released"],
+			runtime: api["Runtime"],
+			genre: api["Genre"],
+			creator: api["Writer"],
+			actors: api["Actors"],
+			plot: api["Plot"],
+			poster: api["Poster"],
+			imdb_id: imdb_url,
+			)
 		while series["Response"] == "True"
 			url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season}")
 			req = Net::HTTP::Get.new(url.to_s)
@@ -97,12 +110,12 @@ media.each do |imdb_url|
 				writer: api["Writer"],
 				actors: api["Actors"],
 				plot: api["Plot"],
-				awards: api["Awards"],
 				poster: api["Poster"],
 				media_type: api["Type"],
 				imdb_id: imdb_url,
 				season: season,
-				points: media_points
+				points: media_points,
+				show_id: show.id
 				)
 			season += 1
 		end
@@ -120,7 +133,6 @@ media.each do |imdb_url|
 			writer: api["Writer"],
 			actors: api["Actors"],
 			plot: api["Plot"],
-			awards: api["Awards"],
 			poster: api["Poster"],
 			media_type: api["Type"],
 			imdb_id: imdb_url,

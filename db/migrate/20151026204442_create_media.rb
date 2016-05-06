@@ -11,12 +11,12 @@ class CreateMedia < ActiveRecord::Migration
       t.string   :writer
       t.string   :actors
       t.string   :plot
-      t.string   :awards
       t.string   :poster
       t.string   :media_type
       t.string   :imdb_id
       t.integer  :season, default: nil
       t.integer  :points
+      t.integer  :show_id
 
       t.timestamps null: false
     end

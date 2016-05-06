@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026204442) do
+ActiveRecord::Schema.define(version: 20160506202929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,12 +35,12 @@ ActiveRecord::Schema.define(version: 20151026204442) do
     t.string   "writer"
     t.string   "actors"
     t.string   "plot"
-    t.string   "awards"
     t.string   "poster"
     t.string   "media_type"
     t.string   "imdb_id"
     t.integer  "season"
     t.integer  "points"
+    t.integer  "show_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,6 +49,22 @@ ActiveRecord::Schema.define(version: 20151026204442) do
     t.integer  "sender"
     t.integer  "receiver"
     t.integer  "media_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shows", force: :cascade do |t|
+    t.string   "title"
+    t.string   "year"
+    t.string   "rated"
+    t.string   "released"
+    t.string   "runtime"
+    t.string   "genre"
+    t.string   "creator"
+    t.string   "actors"
+    t.string   "plot"
+    t.string   "poster"
+    t.string   "imdb_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,6 +81,7 @@ ActiveRecord::Schema.define(version: 20151026204442) do
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.integer  "points",                 default: 0
+    t.string   "photo_url"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
