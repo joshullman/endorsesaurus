@@ -12,6 +12,7 @@ class CreateShows < ActiveRecord::Migration
   		t.string   :plot
   		t.string   :poster
   		t.string   :imdb_id
+      t.integer  :medium_id
 
   		t.timestamps null: false
     end

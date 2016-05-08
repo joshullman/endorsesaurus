@@ -15,6 +15,7 @@ class CreateMovies < ActiveRecord::Migration
     	t.string   :media_type
     	t.string   :imdb_id
     	t.integer  :points
+        t.integer  :medium_id
 
       t.timestamps null: false
     end

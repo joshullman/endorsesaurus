@@ -1,3 +1,4 @@
 class Show < ActiveRecord::Base
-	has_many :seasons
+	belongs_to :medium
+	has_many   :seasons
 end

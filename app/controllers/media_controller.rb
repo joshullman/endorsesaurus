@@ -8,7 +8,7 @@ class MediaController < ApplicationController
 		current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
   	current_user_likes.each do |like|
-  		@current_user_likes[Medium.find(like.medium_id)] = like.value
+  		@current_user_likes[like.medium_id] = like.value
   	end
 	end
 
@@ -16,7 +16,7 @@ class MediaController < ApplicationController
   	current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
   	current_user_likes.each do |like|
-  		@current_user_likes[Medium.find(like.medium_id)] = like.value
+  		@current_user_likes[like.medium_id] = like.value
   	end
   end
 
@@ -98,6 +98,6 @@ class MediaController < ApplicationController
 	end
 
 	def medium_params
-		params.require(:medium).permit(:type, :specific_id)
+		params.require(:medium).permit(:type, :related_id)
 	end
 end
