@@ -1,9 +1,8 @@
 class Medium < ActiveRecord::Base
 	has_many :recommendations
 	has_many :likes
-	has_many :media_genres
-	has_many :genres, through: :media_genres
-	belongs_to :show
+	has_many :media_tags
+	has_many :tags, through: :media_tags
 
 	def watched_count
 		Like.where(medium_id: self.id).count || 0
