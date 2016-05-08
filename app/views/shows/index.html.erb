@@ -1,0 +1,42 @@
+<h1>All Shows</h1>
+
+<div class="shows_wrapper">
+	<% @shows.each do |show| %>
+		<div id=<%="show_#{show.id}"%> class="show_row">
+			<% case @current_user_likes[show] %>
+				<% when 1 %>
+					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+				<% when 0 %>
+					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+				<% when -1 %>
+					<div class="icons"><%= image_tag 'red_circle.png' %></div>
+				<% else %>
+					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
+			<% end %>
+			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+			<br>
+			Title: <%= link_to show.title, show_path(show) %>
+			<br>
+			Year: <%= show.year %>
+			<br>
+			Rated: <%= show.rated %>
+			<br>
+			Released: <%= show.released %>
+			<br>
+			Runtime: <%= show.runtime %>
+			<br>
+			Genre: <%= show.genre %>
+			<br>
+			Creator: <%= show.creator %>
+			<br>
+			Actors: <%= show.actors %>
+			<br>
+			Plot: <%= show.plot %>
+			<br>
+			Poster: 
+			<br>
+			<img src="<%= show.poster %>">
+			<br>
+		</div>
+	<% end %>
+</div>

@@ -2,7 +2,7 @@ class Rec
 	attr_reader :rec_array, :user_points, :media_points, :rec_by, :info
 	def initialize(rec_array = [])
 		@rec_array = rec_array
-		@info = Medium.find(rec_array.first.medium_id)
+		@info = Medium.find(rec_array.first.medium_id).find_associated_media
 		@media_points = 0
 		@user_points = 0
 		@rec_by = []
@@ -33,17 +33,17 @@ class UserController < ApplicationController
   	# Profile information
   	@user = User.find(params[:id])
   	recommendations = Recommendation.where(receiver: @user.id).group_by(&:medium_id)
+
+    @recs = []
+    recommendations.each_value do |array|
+      rec = Rec.new(array)
+      rec.do_all_the_stuff
+      @recs << rec
+    end
+    @recs.sort_by! {|rec| rec.user_points}.reverse!
+
+    # finding the media assosciated with Likes
   	likes = Like.where(user_id: @user.id).group_by(&:value)
-
-  	@recs = []
-  	recommendations.each_value do |array|
-  		rec = Rec.new(array)
-  		rec.do_all_the_stuff
-  		@recs << rec
-  	end
-  	@recs.sort_by! {|rec| rec.user_points}.reverse!
-
-  	# finding the media assosciated with Likes
   	@likes = {}
   	def organize_likes(likes, instance_likes)
 	  	likes.each_key do |key|
