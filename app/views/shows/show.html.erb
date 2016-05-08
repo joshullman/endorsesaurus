@@ -1,1 +1,67 @@
-show.html.erb
+<div class="show_wrapper">
+	Title: <%= @show.title %>
+	<br>
+	Year: <%= @show.year %>
+	<br>
+	Rated: <%= @show.rated %>
+	<br>
+	Released: <%= @show.released %>
+	<br>
+	Runtime: <%= @show.runtime %>
+	<br>
+	Genre: <%= @show.genre %>
+	<br>
+	Creator: <%= @show.creator %>
+	<br>
+	Actors: <%= @show.actors %>
+	<br>
+	Plot: <%= @show.plot %>
+	<br>
+	Poster: 
+	<br>
+	<img src="<%= @show.poster %>">
+	<br>
+</div>
+
+<div class ="season_wrapper">
+	<% @seasons.each do |season| %>
+		<% case @current_user_likes[season.medium_id] %>
+			<% when 1 %>
+				<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+			<% when 0 %>
+				<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+			<% when -1 %>
+				<div class="icons"><%= image_tag 'red_circle.png' %></div>
+			<% else %>
+				<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
+		<% end %>
+		<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+		<br>
+		Season: <%= season.season_num %>
+		<br>
+		Points: <%= season.points %>
+		<br>
+		Number of people who have watched this season: <%= season.medium.watched_count %>
+		<br>
+		Number of people who like this season: <%= season.medium.liked_count %>
+		<br>
+		Number of people who meh this season: <%= season.medium.seen_count %>
+		<br>
+		Number of people who dislike this season: <%= season.medium.disliked_count %>
+		<br>
+		Number of people who have recommended this season: <%= season.medium.recommended_count %>
+		<br>
+		You have recommended this season to:
+		<br>
+		<% season.medium.recommended_to(current_user.id).each do |person| %>
+			<%= person.email %>
+		<% end %>
+		<br>
+		Have recommended this season to you:
+		<br>
+		<% season.medium.recommended_by(current_user.id).each do |person| %>
+			<%= person.email %>
+		<% end %>
+		<br>
+	<% end %>
+</div>

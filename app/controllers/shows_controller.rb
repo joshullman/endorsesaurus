@@ -12,6 +12,12 @@ class ShowsController < ApplicationController
 	end
 
 	def show
+		p "******************************************************"
+		p @show
+		p "******************************************************"
+		@seasons = @show.seasons
+		p @seasons
+		p "******************************************************"
 
 		current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}

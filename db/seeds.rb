@@ -178,7 +178,7 @@ end
 	sender = 0
 	receiver = 0
 	media = 0
-	until sender != receiver && Recommendation.where(sender: sender, receiver: receiver, medium_id: media).first == nil
+	until sender != receiver && Recommendation.where(sender: sender, receiver: receiver, medium_id: media).first == nil && Medium.find(media).media_type != "Show"
 		sender = rand(32) + 1
 		receiver = rand(32) + 1
 		media = rand(48) + 1

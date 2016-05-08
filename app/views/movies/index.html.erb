@@ -3,7 +3,7 @@
 <div class="movies_wrapper">
 	<% @movies.each do |movie| %>
 		<div id=<%="movie_#{movie.id}"%> class="movie_row">
-			<% case @current_user_likes[movie] %>
+			<% case @current_user_likes[movie.medium_id] %>
 				<% when 1 %>
 					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 				<% when 0 %>
@@ -17,23 +17,7 @@
 			<br>
 			Title: <%= link_to movie.title, movie_path(movie) %>
 			<br>
-			Year: <%= movie.year %>
-			<br>
-			Rated: <%= movie.rated %>
-			<br>
-			Released: <%= movie.released %>
-			<br>
-			Runtime: <%= movie.runtime %>
-			<br>
 			Genre: <%= movie.genre %>
-			<br>
-			Director: <%= movie.director %>
-			<br>
-			Writer: <%= movie.writer %>
-			<br>
-			Actors: <%= movie.actors %>
-			<br>
-			Plot: <%= movie.plot %>
 			<br>
 			Poster: 
 			<br>

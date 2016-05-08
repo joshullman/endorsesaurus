@@ -12,14 +12,6 @@ class MediaController < ApplicationController
   	end
 	end
 
-  def show
-  	current_user_likes = Like.where(user_id: current_user.id)
-  	@current_user_likes = {}
-  	current_user_likes.each do |like|
-  		@current_user_likes[like.medium_id] = like.value
-  	end
-  end
-
   # def create
   # 	title = params[:title]
   # 	title.gsub(" ", "%20")
