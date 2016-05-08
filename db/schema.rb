@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506202929) do
+ActiveRecord::Schema.define(version: 20160508181104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "genres", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
@@ -41,6 +47,13 @@ ActiveRecord::Schema.define(version: 20160506202929) do
     t.integer  "season"
     t.integer  "points"
     t.integer  "show_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "media_genres", force: :cascade do |t|
+    t.integer  "medium_id"
+    t.integer  "genre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
