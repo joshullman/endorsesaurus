@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160508181104) do
 
   create_table "media_genres", force: :cascade do |t|
     t.integer  "medium_id"
+    t.integer  "show_id"
     t.integer  "genre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

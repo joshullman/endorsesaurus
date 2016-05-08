@@ -75,6 +75,16 @@ media.each do |imdb_url|
 	api = JSON.parse(res.body)
 	media_points = 0
 
+	genres = api["Genre"].split(", ")
+	p genres
+	genres.each do |genre|
+		if Genre.where(name: genre).empty?
+			Genre.create(name: genre)
+		end
+	end
+
+	p Genre.all
+
 	if api["Type"] == "series"
 		series = {"Response" => "True"}
 		season = 1
@@ -91,6 +101,10 @@ media.each do |imdb_url|
 			poster: api["Poster"],
 			imdb_id: imdb_url,
 			)
+		genres.each do |genre|
+			g = Genre.where(name: genre).first
+			MediaGenre.create(show_id: show.id, genre_id: g.id)
+		end
 		while series["Response"] == "True"
 			url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season}")
 			req = Net::HTTP::Get.new(url.to_s)
@@ -99,7 +113,7 @@ media.each do |imdb_url|
 			break if series["Response"] != "True"
 			runtime = api["Runtime"].gsub(" min", "").to_i
 			media_points = series["Episodes"].length * (runtime.to_f/30).ceil
-			Medium.create(
+			med = Medium.create(
 				title: api["Title"],
 				year: api["Year"],
 				rated: api["Rated"],
@@ -122,7 +136,7 @@ media.each do |imdb_url|
 	else
 		runtime = api["Runtime"].gsub(" min", "").to_i
 		media_points = (runtime.to_f/30).ceil
-		Medium.create(
+		med = Medium.create(
 			title: api["Title"],
 			year: api["Year"],
 			rated: api["Rated"],
@@ -138,6 +152,10 @@ media.each do |imdb_url|
 			imdb_id: imdb_url,
 			points: media_points
 		)
+		genres.each do |genre|
+			g = Genre.where(name: genre).first
+			MediaGenre.create(medium_id: med.id, genre_id: g.id)
+		end
 	end
 
 end

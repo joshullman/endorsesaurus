@@ -9,8 +9,10 @@ url = URI.parse("http://www.omdbapi.com/\?t\=#{title}")
 req = Net::HTTP::Get.new(url.to_s)
 res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
 api = JSON.parse(res.body)
-p api
 media_points = 0
+
+p api["Genre"].split(", ")
+
 
 # if api["Type"] == "series"
 # 	series = {"Response" => "True"}
