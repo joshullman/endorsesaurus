@@ -2,10 +2,10 @@ class GenreController < ApplicationController
 	before_action :find_genres, only: [:show, :edit, :update, :destroy]
 
 	def index
+		@genres = Genre.all
 	end
 
 	def show
-
 	end
 
 	def create

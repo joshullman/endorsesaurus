@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :recommendations
   resources :media
   resources :user
+  resources :genres
+  resources :shows
 
   # Example resource route with options:
   #   resources :products do
