@@ -19,23 +19,23 @@ class Medium < ActiveRecord::Base
 	end
 
 	def watched_count
-		Like.where(medium_id: self.medium.id).count || 0
+		Like.where(medium_id: self.id).count || 0
 	end
 
 	def liked_count
-		Like.where(medium_id: self.medium.id).where(value: 1).count || 0
+		Like.where(medium_id: self.id).where(value: 1).count || 0
 	end
 
 	def seen_count
-		Like.where(medium_id: self.medium.id).where(value: 0).count || 0
+		Like.where(medium_id: self.id).where(value: 0).count || 0
 	end
 
 	def disliked_count
-		Like.where(medium_id: self.medium.id).where(value: -1).count || 0
+		Like.where(medium_id: self.id).where(value: -1).count || 0
 	end
 
 	def recommended_count
-		Recommendation.where(medium_id: self.medium.id).count || 0
+		Recommendation.where(medium_id: self.id).count || 0
 	end
 
 	def recommended_to(user_id)
