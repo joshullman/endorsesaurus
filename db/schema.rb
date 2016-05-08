@@ -11,16 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508181104) do
+ActiveRecord::Schema.define(version: 20160508201941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "genres", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
@@ -31,6 +25,20 @@ ActiveRecord::Schema.define(version: 20160508181104) do
   end
 
   create_table "media", force: :cascade do |t|
+    t.string   "media_type"
+    t.integer  "related_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "media_tags", force: :cascade do |t|
+    t.integer  "medium_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "movies", force: :cascade do |t|
     t.string   "title"
     t.string   "year"
     t.string   "rated"
@@ -44,17 +52,8 @@ ActiveRecord::Schema.define(version: 20160508181104) do
     t.string   "poster"
     t.string   "media_type"
     t.string   "imdb_id"
-    t.integer  "season"
     t.integer  "points"
-    t.integer  "show_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "media_genres", force: :cascade do |t|
     t.integer  "medium_id"
-    t.integer  "show_id"
-    t.integer  "genre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -63,6 +62,14 @@ ActiveRecord::Schema.define(version: 20160508181104) do
     t.integer  "sender"
     t.integer  "receiver"
     t.integer  "medium_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "seasons", force: :cascade do |t|
+    t.integer  "show_id"
+    t.integer  "season_num"
+    t.integer  "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -79,6 +86,13 @@ ActiveRecord::Schema.define(version: 20160508181104) do
     t.string   "plot"
     t.string   "poster"
     t.string   "imdb_id"
+    t.integer  "medium_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

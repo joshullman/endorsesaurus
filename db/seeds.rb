@@ -75,19 +75,18 @@ media.each do |imdb_url|
 	api = JSON.parse(res.body)
 	media_points = 0
 
-	genres = api["Genre"].split(", ")
-	p genres
-	genres.each do |genre|
-		if Genre.where(name: genre).empty?
-			Genre.create(name: genre)
+	tags = api["Genre"].split(", ")
+	p tags
+	tags.each do |tag|
+		if Tag.where(name: tag).empty?
+			Tag.create(name: tag)
 		end
 	end
 
-	p Genre.all
-
 	if api["Type"] == "series"
 		series = {"Response" => "True"}
-		season = 1
+		season_num = 1
+		med = Medium.create(media_type: "Show")
 		show = Show.create(
 			title: api["Title"],
 			year: api["Year"],
@@ -100,43 +99,36 @@ media.each do |imdb_url|
 			plot: api["Plot"],
 			poster: api["Poster"],
 			imdb_id: imdb_url,
+			medium_id: med.id
 			)
-		genres.each do |genre|
-			g = Genre.where(name: genre).first
-			MediaGenre.create(show_id: show.id, genre_id: g.id)
+		med.update(related_id: show.id)
+		tags.each do |tag|
+			t = Tag.where(name: tag).first
+			MediaTag.create(medium_id: med.id, tag_id: t.id)
 		end
 		while series["Response"] == "True"
-			url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season}")
+			url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season_num}")
 			req = Net::HTTP::Get.new(url.to_s)
 			res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
 			series = JSON.parse(res.body)
 			break if series["Response"] != "True"
 			runtime = api["Runtime"].gsub(" min", "").to_i
 			media_points = series["Episodes"].length * (runtime.to_f/30).ceil
-			med = Medium.create(
-				title: api["Title"],
-				year: api["Year"],
-				rated: api["Rated"],
-				released: api["Released"],
-				runtime: api["Runtime"],
-				genre: api["Genre"],
-				director: api["Director"],
-				writer: api["Writer"],
-				actors: api["Actors"],
-				plot: api["Plot"],
-				poster: api["Poster"],
-				media_type: api["Type"],
-				imdb_id: imdb_url,
-				season: season,
-				points: media_points,
-				show_id: show.id
+			med = Medium.create(media_type: "Season")
+			season = Season.create(
+				show_id: show.id,
+				season_num: season_num,
+				points: media_points
 				)
-			season += 1
+			med.update(related_id: season.id)
+
+			season_num += 1
 		end
 	else
 		runtime = api["Runtime"].gsub(" min", "").to_i
 		media_points = (runtime.to_f/30).ceil
-		med = Medium.create(
+		med = Medium.create(media_type: "Movie")
+		mov = Movie.create(
 			title: api["Title"],
 			year: api["Year"],
 			rated: api["Rated"],
@@ -150,11 +142,13 @@ media.each do |imdb_url|
 			poster: api["Poster"],
 			media_type: api["Type"],
 			imdb_id: imdb_url,
-			points: media_points
+			points: media_points,
+			medium_id: med.id
 		)
-		genres.each do |genre|
-			g = Genre.where(name: genre).first
-			MediaGenre.create(medium_id: med.id, genre_id: g.id)
+		med.update(related_id: mov.id)
+		tags.each do |tag|
+			t = Tag.where(name: tag).first
+			MediaTag.create(medium_id: med.id, tag_id: t.id)
 		end
 	end
 
@@ -164,7 +158,7 @@ end
 	user = 1
 	media = 1
 	value = 0
-	until Like.where(user_id: user, medium_id: media).first == nil
+	until Like.where(user_id: user, medium_id: media).first == nil && Medium.find(media).media_type != "Show"
 		user = rand(32) + 1
 		media = rand(48) + 1
 		value = rand(3) - 1
@@ -174,7 +168,8 @@ end
 	p value
 	Like.create(user_id: user, medium_id: media, value: value)
 	u = User.find(user)
-	u.points = u.points + Medium.find(media).points
+	med = Medium.find(media)
+	u.points = u.points + med.find_associated_media.points
 	u.save
 end
 
