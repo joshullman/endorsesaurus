@@ -2,12 +2,14 @@ class ShowController < ApplicationController
 	before_action :find_show, only: [:show, :edit, :update, :destroy]
 
 	def index
+		@shows = Show.all
 	end
 
 	def show
 	end
 
-	
+	def create
+	end
 
 	private
 
