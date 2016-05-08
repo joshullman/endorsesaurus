@@ -1,6 +1,8 @@
 class Medium < ActiveRecord::Base
 	has_many :recommendations
 	has_many :likes
+	has_many :media_genres
+	has_many :genres, through: :media_genres
 	belongs_to :show
 
 	def watched_count
