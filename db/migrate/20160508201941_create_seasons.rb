@@ -4,6 +4,7 @@ class CreateSeasons < ActiveRecord::Migration
     	t.integer  :show_id
     	t.integer  :season_num
     	t.integer  :points
+    	t.integer  :medium_id
 
       t.timestamps null: false
     end

@@ -118,7 +118,8 @@ media.each do |imdb_url|
 			season = Season.create(
 				show_id: show.id,
 				season_num: season_num,
-				points: media_points
+				points: media_points,
+				medium_id: med.id
 				)
 			med.update(related_id: season.id)
 

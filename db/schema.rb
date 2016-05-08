@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160508201941) do
     t.integer  "show_id"
     t.integer  "season_num"
     t.integer  "points"
+    t.integer  "medium_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
