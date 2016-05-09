@@ -17,7 +17,9 @@
 			<br>
 			Title: <%= link_to movie.title, movie_path(movie) %>
 			<br>
-			Genre: <%= movie.genre %>
+			Tags: <% movie.medium.tags.each do |tag| %>
+				<%= link_to tag.name,  tag_path(tag) %>
+			<% end %>
 			<br>
 			Poster: 
 			<br>

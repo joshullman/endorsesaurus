@@ -21,7 +21,9 @@
 	<br>
 	Runtime: <%= @movie.runtime %>
 	<br>
-	Genre: <%= @movie.genre %>
+	Tags: <% @movie.medium.tags.each do |tag| %>
+		<%= link_to tag.name,  tag_path(tag) %>
+	<% end %>
 	<br>
 	Director: <%= @movie.director %>
 	<br>

@@ -5,6 +5,10 @@
 		<div id=<%="show_#{show.id}"%> class="show_row">
 			Title: <%= link_to show.title, show_path(show) %>
 			<br>
+			Tags: <% show.medium.tags.each do |tag| %>
+				<%= link_to tag.name,  tag_path(tag) %>
+			<% end %>
+			<br>
 			Poster: 
 			<br>
 			<img src="<%= show.poster %>">

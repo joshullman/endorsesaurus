@@ -1,1 +1,49 @@
-show.html.erb
+<h1><%= @tag.name %></h1>
+
+<h3>Movies</h3>
+<div class="tag_movies_wrapper">
+	<% @movies.each do |movie| %>
+		<div id=<%="movie_#{movie.id}"%> class="movie_row">
+			<% case @current_user_likes[movie.medium_id] %>
+				<% when 1 %>
+					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+				<% when 0 %>
+					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+				<% when -1 %>
+					<div class="icons"><%= image_tag 'red_circle.png' %></div>
+				<% else %>
+					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
+			<% end %>
+			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+			<br>
+			Title: <%= link_to movie.title, movie_path(movie) %>
+			<br>
+			Tags: <% movie.medium.tags.each do |tag| %>
+				<%= link_to tag.name,  tag_path(tag) %>
+			<% end %>
+			<br>
+			Poster: 
+			<br>
+			<img src="<%= movie.poster %>">
+			<br>
+		</div>
+	<% end %>
+</div>
+
+<h3>Shows</h3>
+<div class="tag_shows_wrapper">
+	<% @shows.each do |show| %>
+		<div id=<%="show_#{show.id}"%> class="show_row">
+			Title: <%= link_to show.title, show_path(show) %>
+			<br>
+			Tags: <% show.medium.tags.each do |tag| %>
+				<%= link_to tag.name,  tag_path(tag) %>
+			<% end %>
+			<br>
+			Poster: 
+			<br>
+			<img src="<%= show.poster %>">
+			<br>
+		</div>
+	<% end %>
+</div>

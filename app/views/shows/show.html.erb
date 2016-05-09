@@ -9,7 +9,9 @@
 	<br>
 	Runtime: <%= @show.runtime %>
 	<br>
-	Genre: <%= @show.genre %>
+	Tags: <% @show.medium.tags.each do |tag| %>
+		<%= link_to tag.name,  tag_path(tag) %>
+	<% end %>
 	<br>
 	Creator: <%= @show.creator %>
 	<br>

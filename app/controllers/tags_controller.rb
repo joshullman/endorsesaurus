@@ -1,8 +1,8 @@
-class ShowsController < ApplicationController
-	before_action :find_show, only: [:show, :edit, :update, :destroy]
+class TagsController < ApplicationController
+	before_action :find_tag, only: [:show, :edit, :update, :destroy]
 
 	def index
-		@shows = Show.all
+		@tags = Tag.all.order(:name)
 
 		current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
@@ -12,7 +12,8 @@ class ShowsController < ApplicationController
 	end
 
 	def show
-		@seasons = @show.seasons
+		@movies = @tag.movies
+		@shows = @tag.shows
 
 		current_user_likes = Like.where(user_id: current_user.id)
   	@current_user_likes = {}
@@ -22,15 +23,17 @@ class ShowsController < ApplicationController
 	end
 
 	def create
+
 	end
 
 	private
 
-	def find_show
-		@show = Show.find(params[:id])
+	def find_tag
+		@tag = Tag.find(params[:id])
 	end
 
-	def show_params
-		params.require(:show).permit(:title, :year, :rated, :released, :runtime, :genre, :creator, :actors, :plot, :poster, :imdb_id)
+	def tag_params
+		params.require(:tag).permit(:name)
 	end
+
 end
