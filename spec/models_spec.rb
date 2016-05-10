@@ -56,15 +56,15 @@ RSpec.describe Medium, :type => :model do
     expect(medium.find_associated_media).to eq(season)
   end
 
-  it "Associations with Tags are intact" do
+  it "Associations with Likes are intact" do
     medium = Medium.create!(media_type: "Movie")
-    tag = Tag.create!(name: "Horror")
-    med_tag = MediaTag.create(medium_id: medium.id, tag_id: tag.id)
+    user_one = User.create!(email: "blah@aol.com", password: "password")
+    like = Like.create!(user_id: user_one.id, medium_id: medium.id, value: 1)
 
-    expect(medium.tags.first).to eq(tag)
+    expect(medium.likes.first).to eq(like)
   end
 
-	it "Associations with Recommendations are intact" do
+  it "Associations with Recommendations are intact" do
    medium = Medium.create!(media_type: "Movie")
    user_one = User.create!(email: "blah@aol.com", password: "password")
    user_two = User.create!(email: "blah2@aol.com", password: "password")
@@ -73,12 +73,12 @@ RSpec.describe Medium, :type => :model do
    expect(medium.recommendations.first).to eq(rec)
  end
 
-  it "Associations with Likes are intact" do
+  it "Associations with Tags are intact" do
     medium = Medium.create!(media_type: "Movie")
-    user_one = User.create!(email: "blah@aol.com", password: "password")
-    like = Like.create!(user_id: user_one.id, medium_id: medium.id, value: 1)
+    tag = Tag.create!(name: "Horror")
+    med_tag = MediaTag.create(medium_id: medium.id, tag_id: tag.id)
 
-    expect(medium.likes.first).to eq(like)
+    expect(medium.tags.first).to eq(tag)
   end
 
 end
