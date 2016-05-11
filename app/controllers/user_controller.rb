@@ -73,4 +73,10 @@ class UserController < ApplicationController
   	end
   end
 
+  def movies
+  end
+
+  def shows
+  end
+
 end

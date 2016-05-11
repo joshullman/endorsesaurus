@@ -39,19 +39,19 @@ class Medium < ActiveRecord::Base
 	end
 
 	def recommended_to(user_id)
-		recs = self.recommendations.where(sender: user_id)
+		recs = self.recommendations.where(sender_id: user_id)
 		users = []
 		recs.each do |rec|
-			users << User.find(rec.receiver)
+			users << rec.reciever
 		end
 		users
 	end
 
 	def recommended_by(user_id)
-		recs = self.recommendations.where(receiver: user_id)
+		recs = self.recommendations.where(receiver_id: user_id)
 		users = []
 		recs.each do |rec|
-			users << User.find(rec.sender)
+			users << rec.sender
 		end
 		users
 	end
