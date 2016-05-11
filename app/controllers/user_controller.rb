@@ -27,56 +27,80 @@ class Rec
 
 end
 
+def organize_likes(media_type, instance_likes)
+likes = Like.where(user_id: @user.id).group_by(&:value)
+  likes.each_key do |key|
+    instance_likes[key] = []
+    likes[key].each do |like|
+      case media_type
+        when "movie"
+          instance_likes[key] << Movie.where(medium_id: like.medium_id).first if like.medium.media_type == "Movie"
+        when "series"
+          instance_likes[key] << Season.where(medium_id: like.medium_id).first if like.medium.media_type == "Show"
+      end
+    end
+  end
+end
+
+def find_recommendations(media_type, instance_recs)
+  recommendations = Recommendation.where(receiver_id: @user.id).group_by(&:medium_id)
+  recommendations.each_value do |array|
+    rec = Rec.new(array)
+    rec.do_all_the_stuff
+    instance_recs << rec if rec.info.medium.media_type == media_type
+  end
+  instance_recs.sort_by! {|rec| rec.user_points}.reverse!
+end
+
+def find_recently_watched(media_type ,instance_likes, num)
+  recents = Like.where(user_id: @user.id).last(num).reverse
+
+  recents.each do |like|
+    case media_type
+      when "movie"
+        instance_likes[Movie.where(medium_id: like.medium_id).first] = like.value if like.medium.media_type == "Movie"
+      when "series"
+        instance_likes[Season.where(medium_id: like.medium_id).first] = like.value if like.medium.media_type == "Show"
+    end
+  end
+end
+
+def current_user_likes(instance_likes)
+  current_user_likes = Like.where(user_id: current_user.id)
+  current_user_likes.each do |like|
+    instance_likes[Medium.find(like.medium_id)] = like.value
+  end
+end
+
+def do_even_more_stuff(media_type)
+  # Profile information
+  @user = User.find(params[:id])
+  @recs = []
+  find_recommendations(media_type, @recs)
+  # finding the media assosciated with Likes
+  @likes = {}
+  organize_likes(media_type, @likes)
+
+  # finding recently watched
+  @recently_watched = {}
+  find_recently_watched(media_type, @recently_watched, 5)
+  #current_user information
+  @current_user_likes = {}
+  current_user_likes(@current_user_likes)
+end
+
 class UserController < ApplicationController
 
   def show
-  	# Profile information
-  	@user = User.find(params[:id])
-  	recommendations = Recommendation.where(receiver: @user.id).group_by(&:medium_id)
-
-    @recs = []
-    recommendations.each_value do |array|
-      rec = Rec.new(array)
-      rec.do_all_the_stuff
-      @recs << rec
-    end
-    @recs.sort_by! {|rec| rec.user_points}.reverse!
-
-    # finding the media assosciated with Likes
-  	likes = Like.where(user_id: @user.id).group_by(&:value)
-  	@likes = {}
-  	def organize_likes(likes, instance_likes)
-	  	likes.each_key do |key|
-	  		instance_likes[key] = []
-	  		likes[key].each do |like|
-	  			instance_likes[key] << Medium.find(like.medium_id)
-	  		end
-	  	end
-  	end
-  	organize_likes(likes, @likes)
-
-  	# finding recently watched
-  	recents = Like.where(user_id: @user.id).last(5).reverse
-  	@recently_watched = {}
-  	recents.each do |like|
-  		@recently_watched[Medium.find(like.medium_id)] = like.value
-  	end
-
-  	p @likes
-
-  	#current_user information
-
-  	current_user_likes = Like.where(user_id: current_user.id)
-  	@current_user_likes = {}
-  	current_user_likes.each do |like|
-  		@current_user_likes[Medium.find(like.medium_id)] = like.value
-  	end
+    do_even_more_stuff("movie")
   end
 
   def movies
+    do_even_more_stuff("movie")
   end
 
   def shows
+    do_even_more_stuff("series")
   end
 
 end
