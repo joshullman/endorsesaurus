@@ -47,7 +47,13 @@ def find_recommendations(media_type, instance_recs)
   recommendations.each_value do |array|
     rec = Rec.new(array)
     rec.do_all_the_stuff
-    instance_recs << rec if rec.info.medium.media_type == media_type
+    medium_type = rec.info.medium.media_type
+    case media_type
+    when "movie"
+      instance_recs << rec if rec.info.medium.media_type == "Movie"
+    when "series"
+      instance_recs << rec if rec.info.medium.media_type == "Season"
+    end
   end
   instance_recs.sort_by! {|rec| rec.user_points}.reverse!
 end

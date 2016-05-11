@@ -7,26 +7,202 @@
 	<h3>Recent Activity:</h3>
 
 	<div class="recent_wrapper">
-		<% if @recently_watched %>
-			<% @recently_watched.each_key do |like| %>
+		<% @recently_watched.each_key do |like| %>
 
-				<div id=<%="#{like.id}"%> class="recent_row"
-					<%if @recently_watched[like] == 1 %>
-						style="background-color:green;"
-					<% elsif @recently_watched[like] == -1 %>
-						style="background-color:red;"
+			<div id=<%="#{like.id}"%> class="recent_row"
+				<%if @recently_watched[like] == 1 %>
+					style="background-color:green;"
+				<% elsif @recently_watched[like] == -1 %>
+					style="background-color:red;"
+				<% else %>
+					style="background-color:yellow;"
+				<% end %>	>
+				Title: <%= like.title %>
+				<br>
+				<% if like.media_type == "series" %>
+					Season: <%= like.season %>
+					<br>
+				<% end %>
+				<%= like.created_at %>
+				<br>
+
+				<% case @current_user_likes[like] %>
+					<% when 1 %>
+						<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+					<% when 0 %>
+						<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+					<% when -1 %>
+						<div class="icons"><%= image_tag 'red_circle.png' %></div>
 					<% else %>
-						style="background-color:yellow;"
-					<% end %>	>
+						<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
+				<% end %>
+				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+				<!-- open up a new window that contains current_user.friends
+									select which friends you'd like to recommend it to
+									press recommend button to confirm
+									(This creates however many new recommendations)
+							current_user.friends
+					-->
+				<br>
+			</div>
+
+			<div id=<%="ex_recent_#{like.id}"%> class="ex_recent_row"
+				<%if @recently_watched[like] == 1 %>
+					style="background-color:green;"
+				<% elsif @recently_watched[like] == -1 %>
+					style="background-color:red;"
+				<% else %>
+					style="background-color:yellow;"
+				<% end %>	>
+				Title: <%= like.title %>
+				<br>
+				<% if like.media_type == "series" %>
+					Season: <%= like.season %>
+					<br>
+				<% end %>
+				Year: <%= like.year %>
+				<br>
+				Rated: <%= like.rated %>
+				<br>
+				Released: <%= like.released %>
+				<br>
+				Runtime: <%= like.runtime %>
+				<br>
+				Genre: <%= like.genre %>
+				<br>
+				<% if like.media_type == "series" %>
+					Creator: <%= like.writer %>
+					<br>
+				<% else %>
+					Director: <%= like.director %>
+					<br>
+					Writer: <%= like.writer %>
+					<br>
+				<% end %>
+				Actors: <%= like.actors %>
+				<br>
+				Plot: <%= like.plot %>
+				<br>
+				Poster: 
+				<br>
+				<img src="<%= like.poster %>">
+				<br>
+			</div>
+			<br>
+		<% end %>
+	</div>
+</div>
+
+<div class="center_col">
+
+	<h3>Recommendations:</h3>
+	<div class="rec_wrapper">
+		<% @recs.each do |rec| %>
+
+			<div id=<%="#{rec.info.id}"%> class="rec_row">
+				Recommendation Points: <%= rec.user_points %>
+				<br>
+				Media Points: <%= rec.info.points %>
+				<br>
+				Title: <%= rec.info.show.title %>
+				<br>
+				Season: <%= rec.info.season_num %>
+				<br>
+				<%= rec.rec_by.count %>
+				<br>
+
+				<% case @current_user_likes[rec.info] %>
+					<% when 1 %>
+						<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+					<% when 0 %>
+						<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+					<% when -1 %>
+						<div class="icons"><%= image_tag 'red_circle.png' %></div>
+					<% else %>
+						<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
+				<% end %>
+				<!-- if profile is not the current_user's -->
+				<% if rec.rec_by_user?(current_user.id) %>
+					<div class="icons"><%= image_tag 'blue_arrow.png' %></div>
+				<% else %>
+					<div class="icons"><%= image_tag 'white_arrow.jpg' %></div>
+				<% end %>
+
+				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+				<br>
+
+			</div>
+
+			<div id=<%="ex_rec_#{rec.info.id}"%> class="ex_rec_row">
+	<!-- 			# upvote button -->
+				Recommendation Points: <%= rec.user_points %>
+				<br>
+				Media Points: <%= rec.info.points %>
+				<br>
+				Title: <%= rec.info.show.title %>
+				<br>
+				Season: <%= rec.info.season_num %>
+				<br>
+				Year: <%= rec.info.show.year %>
+				<br>
+				Rated: <%= rec.info.show.rated %>
+				<br>
+				Released: <%= rec.info.show.released %>
+				<br>
+				Runtime: <%= rec.info.show.runtime %>
+				<br>
+				Tags: <% rec.info.show.medium.tags.each do |tag| %>
+					<%= link_to tag.name,  tag_path(tag) %>
+				<% end %>
+				<br>
+				Creator: <%= rec.info.show.creator %>
+				<br>
+				Actors: <%= rec.info.show.actors %>
+				<br>
+				Plot: <%= rec.info.show.plot %>
+				<br>
+				Poster: 
+				<br>
+				<img src="<%= rec.info.show.poster %>">
+				<br>
+				Recommended By: 
+				<br>
+				<% rec.rec_by.each do |user| %>
+					<%= user.email %>
+					<%= user.points %>
+				<% end %>
+	<!-- 			# opinion/seen button
+				#  -->
+			</div>
+			<br>
+		<% end %>
+	</div>
+</div>
+
+
+<div class="right_col">
+	<h3>Likes/Seen/Dislikes</h3>
+	<div class="seen_wrapper">
+
+<!-- 	<div class="seen_title">
+		<div class="title"><h3>Likes</h3></div>
+		<div class="title"><h3>Seen</h3></div>
+		<div class="title"><h3>Dislikes</h3></div>
+	</div>
+	<br>
+-->
+
+		<% if @likes[1] %>
+			<h3>Likes:</h3>
+			<% @likes[1].each do |like| %>
+
+				<div id=<%="#{like.id}"%> class="like_row" style="background-color:green;">
 					Title: <%= like.title %>
 					<br>
 					<% if like.media_type == "series" %>
 						Season: <%= like.season %>
 						<br>
 					<% end %>
-					<%= like.created_at %>
-					<br>
-
 					<% case @current_user_likes[like] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
@@ -39,22 +215,14 @@
 					<% end %>
 					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 					<!-- open up a new window that contains current_user.friends
-										select which friends you'd like to recommend it to
-										press recommend button to confirm
-										(This creates however many new recommendations)
-								current_user.friends
-						-->
+									select which friends you'd like to recommend it to
+									press recommend button to confirm
+									(This creates however many new recommendations)
+					-->
 					<br>
 				</div>
 
-				<div id=<%="ex_recent_#{like.id}"%> class="ex_recent_row"
-					<%if @recently_watched[like] == 1 %>
-						style="background-color:green;"
-					<% elsif @recently_watched[like] == -1 %>
-						style="background-color:red;"
-					<% else %>
-						style="background-color:yellow;"
-					<% end %>	>
+				<div id=<%="ex_like_#{like.id}"%> class="ex_like_row">
 					Title: <%= like.title %>
 					<br>
 					<% if like.media_type == "series" %>
@@ -92,188 +260,7 @@
 				<br>
 			<% end %>
 		<% end %>
-	</div>
-</div>
 
-<div class="center_col">
-
-	<h3>Recommendations:</h3>
-	<div class="rec_wrapper">
-		<% @recs.each do |rec| %>
-
-			<div id=<%="#{rec.info.id}"%> class="rec_row">
-				Recommendation Points: <%= rec.user_points %>
-				<br>
-				Media Points: <%= rec.info.points %>
-				<br>
-				Title: <%= rec.info.title %>
-				<br>
-				<% if rec.info.media_type == "series" %>
-					Season: <%= rec.info.season %>
-					<br>
-				<% end %>
-				<%= rec.rec_by.count %>
-				<br>
-
-				<% case @current_user_likes[rec.info] %>
-					<% when 1 %>
-						<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-					<% when 0 %>
-						<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-					<% when -1 %>
-						<div class="icons"><%= image_tag 'red_circle.png' %></div>
-					<% else %>
-						<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-				<% end %>
-				<!-- if profile is not the current_user's -->
-				<% if rec.rec_by_user?(current_user.id) %>
-					<div class="icons"><%= image_tag 'blue_arrow.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_arrow.jpg' %></div>
-				<% end %>
-
-				<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-				<br>
-
-			</div>
-
-			<div id=<%="ex_rec_#{rec.info.id}"%> class="ex_rec_row">
-	<!-- 			# upvote button -->
-				Recommendation Points: <%= rec.user_points %>
-				<br>
-				Media Points: <%= rec.info.points %>
-				<br>
-				Title: <%= rec.info.title %>
-				<br>
-				<% if rec.info.media_type == "series" %>
-					Season: <%= rec.info.season %>
-					<br>
-				<% end %>
-				Year: <%= rec.info.year %>
-				<br>
-				Rated: <%= rec.info.rated %>
-				<br>
-				Released: <%= rec.info.released %>
-				<br>
-				Runtime: <%= rec.info.runtime %>
-				<br>
-				Genre: <%= rec.info.genre %>
-				<br>
-				<% if rec.info.media_type == "series" %>
-					Creator: <%= rec.info.writer %>
-					<br>
-				<% else %>
-					Director: <%= rec.info.director %>
-					<br>
-					Writer: <%= rec.info.writer %>
-					<br>
-				<% end %>
-				Actors: <%= rec.info.actors %>
-				<br>
-				Plot: <%= rec.info.plot %>
-				<br>
-				Poster: 
-				<br>
-				<img src="<%= rec.info.poster %>">
-				<br>
-				Recommended By: 
-				<br>
-				<% rec.rec_by.each do |user| %>
-					<%= user.email %>
-					<%= user.points %>
-				<% end %>
-	<!-- 			# opinion/seen button
-				#  -->
-			</div>
-			<br>
-		<% end %>
-	</div>
-</div>
-
-
-<div class="right_col">
-	<h3>Likes/Seen/Dislikes</h3>
-	<div class="seen_wrapper">
-
-<!-- 	<div class="seen_title">
-		<div class="title"><h3>Likes</h3></div>
-		<div class="title"><h3>Seen</h3></div>
-		<div class="title"><h3>Dislikes</h3></div>
-	</div>
-	<br>
--->
-
-		<% if @likes[1] %>
-			<h3>Likes:</h3>
-			<% if @likes[1] %>
-				<% @likes[1].each do |like| %>
-
-					<div id=<%="#{like.id}"%> class="like_row" style="background-color:green;">
-						Title: <%= like.title %>
-						<br>
-						<% if like.media_type == "series" %>
-							Season: <%= like.season %>
-							<br>
-						<% end %>
-						<% case @current_user_likes[like] %>
-							<% when 1 %>
-								<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-							<% when 0 %>
-								<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-							<% when -1 %>
-								<div class="icons"><%= image_tag 'red_circle.png' %></div>
-							<% else %>
-								<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-						<% end %>
-						<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-						<!-- open up a new window that contains current_user.friends
-										select which friends you'd like to recommend it to
-										press recommend button to confirm
-										(This creates however many new recommendations)
-						-->
-						<br>
-					</div>
-
-					<div id=<%="ex_like_#{like.id}"%> class="ex_like_row">
-						Title: <%= like.title %>
-						<br>
-						<% if like.media_type == "series" %>
-							Season: <%= like.season %>
-							<br>
-						<% end %>
-						Year: <%= like.year %>
-						<br>
-						Rated: <%= like.rated %>
-						<br>
-						Released: <%= like.released %>
-						<br>
-						Runtime: <%= like.runtime %>
-						<br>
-						Genre: <%= like.genre %>
-						<br>
-						<% if like.media_type == "series" %>
-							Creator: <%= like.writer %>
-							<br>
-						<% else %>
-							Director: <%= like.director %>
-							<br>
-							Writer: <%= like.writer %>
-							<br>
-						<% end %>
-						Actors: <%= like.actors %>
-						<br>
-						Plot: <%= like.plot %>
-						<br>
-						Poster: 
-						<br>
-						<img src="<%= like.poster %>">
-						<br>
-					</div>
-					<br>
-				<% end %>
-			<% end %>
-		<% end %>
-		
 		<% if @likes[0] %>
 			<h3>Seen:</h3>
 			<% @likes[0].each do |seen| %>
