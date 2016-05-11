@@ -24,12 +24,10 @@
 				<% else %>
 					style="background-color:yellow;"
 				<% end %>	>
-				Title: <%= like.title %>
+				Title: <%= like.show.title %>
 				<br>
-				<% if like.media_type == "series" %>
-					Season: <%= like.season %>
-					<br>
-				<% end %>
+				Season: <%= like.season_num %>
+				<br>
 				<%= like.created_at %>
 				<br>
 
@@ -61,38 +59,31 @@
 				<% else %>
 					style="background-color:yellow;"
 				<% end %>	>
-				Title: <%= like.title %>
+				Title: <%= like.show.title %>
 				<br>
-				<% if like.media_type == "series" %>
-					Season: <%= like.season %>
-					<br>
+				Season: <%= like.season_num %>
+				<br>
+				Year: <%= like.show.year %>
+				<br>
+				Rated: <%= like.show.rated %>
+				<br>
+				Released: <%= like.show.released %>
+				<br>
+				Runtime: <%= like.show.runtime %>
+				<br>
+				Tags: <% like.show.medium.tags.each do |tag| %>
+					<%= link_to tag.name,  tag_path(tag) %>
 				<% end %>
-				Year: <%= like.year %>
 				<br>
-				Rated: <%= like.rated %>
+				Creator: <%= like.show.creator %>
 				<br>
-				Released: <%= like.released %>
+				Actors: <%= like.show.actors %>
 				<br>
-				Runtime: <%= like.runtime %>
-				<br>
-				Genre: <%= like.genre %>
-				<br>
-				<% if like.media_type == "series" %>
-					Creator: <%= like.writer %>
-					<br>
-				<% else %>
-					Director: <%= like.director %>
-					<br>
-					Writer: <%= like.writer %>
-					<br>
-				<% end %>
-				Actors: <%= like.actors %>
-				<br>
-				Plot: <%= like.plot %>
+				Plot: <%= like.show.plot %>
 				<br>
 				Poster: 
 				<br>
-				<img src="<%= like.poster %>">
+				<img src="<%= like.show.poster %>">
 				<br>
 			</div>
 			<br>
@@ -199,17 +190,15 @@
 	<br>
 -->
 
+		<h3>Likes:</h3>
 		<% if @likes[1] %>
-			<h3>Likes:</h3>
 			<% @likes[1].each do |like| %>
 
 				<div id=<%="#{like.id}"%> class="like_row" style="background-color:green;">
-					Title: <%= like.title %>
+					Title: <%= like.show.title %>
 					<br>
-					<% if like.media_type == "series" %>
-						Season: <%= like.season %>
-						<br>
-					<% end %>
+					Season: <%= like.season_num %>
+					<br>
 					<% case @current_user_likes[like] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
@@ -230,55 +219,46 @@
 				</div>
 
 				<div id=<%="ex_like_#{like.id}"%> class="ex_like_row">
-					Title: <%= like.title %>
+					Title: <%= like.show.title %>
 					<br>
-					<% if like.media_type == "series" %>
-						Season: <%= like.season %>
-						<br>
+					Season: <%= like.season_num %>
+					<br>
+					Year: <%= like.show.year %>
+					<br>
+					Rated: <%= like.show.rated %>
+					<br>
+					Released: <%= like.show.released %>
+					<br>
+					Runtime: <%= like.show.runtime %>
+					<br>
+					Tags: <% like.show.medium.tags.each do |tag| %>
+						<%= link_to tag.name,  tag_path(tag) %>
 					<% end %>
-					Year: <%= like.year %>
 					<br>
-					Rated: <%= like.rated %>
+					Creator: <%= like.show.creator %>
 					<br>
-					Released: <%= like.released %>
+					Actors: <%= like.show.actors %>
 					<br>
-					Runtime: <%= like.runtime %>
-					<br>
-					Genre: <%= like.genre %>
-					<br>
-					<% if like.media_type == "series" %>
-						Creator: <%= like.writer %>
-						<br>
-					<% else %>
-						Director: <%= like.director %>
-						<br>
-						Writer: <%= like.writer %>
-						<br>
-					<% end %>
-					Actors: <%= like.actors %>
-					<br>
-					Plot: <%= like.plot %>
+					Plot: <%= like.show.plot %>
 					<br>
 					Poster: 
 					<br>
-					<img src="<%= like.poster %>">
+					<img src="<%= like.show.poster %>">
 					<br>
 				</div>
 				<br>
 			<% end %>
 		<% end %>
 
+		<h3>Seen:</h3>
 		<% if @likes[0] %>
-			<h3>Seen:</h3>
 			<% @likes[0].each do |seen| %>
 
 				<div id=<%="#{seen.id}"%> class="seen_row" style="background-color:yellow;">
-					Title: <%= seen.title %>
+					Title: <%= seen.show.title %>
 					<br>
-					<% if seen.media_type == "series" %>
-						Season: <%= seen.season %>
-						<br>
-					<% end %>
+					Season: <%= seen.season_num %>
+					<br>
 					<% case @current_user_likes[seen] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
@@ -299,55 +279,46 @@
 				</div>
 
 				<div id=<%="ex_seen_#{seen.id}"%> class="ex_seen_row">
-					Title: <%= seen.title %>
+					Title: <%= seen.show.title %>
 					<br>
-					<% if seen.media_type == "series" %>
-						Season: <%= seen.season %>
-						<br>
+					Season: <%= seen.season_num %>
+					<br>
+					Year: <%= seen.show.year %>
+					<br>
+					Rated: <%= seen.show.rated %>
+					<br>
+					Released: <%= seen.show.released %>
+					<br>
+					Runtime: <%= seen.show.runtime %>
+					<br>
+					Tags: <% seen.show.medium.tags.each do |tag| %>
+						<%= link_to tag.name,  tag_path(tag) %>
 					<% end %>
-					Year: <%= seen.year %>
 					<br>
-					Rated: <%= seen.rated %>
+					Creator: <%= seen.show.creator %>
 					<br>
-					Released: <%= seen.released %>
+					Actors: <%= seen.show.actors %>
 					<br>
-					Runtime: <%= seen.runtime %>
-					<br>
-					Genre: <%= seen.genre %>
-					<br>
-					<% if seen.media_type == "series" %>
-						Creator: <%= seen.writer %>
-						<br>
-					<% else %>
-						Director: <%= seen.director %>
-						<br>
-						Writer: <%= seen.writer %>
-						<br>
-					<% end %>
-					Actors: <%= seen.actors %>
-					<br>
-					Plot: <%= seen.plot %>
+					Plot: <%= seen.show.plot %>
 					<br>
 					Poster:
 					<br>
-					<img src="<%= seen.poster %>">
+					<img src="<%= seen.show.poster %>">
 					<br>
 				</div>
 				<br>
 			<% end %>
 		<% end %>
 
+		<h3>Dislikes:</h3>
 		<% if @likes[-1] %>
-			<h3>Dislikes:</h3>
 			<% @likes[-1].each do |dislike| %>
 
 				<div id=<%="#{dislike.id}"%> class="dislike_row" style="background-color:red;">
-					Title: <%= dislike.title %>
+					Title: <%= dislike.show.title %>
 					<br>
-					<% if dislike.media_type == "series" %>
-						Season: <%= dislike.season %>
-						<br>
-					<% end %>
+					Season: <%= dislike.season_num %>
+					<br>
 					<% case @current_user_likes[dislike] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
@@ -368,38 +339,31 @@
 				</div>
 
 				<div id=<%="ex_dislike_#{dislike.id}"%> class="ex_dislike_row">
-					Title: <%= dislike.title %>
+					Title: <%= dislike.show.title %>
 					<br>
-					<% if dislike.media_type == "series" %>
-						Season: <%= dislike.season %>
-						<br>
+					Season: <%= dislike.season_num %>
+					<br>
+					Year: <%= dislike.show.year %>
+					<br>
+					Rated: <%= dislike.show.rated %>
+					<br>
+					Released: <%= dislike.show.released %>
+					<br>
+					Runtime: <%= dislike.show.runtime %>
+					<br>
+					Tags: <% dislike.show.medium.tags.each do |tag| %>
+						<%= link_to tag.name,  tag_path(tag) %>
 					<% end %>
-					Year: <%= dislike.year %>
 					<br>
-					Rated: <%= dislike.rated %>
+					Creator: <%= dislike.show.creator %>
 					<br>
-					Released: <%= dislike.released %>
+					Actors: <%= dislike.show.actors %>
 					<br>
-					Runtime: <%= dislike.runtime %>
-					<br>
-					Genre: <%= dislike.genre %>
-					<br>
-					<% if dislike.media_type == "series" %>
-						Creator: <%= dislike.writer %>
-						<br>
-					<% else %>
-						Director: <%= dislike.director %>
-						<br>
-						Writer: <%= dislike.writer %>
-						<br>
-					<% end %>
-					Actors: <%= dislike.actors %>
-					<br>
-					Plot: <%= dislike.plot %>
+					Plot: <%= dislike.show.plot %>
 					<br>
 					Poster:
 					<br>
-					<img src="<%= dislike.poster %>">
+					<img src="<%= dislike.show.poster %>">
 					<br>
 				</div>
 				<br>

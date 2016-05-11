@@ -36,7 +36,7 @@ likes = Like.where(user_id: @user.id).group_by(&:value)
         when "movie"
           instance_likes[key] << Movie.where(medium_id: like.medium_id).first if like.medium.media_type == "Movie"
         when "series"
-          instance_likes[key] << Season.where(medium_id: like.medium_id).first if like.medium.media_type == "Show"
+          instance_likes[key] << Season.where(medium_id: like.medium_id).first if like.medium.media_type == "Season"
       end
     end
   end
@@ -66,7 +66,7 @@ def find_recently_watched(media_type ,instance_likes, num)
       when "movie"
         instance_likes[Movie.where(medium_id: like.medium_id).first] = like.value if like.medium.media_type == "Movie"
       when "series"
-        instance_likes[Season.where(medium_id: like.medium_id).first] = like.value if like.medium.media_type == "Show"
+        instance_likes[Season.where(medium_id: like.medium_id).first] = like.value if like.medium.media_type == "Season"
     end
   end
 end
