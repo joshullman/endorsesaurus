@@ -1,6 +1,6 @@
 <div class ="secondary-navbar-class">
   <ul class="secondary-navbar-nav">
-  	<li><%= link_to @user.email, user_path(@user) %></li>
+  	<li><%= link_to "#{@user.email}'s Profile", user_path(@user) %></li>
   	<li><%= link_to "#{@user.email}'s Movies", movies_user_path(@user) %></li>
     <li><%= link_to "#{@user.email}'s Shows", shows_user_path(@user) %></li>
   </ul>
@@ -11,7 +11,7 @@
 		<h2><%= @user.email %></h2>
 		<h2>My Points: <%= @user.points %></h2>
 	</div>
-	<h3>Recent Activity:</h3>
+	<h3>Recent Movie Activity:</h3>
 
 	<div class="recent_wrapper">
 		<% @recently_watched.each_key do |like| %>
@@ -29,7 +29,7 @@
 				<%= like.created_at %>
 				<br>
 
-				<% case @current_user_likes[like] %>
+				<% case @current_user_likes[like.medium.id] %>
 					<% when 1 %>
 						<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 					<% when 0 %>
@@ -89,7 +89,7 @@
 
 <div class="center_col">
 
-	<h3>Recommendations:</h3>
+	<h3>Movie Recommendations:</h3>
 	<div class="rec_wrapper">
 		<% @recs.each do |rec| %>
 
@@ -103,7 +103,7 @@
 				<%= rec.rec_by.count %>
 				<br>
 
-				<% case @current_user_likes[rec.info] %>
+				<% case @current_user_likes[rec.info.medium.id] %>
 					<% when 1 %>
 						<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 					<% when 0 %>
@@ -171,7 +171,7 @@
 
 
 <div class="right_col">
-	<h3>Likes/Seen/Dislikes</h3>
+	<h3>Movie Likes/Seen/Dislikes</h3>
 	<div class="seen_wrapper">
 
 <!-- 	<div class="seen_title">
@@ -189,7 +189,7 @@
 				<div id=<%="#{like.id}"%> class="like_row" style="background-color:green;">
 					Title: <%= like.title %>
 					<br>
-					<% case @current_user_likes[like] %>
+					<% case @current_user_likes[like.medium.id] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 						<% when 0 %>
@@ -245,7 +245,7 @@
 				<div id=<%="#{seen.id}"%> class="seen_row" style="background-color:yellow;">
 					Title: <%= seen.title %>
 					<br>
-					<% case @current_user_likes[seen] %>
+					<% case @current_user_likes[seen.medium.id] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 						<% when 0 %>
@@ -301,7 +301,7 @@
 				<div id=<%="#{dislike.id}"%> class="dislike_row" style="background-color:red;">
 					Title: <%= dislike.title %>
 					<br>
-					<% case @current_user_likes[dislike] %>
+					<% case @current_user_likes[dislike.medium.id] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 						<% when 0 %>

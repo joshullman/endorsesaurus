@@ -34,9 +34,9 @@ likes = Like.where(user_id: @user.id).group_by(&:value)
     likes[key].each do |like|
       case media_type
         when "movie"
-          instance_likes[key] << Movie.where(medium_id: like.medium_id).first if like.medium.media_type == "Movie"
+          instance_likes[key] << like.find_associated_media if like.medium.media_type == "Movie"
         when "series"
-          instance_likes[key] << Season.where(medium_id: like.medium_id).first if like.medium.media_type == "Season"
+          instance_likes[key] << like.find_associated_media if like.medium.media_type == "Season"
       end
     end
   end
@@ -58,15 +58,15 @@ def find_recommendations(media_type, instance_recs)
   instance_recs.sort_by! {|rec| rec.user_points}.reverse!
 end
 
-def find_recently_watched(media_type ,instance_likes, num)
+def find_recently_watched(media_type, instance_likes, num)
   recents = Like.where(user_id: @user.id).last(num).reverse
 
   recents.each do |like|
     case media_type
       when "movie"
-        instance_likes[Movie.where(medium_id: like.medium_id).first] = like.value if like.medium.media_type == "Movie"
+        instance_likes[like.find_associated_media] = like.value if like.medium.media_type == "Movie"
       when "series"
-        instance_likes[Season.where(medium_id: like.medium_id).first] = like.value if like.medium.media_type == "Season"
+        instance_likes[like.find_associated_media] = like.value if like.medium.media_type == "Season"
     end
   end
 end
@@ -74,7 +74,24 @@ end
 def current_user_likes(instance_likes)
   current_user_likes = Like.where(user_id: current_user.id)
   current_user_likes.each do |like|
-    instance_likes[Medium.find(like.medium_id)] = like.value
+    instance_likes[Medium.find(like.medium_id).id] = like.value
+  end
+end
+
+def recent_activity(instance_activity)
+  activity = []
+  activity << @user.likes
+  activity << @user.sent_recs
+  activity << @user.received_recs
+  activity.flatten!.sort_by! {|record| record.created_at}
+  activity.each do |record|
+    if record.has_attribute?(:value)
+      instance_activity[record] = "Like"
+    elsif record.sender_id == @user.id
+      instance_activity[record] = "Recommended To"
+    else
+      instance_activity[record] = "Recommended From"      
+    end
   end
 end
 
@@ -93,6 +110,9 @@ def do_even_more_stuff(media_type)
   #current_user information
   @current_user_likes = {}
   current_user_likes(@current_user_likes)
+
+  @recent_activity = {}
+  recent_activity(@recent_activity)
 end
 
 class UserController < ApplicationController

@@ -1,6 +1,6 @@
 <div class ="secondary-navbar-class">
   <ul class="secondary-navbar-nav">
-  	<li><%= link_to @user.email, user_path(@user) %></li>
+  	<li><%= link_to "#{@user.email}'s Profile", user_path(@user) %></li>
   	<li><%= link_to "#{@user.email}'s Movies", movies_user_path(@user) %></li>
     <li><%= link_to "#{@user.email}'s Shows", shows_user_path(@user) %></li>
   </ul>
@@ -11,7 +11,7 @@
 		<h2><%= @user.email %></h2>
 		<h2>My Points: <%= @user.points %></h2>
 	</div>
-	<h3>Recent Activity:</h3>
+	<h3>Recent Show Activity:</h3>
 
 	<div class="recent_wrapper">
 		<% @recently_watched.each_key do |like| %>
@@ -93,7 +93,7 @@
 
 <div class="center_col">
 
-	<h3>Recommendations:</h3>
+	<h3>Show Recommendations:</h3>
 	<div class="rec_wrapper">
 		<% @recs.each do |rec| %>
 
@@ -179,7 +179,7 @@
 
 
 <div class="right_col">
-	<h3>Likes/Seen/Dislikes</h3>
+	<h3>Show Likes/Seen/Dislikes</h3>
 	<div class="seen_wrapper">
 
 <!-- 	<div class="seen_title">
