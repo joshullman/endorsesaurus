@@ -194,7 +194,7 @@ end
 	if Like.where(user_id: receiver, medium_id: media).first == nil
 		Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media)
 		med = Medium.find(media)
-		med.recommendation_count = med.recommendation_count + 1
+		med.recommended_count = med.recommended_count + 1
 		med.save
 	end
 end

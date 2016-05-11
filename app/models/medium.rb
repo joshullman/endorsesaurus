@@ -42,7 +42,7 @@ class Medium < ActiveRecord::Base
 		recs = self.recommendations.where(sender_id: user_id)
 		users = []
 		recs.each do |rec|
-			users << rec.reciever
+			users << rec.receiver
 		end
 		users
 	end

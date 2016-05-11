@@ -27,13 +27,13 @@ ActiveRecord::Schema.define(version: 20160508201941) do
   create_table "media", force: :cascade do |t|
     t.string   "media_type"
     t.integer  "related_id"
-    t.integer  "recommendation_count", default: 0
-    t.integer  "watched_count",        default: 0
-    t.integer  "liked_count",          default: 0
-    t.integer  "seen_count",           default: 0
-    t.integer  "disliked_count",       default: 0
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.integer  "recommended_count", default: 0
+    t.integer  "watched_count",     default: 0
+    t.integer  "liked_count",       default: 0
+    t.integer  "seen_count",        default: 0
+    t.integer  "disliked_count",    default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "media_tags", force: :cascade do |t|
