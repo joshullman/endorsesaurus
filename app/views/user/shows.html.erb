@@ -30,8 +30,7 @@
 				<br>
 				<%= like.created_at %>
 				<br>
-
-				<% case @current_user_likes[like] %>
+				<% case @current_user_likes[like.medium_id] %>
 					<% when 1 %>
 						<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 					<% when 0 %>
@@ -109,15 +108,35 @@
 				<%= rec.rec_by.count %>
 				<br>
 
-				<% case @current_user_likes[rec.info] %>
+				<% case @current_user_likes[rec.info.medium_id] %>
 					<% when 1 %>
 						<div class="icons"><%= image_tag 'green_circle.svg' %></div>
+						<div class="icon_slider">
+							<!-- <div class="icons"><%= link_to image_tag 'white_circle', likes_path(like_id: Like.where(user_id: @current_user.id).where(medium_id: rec.info.medium_id).first.id), user: @current_user, :method => :post %></div> -->
+							<!-- <div class="icons"><%= link_to image_tag 'yellow_circle.png', likes_path(like_id: Like.where(user_id: @current_user.id, medium_id: rec.info.medium_id).first.id), user: @current_user, :method => :post %> %></div> -->
+							<div class="icons"><%= link_to image_tag 'red_circle.png', {action: 'create', controller: 'like'} %></div>
+						</div>
 					<% when 0 %>
 						<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
+						<div class="icon_slider">
+							<!-- <div class="icons"><%= link_to image_tag 'white_circle', likes_path(like_id: Like.where(user_id: @current_user.id).where(medium_id: rec.info.medium_id).first.id), user: @current_user, method: :post %></div> -->
+							<div class="icons"><%= link_to image_tag 'green_circle.svg', {action: 'create', controller: 'like'} %></div>
+							<div class="icons"><%= link_to image_tag 'red_circle.png', {action: 'create', controller: 'like'} %></div>
+						</div>
 					<% when -1 %>
 						<div class="icons"><%= image_tag 'red_circle.png' %></div>
+						<div class="icon_slider">
+							<!-- <div class="icons"><%= link_to image_tag 'white_circle', likes_path(like_id: Like.where(user_id: @current_user.id).where(medium_id: rec.info.medium_id).first.id), user: @current_user, method: :post %></div> -->
+							<div class="icons"><%= link_to image_tag 'green_circle.svg', {action: 'create', controller: 'like'} %></div>
+							<div class="icons"><%= link_to image_tag 'yellow_circle.png', {action: 'create', controller: 'like'} %></div>
+						</div>
 					<% else %>
 						<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
+						<div class="icon_slider">
+							<div class="icons"><%= link_to image_tag 'green_circle.svg', {action: 'create', controller: 'like'} %></div>
+							<div class="icons"><%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: @user.id, like: rec.info.medium_id}, :method => :post %></div>
+							<div class="icons"><%= link_to image_tag 'red_circle.png', {action: 'create', controller: 'like'} %></div>
+						</div>
 				<% end %>
 				<!-- if profile is not the current_user's -->
 				<% if rec.rec_by_user?(current_user.id) %>
@@ -199,7 +218,7 @@
 					<br>
 					Season: <%= like.season_num %>
 					<br>
-					<% case @current_user_likes[like] %>
+					<% case @current_user_likes[like.medium_id] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 						<% when 0 %>
@@ -259,7 +278,7 @@
 					<br>
 					Season: <%= seen.season_num %>
 					<br>
-					<% case @current_user_likes[seen] %>
+					<% case @current_user_likes[seen.medium_id] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 						<% when 0 %>
@@ -319,7 +338,7 @@
 					<br>
 					Season: <%= dislike.season_num %>
 					<br>
-					<% case @current_user_likes[dislike] %>
+					<% case @current_user_likes[dislike.medium_id] %>
 						<% when 1 %>
 							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
 						<% when 0 %>

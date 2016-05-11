@@ -3,7 +3,7 @@
 # Next, you need to add points to the user's profile.
 
 
-class LikeController < ApplicationController
+class LikesController < ApplicationController
 	before_action :find_likes, only: [:show, :edit, :update, :destroy]
 
 	def new
@@ -11,33 +11,45 @@ class LikeController < ApplicationController
   end
 
   def create
-    @like = Like.new(params[:like])
-    # user gets his or her points anyway for participating and watching media
-    current_user.points = current_user.points + Media.find(@like.media_id).first.points
-  	# find recommendations that may have existed
-  	recommendations = Recommendation.where(receiver_id: current_user.id, media_id: @like.media_id)
-    if recommendations
-    	if @like.value == 1
-    		recommendations.each do |rec|
-    			user = User.find(rec.sender)
-    			user.points = user.points + Media.find(@like.media_id).first.points
-    			user.save
-    		end
-    	elsif @like.value == -1
-    		recommendations.each do |rec|
-    			user = User.find(rec.sender)
-    			user.points = user.points - Media.find(@like.media_id).first.points
-    			user.points = 1 if user.points < 0
-    			user.save
-    		end
-    	end
-    end
+  	p "**********************"
+  	p "I got here!!!!!"
+  	p "**********************"
+  	p params
+  	user = User.find(params[:user])
+  	medium = Medium.find(params[:like])
+   #  @like = Like.new(params[:like])
+   #  # user gets his or her points anyway for participating and watching media
+   #  current_user.points = current_user.points + Media.find(@like.media_id).first.points
+  	# # find recommendations that may have existed
+  	# recommendations = Recommendation.where(receiver_id: current_user.id, media_id: @like.media_id)
+   #  if recommendations
+   #  	if @like.value == 1
+   #  		recommendations.each do |rec|
+   #  			user = User.find(rec.sender)
+   #  			user.points = user.points + Media.find(@like.media_id).first.points
+   #  			user.save
+   #  		end
+   #  	elsif @like.value == -1
+   #  		recommendations.each do |rec|
+   #  			user = User.find(rec.sender)
+   #  			user.points = user.points - Media.find(@like.media_id).first.points
+   #  			user.points = 1 if user.points < 0
+   #  			user.save
+   #  		end
+   #  	end
+   # end
 
 
-    if @like.save
-      redirect_to @like, notice: 'Like was successfully created.'
-    else
-      render action: "new"
+    # if @like.save
+    #   redirect_to @user
+    # else
+    #   render action: "new"
+    # end
+    case medium.media_type
+	    when "Movie"
+	    	redirect_to movies_user_path(user)
+	    when "Season"
+	    	redirect_to shows_user_path(user)
     end
   end
 

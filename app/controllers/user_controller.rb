@@ -9,7 +9,7 @@ class Rec
 	end
 
 	def push_reccommenders
-		@rec_array.each {|rec| @rec_by << User.find(rec.sender)}
+		@rec_array.each {|rec| @rec_by << rec.sender}
 	end
 
 	def determine_user_points
