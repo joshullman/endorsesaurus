@@ -1,3 +1,10 @@
+<div class ="secondary-navbar-class">
+  <ul class="secondary-navbar-nav">
+  	<li><%= link_to @user.email, user_path(@user) %></li>
+  	<li><%= link_to "#{@user.email}'s Movies", movies_user_path(@user) %></li>
+    <li><%= link_to "#{@user.email}'s Shows", shows_user_path(@user) %></li>
+  </ul>
+</div>
 <div class="left_col">
 	<div class="photo"><%= image_tag 'profile.jpg' %></div>
 	<div class=profile_info>
