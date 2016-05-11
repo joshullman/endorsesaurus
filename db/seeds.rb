@@ -164,14 +164,22 @@ end
 		media = rand(48) + 1
 		value = rand(3) - 1
 	end
-	p user
-	p media
-	p value
 	Like.create(user_id: user, medium_id: media, value: value)
-	u = User.find(user)
 	med = Medium.find(media)
+	med.watched_count = med.watched_count + 1
+	case value
+		when 1
+			med.liked_count = med.liked_count + 1
+		when 0
+			med.seen_count = med.seen_count + 1
+		when -1
+			med.disliked_count = med.disliked_count + 1
+	end
+		
+	u = User.find(user)
 	u.points = u.points + med.find_associated_media.points
 	u.save
+	med.save
 end
 
 128.times do 
@@ -185,6 +193,8 @@ end
 	end
 	if Like.where(user_id: receiver, medium_id: media).first == nil
 		Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media)
+		med = Medium.find(media)
+		med.recommendation_count = med.recommendation_count + 1
+		med.save
 	end
 end
-
