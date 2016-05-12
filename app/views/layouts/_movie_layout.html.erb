@@ -1,9 +1,9 @@
 <div id=<%="#{placeholder.id}"%> class="recent_row"
-	<%if current_user_likes[placeholder.medium_id] == 1 %>
+	<%if user_likes[placeholder.medium_id] == 1 %>
 		style="background-color:green;"
-	<% elsif current_user_likes[placeholder.medium_id] == -1 %>
+	<% elsif user_likes[placeholder.medium_id] == -1 %>
 		style="background-color:red;"
-	<% elsif current_user_likes[placeholder.medium_id] == 0 %>
+	<% elsif user_likes[placeholder.medium_id] == 0 %>
 		style="background-color:yellow;"
 	<% end %>	>
 	Title: <%= link_to placeholder.title, movie_path(placeholder) %>

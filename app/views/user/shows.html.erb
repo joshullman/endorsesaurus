@@ -15,7 +15,7 @@
 
 	<div class="recent_wrapper">
 		<% @recently_watched.each_key do |like| %>
-			<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: true } %>	
+			<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: true } %>	
 			<br>
 		<% end %>
 	</div>
@@ -39,7 +39,7 @@
 		<h3>Likes:</h3>
 		<% if @likes[1] %>
 			<% @likes[1].each do |like| %>
-				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: false } %>	
+				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: false } %>	
 				<br>
 			<% end %>
 		<% end %>
@@ -47,7 +47,7 @@
 		<h3>Seen:</h3>
 		<% if @likes[0] %>
 			<% @likes[0].each do |seen| %>
-				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, recent: false } %>	
+				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, recent: false } %>	
 					<br>
 			<% end %>
 		<% end %>
@@ -55,7 +55,7 @@
 		<h3>Dislikes:</h3>
 		<% if @likes[-1] %>
 			<% @likes[-1].each do |dislike| %>
-				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, recent: false } %>	
+				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, recent: false } %>	
 				<br>
 			<% end %>
 		<% end %>

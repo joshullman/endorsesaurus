@@ -78,6 +78,13 @@ def current_user_likes(instance_likes)
   end
 end
 
+def user_likes(instance_likes, user)
+  user_likes = Like.where(user_id: user.id)
+  user_likes.each do |like|
+    instance_likes[Medium.find(like.medium_id).id] = like.value
+  end
+end
+
 def recent_activity(instance_activity)
   activity = []
   activity << @user.likes
@@ -103,13 +110,15 @@ def do_even_more_stuff(media_type)
   # finding the media assosciated with Likes
   @likes = {}
   organize_likes(media_type, @likes)
-
   # finding recently watched
   @recently_watched = {}
   find_recently_watched(media_type, @recently_watched, 5)
   #current_user information
   @current_user_likes = {}
   current_user_likes(@current_user_likes)
+  
+  @user_likes = {}
+  user_likes(@user_likes, @user)
 
   @recent_activity = {}
   recent_activity(@recent_activity)
