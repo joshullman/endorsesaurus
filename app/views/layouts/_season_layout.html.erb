@@ -1,9 +1,9 @@
 <div id=<%="#{placeholder.id}"%> class="recent_row"
-	<%if recently_watched[placeholder] == 1 %>
+	<%if current_user_likes[placeholder.medium_id] == 1 %>
 		style="background-color:green;"
-	<% elsif recently_watched[placeholder] == -1 %>
+	<% elsif current_user_likes[placeholder.medium_id] == -1 %>
 		style="background-color:red;"
-	<% else %>
+	<% elsif current_user_likes[placeholder.medium_id] == 0 %>
 		style="background-color:yellow;"
 	<% end %>	>
 	Title: <%= link_to placeholder.show.title, show_path(placeholder.show) %>
