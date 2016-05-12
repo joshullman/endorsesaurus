@@ -83,7 +83,7 @@ def recent_activity(instance_activity)
   activity << @user.likes
   activity << @user.sent_recs
   activity << @user.received_recs
-  activity.flatten!.sort_by! {|record| record.created_at}
+  activity.flatten!.sort_by! {|record| record.created_at}.reverse!
   activity.each do |record|
     if record.has_attribute?(:value)
       instance_activity[record] = "Like"

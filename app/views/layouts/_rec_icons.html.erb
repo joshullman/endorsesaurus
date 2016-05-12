@@ -4,9 +4,9 @@
 			<li class="icons current_icon">
 				<%= image_tag 'green_circle.svg' %>
 				<ul class="icon_slider">
-					<li class="icons"><%= link_to image_tag('white_circle'), {action: 'destroy', controller: 'likes', user: user.id, like: rec.info.medium_id}, :method => :post %></li>
-					<li class="icons"><%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 0}, :method => :post %></li>
-					<li class="icons"><%= link_to image_tag('red_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: -1}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('white_circle'), {action: 'destroy', controller: 'likes', user: user.id, like: rec.info.medium_id, is_recommendation: true}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 0, is_recommendation: true}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('red_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: -1, is_recommendation: true}, :method => :post %></li>
 				</ul>
 				<%= image_tag 'blue_r.jpg' %>
 			</li>
@@ -16,9 +16,9 @@
 			<li class="icons current_icon">
 				<%= image_tag 'yellow_circle.png' %>
 				<ul class="icon_slider">
-					<li class="icons"><%= link_to image_tag('white_circle'), {action: 'destroy', controller: 'likes', user: user.id, like: rec.info.medium_id}, :method => :post %></li>
-					<li class="icons"><%= link_to image_tag('green_circle.svg'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 1}, :method => :post %></li>
-					<li class="icons"><%= link_to image_tag('red_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: -1}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('white_circle'), {action: 'destroy', controller: 'likes', user: user.id, like: rec.info.medium_id, is_recommendation: true}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('green_circle.svg'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 1, is_recommendation: true}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('red_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: -1, is_recommendation: true}, :method => :post %></li>
 				</ul>
 				<%= image_tag 'blue_r.jpg' %>
 			</li>
@@ -28,9 +28,9 @@
 			<li class="icons current_icon">
 				<%= image_tag 'red_circle.png' %>
 				<ul class="icon_slider">
-					<li class="icons"><%= link_to image_tag('white_circle'), {action: 'destroy', controller: 'likes', user: user.id, like: rec.info.medium_id}, :method => :post %></li>
-					<li class="icons"><%= link_to image_tag('green_circle.svg'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 1}, :method => :post %></li>
-					<li class="icons"><%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 0}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('white_circle'), {action: 'destroy', controller: 'likes', user: user.id, like: rec.info.medium_id, is_recommendation: true}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('green_circle.svg'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 1, is_recommendation: true}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 0, is_recommendation: true}, :method => :post %></li>
 				</ul>
 				<%= image_tag 'blue_r.jpg' %>
 			</li>
@@ -40,9 +40,9 @@
 			<li class="icons current_icon">
 				<%= image_tag 'white_circle.jpeg' %>
 				<ul class="icon_slider">
-					<li class="icons"><%= link_to image_tag('green_circle.svg'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 1}, :method => :post %></li>
-					<li class="icons"><%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 0}, :method => :post %></li>
-					<li class="icons"><%= link_to image_tag('red_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: -1}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('green_circle.svg'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 1, is_recommendation: true}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: 0, is_recommendation: true}, :method => :post %></li>
+					<li class="icons"><%= link_to image_tag('red_circle.png'), {action: 'create', controller: 'likes', user: user.id, like: rec.info.medium_id, value: -1, is_recommendation: true}, :method => :post %></li>
 				</ul>
 				<%= image_tag 'blue_r.jpg' %>
 			</li>

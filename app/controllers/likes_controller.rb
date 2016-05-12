@@ -6,45 +6,69 @@
 class LikesController < ApplicationController
 	before_action :find_likes, only: [:show, :edit, :update, :destroy]
 
-	def new
-    @like = Like.new
-  end
-
   def create
-  	p "**********************"
-  	p "I got here!!!!!"
-  	p "**********************"
-  	p params
   	user = User.find(params[:user])
   	medium = Medium.find(params[:like])
-   #  @like = Like.new(params[:like])
-   #  # user gets his or her points anyway for participating and watching media
-   #  current_user.points = current_user.points + Media.find(@like.media_id).first.points
-  	# # find recommendations that may have existed
-  	# recommendations = Recommendation.where(receiver_id: current_user.id, media_id: @like.media_id)
-   #  if recommendations
-   #  	if @like.value == 1
-   #  		recommendations.each do |rec|
-   #  			user = User.find(rec.sender)
-   #  			user.points = user.points + Media.find(@like.media_id).first.points
-   #  			user.save
-   #  		end
-   #  	elsif @like.value == -1
-   #  		recommendations.each do |rec|
-   #  			user = User.find(rec.sender)
-   #  			user.points = user.points - Media.find(@like.media_id).first.points
-   #  			user.points = 1 if user.points < 0
-   #  			user.save
-   #  		end
-   #  	end
-   # end
+    value = Integer(params[:value])
+    is_recommendation = params[:is_recommendation]
+    is_current_user = true
+    is_current_user = false if current_user.id != user.id
 
+    like = Like.where(user_id: current_user.id, medium_id: medium.id)
+    if !like.empty?
+      like.first.value = value
+      like.first.save
+    elsif like.empty? && is_current_user && is_recommendation
+      Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
+      curr = User.find(current_user.id)
+      curr.points = curr.points + medium.find_associated_media.points
+      curr.save
+      recommendations = Recommendation.where(receiver_id: current_user.id, medium_id: medium.id)
+      p "**********************"
+      p recommendations
+      p "**********************"
+      p !recommendations.empty? && value == 1
+      p "**********************"
+      p !recommendations.empty?
+      p "**********************"
+      p value
+      p "**********************"
+      if !recommendations.empty? && value == 1
+        recommendations.map do |rec|
+          sender = rec.sender
+          sender.points = sender.points + medium.find_associated_media.points
+          sender.save
+          p "**********************"
+          p rec
+          p "**********************"
+          Recommendation.find(rec.id).destroy
+          p "**********************"
+          p rec
+          p "**********************"
+        end
+      elsif !recommendations.empty? && value == -1
+        recommendations.map do |rec|
+          sender = rec.sender
+          sender.points = sender.points - medium.find_associated_media.points
+          sender.points = 1 if sender.points <= 0
+          sender.save
+          Recommendation.find(rec.id).destroy
+          p "**********************"
+          p rec
+          p "**********************"
+        end
+      elsif !recommendations.empty? && value == 0
+        recommendations.map do |rec|
+        Recommendation.find(rec.id).destroy
+        end
+      end
+    elsif like.empty? && !is_current_user
+      Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
+      curr = User.find(current_user.id)
+      curr.points = curr.points + medium.find_associated_media.points
+      curr.save
+    end
 
-    # if @like.save
-    #   redirect_to @user
-    # else
-    #   render action: "new"
-    # end
     case medium.media_type
 	    when "Movie"
 	    	redirect_to movies_user_path(user)
