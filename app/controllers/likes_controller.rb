@@ -24,27 +24,12 @@ class LikesController < ApplicationController
       curr.points = curr.points + medium.find_associated_media.points
       curr.save
       recommendations = Recommendation.where(receiver_id: current_user.id, medium_id: medium.id)
-      p "**********************"
-      p recommendations
-      p "**********************"
-      p !recommendations.empty? && value == 1
-      p "**********************"
-      p !recommendations.empty?
-      p "**********************"
-      p value
-      p "**********************"
       if !recommendations.empty? && value == 1
         recommendations.map do |rec|
           sender = rec.sender
           sender.points = sender.points + medium.find_associated_media.points
           sender.save
-          p "**********************"
-          p rec
-          p "**********************"
           Recommendation.find(rec.id).destroy
-          p "**********************"
-          p rec
-          p "**********************"
         end
       elsif !recommendations.empty? && value == -1
         recommendations.map do |rec|
@@ -53,9 +38,6 @@ class LikesController < ApplicationController
           sender.points = 1 if sender.points <= 0
           sender.save
           Recommendation.find(rec.id).destroy
-          p "**********************"
-          p rec
-          p "**********************"
         end
       elsif !recommendations.empty? && value == 0
         recommendations.map do |rec|
