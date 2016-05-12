@@ -1,0 +1,17 @@
+<div id=<%="#{placeholder.id}"%> class="recent_row"
+	<%if recently_watched[placeholder] == 1 %>
+		style="background-color:green;"
+	<% elsif recently_watched[placeholder] == -1 %>
+		style="background-color:red;"
+	<% else %>
+		style="background-color:yellow;"
+	<% end %>	>
+	Title: <%= placeholder.show.title %>
+	<br>
+	Season: <%= placeholder.season_num %>
+	<br>
+	<%= placeholder.created_at %>
+	<br>
+	<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>				
+	<br>
+</div>

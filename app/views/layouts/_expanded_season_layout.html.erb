@@ -1,0 +1,37 @@
+<div id=<%="ex_recent_#{placeholder.id}"%> class="ex_recent_row"
+	<%if recently_watched[placeholder] == 1 %>
+		style="background-color:green;"
+	<% elsif recently_watched[placeholder] == -1 %>
+		style="background-color:red;"
+	<% else %>
+		style="background-color:yellow;"
+	<% end %>	>
+	Title: <%= placeholder.show.title %>
+	<br>
+	Season: <%= placeholder.season_num %>
+	<br>
+	Year: <%= placeholder.show.year %>
+	<br>
+	Rated: <%= placeholder.show.rated %>
+	<br>
+	Released: <%= placeholder.show.released %>
+	<br>
+	Runtime: <%= placeholder.show.runtime %>
+	<br>
+	Tags: <% placeholder.show.medium.tags.each do |tag| %>
+		<%= link_to tag.name,  tag_path(tag) %>
+	<% end %>
+	<br>
+	Creator: <%= placeholder.show.creator %>
+	<br>
+	Actors: <%= placeholder.show.actors %>
+	<br>
+	Plot: <%= placeholder.show.plot %>
+	<br>
+	Poster: 
+	<br>
+	<img class="poster" src="<%= placeholder.show.poster %>">
+	<br>
+	<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>	
+	<br>	
+</div>
