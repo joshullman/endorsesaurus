@@ -1,1 +1,15 @@
-_movie_layout.html.erb
+<div id=<%="#{placeholder.id}"%> class="recent_row"
+	<%if recently_watched[placeholder] == 1 %>
+		style="background-color:green;"
+	<% elsif recently_watched[placeholder] == -1 %>
+		style="background-color:red;"
+	<% else %>
+		style="background-color:yellow;"
+	<% end %>	>
+	Title: <%= link_to placeholder.title, movie_path(placeholder) %>
+	<br>
+	<%= placeholder.created_at if recent %>
+	<br>
+	<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>				
+	<br>
+</div>

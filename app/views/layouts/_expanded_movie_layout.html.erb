@@ -1,1 +1,35 @@
-_expanded_movie_layout.html.erb
+<div id=<%="ex_recent_#{placeholder.id}"%> class="ex_recent_row"
+	<%if recently_watched[placeholder] == 1 %>
+		style="background-color:green;"
+	<% elsif recently_watched[placeholder] == -1 %>
+		style="background-color:red;"
+	<% else %>
+		style="background-color:yellow;"
+	<% end %>	>
+	Title: <%= placeholder.title %>
+	<br>
+	Year: <%= placeholder.year %>
+	<br>
+	Rated: <%= placeholder.rated %>
+	<br>
+	Released: <%= placeholder.released %>
+	<br>
+	Runtime: <%= placeholder.runtime %>
+	<br>
+	Genre: <%= placeholder.genre %>
+	<br>
+	Director: <%= placeholder.director %>
+	<br>
+	Writer: <%= placeholder.writer %>
+	<br>
+	Actors: <%= placeholder.actors %>
+	<br>
+	Plot: <%= placeholder.plot %>
+	<br>
+	Poster: 
+	<br>
+	<img src="<%= placeholder.poster %>">
+	<br>
+	<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+	<br>
+</div>

@@ -6,11 +6,11 @@
 	<% else %>
 		style="background-color:yellow;"
 	<% end %>	>
-	Title: <%= placeholder.show.title %>
+	Title: <%= link_to placeholder.show.title, show_path(placeholder.show) %>
 	<br>
 	Season: <%= placeholder.season_num %>
 	<br>
-	<%= placeholder.created_at %>
+	<%= placeholder.created_at if recent %>
 	<br>
 	<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>				
 	<br>

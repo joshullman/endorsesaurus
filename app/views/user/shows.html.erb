@@ -15,77 +15,17 @@
 
 	<div class="recent_wrapper">
 		<% @recently_watched.each_key do |like| %>
-
-		<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user } %>	
-
+			<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: true } %>	
 			<br>
 		<% end %>
 	</div>
 </div>
 
 <div class="center_col">
-
 	<h3>Show Recommendations:</h3>
 	<div class="rec_wrapper">
 		<% @recs.each do |rec| %>
-
-			<div id=<%="#{rec.info.id}"%> class="rec_row">
-				Recommendation Points: <%= rec.user_points %>
-				<br>
-				Media Points: <%= rec.info.points %>
-				<br>
-				Title: <%= rec.info.show.title %>
-				<br>
-				Season: <%= rec.info.season_num %>
-				<br>
-				<%= rec.rec_by.count %>
-				<br>
-				<%= render partial: 'layouts/rec_icons', locals: { user: @user, current_user_likes: @current_user_likes, rec: rec, current_user: current_user } %>
-				<br>
-
-			</div>
-
-			<div id=<%="ex_rec_#{rec.info.id}"%> class="ex_rec_row">
-	<!-- 			# upvote button -->
-				Recommendation Points: <%= rec.user_points %>
-				<br>
-				Media Points: <%= rec.info.points %>
-				<br>
-				Title: <%= rec.info.show.title %>
-				<br>
-				Season: <%= rec.info.season_num %>
-				<br>
-				Year: <%= rec.info.show.year %>
-				<br>
-				Rated: <%= rec.info.show.rated %>
-				<br>
-				Released: <%= rec.info.show.released %>
-				<br>
-				Runtime: <%= rec.info.show.runtime %>
-				<br>
-				Tags: <% rec.info.show.medium.tags.each do |tag| %>
-					<%= link_to tag.name,  tag_path(tag) %>
-				<% end %>
-				<br>
-				Creator: <%= rec.info.show.creator %>
-				<br>
-				Actors: <%= rec.info.show.actors %>
-				<br>
-				Plot: <%= rec.info.show.plot %>
-				<br>
-				Poster: 
-				<br>
-				<img class="poster" src="<%= rec.info.show.poster %>">
-				<br>
-				Recommended By: 
-				<br>
-				<% rec.rec_by.each do |user| %>
-					<%= user.email %>
-					<%= user.points %>
-				<% end %>
-	<!-- 			# opinion/seen button
-				#  -->
-			</div>
+			<%= render partial: 'layouts/recommended_show_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: rec, current_user: current_user } %>
 			<br>
 		<% end %>
 	</div>
@@ -99,7 +39,7 @@
 		<h3>Likes:</h3>
 		<% if @likes[1] %>
 			<% @likes[1].each do |like| %>
-				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user } %>	
+				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: false } %>	
 				<br>
 			<% end %>
 		<% end %>
@@ -107,7 +47,7 @@
 		<h3>Seen:</h3>
 		<% if @likes[0] %>
 			<% @likes[0].each do |seen| %>
-				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user } %>	
+				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, recent: false } %>	
 					<br>
 			<% end %>
 		<% end %>
@@ -115,7 +55,7 @@
 		<h3>Dislikes:</h3>
 		<% if @likes[-1] %>
 			<% @likes[-1].each do |dislike| %>
-				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user } %>	
+				<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, recent: false } %>	
 				<br>
 			<% end %>
 		<% end %>
