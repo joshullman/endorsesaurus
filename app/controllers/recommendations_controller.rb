@@ -6,39 +6,45 @@
 
 
 class RecommendationsController < ApplicationController
-	before_action :find_recommendations, only: [:show, :edit, :update, :destroy]
-
-  def new
-    @recommendation = Recommendation.new
-  end
 
   def create
-    # if recommendation exists, ignore
-    # else, make recommendation
+    sender = params[:sender]
+    receiver = params[:receiver]
+    medium_id = params[:medium_id]
+    media_type = Medium.find(medium_id).media_type
 
-    @recommendation = Recommendation.new(params[:recommendation])
+    Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: medium_id)
 
-    if @recommendation.save
-      redirect_to @recommendation, notice: 'Recommendation was successfully created.'
-    else
-      render action: "new"
+    p media_type
+    case media_type
+      when "Movie"
+        redirect_to movies_user_path(receiver)
+      when "Season"
+        redirect_to shows_user_path(receiver)
     end
+      
   end
 
   def destroy
-    @recommendation.destroy
+    sender = params[:sender]
+    receiver = params[:receiver]
+    medium_id = params[:medium_id]
+    media_type = Medium.find(medium_id).media_type
 
-    redirect_to recommendations_url
+    Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: medium_id).first.destroy
+
+    case media_type
+      when "Movie"
+        redirect_to movies_user_path(receiver)
+      when "Season"
+        redirect_to shows_user_path(receiver)
+    end
   end
 
 	private
 
-	def find_recommendations
-		@recommendation = Recommendation.find(session[:recommendation_id])
-	end
-
 	def recommendation_params
-		params.require(:recommendation).permit(:sender_id, :receiver_id, :media_id)
+		params.require(:recommendation).permit(:sender_id, :receiver_id, :medium_id)
 	end
 
 end

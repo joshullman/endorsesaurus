@@ -59,27 +59,6 @@ class LikesController < ApplicationController
     end
   end
 
-  def update
-  	#find users that and update their points accordingly
-		recommendations = Recommendation.where(receiver_id: current_user.id, media_id: @like.media_id)
-	  if recommendations
-	  	if @like.value == 1
-	  		recommendations.each do |rec|
-	  			user = User.find(rec.sender)
-	  			user.points = user.points + Media.find(@like.media_id).first.points
-	  			user.save
-	  		end
-	  	elsif @like.value == -1
-	  		recommendations.each do |rec|
-	  			user = User.find(rec.sender)
-	  			user.points = user.points - Media.find(@like.media_id).first.points
-	  			user.points = 1 if user.points < 0
-	  			user.save
-	  		end
-	  	end
-	  end
-  end
-
   def destroy
   	# delete all points that may have been distributed to the current user or other users
 		recommendations = Recommendation.where(receiver_id: current_user.id, media_id: @like.media_id)
