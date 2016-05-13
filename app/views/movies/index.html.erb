@@ -1,36 +1,13 @@
 <h1>All Movies</h1>
 
-<div class="movies_wrapper">
-	<% @movies.each do |movie| %>
-		<div id=<%="movie_#{movie.id}"%> class="movie_row">
-			<% case @current_user_likes[movie.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div>
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-			<br>
-			Title: <%= link_to movie.title, movie_path(movie) %>
-			<br>
-			Tags: <% movie.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= movie.poster %>">
-			<br>
+<div class="movies_index_wrapper">
+	<% @tags.each_key do |tag| %>
+		<div class="movies_index_tag_wrapper">
+		<h3><%= tag.name %></h3>
+		<% @tags[tag].each do |movie| %>
+			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
+		<% end %>
+		<br>
 		</div>
 	<% end %>
 </div>

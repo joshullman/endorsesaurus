@@ -9,6 +9,7 @@ class MediaController < ApplicationController
 	before_action :find_medium, only: [:show, :edit, :update, :destroy]
 
 	def index
+    session[:return_to] ||= request.referer
     @most_watched_movies = Medium.where(media_type: "Movie").order(watched_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
     @most_liked_movies = Medium.where(media_type: "Movie").order(liked_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
     @most_seen_movies = Medium.where(media_type: "Movie").order(seen_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}

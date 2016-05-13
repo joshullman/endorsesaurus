@@ -1,18 +1,13 @@
-<h1>All Shows</h1>
+<h1>All Movies</h1>
 
-<div class="shows_wrapper">
-	<% @shows.each do |show| %>
-		<div id=<%="show_#{show.id}"%> class="show_row">
-			Title: <%= link_to show.title, show_path(show) %>
-			<br>
-			Tags: <% show.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= show.poster %>">
-			<br>
+<div class="shows_index_wrapper">
+	<% @tags.each_key do |tag| %>
+		<div class="shows_index_tag_wrapper">
+		<h3><%= tag.name %></h3>
+		<% @tags[tag].each do |show| %>
+			<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user } %>
+		<% end %>
+		<br>
 		</div>
 	<% end %>
 </div>

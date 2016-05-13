@@ -53,9 +53,9 @@ class LikesController < ApplicationController
 
     case medium.media_type
 	    when "Movie"
-	    	redirect_to movies_user_path(user)
+	    	redirect_to session.delete(:return_to)
 	    when "Season"
-	    	redirect_to shows_user_path(user)
+	    	redirect_to session.delete(:return_to)
     end
   end
 
@@ -80,7 +80,7 @@ class LikesController < ApplicationController
 	  end
     @like.destroy
 
-    redirect_to likes_url
+    redirect_to session.delete(:return_to)
   end
 
   private

@@ -1,381 +1,91 @@
 <h1>Movies</h1>
-<div class="most_watched_movie_wrapper">
+<div class="movies_index_tag_wrapper">
 	<h2>Most Watched Movies</h2>
 	<% @most_watched_movies.each do |movie| %>
-		<div id=<%="most_watched_movie_#{movie.id}"%> class="most_watched_movie_row">
-			<% case @current_user_likes[movie.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 			Watched Count: <%= movie.medium.watched_count %>
 			<br>
-			Title: <%= link_to movie.title, movie_path(movie) %>
-			<br>
-			Tags: <% movie.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= movie.poster %>">
-			<br>
-		</div>
+			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
 	<% end %>
 </div>
 
-<div class="most_liked_movie_wrapper">
+<div class="movies_index_tag_wrapper">
 	<h2>Most Liked Movies</h2>
 	<% @most_liked_movies.each do |movie| %>
-		<div id=<%="most_liked_movie_#{movie.id}"%> class="most_liked_movie_row">
-			<% case @current_user_likes[movie.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
 			Liked Count: <%= movie.medium.liked_count %>
 			<br>
-			Title: <%= link_to movie.title, movie_path(movie) %>
-			<br>
-			Tags: <% movie.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= movie.poster %>">
-			<br>
-		</div>
+			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
 	<% end %>
 </div>
 
-<div class="most_seen_movie_wrapper">
+<div class="movies_index_tag_wrapper">
 	<h2>Most Seen Movies</h2>
 	<% @most_seen_movies.each do |movie| %>
-		<div id=<%="most_seen_movie_#{movie.id}"%> class="most_seen_movie_row">
-			<% case @current_user_likes[movie.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-			Seen Count: <%= movie.medium.seen_count %>
-			<br>
-			Title: <%= link_to movie.title, movie_path(movie) %>
-			<br>
-			Tags: <% movie.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= movie.poster %>">
-			<br>
-		</div>
+		Seen Count: <%= movie.medium.seen_count %>
+		<br>
+		<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
 	<% end %>
 </div>
 
-<div class="most_disliked_movie_wrapper">
+<div class="movies_index_tag_wrapper">
 	<h2>Most Disliked Movies</h2>
 	<% @most_disliked_movies.each do |movie| %>
-		<div id=<%="most_disliked_movie_#{movie.id}"%> class="most_disliked_movie_row">
-			<% case @current_user_likes[movie.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-			Disliked Count: <%= movie.medium.disliked_count %>
-			<br>
-			Title: <%= link_to movie.title, movie_path(movie) %>
-			<br>
-			Tags: <% movie.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= movie.poster %>">
-			<br>
-		</div>
+		Disliked Count: <%= movie.medium.disliked_count %>
+		<br>
+		<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
 	<% end %>
 </div>
 
-<div class="most_recommended_movie_wrapper">
+<div class="movies_index_tag_wrapper">
 	<h2>Most Recommended Movies</h2>
 	<% @most_recommended_movies.each do |movie| %>
-		<div id=<%="most_recommended_movie_#{movie.id}"%> class="most_recommended_movie_row">
-			<% case @current_user_likes[movie.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-			Recommened Count: <%= movie.medium.recommended_count %>
-			<br>
-			Title: <%= link_to movie.title, movie_path(movie) %>
-			<br>
-			Tags: <% movie.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= movie.poster %>">
-			<br>
-		</div>
+		Recommended Count: <%= movie.medium.recommended_count %>
+		<br>
+		<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
 	<% end %>
 </div>
 
 <h1>Seasons</h1>
-<div class="most_watched_season_wrapper">
+<div class="seasons_index_tag_wrapper">
 	<h2>Most Watched Seasons</h2>
 	<% @most_watched_seasons.each do |season| %>
-		<div id=<%="most_watched_season_#{season.id}"%> class="most_watched_season_row">
-			<% case @current_user_likes[season.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-			Watched Count: <%= season.medium.watched_count %>
-			<br>
-			Title: <%= link_to season.show.title, show_path(season.show) %>
-			<br>
-			Season: <%= season.season_num %>
-			<br>
-			Tags: <% season.show.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= season.show.poster %>">
-			<br>
-		</div>
+		Watched Count: <%= season.medium.watched_count %>
+		<br>
+		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
 	<% end %>
 </div>
 
-<div class="most_liked_season_wrapper">
+<div class="seasons_index_tag_wrapper">
 	<h2>Most Liked Seasons</h2>
 	<% @most_liked_seasons.each do |season| %>
-		<div id=<%="most_liked_season_#{season.id}"%> class="most_liked_season_row">
-			<% case @current_user_likes[season.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-			Liked Count: <%= season.medium.liked_count %>
-			<br>
-			Title: <%= link_to season.show.title, show_path(season.show) %>
-			<br>
-			Season: <%= season.season_num %>
-			<br>
-			Tags: <% season.show.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= season.show.poster %>">
-			<br>
-		</div>
+		Liked Count: <%= season.medium.liked_count %>
+		<br>
+		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
 	<% end %>
 </div>
 
-<div class="most_seen_season_wrapper">
+<div class="seasons_index_tag_wrapper">
 	<h2>Most Seen Seasons</h2>
 	<% @most_seen_seasons.each do |season| %>
-		<div id=<%="most_seen_season_#{season.id}"%> class="most_seen_season_row">
-			<% case @current_user_likes[season.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-			Seen Count: <%= season.medium.seen_count %>
-			<br>
-			Title: <%= link_to season.show.title, show_path(season.show) %>
-			<br>
-			Season: <%= season.season_num %>
-			<br>
-			Tags: <% season.show.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= season.show.poster %>">
-			<br>
-		</div>
+		Seen Count: <%= season.medium.seen_count %>
+		<br>
+		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
 	<% end %>
 </div>
 
-<div class="most_disliked_season_wrapper">
+<div class="seasons_index_tag_wrapper">
 	<h2>Most Disliked Seasons</h2>
 	<% @most_disliked_seasons.each do |season| %>
-		<div id=<%="most_disliked_season_#{season.id}"%> class="most_disliked_season_row">
-			<% case @current_user_likes[season.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-			Disliked Count: <%= season.medium.disliked_count %>
-			<br>
-			Title: <%= link_to season.show.title, show_path(season.show) %>
-			<br>
-			Season: <%= season.season_num %>
-			<br>
-			Tags: <% season.show.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= season.show.poster %>">
-			<br>
-		</div>
+		Disliked Count: <%= season.medium.disliked_count %>
+		<br>
+		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
 	<% end %>
 </div>
 
-<div class="most_recommended_season_wrapper">
+<div class="seasons_index_tag_wrapper">
 	<h2>Most Recommended Seasons</h2>
 	<% @most_recommended_seasons.each do |season| %>
-		<div id=<%="most_recommended_season_#{season.id}"%> class="most_recommended_season_row">
-			<% case @current_user_likes[season.medium_id] %>
-				<% when 1 %>
-					<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-<!-- 					<div class="icon_slider">
-						<%= link_to image_tag 'white_circle'%>
-						<%= link_to image_tag 'green_circle.svg' %>
-						<%= link_to image_tag 'yellow_circle.png' %>
-						<%= link_to image_tag 'red_circle.png' %>
-					</div> -->
-				<% when 0 %>
-					<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-				<% when -1 %>
-					<div class="icons"><%= image_tag 'red_circle.png' %></div>
-				<% else %>
-					<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-			<% end %>
-			<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-			Recommended Count: <%= season.medium.recommended_count %>
-			<br>
-			Title: <%= link_to season.show.title, show_path(season.show) %>
-			<br>
-			Season: <%= season.season_num %>
-			<br>
-			Tags: <% season.show.medium.tags.each do |tag| %>
-				<%= link_to tag.name,  tag_path(tag) %>
-			<% end %>
-			<br>
-			Poster: 
-			<br>
-			<img src="<%= season.show.poster %>">
-			<br>
-		</div>
+		Recommended Count: <%= season.medium.recommended_count %>
+		<br>
+		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
 	<% end %>
 </div>

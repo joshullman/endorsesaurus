@@ -1,23 +1,32 @@
+def current_user_likes(instance_likes)
+  current_user_likes = Like.where(user_id: current_user.id)
+  current_user_likes.each do |like|
+    instance_likes[Medium.find(like.medium_id).id] = like.value
+  end
+end
+
 class MoviesController < ApplicationController
 	before_action :find_movie, only: [:show, :edit, :update, :destroy]
 
 	def index
-		@movies = Movie.all
+		session[:return_to] ||= request.referer
 
-		current_user_likes = Like.where(user_id: current_user.id)
+		@all_tags = Tag.all
+
+		@tags = {}
+		@all_tags.each do |tag|
+			movies = tag.movies
+			@tags[tag] = movies
+		end
+
   	@current_user_likes = {}
-  	current_user_likes.each do |like|
-  		@current_user_likes[like.medium_id] = like.value
-  	end
+  	current_user_likes(@current_user_likes)
 	end
 
 	def show
-		
-		current_user_likes = Like.where(user_id: current_user.id)
+		session[:return_to] ||= request.referer
   	@current_user_likes = {}
-  	current_user_likes.each do |like|
-  		@current_user_likes[like.medium_id] = like.value
-  	end
+  	current_user_likes(@current_user_likes)
 	end
 
 	def create

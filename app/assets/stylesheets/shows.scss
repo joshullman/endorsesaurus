@@ -1,3 +1,21 @@
 // Place all the styles related to the Show controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.poster {
+  height: 200px;
+}
+
+.show_index_row {
+	width: 150px;
+	float: left;
+}
+
+.shows_index_tag_wrapper {
+	clear: both;
+}
+
+.season_index_row {
+	width: 150px;
+	float: left;
+}

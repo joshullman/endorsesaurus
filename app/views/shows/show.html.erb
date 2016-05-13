@@ -27,17 +27,7 @@
 
 <div class ="season_wrapper">
 	<% @seasons.each do |season| %>
-		<% case @current_user_likes[season.medium_id] %>
-			<% when 1 %>
-				<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-			<% when 0 %>
-				<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-			<% when -1 %>
-				<div class="icons"><%= image_tag 'red_circle.png' %></div>
-			<% else %>
-				<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-		<% end %>
-		<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
+		<%= render partial: 'layouts/icons', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>		
 		<br>
 		Season: <%= season.season_num %>
 		<br>

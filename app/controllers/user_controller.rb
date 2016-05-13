@@ -127,14 +127,17 @@ end
 class UserController < ApplicationController
 
   def show
+    session[:return_to] ||= request.referer
     do_even_more_stuff("movie")
   end
 
   def movies
+    session[:return_to] ||= request.referer
     do_even_more_stuff("movie")
   end
 
   def shows
+    session[:return_to] ||= request.referer
     do_even_more_stuff("series")
   end
 

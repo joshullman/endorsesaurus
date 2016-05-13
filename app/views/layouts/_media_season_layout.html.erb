@@ -1,0 +1,8 @@
+<div id=<%="#{placeholder.id}"%> class="season_index_row">
+	<%= render partial: 'layouts/icons', locals: { current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+	<br>
+	Season: <%= placeholder.season_num %>
+	<br>
+	<%= link_to image_tag(placeholder.show.poster), show_path(placeholder.show), class: "poster" %>
+	<br>
+</div>
