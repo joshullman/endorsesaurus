@@ -21,9 +21,9 @@ class RecommendationsController < ApplicationController
 
     case media_type
       when "Movie"
-        redirect_to redirect_to session.delete(:return_to)
+        redirect_to movies_user_path(receiver)
       when "Season"
-        redirect_to redirect_to session.delete(:return_to)
+        redirect_to shows_user_path(receiver)
     end
       
   end
@@ -38,9 +38,9 @@ class RecommendationsController < ApplicationController
 
     case media_type
       when "Movie"
-        redirect_to redirect_to session.delete(:return_to)
+        redirect_to movies_user_path(receiver)
       when "Season"
-        redirect_to redirect_to session.delete(:return_to)
+        redirect_to shows_user_path(receiver)
     end
   end
 
