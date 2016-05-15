@@ -61,6 +61,8 @@ end
 def find_recently_watched(media_type, instance_likes, num)
   recents = Like.where(user_id: @user.id).last(num).reverse
 
+  p recents
+
   recents.each do |like|
     case media_type
       when "movie"
@@ -138,6 +140,7 @@ class UsersController < ApplicationController
   def movies
     session[:return_to] ||= request.referer
     do_even_more_stuff("movie")
+    p @recently_watched
   end
 
   def shows

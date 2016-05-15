@@ -11,11 +11,14 @@ class RecommendationsController < ApplicationController
     sender = params[:sender]
     receiver = params[:receiver]
     medium_id = params[:medium_id]
-    media_type = Medium.find(medium_id).media_type
+    medium = Medium.find(medium_id)
+    media_type = medium.media_type
 
     Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: medium_id)
 
-    p media_type
+    medium.recommended_count = medium.recommended_count + 1
+    medium.save
+
     case media_type
       when "Movie"
         redirect_to redirect_to session.delete(:return_to)

@@ -16,15 +16,42 @@ class LikesController < ApplicationController
 
     like = Like.where(user_id: current_user.id, medium_id: medium.id)
     if !like.empty?
+      old_value = like.first.value
       like.first.value = value
       like.first.save
+      case value
+        when 1
+          medium.liked_count = medium.liked_count + 1
+          if old_value == 0
+            medium.seen_count = medium.seen_count - 1
+          elsif old_value == -1
+            medium.disliked_count = medium.disliked_count - 1
+          end   
+        when 0
+          medium.seen_count = medium.seen_count + 1
+          if old_value == 1
+            medium.liked_count = medium.liked_count - 1
+          elsif old_value == -1
+            medium.disliked_count = medium.disliked_count - 1
+          end
+        when -1
+          medium.disliked_count = medium.disliked_count + 1
+          if old_value == 1
+            medium.liked_count = medium.liked_count - 1
+          elsif old_value == 0
+            medium.seen_count = medium.seen_count - 1
+          end
+      end
+      medium.save
     elsif like.empty? && is_current_user && is_recommendation
       Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
+      medium.watched_count = medium.watched_count + 1
       curr = User.find(current_user.id)
       curr.points = curr.points + medium.find_associated_media.points
       curr.save
       recommendations = Recommendation.where(receiver_id: current_user.id, medium_id: medium.id)
       if !recommendations.empty? && value == 1
+        medium.liked_count = medium.liked_count + 1
         recommendations.map do |rec|
           sender = rec.sender
           sender.points = sender.points + medium.find_associated_media.points
@@ -32,6 +59,7 @@ class LikesController < ApplicationController
           Recommendation.find(rec.id).destroy
         end
       elsif !recommendations.empty? && value == -1
+        medium.disliked_count = medium.disliked_count + 1
         recommendations.map do |rec|
           sender = rec.sender
           sender.points = sender.points - medium.find_associated_media.points
@@ -40,15 +68,26 @@ class LikesController < ApplicationController
           Recommendation.find(rec.id).destroy
         end
       elsif !recommendations.empty? && value == 0
+        medium.seen_count = medium.seen_count + 1
         recommendations.map do |rec|
         Recommendation.find(rec.id).destroy
         end
       end
+    medium.save
     elsif like.empty? && !is_current_user
       Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
       curr = User.find(current_user.id)
       curr.points = curr.points + medium.find_associated_media.points
       curr.save
+      medium.watched_count = medium.watched_count + 1
+      case value
+        when 1
+          medium.liked_count = medium.liked_count + 1
+        when 0
+          medium.seen_count = medium.seen_count + 1
+        when -1
+          medium.disliked_count = medium.disliked_count + 1
+      end
     end
 
     case medium.media_type

@@ -34,7 +34,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   :photo_url
       t.string   :provider
       t.string   :uid
-
+      t.string   :name
 
       t.timestamps null: false
     end
