@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def has_recommended_to?(id, medium_id)
+    Recommendation.where(sender_id: self.id, receiver_id: id, medium_id: medium_id).first == nil ? false : true
+  end
+
   # FRIENDS
 
   has_many :friendships

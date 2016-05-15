@@ -56,13 +56,13 @@ class RecommendationsController < ApplicationController
         medium.recommended_count = medium.recommended_count + 1
         medium.save
       end
-    end
 
       case media_type
         when "Movie"
           redirect_to movie_path(medium.find_associated_media)
         when "Season"
           redirect_to show_path(medium.find_associated_media.show)
+      end
     else
 
       sender = params[:sender]
@@ -78,8 +78,7 @@ class RecommendationsController < ApplicationController
         when "Season"
           redirect_to :back
       end
-    end
-      
+    end   
   end
 
   def destroy
