@@ -1,8 +1,8 @@
 <div class ="secondary-navbar-class">
   <ul class="secondary-navbar-nav">
-  	<li><%= link_to "#{@user.email}'s Profile", @user %></li>
-  	<li><%= link_to "#{@user.email}'s Movies", movies_user_path(@user) %></li>
-    <li><%= link_to "#{@user.email}'s Shows", shows_user_path(@user) %></li>
+  	<li><%= link_to "#{@user.name}'s Profile", @user %></li>
+  	<li><%= link_to "#{@user.name}'s Movies", movies_user_path(@user) %></li>
+    <li><%= link_to "#{@user.name}'s Shows", shows_user_path(@user) %></li>
   </ul>
 </div>
 <div class ="endorsesaurus_container">
@@ -11,7 +11,7 @@
 <div class="left_col">
 	<div class="photo"><%= image_tag 'profile.jpg' %></div>
 	<div class=profile_info>
-		<h2><%= @user.email %></h2>
+		<h2><%= @user.name %></h2>
 		<h2>My Points: <%= @user.points %></h2>
 	</div>
 </div>
@@ -35,52 +35,52 @@
 				<% if @recent_activity[record][0] == "Like"%>
 					<% if @recent_activity[record][1] == 1 %>
 					  <% if record.medium.media_type == "Movie" %>
-							<%= "#{@user.email} liked the Movie #{record.title}!" %>
+							<%= "#{@user.name} liked the Movie "%><%= link_to record.title, movie_path(record) %>
 							<br>
 							<%= record.created_at %>
 						<% else %>
-							<%= "#{@user.email} liked the Show #{record.show.title} Season #{record.season_num}!" %>
+							<%= "#{@user.name} liked the Show "%><%= link_to record.title, show_path(record.show) %><%=" Season #{record.season_num}!" %>
 							<br>
 							<%= record.created_at %>
 						<% end %>
 					<% elsif @recent_activity[record][1] == 0 %>
 					  <% if record.medium.media_type == "Movie" %>
-							<%= "#{@user.email} saw the Movie #{record.title}!" %>
+							<%= "#{@user.name} saw the Movie "%><%= link_to record.title, movie_path(record) %>
 							<br>
 							<%= record.created_at %>
 						<% else %>
-							<%= "#{@user.email} saw the Show #{record.show.title} Season #{record.season_num}!" %>
+							<%= "#{@user.name} saw the Show "%><%= link_to record.title, show_path(record.show) %><%=" Season #{record.season_num}!" %>
 							<br>
 							<%= record.created_at %>
 						<% end %>
 					<% elsif @recent_activity[record][1] == -1 %>
 					  <% if record.medium.media_type == "Movie" %>
-							<%= "#{@user.email} disliked the Movie #{record.title}!" %>
+							<%= "#{@user.name} disliked the Movie "%><%= link_to record.title, movie_path(record) %>
 							<br>
 							<%= record.created_at %>
 						<% else %>
-							<%= "#{@user.email} disliked the Show #{record.show.title} Season #{record.season_num}!" %>
+							<%= "#{@user.name} disliked the Show "%><%= link_to record.title, show_path(record.show) %><%=" Season #{record.season_num}!" %>
 							<br>
 							<%= record.created_at %>
 						<% end %>
 					<% end %>
 				<% elsif @recent_activity[record][0] == "R-To"%>
 				 <% if record.medium.media_type == "Movie" %>
-						<%= "#{@user.email} Recommended the Movie #{record.title} to #{@recent_activity[record][1].email}!" %>
+						<%= "#{@user.name} Recommended the Movie "%><%= link_to record.title, movie_path(record) %><%=" to #{@recent_activity[record][1].name}!" %>
 						<br>
 						<%= record.created_at %>
 					<% else %>
-						<%= "#{@user.email} Recommended the Show #{record.show.title} Season #{record.season_num} to #{@recent_activity[record][1].email}!" %>
+						<%= "#{@user.name} Recommended the Show "%><%= link_to record.title, show_path(record.show) %><%=" Season #{record.season_num} to #{@recent_activity[record][1].name}!" %>
 						<br>
 						<%= record.created_at %>
 					<% end %>
 				<% elsif @recent_activity[record][0] == "R-From" %>
 					<% if record.medium.media_type == "Movie" %>
-						<%= "#{@recent_activity[record][1].email} Recommended the Movie #{record.title} to #{@user.email}!" %>
+						<%= "#{@recent_activity[record][1].name} Recommended the Movie "%><%= link_to record.title, movie_path(record) %><%=" to #{@user.name}!" %>
 						<br>
 						<%= record.created_at %>
 					<% else %>
-						<%= "#{@recent_activity[record][1].email} Recommended the Show #{record.show.title} Season #{record.season_num} to #{@user.email}!" %>
+						<%= "#{@recent_activity[record][1].name} Recommended the Show "%><%= link_to record.title, show_path(record.show) %><%=" Season #{record.season_num} to #{@user.name}!" %>
 						<br>
 						<%= record.created_at %>
 					<% end %>
