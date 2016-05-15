@@ -2,12 +2,29 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.movie_wrapper {
-	width: 45%;
+.media_index_wrapper {
+	border: 1px solid black;
+}
+
+.media_index_element_wrapper {
+	width: 150px;
 	float: left;
 }
 
-.poster {
-  max-width: 100%;
-  height: 100px;
+.movies_index_tag_wrapper {
+	border: 1px solid black;
+	width: auto;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+
+.seasons_index_tag_wrapper {
+	overflow-x: auto;
+}
+
+.poster img {
+  width: 300px;
+  height: 400px;
+  border: 1px solid black;
 }

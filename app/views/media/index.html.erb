@@ -1,91 +1,122 @@
-<h1>Movies</h1>
-<div class="movies_index_tag_wrapper">
-	<h2>Most Watched Movies</h2>
-	<% @most_watched_movies.each do |movie| %>
-			Watched Count: <%= movie.medium.watched_count %>
+<div class="media_index_wrapper">
+	<h1>Movies</h1>
+	<div class="movies_index_tag_wrapper">
+		<h2>Most Watched Movies</h2>
+		<% @most_watched_movies.each do |movie| %>
+			<div class="media_index_element_wrapper">
+				Watched Count: <%= movie.medium.watched_count %>
+				<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
+			</div>
+		<% end %>
+	</div>
+	<br>
+
+	<div class="movies_index_tag_wrapper">
+		<h2>Most Liked Movies</h2>
+		<% @most_liked_movies.each do |movie| %>
+			<div class="media_index_element_wrapper">
+				Liked Count: <%= movie.medium.liked_count %>
+				<br>
+				<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
+			</div>
+		<% end %>
+	</div>
+	<br>
+
+	<div class="movies_index_tag_wrapper">
+		<h2>Most Seen Movies</h2>
+		<% @most_seen_movies.each do |movie| %>
+			<div class="media_index_element_wrapper">
+			Seen Count: <%= movie.medium.seen_count %>
 			<br>
 			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
-	<% end %>
-</div>
+		</div>
+		<% end %>
+	</div>
+	<br>
 
-<div class="movies_index_tag_wrapper">
-	<h2>Most Liked Movies</h2>
-	<% @most_liked_movies.each do |movie| %>
-			Liked Count: <%= movie.medium.liked_count %>
+	<div class="movies_index_tag_wrapper">
+		<h2>Most Disliked Movies</h2>
+		<% @most_disliked_movies.each do |movie| %>
+			<div class="media_index_element_wrapper">
+			Disliked Count: <%= movie.medium.disliked_count %>
 			<br>
 			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
-	<% end %>
-</div>
+		</div>
+		<% end %>
+	</div>
+	<br>
 
-<div class="movies_index_tag_wrapper">
-	<h2>Most Seen Movies</h2>
-	<% @most_seen_movies.each do |movie| %>
-		Seen Count: <%= movie.medium.seen_count %>
-		<br>
-		<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
-	<% end %>
-</div>
+	<div class="movies_index_tag_wrapper">
+		<h2>Most Recommended Movies</h2>
+		<% @most_recommended_movies.each do |movie| %>
+			<div class="media_index_element_wrapper">
+			Recommended Count: <%= movie.medium.recommended_count %>
+			<br>
+			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
+		</div>
+		<% end %>
+	</div>
+	<br>
 
-<div class="movies_index_tag_wrapper">
-	<h2>Most Disliked Movies</h2>
-	<% @most_disliked_movies.each do |movie| %>
-		Disliked Count: <%= movie.medium.disliked_count %>
-		<br>
-		<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
-	<% end %>
-</div>
+	<h1>Seasons</h1>
+	<div class="seasons_index_tag_wrapper">
+		<h2>Most Watched Seasons</h2>
+		<% @most_watched_seasons.each do |season| %>
+			<div class="media_index_element_wrapper">
+			Watched Count: <%= season.medium.watched_count %>
+			<br>
+			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
+		</div>
+		<% end %>
+	</div>
+	<br>
 
-<div class="movies_index_tag_wrapper">
-	<h2>Most Recommended Movies</h2>
-	<% @most_recommended_movies.each do |movie| %>
-		Recommended Count: <%= movie.medium.recommended_count %>
-		<br>
-		<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
-	<% end %>
-</div>
+	<div class="seasons_index_tag_wrapper">
+		<h2>Most Liked Seasons</h2>
+		<% @most_liked_seasons.each do |season| %>
+			<div class="media_index_element_wrapper">
+			Liked Count: <%= season.medium.liked_count %>
+			<br>
+			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
+		</div>
+		<% end %>
+	</div>
+	<br>
 
-<h1>Seasons</h1>
-<div class="seasons_index_tag_wrapper">
-	<h2>Most Watched Seasons</h2>
-	<% @most_watched_seasons.each do |season| %>
-		Watched Count: <%= season.medium.watched_count %>
-		<br>
-		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
-	<% end %>
-</div>
+	<div class="seasons_index_tag_wrapper">
+		<h2>Most Seen Seasons</h2>
+		<% @most_seen_seasons.each do |season| %>
+			<div class="media_index_element_wrapper">
+			Seen Count: <%= season.medium.seen_count %>
+			<br>
+			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
+		</div>
+		<% end %>
+	</div>
+	<br>
 
-<div class="seasons_index_tag_wrapper">
-	<h2>Most Liked Seasons</h2>
-	<% @most_liked_seasons.each do |season| %>
-		Liked Count: <%= season.medium.liked_count %>
-		<br>
-		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
-	<% end %>
-</div>
+	<div class="seasons_index_tag_wrapper">
+		<h2>Most Disliked Seasons</h2>
+		<% @most_disliked_seasons.each do |season| %>
+			<div class="media_index_element_wrapper">
+			Disliked Count: <%= season.medium.disliked_count %>
+			<br>
+			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
+		</div>
+		<% end %>
+	</div>
+	<br>
 
-<div class="seasons_index_tag_wrapper">
-	<h2>Most Seen Seasons</h2>
-	<% @most_seen_seasons.each do |season| %>
-		Seen Count: <%= season.medium.seen_count %>
-		<br>
-		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
-	<% end %>
-</div>
-
-<div class="seasons_index_tag_wrapper">
-	<h2>Most Disliked Seasons</h2>
-	<% @most_disliked_seasons.each do |season| %>
-		Disliked Count: <%= season.medium.disliked_count %>
-		<br>
-		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
-	<% end %>
-</div>
-
-<div class="seasons_index_tag_wrapper">
-	<h2>Most Recommended Seasons</h2>
-	<% @most_recommended_seasons.each do |season| %>
-		Recommended Count: <%= season.medium.recommended_count %>
-		<br>
-		<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
-	<% end %>
+	<div class="seasons_index_tag_wrapper">
+		<h2>Most Recommended Seasons</h2>
+		<% @most_recommended_seasons.each do |season| %>
+			<div class="media_index_element_wrapper">
+			Recommended Count: <%= season.medium.recommended_count %>
+			<br>
+			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
+		</div>
+		<% end %>
+	</div>
+	<br>
 </div>

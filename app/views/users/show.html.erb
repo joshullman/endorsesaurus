@@ -5,6 +5,9 @@
     <li><%= link_to "#{@user.email}'s Shows", shows_user_path(@user) %></li>
   </ul>
 </div>
+<div class ="endorsesaurus_container">
+	<h2>Endorsesaurus Enclosure</h2>
+</div>
 <div class="left_col">
 	<div class="photo"><%= image_tag 'profile.jpg' %></div>
 	<div class=profile_info>
@@ -33,55 +36,56 @@
 					<% if @recent_activity[record][1] == 1 %>
 					  <% if record.medium.media_type == "Movie" %>
 							<%= "#{@user.email} liked the Movie #{record.title}!" %>
-							<%= record.created_at %>
 							<br>
+							<%= record.created_at %>
 						<% else %>
 							<%= "#{@user.email} liked the Show #{record.show.title} Season #{record.season_num}!" %>
-							<%= record.created_at %>
 							<br>
+							<%= record.created_at %>
 						<% end %>
 					<% elsif @recent_activity[record][1] == 0 %>
 					  <% if record.medium.media_type == "Movie" %>
 							<%= "#{@user.email} saw the Movie #{record.title}!" %>
-							<%= record.created_at %>
 							<br>
+							<%= record.created_at %>
 						<% else %>
 							<%= "#{@user.email} saw the Show #{record.show.title} Season #{record.season_num}!" %>
-							<%= record.created_at %>
 							<br>
+							<%= record.created_at %>
 						<% end %>
 					<% elsif @recent_activity[record][1] == -1 %>
 					  <% if record.medium.media_type == "Movie" %>
 							<%= "#{@user.email} disliked the Movie #{record.title}!" %>
-							<%= record.created_at %>
 							<br>
+							<%= record.created_at %>
 						<% else %>
 							<%= "#{@user.email} disliked the Show #{record.show.title} Season #{record.season_num}!" %>
-							<%= record.created_at %>
 							<br>
+							<%= record.created_at %>
 						<% end %>
 					<% end %>
 				<% elsif @recent_activity[record][0] == "R-To"%>
 				 <% if record.medium.media_type == "Movie" %>
 						<%= "#{@user.email} Recommended the Movie #{record.title} to #{@recent_activity[record][1].email}!" %>
-						<%= record.created_at %>
 						<br>
+						<%= record.created_at %>
 					<% else %>
 						<%= "#{@user.email} Recommended the Show #{record.show.title} Season #{record.season_num} to #{@recent_activity[record][1].email}!" %>
-						<%= record.created_at %>
 						<br>
+						<%= record.created_at %>
 					<% end %>
 				<% elsif @recent_activity[record][0] == "R-From" %>
 					<% if record.medium.media_type == "Movie" %>
 						<%= "#{@recent_activity[record][1].email} Recommended the Movie #{record.title} to #{@user.email}!" %>
-						<%= record.created_at %>
 						<br>
+						<%= record.created_at %>
 					<% else %>
 						<%= "#{@recent_activity[record][1].email} Recommended the Show #{record.show.title} Season #{record.season_num} to #{@user.email}!" %>
-						<%= record.created_at %>
 						<br>
+						<%= record.created_at %>
 					<% end %>
 				<% end %>
+				<br>
 				<%= render partial: 'layouts/icons', locals: { current_user_likes: @current_user_likes, placeholder: record, current_user: current_user } %>
 			</div>
 		<% end %>

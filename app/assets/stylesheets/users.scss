@@ -2,6 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$green: #A1DBB2;
+$yellow: #FACA66;
+$red: #F45D4C;
+$blue: #91CFCA;
+
+$font: 'Amatic SC', cursive;
+
+.endorsesaurus_container {
+	text-align: center;
+	vertical-align: middle;
+	line-height: 125px;  
+	height: 150px;
+	width: 100%;
+	display: block;
+	position: static;
+	clear: both;
+	border: 1px solid black;
+}
+
 .left_col {
 	padding-top: 5%;
 	height: 100%;
@@ -33,7 +52,7 @@
 }
 
 div a {
-  font-size: 18px;
+  font-size: 16px;
   padding: 5px;
   display:inline-block;
 }
@@ -98,7 +117,7 @@ ul li ul li:hover {background: #666;}
 	border: 1px solid black;
 }
 
-.rec_row {
+.recommendation_row {
 	border: 1px solid black;
 }
 
