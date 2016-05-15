@@ -13,12 +13,22 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  root 'media#index'
+
+  devise_scope :user do
+    authenticated :user do
+      root 'users#current_user_home', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
 
   resources :users do
     member do
       get 'movies'
       get 'shows'
+      get 'friends'
     end
   end
   resources :recommendations
@@ -27,6 +37,7 @@ Rails.application.routes.draw do
   resources :shows
   resources :movies
   resources :likes
+  resources :friendships
 
   # Example resource route with options:
   #   resources :products do

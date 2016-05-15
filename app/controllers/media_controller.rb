@@ -12,14 +12,10 @@ class MediaController < ApplicationController
     session[:return_to] ||= request.referer
     @most_watched_movies = Medium.where(media_type: "Movie").order(watched_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
     @most_liked_movies = Medium.where(media_type: "Movie").order(liked_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
-    @most_seen_movies = Medium.where(media_type: "Movie").order(seen_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
-    @most_disliked_movies = Medium.where(media_type: "Movie").order(disliked_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
     @most_recommended_movies = Medium.where(media_type: "Movie").order(recommended_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
 
     @most_watched_seasons = Medium.where(media_type: "Season").order(watched_count: :desc).limit(10).map {|show| show = show.find_associated_media}
     @most_liked_seasons = Medium.where(media_type: "Season").order(liked_count: :desc).limit(10).map {|show| show = show.find_associated_media}
-    @most_seen_seasons = Medium.where(media_type: "Season").order(seen_count: :desc).limit(10).map {|show| show = show.find_associated_media}
-    @most_disliked_seasons = Medium.where(media_type: "Season").order(disliked_count: :desc).limit(10).map {|show| show = show.find_associated_media}
     @most_recommended_seasons = Medium.where(media_type: "Season").order(recommended_count: :desc).limit(10).map {|show| show = show.find_associated_media}
 
   	@current_user_likes = {}

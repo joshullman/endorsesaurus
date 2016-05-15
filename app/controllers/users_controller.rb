@@ -148,4 +148,12 @@ class UsersController < ApplicationController
     do_even_more_stuff("series")
   end
 
+  def friends
+    @user = User.find(params[:id])
+  end
+
+  def current_user_home
+    redirect_to current_user
+  end
+
 end

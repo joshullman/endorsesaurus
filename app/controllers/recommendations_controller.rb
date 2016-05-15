@@ -21,9 +21,9 @@ class RecommendationsController < ApplicationController
 
     case media_type
       when "Movie"
-        redirect_to movies_user_path(receiver)
+        redirect_to :back
       when "Season"
-        redirect_to shows_user_path(receiver)
+        redirect_to :back
     end
       
   end
@@ -38,9 +38,9 @@ class RecommendationsController < ApplicationController
 
     case media_type
       when "Movie"
-        redirect_to movies_user_path(receiver)
+        redirect_to :back
       when "Season"
-        redirect_to shows_user_path(receiver)
+        redirect_to :back
     end
   end
 

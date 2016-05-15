@@ -1,6 +1,7 @@
 <div class ="secondary-navbar-class">
   <ul class="secondary-navbar-nav">
   	<li><%= link_to "#{@user.name}'s Profile", @user %></li>
+  	<li><%= link_to "#{@user.name}'s Friends", friends_user_path(@user) %></li>
   	<li><%= link_to "#{@user.name}'s Movies", movies_user_path(@user) %></li>
     <li><%= link_to "#{@user.name}'s Shows", shows_user_path(@user) %></li>
   </ul>
@@ -14,33 +15,10 @@
 		<h2><%= @user.name %></h2>
 		<h2>My Points: <%= @user.points %></h2>
 	</div>
-	<% unless current_user == @user %>
-      <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
-  <% end %>
-
-  <h4>Friends</h4>
-  <ul>
-      <% @user.friends.each do |friend| %>
-      <li>
-        <%= friend.email %> 
-        <% if current_user == @user %>
-          <%= link_to "Remove", friendship_path(:id => friend), :method => :delete %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-
-  <% if current_user == @user %>
-      <h4>Friend Requests</h4>
-      <ul>
-          <% @user.requested_friendships.each do |request| %>
-          <li>
-            <%= request.email %> 
-            <%= link_to "Accept", friendship_path(:id => request), :method => "put" %> 
-            <%= link_to "Decline", friendship_path(:id => request), :method => :delete %>
-          </li>
-        <% end %>
-      </ul>
+  <% if current_user != @user && current_user.pending_friends.include?(@user)%>
+  	Friendship Pending...
+	<% elsif current_user != @user && !current_user.friends.include?(@user) %>
+    <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
   <% end %>
 </div>
 
@@ -94,21 +72,20 @@
 					<% end %>
 				<% elsif @recent_activity[record][0] == "R-To"%>
 				 <% if record.medium.media_type == "Movie" %>
-						<%= "#{@user.name} Recommended the Movie "%><%= link_to record.title, movie_path(record) %><%=" to #{@recent_activity[record][1].name}!" %>
-						<br>
+						<%= "#{@user.name} Recommended the Movie "%><%= link_to record.title, movie_path(record) %> to <%= link_to @recent_activity[record][1].name, @recent_activity[record][1] %>
 						<%= record.created_at %>
 					<% else %>
-						<%= "#{@user.name} Recommended the Show "%><%= link_to record.title, show_path(record.show) %><%=" Season #{record.season_num} to #{@recent_activity[record][1].name}!" %>
+						<%= "#{@user.name} Recommended the Show "%><%= link_to record.title, show_path(record.show) %><%=" Season #{record.season_num} to "%><%= link_to @recent_activity[record][1].name, @recent_activity[record][1] %>
 						<br>
 						<%= record.created_at %>
 					<% end %>
 				<% elsif @recent_activity[record][0] == "R-From" %>
 					<% if record.medium.media_type == "Movie" %>
-						<%= "#{@recent_activity[record][1].name} Recommended the Movie "%><%= link_to record.title, movie_path(record) %><%=" to #{@user.name}!" %>
+						<%= link_to @recent_activity[record][1].name, @recent_activity[record][1] %> Recommended the Movie <%= link_to record.title, movie_path(record) %><%=" to #{@user.name}!" %>
 						<br>
 						<%= record.created_at %>
 					<% else %>
-						<%= "#{@recent_activity[record][1].name} Recommended the Show "%><%= link_to record.title, show_path(record.show) %><%=" Season #{record.season_num} to #{@user.name}!" %>
+						<%= link_to @recent_activity[record][1].name, @recent_activity[record][1] %> Recommended the Show <%= link_to record.title, show_path(record.show) %><%=" Season #{record.season_num} to #{@user.name}!" %>
 						<br>
 						<%= record.created_at %>
 					<% end %>

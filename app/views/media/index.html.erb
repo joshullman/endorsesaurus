@@ -24,30 +24,6 @@
 	<br>
 
 	<div class="movies_index_tag_wrapper">
-		<h2>Most Seen Movies</h2>
-		<% @most_seen_movies.each do |movie| %>
-			<div class="media_index_element_wrapper">
-			Seen Count: <%= movie.medium.seen_count %>
-			<br>
-			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
-		</div>
-		<% end %>
-	</div>
-	<br>
-
-	<div class="movies_index_tag_wrapper">
-		<h2>Most Disliked Movies</h2>
-		<% @most_disliked_movies.each do |movie| %>
-			<div class="media_index_element_wrapper">
-			Disliked Count: <%= movie.medium.disliked_count %>
-			<br>
-			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
-		</div>
-		<% end %>
-	</div>
-	<br>
-
-	<div class="movies_index_tag_wrapper">
 		<h2>Most Recommended Movies</h2>
 		<% @most_recommended_movies.each do |movie| %>
 			<div class="media_index_element_wrapper">
@@ -77,30 +53,6 @@
 		<% @most_liked_seasons.each do |season| %>
 			<div class="media_index_element_wrapper">
 			Liked Count: <%= season.medium.liked_count %>
-			<br>
-			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
-		</div>
-		<% end %>
-	</div>
-	<br>
-
-	<div class="seasons_index_tag_wrapper">
-		<h2>Most Seen Seasons</h2>
-		<% @most_seen_seasons.each do |season| %>
-			<div class="media_index_element_wrapper">
-			Seen Count: <%= season.medium.seen_count %>
-			<br>
-			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
-		</div>
-		<% end %>
-	</div>
-	<br>
-
-	<div class="seasons_index_tag_wrapper">
-		<h2>Most Disliked Seasons</h2>
-		<% @most_disliked_seasons.each do |season| %>
-			<div class="media_index_element_wrapper">
-			Disliked Count: <%= season.medium.disliked_count %>
 			<br>
 			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
 		</div>

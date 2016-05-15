@@ -1,0 +1,64 @@
+<div class ="secondary-navbar-class">
+  <ul class="secondary-navbar-nav">
+  	<li><%= link_to "#{@user.name}'s Profile", @user %></li>
+  	<li><%= link_to "#{@user.name}'s Friends", friends_user_path(@user) %></li>
+  	<li><%= link_to "#{@user.name}'s Movies", movies_user_path(@user) %></li>
+    <li><%= link_to "#{@user.name}'s Shows", shows_user_path(@user) %></li>
+  </ul>
+</div>
+<div class ="endorsesaurus_container">
+	<h2>Endorsesaurus Enclosure</h2>
+</div>
+
+<div class="left_col">
+	<div class="photo"><%= image_tag 'profile.jpg' %></div>
+	<div class=profile_info>
+		<h2><%= @user.name %></h2>
+		<h2>My Points: <%= @user.points %></h2>
+	</div>
+</div>
+
+<div class="two_thirds_col">
+  <% if current_user != @user && current_user.pending_friends.include?(@user)%>
+  	Friendship Pending...
+	<% elsif current_user != @user && !current_user.friends.include?(@user) %>
+    <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+  <% end %>
+
+  <h2><%= @user.name %>'s Friends</h2>
+  <ul>
+    <% @user.friends.each do |friend| %>
+      <li>
+        <%= link_to friend.name, friend %> 
+        <% if current_user == @user %>
+          <%= link_to "(Remove)", friendship_path(:id => friend), :method => :delete %>
+        <% end %>
+      </li>
+      <br>
+    <% end %>
+  </ul>
+
+  <% if current_user == @user %>
+      <h4>Friend Requests</h4>
+      <ul>
+        <% @user.requested_friendships.each do |request| %>
+          <li>
+            <%= link_to request.name, request %> 
+            <%= link_to "Accept", friendship_path(:id => request), :method => "put" %> 
+            <%= link_to "Decline", friendship_path(:id => request), :method => :delete %>
+          </li>
+        <% end %>
+      </ul>
+  <% end %>
+
+   <% if current_user == @user %>
+    <h4>Pending Requests</h4>
+    <ul>
+      <% @user.pending_friends.each do |request| %>
+        <li>
+          <%= link_to request.name, request %> 
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+ </div>

@@ -92,9 +92,9 @@ class LikesController < ApplicationController
 
     case medium.media_type
 	    when "Movie"
-	    	redirect_to session.delete(:return_to)
+	    	redirect_to :back
 	    when "Season"
-	    	redirect_to session.delete(:return_to)
+	    	redirect_to :back
     end
   end
 
@@ -119,7 +119,7 @@ class LikesController < ApplicationController
 	  end
     @like.destroy
 
-    redirect_to session.delete(:return_to)
+    redirect_to :back
   end
 
   private

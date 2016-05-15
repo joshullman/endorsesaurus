@@ -1,6 +1,7 @@
 <div class ="secondary-navbar-class">
   <ul class="secondary-navbar-nav">
   	<li><%= link_to "#{@user.name}'s Profile", @user %></li>
+  	<li><%= link_to "#{@user.name}'s Friends", friends_user_path(@user) %></li>
   	<li><%= link_to "#{@user.name}'s Movies", movies_user_path(@user) %></li>
     <li><%= link_to "#{@user.name}'s Shows", shows_user_path(@user) %></li>
   </ul>
