@@ -51,7 +51,7 @@ class RecommendationsController < ApplicationController
       sender = current_user
       params[:recipients].each do |recipient|
         receiver = User.find(recipient)
-        Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium_id)
+        Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium_id) if !Recommendation.where(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium_id).first
 
         medium.recommended_count = medium.recommended_count + 1
         medium.save
