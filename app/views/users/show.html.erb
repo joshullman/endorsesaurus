@@ -1,6 +1,6 @@
 <div class ="secondary-navbar-class">
   <ul class="secondary-navbar-nav">
-  	<li><%= link_to "#{@user.email}'s Profile", user_path(@user) %></li>
+  	<li><%= link_to "#{@user.email}'s Profile", @user %></li>
   	<li><%= link_to "#{@user.email}'s Movies", movies_user_path(@user) %></li>
     <li><%= link_to "#{@user.email}'s Shows", shows_user_path(@user) %></li>
   </ul>
@@ -13,19 +13,19 @@
 	</div>
 </div>
 
-<div class="center_col">
+<div class="two_thirds_col">
 
 		<h3>Recent Activity:</h3>
 
-	<div class="recent_wrapper">
+	<div class="recent_activity_wrapper">
 		<% @recent_activity.each_key do |record| %>
 			<div id=<%="recent_activity_#{record.id}"%> class="recent_activity_row"
-				<% if !record.has_attribute?(:value) %>
-				<% elsif record.value == 1 %>
+				<% if !@recent_activity[record][1].is_a? Integer %>
+				<% elsif @recent_activity[record][1] == 1 %>
 					style="background-color:green;"
-				<% elsif record.value == -1 %>
+				<% elsif @recent_activity[record][1] == -1 %>
 					style="background-color:red;"
-				<% elsif record.value == 0 %>
+				<% elsif @recent_activity[record][1] == 0 %>
 					style="background-color:yellow;"
 				<% end %>	>
 
@@ -82,24 +82,7 @@
 						<br>
 					<% end %>
 				<% end %>
-					<% case @current_user_likes[record.medium_id] %>
-						<% when 1 %>
-							<div class="icons"><%= image_tag 'green_circle.svg' %></div>
-						<% when 0 %>
-							<div class="icons"><%= image_tag 'yellow_circle.png' %></div>
-						<% when -1 %>
-							<div class="icons"><%= image_tag 'red_circle.png' %></div>
-						<% else %>
-							<div class="icons"><%= image_tag 'white_circle.jpeg' %></div>
-					<% end %>
-					<div class="icons"><%= image_tag 'blue_r.jpg' %></div>
-					<!-- open up a new window that contains current_user.friends
-										select which friends you'd like to recommend it to
-										press recommend button to confirm
-										(This creates however many new recommendations)
-								current_user.friends
-						-->
-					<br>
+				<%= render partial: 'layouts/icons', locals: { current_user_likes: @current_user_likes, placeholder: record, current_user: current_user } %>
 			</div>
 		<% end %>
 	</div>

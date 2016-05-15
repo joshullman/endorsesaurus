@@ -122,7 +122,7 @@ def do_even_more_stuff(media_type)
 
 end
 
-class UserController < ApplicationController
+class UsersController < ApplicationController
 
   def show
     session[:return_to] ||= request.referer

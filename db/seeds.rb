@@ -116,6 +116,7 @@ media.each do |imdb_url|
 			media_points = series["Episodes"].length * (runtime.to_f/30).ceil
 			med = Medium.create(media_type: "Season")
 			season = Season.create(
+				title: api["Title"],
 				show_id: show.id,
 				season_num: season_num,
 				points: media_points,

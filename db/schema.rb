@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160508201941) do
 
   create_table "seasons", force: :cascade do |t|
     t.integer  "show_id"
+    t.string   "title"
     t.integer  "season_num"
     t.integer  "points"
     t.integer  "medium_id"

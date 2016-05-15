@@ -1,3 +1,115 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.left_col {
+	padding-top: 5%;
+	height: 100%;
+	width: 30%;
+	float: left;
+	margin-left: 2%;
+}
+
+.center_col {
+	height: 100%;
+	width: 30%;
+	float: left;
+	margin-left: 1%;
+}
+
+.right_col {
+	height: 100%;
+	width: 30%;
+	float: left;	
+	margin-left: 1%;
+	margin-right: 2%;
+}
+
+.two_thirds_col {
+	height: 100%;
+	width: 60%;
+	float: left;
+	margin-left: 1%;
+}
+
+div a {
+  font-size: 18px;
+  padding: 5px;
+  display:inline-block;
+}
+
+ul {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+ul li {display: inline-block;}
+ul li:hover {background: #555;}
+ul li:hover ul {display: block;}
+ul li ul {
+  position: absolute;
+  display: none;
+}
+ul li ul li { 
+	margin-top: 20px;
+  background: #555; 
+  display: block;
+  float: left; 
+}
+ul li ul li a {display:block;} 
+ul li ul li:hover {background: #666;}
+
+.recent_activity_wrapper {
+	height: 800px;
+	overflow: auto;
+}
+
+.recent_wrapper {
+	height: 420px;
+	overflow: auto;
+}
+
+.recommendation_wrapper {
+	height: 800px;
+	overflow: auto;
+}
+
+.watched_wrapper {
+	height: 800px;
+	overflow: auto;
+}
+
+.icons img {
+	float: left;
+	height: 15px;
+	width: 15px;
+}
+
+.title {
+	float: left;
+}
+
+.photo img {
+	width: 200px;
+	height: 200px;
+}
+
+.recent_row {
+	border: 1px solid black;
+}
+
+.rec_row {
+	border: 1px solid black;
+}
+
+.like_row {
+	border: 1px solid black;
+}
+
+.seen_row {
+	border: 1px solid black;
+}
+
+.dislike_row {
+	border: 1px solid black;
+}

@@ -1,0 +1,64 @@
+<div class ="secondary-navbar-class">
+  <ul class="secondary-navbar-nav">
+  	<li><%= link_to "#{@user.email}'s Profile", @user %></li>
+  	<li><%= link_to "#{@user.email}'s Movies", movies_user_path(@user) %></li>
+    <li><%= link_to "#{@user.email}'s Shows", shows_user_path(@user) %></li>
+  </ul>
+</div>
+<div class="left_col">
+	<div class="photo"><%= image_tag 'profile.jpg' %></div>
+	<div class=profile_info>
+		<h2><%= @user.email %></h2>
+		<h2>My Points: <%= @user.points %></h2>
+	</div>
+	<h3>Recent Movie Activity:</h3>
+
+	<div class="recent_wrapper">
+		<% @recently_watched.each_key do |like| %>
+			<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: true, css_class: "recent"} %>	
+			<br>
+		<% end %>
+	</div>
+</div>
+
+<div class="center_col">
+
+	<h3>Movie Recommendations:</h3>
+	<div class="recommendation_wrapper">
+		<% @recs.each do |rec| %>
+			<%= render partial: 'layouts/recommended_movie_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: rec, current_user: current_user, css_class: "recommendation" } %>
+			<br>
+		<% end %>
+	</div>
+</div>
+
+
+<div class="right_col">
+	<h3>Movie Likes/Seen/Dislikes</h3>
+	<div class="watched_wrapper">
+
+		<h3>Likes:</h3>
+		<% if @likes[1] %>
+			<% @likes[1].each do |like| %>
+				<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: false, css_class: "like"} %>	
+				<br>
+			<% end %>
+		<% end %>
+
+		<h3>Seen:</h3>
+		<% if @likes[0] %>
+			<% @likes[0].each do |seen| %>
+				<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, recent: false, css_class: "seen"} %>	
+				<br>
+			<% end %>
+		<% end %>
+
+		<h3>Dislikes:</h3>
+		<% if @likes[-1] %>
+			<% @likes[-1].each do |dislike| %>
+				<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, recent: false, css_class: "dislike"} %>	
+				<br>
+			<% end %>
+		<% end %>
+	</div>
+</div>
