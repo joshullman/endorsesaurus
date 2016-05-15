@@ -18,26 +18,6 @@ class Medium < ActiveRecord::Base
 		end
 	end
 
-	def watched_count
-		Like.where(medium_id: self.id).count || 0
-	end
-
-	def liked_count
-		Like.where(medium_id: self.id).where(value: 1).count || 0
-	end
-
-	def seen_count
-		Like.where(medium_id: self.id).where(value: 0).count || 0
-	end
-
-	def disliked_count
-		Like.where(medium_id: self.id).where(value: -1).count || 0
-	end
-
-	def recommended_count
-		Recommendation.where(medium_id: self.id).count || 0
-	end
-
 	def recommended_to(user_id)
 		recs = self.recommendations.where(sender_id: user_id)
 		users = []

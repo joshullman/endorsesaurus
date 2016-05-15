@@ -7,6 +7,24 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  # FRIENDS
+
+  has_many :friendships
+  has_many :passive_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+
+  has_many :active_friends, -> { where(friendships: { accepted: true}) }, :through => :friendships, :source => :friend
+  has_many :passive_friends, -> { where(friendships: { accepted: true}) }, :through => :passive_friendships, :source => :user
+  has_many :pending_friends, -> { where(friendships: { accepted: false}) }, :through => :friendships, :source => :friend
+  has_many :requested_friendships, -> { where(friendships: { accepted: false}) }, :through => :passive_friendships, :source => :user
+
+
+  def friends
+    active_friends | passive_friends
+  end
+
+  # OMNIAUTH
+
   devise :omniauthable, :omniauth_providers => [:facebook]
 
   def self.from_omniauth(auth)
@@ -20,10 +38,10 @@ class User < ActiveRecord::Base
   end
 
   def self.new_with_session(params, session)
-      super.tap do |user|
-        if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-          user.email = data["email"] if user.email.blank?
-        end
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
       end
     end
+  end
 end

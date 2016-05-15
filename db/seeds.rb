@@ -156,7 +156,7 @@ media.each do |imdb_url|
 
 end
 
-128.times do
+256.times do
 	user = 1
 	media = 1
 	value = 0
@@ -183,7 +183,7 @@ end
 	med.save
 end
 
-128.times do 
+256.times do 
 	sender = 0
 	receiver = 0
 	media = 0
@@ -198,4 +198,20 @@ end
 		med.recommended_count = med.recommended_count + 1
 		med.save
 	end
+end
+
+
+192.times do
+	user = 0
+	friend = 0
+	accepted = 0
+	
+	until user != friend && Friendship.where(user_id: user, friend_id: friend).first == nil && Friendship.where(user_id: friend, friend_id: user).first == nil
+		user = rand(32) + 1
+		friend = rand(32) + 1
+		accepted = rand(2) + 1
+	end
+
+	accepted == 1 ? accepted = true : accepted = false
+	Friendship.create(user_id: user, friend_id: friend, accepted: accepted)
 end
