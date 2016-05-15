@@ -7,7 +7,7 @@
   </ul>
 </div>
 <div class ="endorsesaurus_container">
-	<h2>Endorsesaurus Enclosure</h2>
+	<h2><%= @user.name %>'s Endorsesaurus Enclosure</h2>
 </div>
 
 <div class="left_col">
@@ -25,7 +25,7 @@
     <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
   <% end %>
 
-  <h2><%= @user.name %>'s Friends</h2>
+  <h3><%= @user.name %>'s Friends</h3>
   <ul>
     <% @user.friends.each do |friend| %>
       <li>
@@ -58,6 +58,7 @@
         <li>
           <%= link_to request.name, request %> 
         </li>
+        <br>
       <% end %>
     </ul>
   <% end %>

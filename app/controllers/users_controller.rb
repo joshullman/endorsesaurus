@@ -95,11 +95,11 @@ def recent_activity(instance_activity)
   activity.flatten!.sort_by! {|record| record.created_at}.reverse!
   activity.each do |record|
     if record.has_attribute?(:value)
-      instance_activity[record.find_associated_media] = ["Like", record.value]
+      instance_activity[["Like", record.value, record.id]] = [record.find_associated_media, record]
     elsif record.sender_id == @user.id
-      instance_activity[record.find_associated_media] = ["R-To", record.receiver]
+      instance_activity[["R-To", record.receiver, record.id]] = [record.find_associated_media, record]
     else
-      instance_activity[record.find_associated_media] = ["R-From", record.sender]
+      instance_activity[["R-From", record.sender, record.id]] = [record.find_associated_media, record]
     end
   end
 end

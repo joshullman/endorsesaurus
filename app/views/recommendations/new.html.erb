@@ -1,0 +1,43 @@
+<h1>Who would you like to recommend <%= @media.title %><% if @media.medium.media_type == "Season" %> Season: <%= @media.season_num %><% end %> to?</h1>
+<br>
+
+<%= form_tag('/recommendations', method: 'post') do %>
+	<% @possible_recipients.each do |friend| %>
+		<li>
+			<%= check_box_tag 'recipients[]', friend.id -%>
+			<%= friend.name -%>
+			<%= hidden_field_tag 'medium_id', @media.medium.id %>
+		</li>
+	<% end %>
+	<%= submit_tag("Recommend") %>
+<% end %>
+<br>
+
+
+<h3>Already Recommended to:</h3>
+<% @recommended_to.each do |friend| %>
+	<%= link_to friend.name, friend %>
+	<br>
+<% end %>
+<br>
+
+<h3>Already Liked:</h3>
+<% @already_liked.each do |friend| %>
+	<%= link_to friend.name, friend %>
+	<br>
+<% end %>
+<br>
+
+<h3>Already Seen:</h3>
+<% @already_seen.each do |friend| %>
+	<%= link_to friend.name, friend %>
+	<br>
+<% end %>
+<br>
+
+<h3>Already Disiked:</h3>
+<% @already_disliked.each do |friend| %>
+	<%= link_to friend.name, friend %>
+	<br>
+<% end %>
+<br>
