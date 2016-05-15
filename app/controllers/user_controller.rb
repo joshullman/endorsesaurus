@@ -93,11 +93,11 @@ def recent_activity(instance_activity)
   activity.flatten!.sort_by! {|record| record.created_at}.reverse!
   activity.each do |record|
     if record.has_attribute?(:value)
-      instance_activity[record] = "Like"
+      instance_activity[record.find_associated_media] = ["Like", record.value]
     elsif record.sender_id == @user.id
-      instance_activity[record] = "Recommended To"
+      instance_activity[record.find_associated_media] = ["R-To", record.receiver]
     else
-      instance_activity[record] = "Recommended From"      
+      instance_activity[record.find_associated_media] = ["R-From", record.sender]
     end
   end
 end
@@ -120,15 +120,19 @@ def do_even_more_stuff(media_type)
   @user_likes = {}
   user_likes(@user_likes, @user)
 
-  @recent_activity = {}
-  recent_activity(@recent_activity)
 end
 
 class UserController < ApplicationController
 
   def show
     session[:return_to] ||= request.referer
-    do_even_more_stuff("movie")
+    @user = User.find(params[:id])
+
+    @current_user_likes = {}
+    current_user_likes(@current_user_likes)
+
+    @recent_activity = {}
+    recent_activity(@recent_activity)
   end
 
   def movies
