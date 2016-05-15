@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 20160508201941) do
     t.inet     "last_sign_in_ip"
     t.integer  "points",                 default: 0
     t.string   "photo_url"
+    t.string   "provider"
+    t.string   "uid"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
