@@ -18,14 +18,14 @@ Stuff To Watch is an application that allows users to give and receive film and 
 
 ##Media I've Already Seen
 * As a User, I'd like to be able to search for media I've already seen
-* As a User, I'd like to be able to like/dislike media I've seen from a search
-* As a User, I'd like to be able to like/dislike media I've seen from another user's list
-* As a User, I'd like to be able to like/dislike media I've seen from another user's recommendation list
+* ~~As a User, I'd like to be able to like/dislike media I've seen from a search~~
+* ~~As a User, I'd like to be able to like/dislike media I've seen from another user's list~~
+* ~~As a User, I'd like to be able to like/dislike media I've seen from another user's recommendation list~~
 
 ##Media I've Recommended
-* As a User, I'd like to be able to recommend media to a friend
-* As a User, I'd like to be able to see what media I've recommended to a specific friend
-* As a User, I'd like to be able to see what friends I've recommended specific media to
+* ~~As a User, I'd like to be able to recommend media to a friend~~
+* ~~As a User, I'd like to be able to see what media I've recommended to a specific friend~~
+* ~~As a User, I'd like to be able to see what friends I've recommended specific media to~~
 * ~~As a User, I'd like to be able to see if my recommendation has affected a friend's list~~
 * ~~As a User, I'd like to be able to see how many points my recommendation counts for~~
 
@@ -54,8 +54,8 @@ Stuff To Watch is an application that allows users to give and receive film and 
 * ~~As a User, I'd like to be able to see what media Users have already seen~~
 * ~~As a User, I'd like to be able to see what media another User and I have in common~~
 * ~~As a User, I'd like to be able to see what media has been recommended to another User~~
-* As a User, I'd like to be able to see what media I've specifically recommended to a user
-* As a User, I'd like to be able to bump up/down a recommendation that's already on the list
+* ~~As a User, I'd like to be able to see what media I've specifically recommended to a user~~
+* ~~As a User, I'd like to be able to bump up/down a recommendation that's already on the list~~
 * As a User, I'd like to be able to see what media is in progress
 * As a User, I'd like to be able to see a User's badges
 * ~~As a User, I'd like to be able to see a User's points~~
