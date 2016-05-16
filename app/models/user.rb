@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :received_notifications, class_name: "Notification", source: :user_two, foreign_key: "user_two_id"
 
   def notifications
-    sent_notifications | received_notifications
+    (sent_notifications | received_notifications).sort!
   end
 	has_many :likes
   # Include default devise modules. Others available are:

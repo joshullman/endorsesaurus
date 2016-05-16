@@ -75,10 +75,9 @@ ActiveRecord::Schema.define(version: 20160516033429) do
     t.integer  "user_one_id"
     t.integer  "user_two_id",       default: 0
     t.integer  "medium_id",         default: 0
-    t.integer  "value",             default: 100
     t.string   "notification_type"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "recommendations", force: :cascade do |t|

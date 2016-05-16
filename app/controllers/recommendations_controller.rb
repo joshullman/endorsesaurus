@@ -48,7 +48,7 @@ class RecommendationsController < ApplicationController
 
         medium.recommended_count = medium.recommended_count + 1
         medium.save
-        Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: medium_id, notification_type: "recommendation")
+        Notification.create(user_one_id: sender.id, user_two_id: receiver.id, medium_id: medium_id, notification_type: "recommendation")
       end
 
       case media_type

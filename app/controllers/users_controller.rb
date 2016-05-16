@@ -36,10 +36,8 @@ class UsersController < ApplicationController
 
       @recents = []
       friends_recent_activity(@recents)
-      @recents.each do |note|
-        p note.user_one.name
-      end
-      @friends_recents = @recents.sort {|x, y| y.created_at <=> x.created_at }
+      @friends_recents = @recents.sort {|x, y| y.note_created_at <=> x.note_created_at }
+      p @friends_recents[1]
     end
   end
 
@@ -75,13 +73,13 @@ class UsersController < ApplicationController
   end
 
   class Note
-    attr_reader :user_one, :user_two, :media_type, :notification_type, :media, :points, :created_at
+    attr_reader :user_one, :user_two, :media_type, :notification_type, :media, :points, :note_created_at
     def initialize(notification)
       @notification = notification
       @user_one = notification.user_one
       @user_two = notification.user_two
       @notification_type = notification.notification_type
-      @created_at = notification.created_at
+      @note_created_at = notification.created_at
     end
 
     def do_stuff
@@ -192,7 +190,7 @@ class UsersController < ApplicationController
 
   def friends_recent_activity(instance_array)
     @user.friends.each do |friend|
-      notifications = friend.notifications.last(5)
+      notifications = friend.notifications.last(10)
       notifications.each do |notification|
         note = Note.new(notification)
         note.do_stuff
