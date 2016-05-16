@@ -1,0 +1,42 @@
+<div class ="secondary-navbar-class">
+  <ul class="secondary-navbar-nav">
+  	<li><%= link_to "#{@user.name}'s Profile", @user %></li>
+  	<li><%= link_to "#{@user.name}'s Friends", friends_user_path(@user) %></li>
+  	<li><%= link_to "#{@user.name}'s Movies", movies_user_path(@user) %></li>
+    <li><%= link_to "#{@user.name}'s Shows", shows_user_path(@user) %></li>
+  </ul>
+</div>
+<div class ="endorsesaurus_container">
+	<h2><%= @user.name %>'s Endorsesaurus Enclosure</h2>
+</div>
+
+<ul>
+<% @friends_recents.each do |notification| %>
+	<% if notification.notification_type == "like" %>
+		<%= notification if notification.media_type == "Show" %>
+		<%= notification if notification.media_type == "Movie" %>
+	<% elsif notification.notification_type == "seen" %>
+		<%= notification if notification.media_type == "Show" %>
+		<%= notification if notification.media_type == "Movie" %>
+	<% elsif notification.notification_type == "dislike" %>
+		<%= notification if notification.media_type == "Show" %>
+		<%= notification if notification.media_type == "Movie" %>
+	<% elsif notification.notification_type == "friends" %>
+		<%= notification if notification.media_type == "Show" %>
+		<%= notification if notification.media_type == "Movie" %>
+	<% elsif notification.notification_type == "recommendation" %>
+		<%= notification if notification.media_type == "Show" %>
+		<%= notification if notification.media_type == "Movie" %>
+	<% elsif notification.notification_type == "liked rec" %>
+		<%= notification if notification.media_type == "Show" %>
+		<%= notification if notification.media_type == "Movie" %>
+	<% elsif notification.notification_type == "seen rec" %>
+		<%= notification if notification.media_type == "Show" %>
+		<%= notification if notification.media_type == "Movie" %>
+	<% elsif notification.notification_type == "disliked rec" %>
+		<%= notification if notification.media_type == "Show" %>
+		<%= notification if notification.media_type == "Movie" %>
+	<br>
+	<% end %>
+<% end %>
+</ul>

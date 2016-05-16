@@ -17,6 +17,7 @@ class FriendshipsController < ApplicationController
   @friendship.update(accepted: true)
     if @friendship.save
       redirect_to :back, :notice => "Successfully confirmed friend!"
+      Notification.create(user_one_id: @friendship.user_id, user_two_id: @friendship.friend_id, notification_type: "friends")
     else
       redirect_to :back, :notice => "Sorry! Could not confirm friend!"
     end

@@ -2,6 +2,12 @@ class User < ActiveRecord::Base
 	has_many :sent_recs, class_name: "Recommendation", source: :user_one, foreign_key: "sender_id"
 	has_many :received_recs, class_name: "Recommendation", source: :user_two, foreign_key: "receiver_id"
 
+  has_many :sent_notifications, class_name: "Notification", source: :user_one, foreign_key: "user_one_id"
+  has_many :received_notifications, class_name: "Notification", source: :user_two, foreign_key: "user_two_id"
+
+  def notifications
+    sent_notifications | received_notifications
+  end
 	has_many :likes
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -10,6 +16,10 @@ class User < ActiveRecord::Base
 
   def has_recommended_to?(id, medium_id)
     Recommendation.where(sender_id: self.id, receiver_id: id, medium_id: medium_id).first == nil ? false : true
+  end
+
+  def recent_activity
+    Notification.where(user_id: self.id).order(created_at: :desc)
   end
 
   # FRIENDS

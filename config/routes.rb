@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       get 'movies'
       get 'shows'
       get 'friends'
+      get 'dashboard'
     end
   end
   resources :recommendations

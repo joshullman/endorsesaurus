@@ -1,10 +1,3 @@
-def current_user_likes(instance_likes)
-  current_user_likes = Like.where(user_id: current_user.id)
-  current_user_likes.each do |like|
-    instance_likes[Medium.find(like.medium_id).id] = like.value
-  end
-end
-
 class ShowsController < ApplicationController
 	before_action :find_show, only: [:show, :edit, :update, :destroy]
 
@@ -41,5 +34,12 @@ class ShowsController < ApplicationController
 
 	def show_params
 		params.require(:show).permit(:title, :year, :rated, :released, :runtime, :genre, :creator, :actors, :plot, :poster, :imdb_id)
+	end
+
+	def current_user_likes(instance_likes)
+	  current_user_likes = Like.where(user_id: current_user.id)
+	  current_user_likes.each do |like|
+	    instance_likes[Medium.find(like.medium_id).id] = like.value
+	  end
 	end
 end

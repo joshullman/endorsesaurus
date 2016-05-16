@@ -1,10 +1,3 @@
-def current_user_likes(instance_likes)
-  current_user_likes = Like.where(user_id: current_user.id)
-  current_user_likes.each do |like|
-    instance_likes[Medium.find(like.medium_id).id] = like.value
-  end
-end
-
 class MediaController < ApplicationController
 	before_action :find_medium, only: [:show, :edit, :update, :destroy]
 
@@ -102,4 +95,11 @@ class MediaController < ApplicationController
 	def medium_params
 		params.require(:medium).permit(:type, :related_id)
 	end
+
+  def current_user_likes(instance_likes)
+    current_user_likes = Like.where(user_id: current_user.id)
+    current_user_likes.each do |like|
+      instance_likes[Medium.find(like.medium_id).id] = like.value
+    end
+  end
 end

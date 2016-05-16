@@ -1,8 +1,3 @@
-# likes are a bit more complicated.  First you'll want to check if anyone has
-# recommended it to you.  If they had, they all get points.
-# Next, you need to add points to the user's profile.
-
-
 class LikesController < ApplicationController
 	before_action :find_likes, only: [:show, :edit, :update, :destroy]
 
@@ -21,6 +16,7 @@ class LikesController < ApplicationController
       like.first.save
       case value
         when 1
+          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "like")
           medium.liked_count = medium.liked_count + 1
           if old_value == 0
             medium.seen_count = medium.seen_count - 1
@@ -28,6 +24,7 @@ class LikesController < ApplicationController
             medium.disliked_count = medium.disliked_count - 1
           end   
         when 0
+          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "seen")
           medium.seen_count = medium.seen_count + 1
           if old_value == 1
             medium.liked_count = medium.liked_count - 1
@@ -35,6 +32,7 @@ class LikesController < ApplicationController
             medium.disliked_count = medium.disliked_count - 1
           end
         when -1
+          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "dislike")
           medium.disliked_count = medium.disliked_count + 1
           if old_value == 1
             medium.liked_count = medium.liked_count - 1
@@ -51,14 +49,17 @@ class LikesController < ApplicationController
       curr.save
       recommendations = Recommendation.where(receiver_id: current_user.id, medium_id: medium.id)
       if !recommendations.empty? && value == 1
+        Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "like")
         medium.liked_count = medium.liked_count + 1
         recommendations.map do |rec|
           sender = rec.sender
           sender.points = sender.points + medium.find_associated_media.points
           sender.save
           Recommendation.find(rec.id).destroy
+          Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: medium.id, notification_type: "liked rec")
         end
       elsif !recommendations.empty? && value == -1
+        Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "dislike")
         medium.disliked_count = medium.disliked_count + 1
         recommendations.map do |rec|
           sender = rec.sender
@@ -66,11 +67,14 @@ class LikesController < ApplicationController
           sender.points = 1 if sender.points <= 0
           sender.save
           Recommendation.find(rec.id).destroy
+          Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: medium.id, notification_type: "disliked rec")
         end
       elsif !recommendations.empty? && value == 0
+        Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "seen")
         medium.seen_count = medium.seen_count + 1
         recommendations.map do |rec|
         Recommendation.find(rec.id).destroy
+        Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: medium.id, notification_type: "seen rec")
         end
       end
     medium.save
@@ -82,11 +86,14 @@ class LikesController < ApplicationController
       medium.watched_count = medium.watched_count + 1
       case value
         when 1
+          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "like")
           medium.liked_count = medium.liked_count + 1
         when 0
           medium.seen_count = medium.seen_count + 1
+          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "seen")
         when -1
           medium.disliked_count = medium.disliked_count + 1
+          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "dislike")
       end
     end
 
@@ -123,6 +130,37 @@ class LikesController < ApplicationController
   end
 
   private
+
+  def create_like_notification(user, medium, value, user_two = nil)
+    media = medium.find_associated_media
+    if user_two
+      case value
+        when 1
+          message = "#{user.name} liked #{user_two.name}'s recommendation of #{media.title}! #{user_two.name} gained #{media.points} points!" if medium.media_type == "Movie"
+          message = "#{user.name} liked #{user_two.name}'s recommendation of #{media.title} season #{media.season_num}! #{user_two.name} gained #{media.points} points!" if medium.media_type == "Season"
+        when 0
+          message = "#{user.name} saw #{user_two.name}'s recommendation of #{media.title}! #{user_two.name} gained no points." if medium.media_type == "Movie"
+          message = "#{user.name} saw #{user_two.name}'s recommendation of #{media.title} season #{media.season_num}! #{user_two.name} gained no points." if medium.media_type == "Season"
+        when -1
+          message = "#{user.name} disliked #{user_two.name}'s recommendation of #{media.title}! #{user_two.name} lost #{media.points} points :(." if medium.media_type == "Movie"
+          message = "#{user.name} disliked #{user_two.name}'s recommendation of #{media.title} season #{media.season_num}! #{user_two.name} lost #{media.points} points :(." if medium.media_type == "Season"
+      end
+      Notification.create(user_id: user_two.id, message: message)
+    else
+      case value
+        when 1
+          message = "#{user.name} liked #{media.title} and gained #{media.points} points!" if medium.media_type == "Movie"
+          message = "#{user.name} liked #{media.title} season #{media.season_num} and gained #{media.points} points!" if medium.media_type == "Season"
+        when 0
+          message = "#{user.name} saw #{media.title} and gained #{media.points} points!" if medium.media_type == "Movie"
+          message = "#{user.name} saw #{media.title} season #{media.season_num} and gained #{media.points} points!" if medium.media_type == "Season"
+        when -1
+          message = "#{user.name} disliked #{media.title} and gained #{media.points} points anyway!" if medium.media_type == "Movie"
+          message = "#{user.name} disliked #{media.title} season #{media.season_num} and gained #{media.points} points anyway!" if medium.media_type == "Season"
+      end
+      Notification.create(user_id: user.id, message: message)
+    end
+  end
 
 	def find_likes
 		@likes = Like.find(session[:like_id])
