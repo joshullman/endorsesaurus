@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
     @recent_activity = []
     recent_activity(@recent_activity)
+    @recent_activity.reverse!
   end
 
   def movies
@@ -36,8 +37,7 @@ class UsersController < ApplicationController
 
       @recents = []
       friends_recent_activity(@recents)
-      @friends_recents = @recents.sort {|x, y| y.note_created_at <=> x.note_created_at }
-      p @friends_recents[1]
+      @friends_recents = @recents.reverse!
     end
   end
 
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   end
 
   class Note
-    attr_reader :user_one, :user_two, :media_type, :notification_type, :media, :points, :note_created_at
+    attr_reader :user_one, :user_two, :media_type, :notification_type, :media, :points, :created_at
     def initialize(notification)
       @notification = notification
       @user_one = notification.user_one
