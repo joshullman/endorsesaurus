@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     @current_user_likes = {}
     current_user_likes(@current_user_likes)
 
-    @recent_activity = {}
+    @recent_activity = []
     recent_activity(@recent_activity)
   end
 
@@ -151,20 +151,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def recent_activity(instance_activity)
-    activity = []
-    activity << @user.likes
-    activity << @user.sent_recs
-    activity << @user.received_recs
-    activity.flatten!.sort_by! {|record| record.created_at}.reverse!
-    activity.each do |record|
-      if record.has_attribute?(:value)
-        instance_activity[["Like", record.value, record.id]] = [record.find_associated_media, record]
-      elsif record.sender_id == @user.id
-        instance_activity[["R-To", record.receiver, record.id]] = [record.find_associated_media, record]
-      else
-        instance_activity[["R-From", record.sender, record.id]] = [record.find_associated_media, record]
-      end
+  def recent_activity(instance_array)
+    notifications = @user.notifications
+    notifications.each do |notification|
+      note = Note.new(notification)
+      note.do_stuff
+      instance_array << note
     end
   end
 

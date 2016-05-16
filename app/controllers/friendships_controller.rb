@@ -13,7 +13,8 @@ class FriendshipsController < ApplicationController
   # PATCH/PUT /friendships/1
   # PATCH/PUT /friendships/1.json
   def update
-  @friendship = Friendship.where(friend_id: current_user, user_id: params[:id]).first
+  p params[:id]
+  @friendship = Friendship.where(friend_id: current_user, user_id: params[:id]).first || Friendship.where(friend_id: params[:id], user_id: current_user).first
   @friendship.update(accepted: true)
     if @friendship.save
       redirect_to :back, :notice => "Successfully confirmed friend!"

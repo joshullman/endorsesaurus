@@ -18,83 +18,73 @@
   <% if current_user != @user && current_user.pending_friends.include?(@user)%>
   	Friendship Pending...
 	<% elsif current_user != @user && !current_user.friends.include?(@user) %>
-    <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+    <% if current_user.requested_friendships.include?(@user) %>
+      <%= link_to "Accept Friend", friendship_path(:id => @user), :method => "put" %> 
+    <% else %>
+      <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+    <% end %>
   <% end %>
 </div>
 
 <div class="two_thirds_col">
-
-	<h3>Recent Activity:</h3>
-
-	<div class="recent_activity_wrapper">
-		<% @recent_activity.each_key do |record| %>
-			<div id=<%="recent_activity_#{@recent_activity[record][0].id}"%> class="recent_activity_row"
-				<% if !record[1].is_a? Integer %>
-				<% elsif record[1] == 1 %>
-					style="background-color:green;"
-				<% elsif record[1] == -1 %>
-					style="background-color:red;"
-				<% elsif record[1] == 0 %>
-					style="background-color:yellow;"
-				<% end %>	>
-
-				<% if record[0] == "Like"%>
-					<% if record[1] == 1 %>
-					  <% if @recent_activity[record][0].medium.media_type == "Movie" %>
-							<%= "#{@user.name} liked the Movie "%><%= link_to @recent_activity[record][0].title, movie_path(record) %>
-							<br>
-							<%= @recent_activity[record][1].created_at %>
-						<% else %>
-							<%= "#{@user.name} liked the Show "%><%= link_to @recent_activity[record][0].title, show_path(@recent_activity[record][0].show) %><%=" Season #{@recent_activity[record][0].season_num}!" %>
-							<br>
-							<%= @recent_activity[record][1].created_at %>
-						<% end %>
-					<% elsif record[1] == 0 %>
-					  <% if @recent_activity[record][0].medium.media_type == "Movie" %>
-							<%= "#{@user.name} saw the Movie "%><%= link_to @recent_activity[record][0].title, movie_path(record) %>
-							<br>
-							<%= @recent_activity[record][1].created_at %>
-						<% else %>
-							<%= "#{@user.name} saw the Show "%><%= link_to @recent_activity[record][0].title, show_path(@recent_activity[record][0].show) %><%=" Season #{@recent_activity[record][0].season_num}!" %>
-							<br>
-							<%= @recent_activity[record][1].created_at %>
-						<% end %>
-					<% elsif record[1] == -1 %>
-					  <% if @recent_activity[record][0].medium.media_type == "Movie" %>
-							<%= "#{@user.name} disliked the Movie "%><%= link_to @recent_activity[record][0].title, movie_path(record) %>
-							<br>
-							<%= @recent_activity[record][1].created_at %>
-						<% else %>
-							<%= "#{@user.name} disliked the Show "%><%= link_to @recent_activity[record][0].title, show_path(@recent_activity[record][0].show) %><%=" Season #{@recent_activity[record][0].season_num}!" %>
-							<br>
-							<%= @recent_activity[record][1].created_at %>
-						<% end %>
-					<% end %>
-				<% elsif record[0] == "R-To"%>
-				 <% if @recent_activity[record][0].medium.media_type == "Movie" %>
-						<%= "#{@user.name} Recommended the Movie "%><%= link_to @recent_activity[record][0].title, movie_path(@recent_activity[record][0]) %> to <%= link_to record[1].name, record[1] %>
-						<%= @recent_activity[record][1].created_at %>
-					<% else %>
-						<%= "#{@user.name} Recommended the Show "%><%= link_to @recent_activity[record][0].title, show_path(@recent_activity[record][0].show) %><%=" Season #{@recent_activity[record][0].season_num} to "%><%= link_to record[1].name, record[1] %>
-						<br>
-						<%= @recent_activity[record][1].created_at %>
-					<% end %>
-				<% elsif record[0] == "R-From" %>
-					<% if @recent_activity[record][0].medium.media_type == "Movie" %>
-						<%= link_to record[1].name, record[1] %> Recommended the Movie <%= link_to @recent_activity[record][0].title, movie_path(@recent_activity[record][0]) %><%=" to #{@user.name}!" %>
-						<br>
-						<%= @recent_activity[record][1].created_at %>
-					<% else %>
-						<%= link_to record[1].name, record[1] %> Recommended the Show <%= link_to @recent_activity[record][0].title, show_path(@recent_activity[record][0].show) %><%=" Season #{@recent_activity[record][0].season_num} to #{@user.name}!" %>
-						<br>
-						<%= @recent_activity[record][1].created_at %>
-					<% end %>
+	<h3><%= @user.name %>'s Recent Activity</h3>
+	<ul>
+		<% @recent_activity.each do |notification| %>
+			<% if notification.notification_type == "like" %>
+				<% if notification.media_type == "Movie" %>
+					<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> liked the movie <%= link_to notification.media.title, movie_path(notification.media) %></li>
+				<% elsif notification.media_type == "Season" %>
+					<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> liked the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
 				<% end %>
 				<br>
-				<%= render partial: 'layouts/icons', locals: { current_user_likes: @current_user_likes, placeholder: @recent_activity[record][0], current_user: current_user } %>
-			</div>
+			<% elsif notification.notification_type == "seen" %>
+				<% if notification.media_type == "Movie" %>
+					<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> watched the movie <%= link_to notification.media.title, movie_path(notification.media) %></li>
+				<% elsif notification.media_type == "Season" %>
+					<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> watched the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+				<% end %>
+				<br>
+			<% elsif notification.notification_type == "dislike" %>
+				<% if notification.media_type == "Movie" %>
+					<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> disliked the movie <%= link_to notification.media.title, movie_path(notification.media) %></li>
+				<% elsif notification.media_type == "Season" %>
+					<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> disliked the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+				<% end %>
+				<br>
+			<% elsif notification.notification_type == "friends" %>
+				<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> became friends with <%= link_to notification.user_two.name, user_path(notification.user_two) %></li>
+				<br>
+			<% elsif notification.notification_type == "recommendation" %>
+				<% if notification.media_type == "Movie" %>
+					<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> recommended the movie <%= link_to notification.media.title, movie_path(notification.media) %> to <%= link_to notification.user_two.name, user_path(notification.user_two) %></li>
+				<% elsif notification.media_type == "Season" %>
+					<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> recommended the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %> to <%= link_to notification.user_two.name, user_path(notification.user_two) %></li>
+				<% end %>
+				<br>
+			<% elsif notification.notification_type == "liked rec" %>
+				<% if notification.media_type == "Movie" %>
+					<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> liked <%= link_to notification.user_one.name, user_path(notification.user_one) %> movie recommendation <%= link_to notification.media.title, movie_path(notification.media) %></li>
+				<% elsif notification.media_type == "Season" %>
+					<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> liked <%= link_to notification.user_one.name, user_path(notification.user_one) %> show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+				<% end %>
+				<br>
+			<% elsif notification.notification_type == "seen rec" %>
+				<% if notification.media_type == "Movie" %>
+					<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> watched <%= link_to notification.user_one.name, user_path(notification.user_one) %> movie recommendation <%= link_to notification.media.title, movie_path(notification.media) %></li>
+				<% elsif notification.media_type == "Season" %>
+					<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> watched <%= link_to notification.user_one.name, user_path(notification.user_one) %> show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+				<% end %>
+				<br>
+			<% elsif notification.notification_type == "disliked rec" %>
+				<% if notification.media_type == "Movie" %>
+					<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> disliked <%= link_to notification.user_one.name, user_path(notification.user_one) %> movie recommendation <%= link_to notification.media.title, movie_path(notification.media) %></li>
+				<% elsif notification.media_type == "Season" %>
+					<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> disliked <%= link_to notification.user_one.name, user_path(notification.user_one) %> show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+				<% end %>
+				<br>
+			<% end %>
 		<% end %>
-	</div>
+	</ul>
 </div>
 
 
