@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   def notifications
     (sent_notifications | received_notifications).sort!
   end
+
 	has_many :likes
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -19,7 +20,12 @@ class User < ActiveRecord::Base
   end
 
   def recent_activity
-    Notification.where(user_id: self.id).order(created_at: :desc)
+    Notification.where(user_one_id: self.id).order(created_at: :desc)
+  end
+
+  def update_points(points)
+    self.points = self.points + points
+    self.save
   end
 
   # FRIENDS

@@ -46,8 +46,7 @@ class RecommendationsController < ApplicationController
         receiver = User.find(recipient)
         Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium_id) if !Recommendation.where(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium_id).first
 
-        medium.recommended_count = medium.recommended_count + 1
-        medium.save
+        medium.increment_recommends
         Notification.create(user_one_id: sender.id, user_two_id: receiver.id, medium_id: medium_id, notification_type: "recommendation")
       end
 
@@ -63,8 +62,7 @@ class RecommendationsController < ApplicationController
       receiver = params[:receiver]
       Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: medium_id)
 
-      medium.recommended_count = medium.recommended_count + 1
-      medium.save
+      medium.increment_recommends
       Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: medium_id, notification_type: "recommendation")
 
       case media_type
@@ -83,7 +81,7 @@ class RecommendationsController < ApplicationController
     media_type = Medium.find(medium_id).media_type
 
     Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: medium_id).first.destroy
-
+    medium.find(medium_id).decrement_recommends
     case media_type
       when "Movie"
         redirect_to :back
@@ -93,14 +91,6 @@ class RecommendationsController < ApplicationController
   end
 
 	private
-
-  def create_recommendation_notification(user_one, user_two, medium)
-    media = medium.find_associated_media
-    message = "#{user_one.name} recommended #{media.title} to #{user_two.name}!" if medium.media_type == "Movie"
-    message = "#{user_one.name} recommended #{media.title} season #{media.season_num} to #{user_two.name}!" if medium.media_type == "Season"
-    Notification.create(user_id: user_one.id, message: message)
-    Notification.create(user_id: user_two.id, message: message)
-  end
 
 	def recommendation_params
 		params.require(:recommendation).permit(:sender_id, :receiver_id, :medium_id)

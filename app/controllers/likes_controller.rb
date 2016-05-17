@@ -8,91 +8,63 @@ class LikesController < ApplicationController
     is_recommendation = params[:is_recommendation]
     is_current_user = true
     is_current_user = false if current_user.id != user.id
+    medium_points = medium.find_associated_media.points
 
     like = Like.where(user_id: current_user.id, medium_id: medium.id)
     if !like.empty?
       old_value = like.first.value
       like.first.value = value
       like.first.save
+      medium.increment_likes(value)
+      medium.decrement_likes(old_value)
       case value
         when 1
           Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "like")
-          medium.liked_count = medium.liked_count + 1
-          if old_value == 0
-            medium.seen_count = medium.seen_count - 1
-          elsif old_value == -1
-            medium.disliked_count = medium.disliked_count - 1
-          end   
         when 0
           Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "seen")
-          medium.seen_count = medium.seen_count + 1
-          if old_value == 1
-            medium.liked_count = medium.liked_count - 1
-          elsif old_value == -1
-            medium.disliked_count = medium.disliked_count - 1
-          end
         when -1
           Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "dislike")
-          medium.disliked_count = medium.disliked_count + 1
-          if old_value == 1
-            medium.liked_count = medium.liked_count - 1
-          elsif old_value == 0
-            medium.seen_count = medium.seen_count - 1
-          end
       end
-      medium.save
     elsif like.empty? && is_current_user && is_recommendation
       Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
-      medium.watched_count = medium.watched_count + 1
-      curr = User.find(current_user.id)
-      curr.points = curr.points + medium.find_associated_media.points
-      curr.save
+      medium.increment_watches
+      current_user.update_points(medium_points)
       recommendations = Recommendation.where(receiver_id: current_user.id, medium_id: medium.id)
       if !recommendations.empty? && value == 1
         Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "like")
-        medium.liked_count = medium.liked_count + 1
+        medium.increment_likes(value)
         recommendations.map do |rec|
-          sender = rec.sender
-          sender.points = sender.points + medium.find_associated_media.points
-          sender.save
+          rec.sender.update_points(medium_points)
           Recommendation.find(rec.id).destroy
           Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: medium.id, notification_type: "liked rec")
         end
       elsif !recommendations.empty? && value == -1
         Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "dislike")
-        medium.disliked_count = medium.disliked_count + 1
+        medium.increment_likes(value)
         recommendations.map do |rec|
-          sender = rec.sender
-          sender.points = sender.points - medium.find_associated_media.points
-          sender.points = 1 if sender.points <= 0
-          sender.save
+          rec.sender.update_points(-medium_points)
           Recommendation.find(rec.id).destroy
           Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: medium.id, notification_type: "disliked rec")
         end
       elsif !recommendations.empty? && value == 0
         Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "seen")
-        medium.seen_count = medium.seen_count + 1
+        medium.increment_likes(value)
         recommendations.map do |rec|
-        Recommendation.find(rec.id).destroy
-        Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: medium.id, notification_type: "seen rec")
+          Recommendation.find(rec.id).destroy
+          Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: medium.id, notification_type: "seen rec")
         end
       end
-    medium.save
     elsif like.empty? && !is_current_user
       Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
-      curr = User.find(current_user.id)
-      curr.points = curr.points + medium.find_associated_media.points
-      curr.save
-      medium.watched_count = medium.watched_count + 1
+      current_user.update_points(medium_points)
+      medium.increment_watches
+      medium.increment_likes(value)
       case value
         when 1
           Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "like")
-          medium.liked_count = medium.liked_count + 1
         when 0
-          medium.seen_count = medium.seen_count + 1
           Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "seen")
         when -1
-          medium.disliked_count = medium.disliked_count + 1
           Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "dislike")
       end
     end

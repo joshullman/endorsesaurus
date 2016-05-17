@@ -35,4 +35,43 @@ class Medium < ActiveRecord::Base
 		end
 		users
 	end
+
+	def increment_likes(value)
+		case value
+			when 1
+				self.liked_count = self.liked_count + 1
+			when 0
+				self.seen_count = self.seen_count + 1
+			when -1
+				self.disliked_count = self.disliked_count + 1
+		end
+		self.save
+	end
+
+	def decrement_likes(value)
+		case value
+			when 1
+				self.liked_count = self.liked_count - 1
+			when 0
+				self.seen_count = self.seen_count - 1
+			when -1
+				self.disliked_count = self.disliked_count - 1
+		end
+		self.save
+	end
+
+	def increment_watches
+		self.watched_count = self.watched_count + 1
+		self.save
+	end
+
+	def increment_recommends
+		self.recommended_count = self.recommended_count + 1
+		self.save
+	end
+
+	def decrement_recommends
+		self.recommended_count = self.recommended_count - 1
+		self.save
+	end
 end

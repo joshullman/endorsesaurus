@@ -13,7 +13,6 @@ class UsersController < ApplicationController
 
   def movies
     do_even_more_stuff("movie")
-    p @recently_watched
   end
 
   def shows

@@ -51,4 +51,91 @@ RSpec.describe Medium, :type => :model do
     expect(medium.find_associated_media).to eq(season)
   end
 
+  it "recommended_by method is intact" do
+    medium = Medium.create!(media_type: "Season")
+    season = Season.create!(season_num: 1, medium_id: medium.id)
+    user_one = User.create!(email: "blah@aol.com", password: "password")
+    user_two = User.create!(email: "blah2@aol.com", password: "password")
+    rec = Recommendation.create!(sender_id: user_one.id, receiver_id: user_two.id, medium_id: medium.id)
+
+    expect(medium.recommended_by(user_two.id).first).to eq(user_one)
+  end
+
+  it "recommended_by method is intact" do
+    medium = Medium.create!(media_type: "Season")
+    season = Season.create!(season_num: 1, medium_id: medium.id)
+    user_one = User.create!(email: "blah@aol.com", password: "password")
+    user_two = User.create!(email: "blah2@aol.com", password: "password")
+    rec = Recommendation.create!(sender_id: user_one.id, receiver_id: user_two.id, medium_id: medium.id)
+
+    expect(medium.recommended_to(user_one.id).first).to eq(user_two)
+  end
+
+  it "increment_likes method is intact for likes" do
+    medium = Medium.create!(media_type: "Season")
+    medium.increment_likes(1)
+
+    expect(medium.liked_count).to eq(1)
+  end
+
+  it "decrement_likes method is intact for likes" do
+    medium = Medium.create!(media_type: "Season")
+    medium.increment_likes(1)
+    medium.decrement_likes(1)
+
+    expect(medium.liked_count).to eq(0)
+  end
+
+  it "increment_likes method is intact for seens" do
+    medium = Medium.create!(media_type: "Season")
+    medium.increment_likes(0)
+
+    expect(medium.seen_count).to eq(1)
+  end
+
+  it "decrement_likes method is intact for seens" do
+    medium = Medium.create!(media_type: "Season")
+    medium.increment_likes(0)
+    medium.decrement_likes(0)
+
+    expect(medium.seen_count).to eq(0)
+  end
+
+  it "increment_likes method is intact for dislikes" do
+    medium = Medium.create!(media_type: "Season")
+    medium.increment_likes(-1)
+
+    expect(medium.disliked_count).to eq(1)
+  end
+
+  it "decrement_likes method is intact for dislikes" do
+    medium = Medium.create!(media_type: "Season")
+    medium.increment_likes(-1)
+    medium.decrement_likes(-1)
+
+    expect(medium.disliked_count).to eq(0)
+  end
+
+  it "increment_watches method is intact" do
+    medium = Medium.create!(media_type: "Season")
+    medium.increment_watches
+
+    expect(medium.watched_count).to eq(1)
+  end
+
+  it "increment_recommends method is intact" do
+    medium = Medium.create!(media_type: "Season")
+    medium.increment_recommends
+
+    expect(medium.recommended_count).to eq(1)
+  end
+
+  it "decrement_recommends is intact" do
+    medium = Medium.create!(media_type: "Season")
+    medium.increment_recommends
+    medium.decrement_recommends
+
+    expect(medium.recommended_count).to eq(0)
+  end
+
 end
