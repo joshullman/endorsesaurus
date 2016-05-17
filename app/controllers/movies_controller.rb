@@ -2,8 +2,6 @@ class MoviesController < ApplicationController
 	before_action :find_movie, only: [:show, :edit, :update, :destroy]
 
 	def index
-		session[:return_to] ||= request.referer
-
 		@all_tags = Tag.all
 
 		@tags = {}
@@ -17,7 +15,6 @@ class MoviesController < ApplicationController
 	end
 
 	def show
-		session[:return_to] ||= request.referer
   	@current_user_likes = {}
   	current_user_likes(@current_user_likes)
 	end
