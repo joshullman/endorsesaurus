@@ -40,13 +40,15 @@
 	You have recommended this Movie to:
 	<br>
 	<% @movie.medium.recommended_to(current_user.id).each do |person| %>
-		<%= person.email %>
+		<%= link_to person.name, user_path(person) %>
+		<br>
 	<% end %>
 	<br>
 	Have recommended this Movie to you:
 	<br>
 	<% @movie.medium.recommended_by(current_user.id).each do |person| %>
-		<%= person.email %>
+		<%= link_to person.name, user_path(person) %>
+		<br>
 	<% end %>
 	<br>
 </div>

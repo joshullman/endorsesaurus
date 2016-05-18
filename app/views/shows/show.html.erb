@@ -46,13 +46,15 @@
 		You have recommended this season to:
 		<br>
 		<% season.medium.recommended_to(current_user.id).each do |person| %>
-			<%= person.email %>
+			<%= link_to person.name, user_path(person) %>
+			<br>
 		<% end %>
 		<br>
 		Have recommended this season to you:
 		<br>
 		<% season.medium.recommended_by(current_user.id).each do |person| %>
-			<%= person.email %>
+			<%= link_to person.name, user_path(person) %>
+			<br>
 		<% end %>
 		<br>
 	<% end %>

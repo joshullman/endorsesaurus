@@ -1,34 +1,33 @@
+<div class="endorsesaurus_container">
+  <h2><%= @user.name %>'s Endorsesaurus Enclosure</h2>
+</div>
 <div class ="secondary-navbar-class">
   <ul class="secondary-navbar-nav">
-  	<li><%= link_to "#{@user.name}'s Profile", @user %></li>
-  	<li><%= link_to "#{@user.name}'s Friends", friends_user_path(@user) %></li>
-  	<li><%= link_to "#{@user.name}'s Movies", movies_user_path(@user) %></li>
+    <li><%= link_to "#{@user.name}'s Profile", @user %></li>
+    <li><%= link_to "#{@user.name}'s Friends", friends_user_path(@user) %></li>
+    <li><%= link_to "#{@user.name}'s Movies", movies_user_path(@user) %></li>
     <li><%= link_to "#{@user.name}'s Shows", shows_user_path(@user) %></li>
   </ul>
-</div>
-<div class ="endorsesaurus_container">
-	<h2><%= @user.name %>'s Endorsesaurus Enclosure</h2>
 </div>
 
 <div class="left_col">
 	<div class="photo"><%= image_tag 'profile.jpg' %></div>
 	<div class=profile_info>
 		<h2><%= @user.name %></h2>
-		<h2>My Points: <%= @user.points %></h2>
+		<h2>Points: <%= @user.points %></h2>
 	</div>
-</div>
-
-<div class="two_thirds_col">
   <% if current_user != @user && current_user.pending_friends.include?(@user)%>
-  	Friendship Pending...
-	<% elsif current_user != @user && !current_user.friends.include?(@user) %>
+    Friendship Pending...
+  <% elsif current_user != @user && !current_user.friends.include?(@user) %>
     <% if current_user.requested_friendships.include?(@user) %>
       <%= link_to "Accept Friend", friendship_path(:id => @user), :method => "put" %> 
     <% else %>
       <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
     <% end %>
   <% end %>
+</div>
 
+<div class="two_thirds_col">
   <h3><%= @user.name %>'s Friends</h3>
   <ul>
     <% @user.friends.each do |friend| %>
@@ -67,4 +66,4 @@
       <% end %>
     </ul>
   <% end %>
- </div>
+</div>
