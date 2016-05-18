@@ -2,7 +2,7 @@
 
 ###Overview
 
-Stuff To Watch is an application that allows users to give and receive film and television recommendations from their friends.
+Endorsesaurus is an application that allows users to give and receive film and television recommendations to and from their friends.
 
 ###User Stories
 
@@ -39,14 +39,14 @@ Stuff To Watch is an application that allows users to give and receive film and 
 * As a User, I'd like to be able to update media from "in progress" and like/dislike media (move from recommended to seen).
 
 ##My Newsfeed
-* As a User, I'd like to be able to see what media my friends are currently watching
-* As a User, I'd like to be able to see what media my friends have recently liked/disliked
-* As a User, I'd like to be able to see what media my friends have recently recommended to each other
+* ~~As a User, I'd like to be able to see what media my friends are currently watching~~
+* ~~As a User, I'd like to be able to see what media my friends have recently liked/disliked~~
+* ~~As a User, I'd like to be able to see what media my friends have recently recommended to each other~~
 * As a User, I'd like to be able to comment on all of the above
 * As a User, I'd like to be able to like/dislike all of the above
 * As a User, I'd like to be able to see what media is currently trending
 * As a User, I'd like to be able to see how many points I've aggregated/lost within a certain period of time
-* As a User, I'd like to be able to see how many points I'm currently worth
+* ~~As a User, I'd like to be able to see how many points I'm currently worth~~
 * As a User, I'd like to be able to hide posts from other Users
 * As a User, I'd like to be able to hide other Users posts
 
