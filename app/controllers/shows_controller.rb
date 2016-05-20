@@ -12,14 +12,14 @@ class ShowsController < ApplicationController
 			@tags[tag] = shows
 		end
 
-		@current_user_likes = current_user.current_user_likes
+		@current_user_likes = current_user.user_likes
 	end
 
 	def show
 		session[:return_to] ||= request.referer
 		@seasons = @show.seasons
 
-		@current_user_likes = current_user.current_user_likes
+		@current_user_likes = current_user.user_likes
 	end
 
 	def create

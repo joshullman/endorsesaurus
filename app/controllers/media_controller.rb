@@ -12,7 +12,7 @@ class MediaController < ApplicationController
     @most_liked_seasons = Medium.where(media_type: "Season").order(liked_count: :desc).limit(10).map {|show| show = show.find_associated_media}
     @most_recommended_seasons = Medium.where(media_type: "Season").order(recommended_count: :desc).limit(10).map {|show| show = show.find_associated_media}
 
-  	@current_user_likes = current_user.current_user_likes
+  	@current_user_likes = current_user.user_likes
 	end
 
   # def create

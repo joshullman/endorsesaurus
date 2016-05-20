@@ -4,10 +4,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    @current_user_likes = current_user.current_user_likes
+    @current_user_likes = current_user.user_likes
 
-    @recent_activity = []
-    recent_activity(@recent_activity)
+    @recent_activity = recent_activity
     @recent_activity.reverse!
   end
 
@@ -34,8 +33,7 @@ class UsersController < ApplicationController
       @user = current_user
       @recent_activity = @user.notifications.last(10)
 
-      @recents = []
-      friends_recent_activity(@recents)
+      @recents = friends_recent_activity
       @friends_recents = @recents.reverse!
     end
   end
@@ -92,19 +90,21 @@ class UsersController < ApplicationController
 
   end
 
-  def organize_likes(media_type, instance_likes)
+  def organize_likes(media_type)
+  likes_hash = {}
   likes = Like.where(user_id: @user.id).group_by(&:value)
-    likes.each_key do |key|
-      instance_likes[key] = []
-      likes[key].each do |like|
-        case media_type
-          when "movie"
-            instance_likes[key] << like.find_associated_media if like.medium.media_type == "Movie"
-          when "series"
-            instance_likes[key] << like.find_associated_media if like.medium.media_type == "Season"
-        end
+  likes.each_key do |key|
+    likes_hash[key] = []
+    likes[key].each do |like|
+      case media_type
+        when "movie"
+          likes_hash[key] << like.find_associated_media if like.medium.media_type == "Movie"
+        when "series"
+          likes_hash[key] << like.find_associated_media if like.medium.media_type == "Season"
       end
     end
+  end
+  likes_hash
   end
 
   def find_recommendations(media_type, instance_recs)
@@ -123,33 +123,30 @@ class UsersController < ApplicationController
     instance_recs.sort_by! {|rec| rec.user_points}.reverse!
   end
 
-  def find_recently_watched(media_type, instance_likes, num)
+  def find_recently_watched(media_type, num)
+    recently_watched = {}
     recents = Like.where(user_id: @user.id).last(num).reverse
 
     recents.each do |like|
       case media_type
         when "movie"
-          instance_likes[like.find_associated_media] = like.value if like.medium.media_type == "Movie"
+          recently_watched[like.find_associated_media] = like.value if like.medium.media_type == "Movie"
         when "series"
-          instance_likes[like.find_associated_media] = like.value if like.medium.media_type == "Season"
+          recently_watched[like.find_associated_media] = like.value if like.medium.media_type == "Season"
       end
     end
+    recently_watched
   end
 
-  def user_likes(instance_likes, user)
-    user_likes = Like.where(user_id: user.id)
-    user_likes.each do |like|
-      instance_likes[Medium.find(like.medium_id).id] = like.value
-    end
-  end
-
-  def recent_activity(instance_array)
+  def recent_activity
+    activity = []
     notifications = @user.notifications
     notifications.each do |notification|
       note = Note.new(notification)
       note.do_stuff
-      instance_array << note
+      activity << note
     end
+    activity
   end
 
   def do_even_more_stuff(media_type)
@@ -158,29 +155,22 @@ class UsersController < ApplicationController
     @recs = []
     find_recommendations(media_type, @recs)
     # finding the media assosciated with Likes
-    @likes = {}
-    organize_likes(media_type, @likes)
+    @likes = organize_likes(media_type)
     # finding recently watched
-    @recently_watched = {}
-    find_recently_watched(media_type, @recently_watched, 5)
+    @recently_watched = find_recently_watched(media_type, 5)
     #current_user information
-    @current_user_likes = {}
-    current_user_likes(@current_user_likes)
+    @current_user_likes = current_user.user_likes
     
-    @user_likes = {}
-    user_likes(@user_likes, @user)
+    @user_likes = @user.user_likes
 
   end
 
-  def friends_recent_activity(instance_array)
+  def friends_recent_activity
+    activity = []
     @user.friends.each do |friend|
-      notifications = friend.notifications.last(10)
-      notifications.each do |notification|
-        note = Note.new(notification)
-        note.do_stuff
-        instance_array << note
-      end
+      activity << friend.recent_activity
     end
+    activity
   end
 
 end

@@ -28,10 +28,10 @@ class User < ActiveRecord::Base
     self.save
   end
 
-  def current_user_likes
+  def user_likes
     likes = {}
-    current_user_likes = Like.where(user_id: current_user.id)
-    current_user_likes.each do |like|
+    user_likes = Like.where(user_id: self.id)
+    user_likes.each do |like|
       likes[Medium.find(like.medium_id).id] = like.value
     end
     likes

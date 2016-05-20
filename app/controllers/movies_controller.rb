@@ -11,11 +11,11 @@ class MoviesController < ApplicationController
 			@tags[tag] = movies
 		end
 
-  	@current_user_likes = current_user.current_user_likes
+  	@current_user_likes = current_user.user_likes
 	end
 
 	def show
-  	@current_user_likes = current_user.current_user_likes
+  	@current_user_likes = current_user.user_likes
 	end
 
 	def create
