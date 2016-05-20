@@ -15,6 +15,7 @@ class CreateEpisodes < ActiveRecord::Migration
       t.string   :plot
       t.string   :actors
       t.string   :poster
+      t.integer  :points
 
       t.timestamps null: false
     end

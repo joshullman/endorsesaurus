@@ -15,6 +15,7 @@ class CreateMovies < ActiveRecord::Migration
         t.string   :plot
         t.string   :poster
         t.string   :media_type
+        t.integer  :points
 
       t.timestamps null: false
     end

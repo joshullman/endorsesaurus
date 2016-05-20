@@ -87,7 +87,9 @@ media.each do |imdb_url|
 	if api["Type"] == "series"
 		series = {"Response" => "True"}
 		season_num = 1
-		med = Medium.create(media_type: "Show")
+		seasons_points = 0
+
+		show_med = Medium.create(media_type: "Show")
 		show = Show.create(
 			title: api["Title"],
 			year: api["Year"],
@@ -98,29 +100,33 @@ media.each do |imdb_url|
 			plot: api["Plot"],
 			poster: api["Poster"],
 			imdb_id: imdb_url,
-			medium_id: med.id
+			medium_id: show_med.id
 		)
-		med.update(related_id: show.id)
+		show_med.update(related_id: show.id)
+
 		tags.each do |tag|
 			t = Tag.where(name: tag).first
-			MediaTag.create(medium_id: med.id, tag_id: t.id)
+			MediaTag.create(medium_id: show_med.id, tag_id: t.id)
 		end
 		while series["Response"] == "True"
 			episodes = {"Response" => "True"}
 			episode_num = 1
+			episodes_points = 0
+
 			url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season_num}")
 			req = Net::HTTP::Get.new(url.to_s)
 			res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
 			series = JSON.parse(res.body)
+
 			break if series["Response"] != "True"
-			med = Medium.create(media_type: "Season")
+			season_med = Medium.create(media_type: "Season")
 			season = Season.create(
 				title: api["Title"],
 				show_id: show.id,
 				season_num: season_num,
-				medium_id: med.id
+				medium_id: season_med.id,
 			)
-			med.update(related_id: season.id)
+			season_med.update(related_id: season.id)
 
 				while episodes["Response"] == "True"
 					url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season_num}\&Episode\=#{episode_num}")
@@ -129,11 +135,13 @@ media.each do |imdb_url|
 					episodes = JSON.parse(res.body)
 					break if episodes["Response"] != "True"
 					runtime = api["Runtime"].gsub(" min", "").to_i
-					med = Medium.create(media_type: "Episode")
+					points = (runtime.to_f/30).ceil
+					episodes_points += points
+					season_med = Medium.create(media_type: "Episode")
 					episode = Episode.create(
 						season_id: season.id,
 						imdb_id: api["imdbID"],
-						medium_id: med.id,
+						medium_id: season_med.id,
 						episode_num: api["Episode"].to_i,
 						episode_title: api["Title"],
 						runtime: runtime,
@@ -142,18 +150,22 @@ media.each do |imdb_url|
 						director: api["Director"],
 						plot: api["Plot"],
 						actors: api["Actors"],
-						poster: api["Poster"]
+						poster: api["Poster"],
+						points: points
 					)
-					med.update(related_id: episode.id)
+					season_med.update(related_id: episode.id)
 					p [season_num, episode_num]
 					episode_num += 1
 				end
-
+			season.update(points: episodes_points)
+			seasons_points += episodes_points
 			season_num += 1
 		end
+		show.update(points: seasons_points)
 	else
 		runtime = api["Runtime"].gsub(" min", "").to_i
-		med = Medium.create(media_type: "Movie")
+		points = (runtime.to_f/30).ceil
+		movie_med = Medium.create(media_type: "Movie")
 		mov = Movie.create(
 			title: api["Title"],
 			year: api["Year"],
@@ -167,12 +179,13 @@ media.each do |imdb_url|
 			poster: api["Poster"],
 			media_type: api["Type"],
 			imdb_id: imdb_url,
-			medium_id: med.id
+			medium_id: movie_med.id,
+			points: points
 		)
-		med.update(related_id: mov.id)
+		movie_med.update(related_id: mov.id)
 		tags.each do |tag|
 			t = Tag.where(name: tag).first
-			MediaTag.create(medium_id: med.id, tag_id: t.id)
+			MediaTag.create(medium_id: movie_med.id, tag_id: t.id)
 		end
 	end
 

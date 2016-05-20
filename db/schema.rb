@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "director"
     t.string   "actors"
     t.string   "poster"
+    t.integer  "points"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "plot"
     t.string   "poster"
     t.string   "media_type"
+    t.integer  "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -112,6 +114,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "imdb_id"
     t.string   "title"
     t.integer  "season_num"
+    t.integer  "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -127,6 +130,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "poster"
     t.string   "imdb_id"
     t.integer  "medium_id"
+    t.integer  "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

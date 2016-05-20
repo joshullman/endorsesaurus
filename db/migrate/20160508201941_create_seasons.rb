@@ -7,6 +7,7 @@ class CreateSeasons < ActiveRecord::Migration
       t.string   :imdb_id
       t.string   :title
       t.integer  :season_num
+      t.integer  :points
 
 
       t.timestamps null: false
