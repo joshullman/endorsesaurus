@@ -13,6 +13,8 @@ class CreateEpisodes < ActiveRecord::Migration
       t.string   :writer
       t.string   :director
       t.string   :plot
+      t.string   :actors
+      t.string   :poster
 
       t.timestamps null: false
     end

@@ -6,52 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-def create_recommendation_notification(user_one, user_two, medium)
-	media = medium.find_associated_media
-	message = "#{user_one.name} recommended #{media.title} to #{user_two.name}!" if medium.media_type == "Movie"
-  message = "#{user_one.name} recommended #{media.title} season #{media.season_num} to #{user_two.name}!" if medium.media_type == "Season"
-  Notification.create(user_id: user_one.id, message: message)
-  Notification.create(user_id: user_two.id, message: message)
-end
-
-def create_friendship_notification(user_one, user_two)
-  message = "#{user_one.name} and #{user_two.name} became friends! :)"
-	Notification.create(user_id: user_one.id, message: message)
-	message = "#{user_two.name} and #{user_one.name} became friends! :)"
-	Notification.create(user_id: user_two.id, message: message)
-end
-
-def create_like_notification(user, medium, value, user_two = nil)
-	media = medium.find_associated_media
-  if user_two
-    case value
-      when 1
-        message = "#{user.name} liked #{user_two.name}'s recommendation of #{media.title}! #{user_two.name} gained #{media.points} points!" if medium.media_type == "Movie"
-        message = "#{user.name} liked #{user_two.name}'s recommendation of #{media.title} season #{media.season_num}! #{user_two.name} gained #{media.points} points!" if medium.media_type == "Season"
-      when 0
-        message = "#{user.name} saw #{user_two.name}'s recommendation of #{media.title}! #{user_two.name} gained no points." if medium.media_type == "Movie"
-        message = "#{user.name} saw #{user_two.name}'s recommendation of #{media.title} season #{media.season_num}! #{user_two.name} gained no points." if medium.media_type == "Season"
-      when -1
-        message = "#{user.name} disliked #{user_two.name}'s recommendation of #{media.title}! #{user_two.name} lost #{media.points} points :(." if medium.media_type == "Movie"
-        message = "#{user.name} disliked #{user_two.name}'s recommendation of #{media.title} season #{media.season_num}! #{user_two.name} lost #{media.points} points :(." if medium.media_type == "Season"
-    end
-    Notification.create(user_id: user_two.id, message: message)
-  else
-    case value
-      when 1
-        message = "#{user.name} liked #{media.title} and gained #{media.points} points!" if medium.media_type == "Movie"
-        message = "#{user.name} liked #{media.title} season #{media.season_num} and gained #{media.points} points!" if medium.media_type == "Season"
-      when 0
-        message = "#{user.name} saw #{media.title} and gained #{media.points} points!" if medium.media_type == "Movie"
-        message = "#{user.name} saw #{media.title} season #{media.season_num} and gained #{media.points} points!" if medium.media_type == "Season"
-      when -1
-        message = "#{user.name} disliked #{media.title} and gained #{media.points} points anyway!" if medium.media_type == "Movie"
-        message = "#{user.name} disliked #{media.title} season #{media.season_num} and gained #{media.points} points anyway!" if medium.media_type == "Season"
-    end
-    Notification.create(user_id: user.id, message: message)
-  end
-end
-
 User.create(email: "CaptainPlanet@aol.com", password: "password", name: "CaptainPlanet" )
 User.create(email: "Kuzy@aol.com", password: "password", name: "Kuzy")
 User.create(email: "BuffaloKing@aol.com", password: "password", name: "BuffaloKing")
@@ -139,43 +93,66 @@ media.each do |imdb_url|
 			year: api["Year"],
 			rated: api["Rated"],
 			released: api["Released"],
-			runtime: api["Runtime"],
-			genre: api["Genre"],
 			creator: api["Writer"],
 			actors: api["Actors"],
 			plot: api["Plot"],
 			poster: api["Poster"],
 			imdb_id: imdb_url,
 			medium_id: med.id
-			)
+		)
 		med.update(related_id: show.id)
 		tags.each do |tag|
 			t = Tag.where(name: tag).first
 			MediaTag.create(medium_id: med.id, tag_id: t.id)
 		end
 		while series["Response"] == "True"
+			episodes = {"Response" => "True"}
+			episode_num = 1
 			url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season_num}")
 			req = Net::HTTP::Get.new(url.to_s)
 			res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
 			series = JSON.parse(res.body)
 			break if series["Response"] != "True"
-			runtime = api["Runtime"].gsub(" min", "").to_i
-			media_points = series["Episodes"].length * (runtime.to_f/30).ceil
 			med = Medium.create(media_type: "Season")
 			season = Season.create(
 				title: api["Title"],
 				show_id: show.id,
 				season_num: season_num,
-				points: media_points,
 				medium_id: med.id
-				)
+			)
 			med.update(related_id: season.id)
+
+				while episodes["Response"] == "True"
+					url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season_num}\&Episode\=#{episode_num}")
+					req = Net::HTTP::Get.new(url.to_s)
+					res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
+					episodes = JSON.parse(res.body)
+					break if episodes["Response"] != "True"
+					runtime = api["Runtime"].gsub(" min", "").to_i
+					med = Medium.create(media_type: "Episode")
+					episode = Episode.create(
+						season_id: season.id,
+						imdb_id: api["imdbID"],
+						medium_id: med.id,
+						episode_num: api["Episode"].to_i,
+						episode_title: api["Title"],
+						runtime: runtime,
+						released: api["Released"],
+						writer: api["Writer"],
+						director: api["Director"],
+						plot: api["Plot"],
+						actors: api["Actors"],
+						poster: api["Poster"]
+					)
+					med.update(related_id: episode.id)
+					p [season_num, episode_num]
+					episode_num += 1
+				end
 
 			season_num += 1
 		end
 	else
 		runtime = api["Runtime"].gsub(" min", "").to_i
-		media_points = (runtime.to_f/30).ceil
 		med = Medium.create(media_type: "Movie")
 		mov = Movie.create(
 			title: api["Title"],
@@ -183,7 +160,6 @@ media.each do |imdb_url|
 			rated: api["Rated"],
 			released: api["Released"],
 			runtime: api["Runtime"],
-			genre: api["Genre"],
 			director: api["Director"],
 			writer: api["Writer"],
 			actors: api["Actors"],
@@ -191,7 +167,6 @@ media.each do |imdb_url|
 			poster: api["Poster"],
 			media_type: api["Type"],
 			imdb_id: imdb_url,
-			points: media_points,
 			medium_id: med.id
 		)
 		med.update(related_id: mov.id)
@@ -214,23 +189,16 @@ end
 	end
 	Like.create(user_id: user, medium_id: media, value: value)
 	med = Medium.find(media)
-	med.watched_count = med.watched_count + 1
+	med.increment_watches
+	med.increment_likes(value)
 	case value
 		when 1
-			med.liked_count = med.liked_count + 1
 			Notification.create(user_one_id: user, medium_id: media, notification_type: "like")
 		when 0
-			med.seen_count = med.seen_count + 1
 			Notification.create(user_one_id: user, medium_id: media, notification_type: "seen")
 		when -1
-			med.disliked_count = med.disliked_count + 1
 			Notification.create(user_one_id: user, medium_id: media, notification_type: "dislike")
 	end
-		
-	u = User.find(user)
-	u.points = u.points + med.find_associated_media.points
-	u.save
-	med.save
 end
 
 256.times do 
@@ -245,8 +213,7 @@ end
 	if Like.where(user_id: receiver, medium_id: media).first == nil
 		Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media)
 		med = Medium.find(media)
-		med.recommended_count = med.recommended_count + 1
-		med.save
+		med.increment_recommends
     Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media, notification_type: "recommendation")
 	end
 end

@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "released"
     t.string   "writer"
     t.string   "director"
+    t.string   "actors"
+    t.string   "poster"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -119,8 +121,6 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "year"
     t.string   "rated"
     t.string   "released"
-    t.string   "runtime"
-    t.string   "genre"
     t.string   "creator"
     t.string   "actors"
     t.string   "plot"
