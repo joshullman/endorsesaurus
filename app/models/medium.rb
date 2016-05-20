@@ -4,6 +4,7 @@ class Medium < ActiveRecord::Base
 	has_many :shows
 	has_many :movies
 	has_many :seasons
+	has_many :episodes
 	has_many :media_tags
 	has_many :tags, through: :media_tags
 

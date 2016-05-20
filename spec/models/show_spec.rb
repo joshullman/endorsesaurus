@@ -12,7 +12,7 @@ RSpec.describe Show, :type => :model do
 
   it "Associations with Season are intact" do
   	show = Show.create!(title: "Breaking Bad")
-  	season = Season.create!(show_id: show.id, season_num: 1, points: 1)
+  	season = Season.create!(show_id: show.id, season_num: 1)
 
   	expect(show.seasons.first).to eq(season)
   end

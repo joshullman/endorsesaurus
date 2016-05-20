@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516033429) do
+ActiveRecord::Schema.define(version: 20160519214819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "episodes", force: :cascade do |t|
+    t.integer  "season_id"
+    t.integer  "omdb_id"
+    t.string   "imdb_id"
+    t.string   "medium_id"
+    t.integer  "episode_num"
+    t.string   "episode_title"
+    t.string   "plot"
+    t.integer  "runtime"
+    t.string   "released"
+    t.string   "writer"
+    t.string   "director"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "user_id"
@@ -52,21 +68,20 @@ ActiveRecord::Schema.define(version: 20160516033429) do
   end
 
   create_table "movies", force: :cascade do |t|
+    t.integer  "medium_id"
+    t.integer  "omdb_id"
+    t.string   "imdb_id"
     t.string   "title"
     t.string   "year"
     t.string   "rated"
     t.string   "released"
     t.string   "runtime"
-    t.string   "genre"
     t.string   "director"
     t.string   "writer"
     t.string   "actors"
     t.string   "plot"
     t.string   "poster"
     t.string   "media_type"
-    t.string   "imdb_id"
-    t.integer  "points"
-    t.integer  "medium_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -90,10 +105,11 @@ ActiveRecord::Schema.define(version: 20160516033429) do
 
   create_table "seasons", force: :cascade do |t|
     t.integer  "show_id"
+    t.integer  "medium_id"
+    t.integer  "omdb_id"
+    t.string   "imdb_id"
     t.string   "title"
     t.integer  "season_num"
-    t.integer  "points"
-    t.integer  "medium_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

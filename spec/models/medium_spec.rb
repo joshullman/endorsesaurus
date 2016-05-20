@@ -51,6 +51,14 @@ RSpec.describe Medium, :type => :model do
     expect(medium.find_associated_media).to eq(season)
   end
 
+  it "find_associated_media method is intact for episodes" do
+    medium = Medium.create!(media_type: "Episode")
+    episode = Episode.create!(medium_id: medium.id)
+    medium.update(related_id: episode.id)
+
+    expect(medium.find_associated_media).to eq(medium.find_associated_media)
+  end
+
   it "recommended_by method is intact" do
     medium = Medium.create!(media_type: "Season")
     season = Season.create!(season_num: 1, medium_id: medium.id)
