@@ -8,7 +8,7 @@ class CreateEpisodes < ActiveRecord::Migration
     	t.integer  :episode_num
     	t.string   :episode_title
     	t.string   :plot
-    	t.integer  :runtime
+    	t.string   :runtime
       t.string   :released
       t.string   :writer
       t.string   :director

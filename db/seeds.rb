@@ -145,7 +145,7 @@ media.each do |imdb_url|
 						medium_id: season_med.id,
 						episode_num: api["Episode"].to_i,
 						episode_title: api["Title"],
-						runtime: runtime,
+						runtime: api["Runtime"],
 						released: api["Released"],
 						writer: api["Writer"],
 						director: api["Director"],

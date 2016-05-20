@@ -5,6 +5,7 @@ class CreateShows < ActiveRecord::Migration
   		t.string   :year
   		t.string   :rated
   		t.string   :released
+      t.string   :runtime
   		t.string   :creator
   		t.string   :actors
   		t.string   :plot
