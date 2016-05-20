@@ -12,7 +12,8 @@ class LikesController < ApplicationController
     medium_points = medium.find_associated_media.points
 
     like = Like.where(user_id: current_user.id, medium_id: medium.id)
-    if !like.empty?
+    if !like.empty? && like.first.value == value
+    elsif !like.empty?
       old_value = like.first.value
       like.first.value = value
       like.first.save

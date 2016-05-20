@@ -28,6 +28,36 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def watched_all_episodes?(season_id)
+    episodes = Episode.where(season_id: season_id)
+    medium_ids = []
+    episodes.each do |episode|
+      medium_ids << episode.medium.id
+    end
+
+    liked_count = 0
+    medium_ids.each do |id|
+      liked_count += 1 if Like.where(user_id: self.id, medium_id: id)
+    end
+    
+    liked_count == episodes.count
+  end
+
+  def watched_all_seasons?(show_id)
+    seasons = Season.where(show_id: show_id)
+    medium_ids = []
+    seasons.each do |episode|
+      medium_ids << episode.medium.id
+    end
+
+    liked_count = 0
+    medium_ids.each do |id|
+      liked_count += 1 if Like.where(user_id: self.id, medium_id: id)
+    end
+    
+    liked_count == seasons.count
+  end
+
   # FRIENDS
 
   has_many :friendships
