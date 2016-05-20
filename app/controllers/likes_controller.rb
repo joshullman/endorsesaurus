@@ -28,7 +28,6 @@ class LikesController < ApplicationController
     elsif like.empty? && is_current_user && is_recommendation
       Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
       medium.increment_watches
-      current_user.update_points(medium_points)
       recommendations = Recommendation.where(receiver_id: current_user.id, medium_id: medium.id)
       if !recommendations.empty? && value == 1
         Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "like")
@@ -56,7 +55,6 @@ class LikesController < ApplicationController
       end
     elsif like.empty? && !is_current_user
       Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
-      current_user.update_points(medium_points)
       medium.increment_watches
       medium.increment_likes(value)
       case value
