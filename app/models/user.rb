@@ -28,6 +28,15 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def current_user_likes
+    likes = {}
+    current_user_likes = Like.where(user_id: current_user.id)
+    current_user_likes.each do |like|
+      likes[Medium.find(like.medium_id).id] = like.value
+    end
+    likes
+  end
+
   def watched_all_episodes?(season_id)
     episodes = Episode.where(season_id: season_id)
     medium_ids = []

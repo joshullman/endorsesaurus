@@ -12,16 +12,14 @@ class ShowsController < ApplicationController
 			@tags[tag] = shows
 		end
 
-		@current_user_likes = {}
-		current_user_likes(@current_user_likes)
+		@current_user_likes = current_user.current_user_likes
 	end
 
 	def show
 		session[:return_to] ||= request.referer
 		@seasons = @show.seasons
 
-		@current_user_likes = {}
-		current_user_likes(@current_user_likes)
+		@current_user_likes = current_user.current_user_likes
 	end
 
 	def create
@@ -37,10 +35,4 @@ class ShowsController < ApplicationController
 		params.require(:show).permit(:title, :year, :rated, :released, :runtime, :genre, :creator, :actors, :plot, :poster, :imdb_id)
 	end
 
-	def current_user_likes(instance_likes)
-	  current_user_likes = Like.where(user_id: current_user.id)
-	  current_user_likes.each do |like|
-	    instance_likes[Medium.find(like.medium_id).id] = like.value
-	  end
-	end
 end

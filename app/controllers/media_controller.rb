@@ -12,8 +12,7 @@ class MediaController < ApplicationController
     @most_liked_seasons = Medium.where(media_type: "Season").order(liked_count: :desc).limit(10).map {|show| show = show.find_associated_media}
     @most_recommended_seasons = Medium.where(media_type: "Season").order(recommended_count: :desc).limit(10).map {|show| show = show.find_associated_media}
 
-  	@current_user_likes = {}
-    current_user_likes(@current_user_likes)
+  	@current_user_likes = current_user.current_user_likes
 	end
 
   # def create
@@ -97,10 +96,4 @@ class MediaController < ApplicationController
 		params.require(:medium).permit(:type, :related_id)
 	end
 
-  def current_user_likes(instance_likes)
-    current_user_likes = Like.where(user_id: current_user.id)
-    current_user_likes.each do |like|
-      instance_likes[Medium.find(like.medium_id).id] = like.value
-    end
-  end
 end

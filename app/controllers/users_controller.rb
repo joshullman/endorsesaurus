@@ -4,8 +4,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    @current_user_likes = {}
-    current_user_likes(@current_user_likes)
+    @current_user_likes = current_user.current_user_likes
 
     @recent_activity = []
     recent_activity(@recent_activity)
@@ -134,13 +133,6 @@ class UsersController < ApplicationController
         when "series"
           instance_likes[like.find_associated_media] = like.value if like.medium.media_type == "Season"
       end
-    end
-  end
-
-  def current_user_likes(instance_likes)
-    current_user_likes = Like.where(user_id: current_user.id)
-    current_user_likes.each do |like|
-      instance_likes[Medium.find(like.medium_id).id] = like.value
     end
   end
 

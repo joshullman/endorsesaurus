@@ -5,8 +5,7 @@ class TagsController < ApplicationController
 	def index
 		@tags = Tag.all.order(:name)
 
-		@current_user_likes = {}
-		current_user_likes(@current_user_likes)
+		@current_user_likes = current_user.current_user_likes
 	end
 
 	def show
@@ -22,13 +21,6 @@ class TagsController < ApplicationController
 	end
 
 	private
-
-	def current_user_likes(instance_likes)
-	  current_user_likes = Like.where(user_id: current_user.id)
-	  current_user_likes.each do |like|
-	    instance_likes[Medium.find(like.medium_id).id] = like.value
-	  end
-	end
 
 	def find_tag
 		@tag = Tag.find(params[:id])
