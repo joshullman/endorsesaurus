@@ -37,6 +37,25 @@ class User < ActiveRecord::Base
     likes
   end
 
+  def recent_activity
+    activities = []
+    notifications = self.notifications
+    notifications.each do |notification|
+      note = Note.new(notification)
+      note.do_stuff
+      activities << note
+    end
+    activities.reverse!
+  end
+
+  def friends_recent_activity
+    activities = []
+    self.friends.each do |friend|
+      activities << friend.recent_activity
+    end
+    activities.flatten.sort {|x, y| y.created_at <=> x.created_at }
+  end
+
   def watched_all_episodes?(season_id)
     episodes = Episode.where(season_id: season_id)
     medium_ids = []
@@ -102,5 +121,29 @@ class User < ActiveRecord::Base
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  private
+
+  class Note
+    attr_reader :user_one, :user_two, :media_type, :notification_type, :media, :points, :created_at
+    def initialize(notification)
+      @notification = notification
+      @user_one = notification.user_one
+      @user_two = notification.user_two
+      @notification_type = notification.notification_type
+      @created_at = notification.created_at
+    end
+
+    def do_stuff
+      if @notification_type != "friends"
+        @medium = Medium.find(@notification.medium_id)
+        p @medium
+        @media_type = @medium.media_type
+        @media = @medium.find_associated_media
+        @points = @media.points
+      end
+    end
+
   end
 end

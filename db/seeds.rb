@@ -196,7 +196,7 @@ end
 	user = 1
 	media = 1
 	value = 0
-	until Like.where(user_id: user, medium_id: media).first == nil && Medium.find(media).media_type != "Episode"
+	until Like.where(user_id: user, medium_id: media).first == nil
 		user = rand(32) + 1
 		media = rand(368) + 1
 		value = rand(3) - 1

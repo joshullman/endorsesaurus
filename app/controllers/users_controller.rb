@@ -6,8 +6,7 @@ class UsersController < ApplicationController
 
     @current_user_likes = current_user.user_likes
 
-    @recent_activity = recent_activity
-    @recent_activity.reverse!
+    @recent_activity = current_user.recent_activity
   end
 
   def movies
@@ -33,8 +32,7 @@ class UsersController < ApplicationController
       @user = current_user
       @recent_activity = @user.notifications.last(10)
 
-      @recents = friends_recent_activity
-      @friends_recents = @recents.reverse!
+      @friends_recents = current_user.friends_recent_activity
     end
   end
 
@@ -65,27 +63,6 @@ class UsersController < ApplicationController
     def do_all_the_stuff
       push_reccommenders
       determine_user_points
-    end
-
-  end
-
-  class Note
-    attr_reader :user_one, :user_two, :media_type, :notification_type, :media, :points, :created_at
-    def initialize(notification)
-      @notification = notification
-      @user_one = notification.user_one
-      @user_two = notification.user_two
-      @notification_type = notification.notification_type
-      @note_created_at = notification.created_at
-    end
-
-    def do_stuff
-      if @notification_type != "friends"
-        @medium = Medium.find(@notification.medium_id)
-        @media_type = @medium.media_type
-        @media = @medium.find_associated_media
-        @points = @media.points
-      end
     end
 
   end
@@ -138,17 +115,6 @@ class UsersController < ApplicationController
     recently_watched
   end
 
-  def recent_activity
-    activity = []
-    notifications = @user.notifications
-    notifications.each do |notification|
-      note = Note.new(notification)
-      note.do_stuff
-      activity << note
-    end
-    activity
-  end
-
   def do_even_more_stuff(media_type)
     # Profile information
     @user = User.find(params[:id])
@@ -163,14 +129,6 @@ class UsersController < ApplicationController
     
     @user_likes = @user.user_likes
 
-  end
-
-  def friends_recent_activity
-    activity = []
-    @user.friends.each do |friend|
-      activity << friend.recent_activity
-    end
-    activity
   end
 
 end
