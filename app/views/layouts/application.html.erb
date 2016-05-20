@@ -19,11 +19,15 @@
 <header class ="navbar">
   <div class ="navbar-class">
     <ul class="navbar-nav">
-      <% if current_user %>
       <li>(<%= current_user.points %>)</li>
-      <li><%= link_to "Home", dashboard_user_path(current_user) %></li>
-      <% end %> 
-    	<li><%= link_to "Profile", current_user %></li>
+      <li><%= link_to "Home", dashboard_user_path(current_user) %>
+        <ul>
+          <li><%= link_to "Profile", current_user %></li>
+          <li><%= link_to "Friends", friends_user_path(current_user) %></li>
+          <li><%= link_to "Movies", movies_user_path(current_user) %></li>
+          <li><%= link_to "Shows", shows_user_path(current_user) %></li>
+        </ul>
+      </li>
     	<li><%= link_to "Media", media_path %></li>
       <li><%= link_to "Movies", movies_path %></li>
       <li><%= link_to "Shows", shows_path %></li>

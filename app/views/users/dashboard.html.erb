@@ -3,10 +3,10 @@
 </div>
 <div class ="secondary-navbar-class">
   <ul class="secondary-navbar-nav">
-  	<li><%= link_to "#{@user.name}'s Profile", @user %></li>
-  	<li><%= link_to "#{@user.name}'s Friends", friends_user_path(@user) %></li>
-  	<li><%= link_to "#{@user.name}'s Movies", movies_user_path(@user) %></li>
-    <li><%= link_to "#{@user.name}'s Shows", shows_user_path(@user) %></li>
+  	<li><%= link_to "Profile", @user %></li>
+  	<li><%= link_to "Friends", friends_user_path(@user) %></li>
+  	<li><%= link_to "Movies", movies_user_path(@user) %></li>
+    <li><%= link_to "Shows", shows_user_path(@user) %></li>
   </ul>
 </div>
 
@@ -71,6 +71,18 @@
 						<br>
 					<% when "disliked rec" %>
 						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> disliked <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+						<br>
+				<% end %>
+			<% elsif notification.media_type == "Episode" %>
+				<% case notification.notification_type %>
+					<% when "like" %>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> liked <%= link_to notification.media.season.title, show_path(notification.media.season.show) %> season <%= notification.media.season.season_num %> episode <%= notification.media.episode_num %></li>
+						<br>
+					<% when "seen" %>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> watched <%= link_to notification.media.season.title, show_path(notification.media.season.show) %> season <%= notification.media.season.season_num %> episode <%= notification.media.episode_num %></li>
+						<br>
+					<% when "dislike" %>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> disliked <%= link_to notification.media.season.title, show_path(notification.media.season.show) %> season <%= notification.media.season.season_num %> episode <%= notification.media.episode_num %></li>
 						<br>
 				<% end %>
 			<% end %>
