@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
 	before_action :find_likes, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def create
   	user = User.find(params[:user])
@@ -100,37 +101,6 @@ class LikesController < ApplicationController
   end
 
   private
-
-  def create_like_notification(user, medium, value, user_two = nil)
-    media = medium.find_associated_media
-    if user_two
-      case value
-        when 1
-          message = "#{user.name} liked #{user_two.name}'s recommendation of #{media.title}! #{user_two.name} gained #{media.points} points!" if medium.media_type == "Movie"
-          message = "#{user.name} liked #{user_two.name}'s recommendation of #{media.title} season #{media.season_num}! #{user_two.name} gained #{media.points} points!" if medium.media_type == "Season"
-        when 0
-          message = "#{user.name} saw #{user_two.name}'s recommendation of #{media.title}! #{user_two.name} gained no points." if medium.media_type == "Movie"
-          message = "#{user.name} saw #{user_two.name}'s recommendation of #{media.title} season #{media.season_num}! #{user_two.name} gained no points." if medium.media_type == "Season"
-        when -1
-          message = "#{user.name} disliked #{user_two.name}'s recommendation of #{media.title}! #{user_two.name} lost #{media.points} points :(." if medium.media_type == "Movie"
-          message = "#{user.name} disliked #{user_two.name}'s recommendation of #{media.title} season #{media.season_num}! #{user_two.name} lost #{media.points} points :(." if medium.media_type == "Season"
-      end
-      Notification.create(user_id: user_two.id, message: message)
-    else
-      case value
-        when 1
-          message = "#{user.name} liked #{media.title} and gained #{media.points} points!" if medium.media_type == "Movie"
-          message = "#{user.name} liked #{media.title} season #{media.season_num} and gained #{media.points} points!" if medium.media_type == "Season"
-        when 0
-          message = "#{user.name} saw #{media.title} and gained #{media.points} points!" if medium.media_type == "Movie"
-          message = "#{user.name} saw #{media.title} season #{media.season_num} and gained #{media.points} points!" if medium.media_type == "Season"
-        when -1
-          message = "#{user.name} disliked #{media.title} and gained #{media.points} points anyway!" if medium.media_type == "Movie"
-          message = "#{user.name} disliked #{media.title} season #{media.season_num} and gained #{media.points} points anyway!" if medium.media_type == "Season"
-      end
-      Notification.create(user_id: user.id, message: message)
-    end
-  end
 
 	def find_likes
 		@likes = Like.find(session[:like_id])

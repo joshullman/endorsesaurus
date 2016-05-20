@@ -1,5 +1,6 @@
 class MediaController < ApplicationController
 	before_action :find_medium, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
 	def index
     session[:return_to] ||= request.referer

@@ -95,6 +95,7 @@ media.each do |imdb_url|
 			year: api["Year"],
 			rated: api["Rated"],
 			released: api["Released"],
+			runtime: api["Runtime"],
 			creator: api["Writer"],
 			actors: api["Actors"],
 			plot: api["Plot"],
@@ -195,9 +196,9 @@ end
 	user = 1
 	media = 1
 	value = 0
-	until Like.where(user_id: user, medium_id: media).first == nil && Medium.find(media).media_type != "Show"
+	until Like.where(user_id: user, medium_id: media).first == nil && Medium.find(media).media_type != "Episode"
 		user = rand(32) + 1
-		media = rand(48) + 1
+		media = rand(368) + 1
 		value = rand(3) - 1
 	end
 	Like.create(user_id: user, medium_id: media, value: value)
@@ -218,10 +219,10 @@ end
 	sender = 0
 	receiver = 0
 	media = 0
-	until sender != receiver && Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first == nil && Medium.find(media).media_type != "Show"
+	until sender != receiver && Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first == nil && Medium.find(media).media_type != "Episode"
 		sender = rand(32) + 1
 		receiver = rand(32) + 1
-		media = rand(48) + 1
+		media = rand(368) + 1
 	end
 	if Like.where(user_id: receiver, medium_id: media).first == nil
 		Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media)

@@ -1,4 +1,5 @@
 class RecommendationsController < ApplicationController
+  before_action :authenticate_user!
 
   def new
     @medium_id = params[:medium_id]

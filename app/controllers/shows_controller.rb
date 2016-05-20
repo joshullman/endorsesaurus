@@ -1,5 +1,6 @@
 class ShowsController < ApplicationController
 	before_action :find_show, only: [:show, :edit, :update, :destroy]
+	before_action :authenticate_user!
 
 	def index
 		session[:return_to] ||= request.referer
