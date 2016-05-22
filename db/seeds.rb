@@ -40,6 +40,7 @@ User.create(email: "BrickThorn@aol.com", password: "password", name: "BrickThorn
 User.create(email: "ChampMan@aol.com", password: "password", name: "ChampMan")
 User.create(email: "FrogPrince@aol.com", password: "password", name: "FrogPrince")
 
+current_user = User.all.first
 
 media = [
 	"tt1520211",
@@ -201,10 +202,14 @@ end
 		media = rand(368) + 1
 		value = rand(3) - 1
 	end
-	Like.create(user_id: user, medium_id: media, value: value)
 	med = Medium.find(media)
-	med.increment_watches
-	med.increment_likes(value)
+	if med.media_type == "Show" || med.media_type == "Season"
+		med.find_associated_media.watch_all(value)
+	else
+		Like.create(user_id: user, medium_id: media, value: value)
+		med.increment_watches
+		med.increment_likes(value)
+	end
 	case value
 		when 1
 			Notification.create(user_one_id: user, medium_id: media, notification_type: "like")
@@ -219,17 +224,69 @@ end
 	sender = 0
 	receiver = 0
 	media = 0
+
 	until sender != receiver && Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first == nil && Medium.find(media).media_type != "Episode"
 		sender = rand(32) + 1
 		receiver = rand(32) + 1
 		media = rand(368) + 1
 	end
-	if Like.where(user_id: receiver, medium_id: media).first == nil
-		Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media)
-		med = Medium.find(media)
-		med.increment_recommends
-    Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media, notification_type: "recommendation")
+
+	if Like.where(user_id: receiver, medium_id: media).first == nil && Medium.find(media).media_type == "Show"
+		Medium.find(media).find_associated_media.seasons.each do |season|
+			if Like.where(user_id: receiver, medium_id: season.medium.id).first == nil
+				Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: season.medium.id)
+				season.medium.increment_recommends
+				Medium.find(media).increment_recommends
+			end
+	    Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media, notification_type: "recommendation")
+		end
+	else
+		if Like.where(user_id: receiver, medium_id: media).first == nil
+			Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media)
+			med = Medium.find(media)
+			med.increment_recommends
+	    Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media, notification_type: "recommendation")
+		end
 	end
+end
+
+64.times do
+	user_one = rand(32) + 1
+	until User.find(user_one).received_recs.sample != nil
+		user_one = rand(32) + 1
+	end
+	value = rand(3) - 1
+	random_rec = User.find(user_one).received_recs.sample
+	medium = Medium.find(random_rec.medium_id)
+	medium_points = medium.find_associated_media.points
+
+	Like.create(user_id: user_one, medium_id: medium.id, value: value)
+  medium.increment_watches
+  recommendations = Recommendation.where(receiver_id: user_one, medium_id: medium.id)
+  if !recommendations.empty? && value == 1
+    Notification.create(user_one_id: user_one, medium_id: medium.id, notification_type: "like")
+    medium.increment_likes(value)
+    recommendations.map do |rec|
+      rec.sender.update_points(medium_points)
+      Recommendation.find(rec.id).destroy
+      Notification.create(user_one_id: rec.sender.id, user_two_id: user_one, medium_id: medium.id, notification_type: "liked rec")
+    end
+  elsif !recommendations.empty? && value == -1
+    Notification.create(user_one_id: user_one, medium_id: medium.id, notification_type: "dislike")
+    medium.increment_likes(value)
+    recommendations.map do |rec|
+      rec.sender.update_points(-medium_points)
+      Recommendation.find(rec.id).destroy
+      Notification.create(user_one_id: rec.sender.id, user_two_id: user_one, medium_id: medium.id, notification_type: "disliked rec")
+    end
+  elsif !recommendations.empty? && value == 0
+    Notification.create(user_one_id: user_one, medium_id: medium.id, notification_type: "seen")
+    medium.increment_likes(value)
+    recommendations.map do |rec|
+      Recommendation.find(rec.id).destroy
+      Notification.create(user_one_id: rec.sender.id, user_two_id: user_one, medium_id: medium.id, notification_type: "seen rec")
+    end
+  end
 end
 
 

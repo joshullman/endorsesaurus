@@ -16,6 +16,8 @@ class Medium < ActiveRecord::Base
 			Show.find(self.related_id)
 		when "Season"
 			Season.find(self.related_id)
+		when "Episode"
+			Episode.find(self.related_id)
 		end
 	end
 

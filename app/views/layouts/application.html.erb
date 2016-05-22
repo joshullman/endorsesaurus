@@ -19,6 +19,7 @@
 <header class ="navbar">
   <div class ="navbar-class">
     <ul class="navbar-nav">
+      <% if current_user %>
       <li>(<%= current_user.points %>)</li>
       <li><%= link_to "Home", dashboard_user_path(current_user) %>
         <ul>
@@ -38,6 +39,7 @@
           <li><%= render 'devise/menu/login_items' %></li>
         </ul>
       </li>
+      <% end %>
     </ul>
   </div>
 </header>

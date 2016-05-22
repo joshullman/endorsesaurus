@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
 
   def update_points(points)
     self.points = self.points + points
+    self.points = 0 if self.points < 0
     self.save
   end
 
@@ -138,9 +139,9 @@ class User < ActiveRecord::Base
     def do_stuff
       if @notification_type != "friends"
         @medium = Medium.find(@notification.medium_id)
-        p @medium
         @media_type = @medium.media_type
         @media = @medium.find_associated_media
+        p @media
         @points = @media.points
       end
     end

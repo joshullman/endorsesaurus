@@ -2,7 +2,9 @@ class Show < ActiveRecord::Base
 	belongs_to :medium
 	has_many   :seasons
 
+
 	def watch_all(value)
+		current_user = User.all.first if current_user == nil
 		Like.create(user_id: current_user.id, medium_id: self.medium.id, value: value)
 		self.seasons.each do |season|
 			Like.create(user_id: current_user.id, medium_id: season.medium.id, value: value)
@@ -10,11 +12,12 @@ class Show < ActiveRecord::Base
 		end
 		case value
 			when 1
-				Notification.create(user_id: current_user.id, medium_id: self.medium.id, notification_type: "like")
+				Notification.create(user_one_id: current_user.id, medium_id: self.medium.id, notification_type: "like")
 			when 0
-				Notification.create(user_id: current_user.id, medium_id: self.medium.id, notification_type: "seen")
+				Notification.create(user_one_id: current_user.id, medium_id: self.medium.id, notification_type: "seen")
 			when -1
-				Notification.create(user_id: current_user.id, medium_id: self.medium.id, notification_type: "dislike")
+				Notification.create(user_one_id: current_user.id, medium_id: self.medium.id, notification_type: "dislike")
 		end
 	end
+
 end
