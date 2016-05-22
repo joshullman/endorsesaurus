@@ -4,7 +4,6 @@ class Show < ActiveRecord::Base
 
 
 	def watch_all(value)
-		current_user = User.all.first if current_user == nil
 		Like.create(user_id: current_user.id, medium_id: self.medium.id, value: value)
 		self.seasons.each do |season|
 			Like.create(user_id: current_user.id, medium_id: season.medium.id, value: value)

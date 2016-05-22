@@ -6,6 +6,44 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+def season_watch_all(season, user, value)
+	current_user = User.find(user)
+	Like.create(user_id: current_user.id, medium_id: season.medium.id, value: value)
+	season.episodes.each do |episode|
+		episode.medium.increment_watches
+		season.medium.increment_watches
+		season.show.medium.increment_watches
+		episode.medium.increment_likes(value)
+		season.medium.increment_likes(value)
+		season.show.medium.increment_likes(value)
+		Like.create(user_id: current_user.id, medium_id: episode.medium.id, value: value)
+	end
+	case value
+		when 1
+			Notification.create(user_one_id: current_user.id, medium_id: season.medium.id, notification_type: "like")
+		when 0
+			Notification.create(user_one_id: current_user.id, medium_id: season.medium.id, notification_type: "seen")
+		when -1
+			Notification.create(user_one_id: current_user.id, medium_id: season.medium.id, notification_type: "dislike")
+	end
+end
+
+def show_watch_all(show, user, value)
+	current_user = User.find(user)
+	Like.create(user_id: current_user.id, medium_id: show.medium.id, value: value)
+	show.seasons.each do |season|
+		season_watch_all(season, current_user.id, value)
+	end
+	case value
+		when 1
+			Notification.create(user_one_id: current_user.id, medium_id: show.medium.id, notification_type: "like")
+		when 0
+			Notification.create(user_one_id: current_user.id, medium_id: show.medium.id, notification_type: "seen")
+		when -1
+			Notification.create(user_one_id: current_user.id, medium_id: show.medium.id, notification_type: "dislike")
+	end
+end
+
 User.create(email: "CaptainPlanet@aol.com", password: "password", name: "CaptainPlanet" )
 User.create(email: "Kuzy@aol.com", password: "password", name: "Kuzy")
 User.create(email: "BuffaloKing@aol.com", password: "password", name: "BuffaloKing")
@@ -203,8 +241,10 @@ end
 		value = rand(3) - 1
 	end
 	med = Medium.find(media)
-	if med.media_type == "Show" || med.media_type == "Season"
-		med.find_associated_media.watch_all(value)
+	if med.media_type == "Show"
+		show_watch_all(med.find_associated_media, user, value)
+	elsif med.media_type == "Season"
+		season_watch_all(med.find_associated_media, user, value)
 	else
 		Like.create(user_id: user, medium_id: media, value: value)
 		med.increment_watches
@@ -256,13 +296,13 @@ end
 		user_one = rand(32) + 1
 	end
 	value = rand(3) - 1
-	random_rec = User.find(user_one).received_recs.sample
-	medium = Medium.find(random_rec.medium_id)
+	medium = User.find(user_one).received_recs.sample.medium
 	medium_points = medium.find_associated_media.points
 
 	Like.create(user_id: user_one, medium_id: medium.id, value: value)
   medium.increment_watches
   recommendations = Recommendation.where(receiver_id: user_one, medium_id: medium.id)
+  User.find(user_one).update_points(medium_points)
   if !recommendations.empty? && value == 1
     Notification.create(user_one_id: user_one, medium_id: medium.id, notification_type: "like")
     medium.increment_likes(value)
@@ -305,3 +345,4 @@ end
   Notification.create(user_one_id: user, user_two_id: friend, notification_type: "friends")
 	Friendship.create(user_id: user, friend_id: friend, accepted: accepted)
 end
+

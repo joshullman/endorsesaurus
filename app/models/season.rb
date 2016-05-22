@@ -5,7 +5,6 @@ class Season < ActiveRecord::Base
 
 
 	def watch_all(value)
-		current_user = User.all.first if current_user == nil
 		Like.create(user_id: current_user.id, medium_id: self.medium.id, value: value)
 		self.episodes.each do |episode|
 			episode.medium.increment_watches

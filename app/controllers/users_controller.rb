@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
     @current_user_likes = current_user.user_likes
 
-    @recent_activity = current_user.recent_activity
+    @recent_activity = @user.recent_activity
   end
 
   def movies
