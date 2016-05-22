@@ -6,10 +6,13 @@ class LikesController < ApplicationController
   	user = User.find(params[:user])
   	medium = Medium.find(params[:like])
     value = Integer(params[:value])
-    is_recommendation = params[:is_recommendation]
+    is_recommendation = params["is_recommendation"]
+    params[:is_recommendation] == "true" ? is_recommendation = true : is_recommendation = false
     is_current_user = true
     is_current_user = false if current_user.id != user.id
     medium_points = medium.find_associated_media.points
+
+    p is_recommendation
 
     like = Like.where(user_id: current_user.id, medium_id: medium.id)
     if !like.empty? && like.first.value == value
