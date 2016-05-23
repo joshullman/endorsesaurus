@@ -84,7 +84,8 @@ class UsersController < ApplicationController
   likes_hash
   end
 
-  def find_recommendations(media_type, instance_recs)
+  def find_recommendations(media_type)
+    recs = []
     recommendations = Recommendation.where(receiver_id: @user.id).group_by(&:medium_id)
     recommendations.each_value do |array|
       rec = Rec.new(array)
@@ -92,12 +93,12 @@ class UsersController < ApplicationController
       medium_type = rec.info.medium.media_type
       case media_type
       when "movie"
-        instance_recs << rec if rec.info.medium.media_type == "Movie"
+        recs << rec if rec.info.medium.media_type == "Movie"
       when "series"
-        instance_recs << rec if rec.info.medium.media_type == "Season"
+        recs << rec if rec.info.medium.media_type == "Season"
       end
     end
-    instance_recs.sort_by! {|rec| rec.user_points}.reverse!
+    recs.sort_by! {|rec| rec.user_points}.reverse!
   end
 
   def find_recently_watched(media_type, num)
@@ -118,8 +119,7 @@ class UsersController < ApplicationController
   def do_even_more_stuff(media_type)
     # Profile information
     @user = User.find(params[:id])
-    @recs = []
-    find_recommendations(media_type, @recs)
+    @recs = find_recommendations(media_type)
     # finding the media assosciated with Likes
     @likes = organize_likes(media_type)
     # finding recently watched

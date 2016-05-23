@@ -27,7 +27,7 @@
 		<h2>Most Recommended Movies</h2>
 		<% @most_recommended_movies.each do |movie| %>
 			<div class="media_index_element_wrapper">
-			Recommended Count: <%= movie.medium.recommended_count %>
+			Rec Count: <%= movie.medium.recommended_count %>
 			<br>
 			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
 		</div>
@@ -35,38 +35,38 @@
 	</div>
 	<br>
 
-	<h1>Seasons</h1>
-	<div class="seasons_index_tag_wrapper">
-		<h2>Most Watched Seasons</h2>
-		<% @most_watched_seasons.each do |season| %>
+	<h1>Shows</h1>
+	<div class="shows_index_tag_wrapper">
+		<h2>Most Watched Shows</h2>
+		<% @most_watched_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
-			Watched Count: <%= season.medium.watched_count %>
+			Watched Count: <%= show.medium.watched_count %>
 			<br>
-			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
+			<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user } %>
 		</div>
 		<% end %>
 	</div>
 	<br>
 
-	<div class="seasons_index_tag_wrapper">
-		<h2>Most Liked Seasons</h2>
-		<% @most_liked_seasons.each do |season| %>
+	<div class="shows_index_tag_wrapper">
+		<h2>Most Liked Shows</h2>
+		<% @most_liked_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
-			Liked Count: <%= season.medium.liked_count %>
+			Liked Count: <%= show.medium.liked_count %>
 			<br>
-			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
+			<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user } %>
 		</div>
 		<% end %>
 	</div>
 	<br>
 
-	<div class="seasons_index_tag_wrapper">
-		<h2>Most Recommended Seasons</h2>
-		<% @most_recommended_seasons.each do |season| %>
+	<div class="shows_index_tag_wrapper">
+		<h2>Most Recommended Shows</h2>
+		<% @most_recommended_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
-			Recommended Count: <%= season.medium.recommended_count %>
+			Rec Count: <%= show.medium.recommended_count %>
 			<br>
-			<%= render partial: 'layouts/media_season_layout', locals: { current_user_likes: @current_user_likes, placeholder: season, current_user: current_user } %>
+			<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user } %>
 		</div>
 		<% end %>
 	</div>

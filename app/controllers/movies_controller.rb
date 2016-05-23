@@ -15,7 +15,12 @@ class MoviesController < ApplicationController
 	end
 
 	def show
+		med = Movie.find(params[:id]).medium.id
   	@current_user_likes = current_user.user_likes
+  	@friends_like = friends_like(med, 1)
+  	@friends_seen = friends_like(med, 0)
+  	@friends_dislike = friends_like(med, -1)
+
 	end
 
 	def create
@@ -23,6 +28,14 @@ class MoviesController < ApplicationController
 	end
 
 	private
+
+	def friends_like(id, value)
+		friends = []
+		current_user.friends.each do |friend|
+			friends << friend if friend.user_likes[id] == value
+		end
+		friends
+	end
 
 	def find_movie
 		@movie = Movie.find(params[:id])

@@ -32,6 +32,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       t.integer  :points, default: 0
       t.string   :photo_url
+      t.string   :endorsesaurus
       t.string   :provider
       t.string   :uid
       t.string   :name

@@ -8,9 +8,9 @@ class MediaController < ApplicationController
     @most_liked_movies = Medium.where(media_type: "Movie").order(liked_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
     @most_recommended_movies = Medium.where(media_type: "Movie").order(recommended_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
 
-    @most_watched_seasons = Medium.where(media_type: "Season").order(watched_count: :desc).limit(10).map {|show| show = show.find_associated_media}
-    @most_liked_seasons = Medium.where(media_type: "Season").order(liked_count: :desc).limit(10).map {|show| show = show.find_associated_media}
-    @most_recommended_seasons = Medium.where(media_type: "Season").order(recommended_count: :desc).limit(10).map {|show| show = show.find_associated_media}
+    @most_watched_shows = Medium.where(media_type: "Show").order(watched_count: :desc).limit(10).map {|show| show = show.find_associated_media}
+    @most_liked_shows = Medium.where(media_type: "Show").order(liked_count: :desc).limit(10).map {|show| show = show.find_associated_media}
+    @most_recommended_shows = Medium.where(media_type: "Show").order(recommended_count: :desc).limit(10).map {|show| show = show.find_associated_media}
 
   	@current_user_likes = current_user.user_likes
 	end

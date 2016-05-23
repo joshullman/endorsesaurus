@@ -12,8 +12,6 @@ class LikesController < ApplicationController
     is_current_user = false if current_user.id != user.id
     medium_points = medium.find_associated_media.points
 
-    p is_recommendation
-
     like = Like.where(user_id: current_user.id, medium_id: medium.id)
     if !like.empty? && like.first.value == value
     elsif !like.empty?
@@ -30,6 +28,36 @@ class LikesController < ApplicationController
         when -1
           Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "dislike")
       end
+    elsif like.empty? && medium.media_type == "Show"
+      Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
+      current_user.update_points(medium_points)
+      show = medium.find_associated_media
+      show.watch_all(current_user, value)
+      show.seasons.each do |season|
+        recommendations = Recommendation.where(receiver_id: current_user.id, medium_id: season.medium.id)
+        if !recommendations.empty? && value == 1
+          Notification.create(user_one_id: current_user.id, medium_id: season.medium.id, notification_type: "like")
+          recommendations.map do |rec|
+            rec.sender.update_points(medium_points)
+            Recommendation.find(rec.id).destroy
+            Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: season.medium.id, notification_type: "liked rec")
+          end
+        elsif !recommendations.empty? && value == -1
+          Notification.create(user_one_id: current_user.id, medium_id: season.medium.id, notification_type: "dislike")
+          recommendations.map do |rec|
+            rec.sender.update_points(-medium_points)
+            Recommendation.find(rec.id).destroy
+            Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: season.medium.id, notification_type: "disliked rec")
+          end
+        elsif !recommendations.empty? && value == 0
+          Notification.create(user_one_id: current_user.id, medium_id: season.medium.id, notification_type: "seen")
+          recommendations.map do |rec|
+            Recommendation.find(rec.id).destroy
+            Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: season.medium.id, notification_type: "seen rec")
+          end
+        end
+      end
+
     elsif like.empty? && is_current_user && is_recommendation
       Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
       medium.increment_watches
@@ -59,7 +87,7 @@ class LikesController < ApplicationController
           Notification.create(user_one_id: rec.sender.id, user_two_id: current_user.id, medium_id: medium.id, notification_type: "seen rec")
         end
       end
-    elsif like.empty? && !is_current_user
+    elsif like.empty?
       Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
       medium.increment_watches
       medium.increment_likes(value)
@@ -73,12 +101,8 @@ class LikesController < ApplicationController
       end
     end
 
-    case medium.media_type
-	    when "Movie"
-	    	redirect_to :back
-	    when "Season"
-	    	redirect_to :back
-    end
+	  redirect_to :back
+
   end
 
   def destroy

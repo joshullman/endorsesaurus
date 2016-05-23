@@ -57,5 +57,26 @@
 			<br>
 		<% end %>
 		<br>
+		Friends who like this Seaon:
+		<br>
+		<% @season_likes[[season.medium.id, 1]].each do |person| %>
+			<%= link_to person.name, user_path(person) %>
+			<br>
+		<% end %>
+		<br>
+			Friends who have seen this Seaon:
+		<br>
+		<% @season_likes[[season.medium.id, 0]].each do |person| %>
+			<%= link_to person.name, user_path(person) %>
+			<br>
+		<% end %>
+		<br>
+		Friends who dislike this Seaon:
+		<br>
+			<% @season_likes[[season.medium.id, -1]].each do |person| %>
+			<%= link_to person.name, user_path(person) %>
+			<br>
+		<% end %>
+		<br>
 	<% end %>
 </div>

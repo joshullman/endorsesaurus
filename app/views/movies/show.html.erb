@@ -51,4 +51,25 @@
 		<br>
 	<% end %>
 	<br>
+	Friends who like this Movie:
+	<br>
+	<% @friends_like.each do |person| %>
+		<%= link_to person.name, user_path(person) %>
+		<br>
+	<% end %>
+	<br>
+		Friends who have seen this Movie:
+	<br>
+	<% @friends_seen.each do |person| %>
+		<%= link_to person.name, user_path(person) %>
+		<br>
+	<% end %>
+	<br>
+	Friends who dislike this Movie:
+	<br>
+		<% @friends_dislike.each do |person| %>
+		<%= link_to person.name, user_path(person) %>
+		<br>
+	<% end %>
+	<br>
 </div>
