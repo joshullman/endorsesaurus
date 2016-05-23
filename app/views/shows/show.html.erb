@@ -1,4 +1,6 @@
 <div class="show_wrapper">
+	<%= render partial: 'layouts/icons', locals: { current_user_likes: @current_user_likes, placeholder: @show, current_user: current_user } %>
+	<br>
 	Title: <%= @show.title %>
 	<br>
 	Year: <%= @show.year %>

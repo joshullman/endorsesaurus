@@ -65,11 +65,28 @@ class User < ActiveRecord::Base
     end
 
     liked_count = 0
+    seen_count = 0
+    disliked_count = 0
     medium_ids.each do |id|
-      liked_count += 1 if Like.where(user_id: self.id, medium_id: id)
+      like = Like.where(user_id: self.id, medium_id: id).first
+      if like
+        case like.value
+        when 1
+          liked_count += 1
+        when 0
+          seen_count += 1
+        when -1
+          disliked_count += 1
+        end
+      end
     end
-    
-    liked_count == episodes.count
+    watched_all = nil
+    value = nil
+    (liked_count + seen_count + disliked_count == episodes.count) ? watched_all = true : watched_all = false
+    value = 1 if liked_count == episodes.count
+    value = 0 if seen_count == episodes.count
+    value = -1 if disliked_count == episodes.count
+    [watched_all, value]
   end
 
   def watched_all_seasons?(show_id)
@@ -80,11 +97,44 @@ class User < ActiveRecord::Base
     end
 
     liked_count = 0
+    seen_count = 0
+    disliked_count = 0
     medium_ids.each do |id|
-      liked_count += 1 if Like.where(user_id: self.id, medium_id: id)
+      like = Like.where(user_id: self.id, medium_id: id).first
+      if like
+        case like.value
+        when 1
+          liked_count += 1
+        when 0
+          seen_count += 1
+        when -1
+          disliked_count += 1
+        end
+      end
     end
-    
-    liked_count == seasons.count
+    watched_all = nil
+    value = nil
+    (liked_count + seen_count + disliked_count == seasons.count) ? watched_all = true : watched_all = false
+    value = 1 if liked_count == seasons.count
+    value = 0 if seen_count == seasons.count
+    value = -1 if disliked_count == seasons.count
+    [watched_all, value]
+  end
+
+  def already_recommended_show_to?(user, show_id)
+    show = Show.find(show_id)
+    medium_ids = []
+    show.seasons.each do |season|
+      medium_ids << season.medium.id
+    end
+    recs = self.received_recs
+
+    season_count = 0
+    medium_ids.each do |id|
+      season_count += 1 if Recommendation.where(sender_id: user.id, receiver_id: self.id, medium_id: id).first
+    end
+
+    season_count == show.seasons.count
   end
 
   # FRIENDS

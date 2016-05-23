@@ -6,32 +6,21 @@ class RecommendationsController < ApplicationController
     @media = Medium.find(@medium_id).find_associated_media
     if @media.medium.media_type == "Show"
       @existing_recommendations = []
-      season_count = 0
-      @media.seasons.each do |season|
-        @existing_recommendations << Recommendation.where(sender_id: current_user.id, medium_id: season.medium.id)
-        season_count += 1
-      end
       @friends = current_user.friends
       @recommended_to = []
       @already_liked = []
       @already_seen = []
       @already_disliked = []
 
-      @existing_recommendations.each do |rec|
-        @recommended_to << rec.receiver
-      end
-
       @friends.each do |friend|
-        opinion = Like.where(user_id: friend.id, medium_id: @medium_id)
-        if opinion.first
-          case opinion.first.value
-            when 1
-              @already_liked << friend
-            when 0
-              @already_seen << friend
-            when -1
-              @already_disliked << friend
-          end
+        @recommended_to << friend if friend.already_recommended_show_to?(current_user, @media.id)
+        case friend.watched_all_seasons?(@media.id)
+          when [true, 1]
+            @already_liked << friend
+          when [true, 0]
+            @already_seen << friend
+          when [true, -1]
+            @already_disliked << friend
         end
       end
 
@@ -133,15 +122,15 @@ class RecommendationsController < ApplicationController
 	private
 
   def recommend_show(sender, receiver, show)
-  show.seasons.each do |season|  
-    medium = season.medium
-    if !Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: medium.id).first
-      show.medium.increment_recommends
-      Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: medium.id)
-      medium.increment_recommends
-      Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: medium.id, notification_type: "recommendation")
+    show.seasons.each do |season|  
+      medium = season.medium
+      if !Recommendation.where(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium.id).first
+        show.medium.increment_recommends
+        Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium.id)
+        medium.increment_recommends
+        Notification.create(user_one_id: sender.id, user_two_id: receiver.id, medium_id: medium.id, notification_type: "recommendation")
+      end
     end
-  end
   end
 
 	def recommendation_params
