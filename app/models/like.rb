@@ -11,6 +11,8 @@ class Like < ActiveRecord::Base
 			Show.find(medium.related_id)
 		when "Season"
 			Season.find(medium.related_id)
+		when "Episode"
+			Episode.find(medium.related_id)
 		end
 	end
 end
