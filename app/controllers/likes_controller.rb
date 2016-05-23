@@ -15,39 +15,9 @@ class LikesController < ApplicationController
     like = Like.where(user_id: current_user.id, medium_id: medium.id)
     if !like.empty? && like.first.value == value
     elsif !like.empty? && medium.media_type == "Show"
-      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
-      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
-      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
-      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
-      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
-      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
-      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
-      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
       show = medium.find_associated_media
-
-      old_value = like.first.value
-      like.first.value = value
-      like.first.save
-      medium.increment_likes(value)
-      medium.decrement_likes(old_value)
       create_notification(current_user, medium, value)
-      show.seasons.each do |season|
-        like = Like.where(user_id: current_user.id, medium_id: season.medium.id)
-        old_value = like.first.value
-        like.first.value = value
-        like.first.save
-        season.medium.increment_likes(value)
-        season.medium.decrement_likes(old_value)
-        create_notification(current_user, season.medium, value)
-        season.episodes.each do |episode|
-          like = Like.where(user_id: current_user.id, medium_id: episode.medium.id)
-          old_value = like.first.value
-          like.first.value = value
-          like.first.save
-          episode.medium.increment_likes(value)
-          episode.medium.decrement_likes(old_value)
-        end
-      end
+      show.update_likes(current_user, value)
     elsif !like.empty?
       old_value = like.first.value
       like.first.value = value

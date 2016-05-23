@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.inet     "last_sign_in_ip"
     t.integer  "points",                 default: 0
     t.string   "photo_url"
+    t.string   "endorsesaurus"
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
