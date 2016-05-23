@@ -14,22 +14,48 @@ class LikesController < ApplicationController
 
     like = Like.where(user_id: current_user.id, medium_id: medium.id)
     if !like.empty? && like.first.value == value
+    elsif !like.empty? && medium.media_type == "Show"
+      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
+      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
+      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
+      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
+      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
+      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
+      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
+      p "SLDKJFLKSDJFLKSJDFLKJLSKDJF"
+      show = medium.find_associated_media
+
+      old_value = like.first.value
+      like.first.value = value
+      like.first.save
+      medium.increment_likes(value)
+      medium.decrement_likes(old_value)
+      create_notification(current_user, medium, value)
+      show.seasons.each do |season|
+        like = Like.where(user_id: current_user.id, medium_id: season.medium.id)
+        old_value = like.first.value
+        like.first.value = value
+        like.first.save
+        season.medium.increment_likes(value)
+        season.medium.decrement_likes(old_value)
+        create_notification(current_user, season.medium, value)
+        season.episodes.each do |episode|
+          like = Like.where(user_id: current_user.id, medium_id: episode.medium.id)
+          old_value = like.first.value
+          like.first.value = value
+          like.first.save
+          episode.medium.increment_likes(value)
+          episode.medium.decrement_likes(old_value)
+        end
+      end
     elsif !like.empty?
       old_value = like.first.value
       like.first.value = value
       like.first.save
       medium.increment_likes(value)
       medium.decrement_likes(old_value)
-      case value
-        when 1
-          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "like")
-        when 0
-          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "seen")
-        when -1
-          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "dislike")
-      end
+      create_notification(current_user, medium, value)
     elsif like.empty? && medium.media_type == "Show"
-      Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
       current_user.update_points(medium_points)
       show = medium.find_associated_media
       show.watch_all(current_user, value)
@@ -91,14 +117,7 @@ class LikesController < ApplicationController
       Like.create(user_id: current_user.id, medium_id: medium.id, value: value)
       medium.increment_watches
       medium.increment_likes(value)
-      case value
-        when 1
-          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "like")
-        when 0
-          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "seen")
-        when -1
-          Notification.create(user_one_id: current_user.id, medium_id: medium.id, notification_type: "dislike")
-      end
+      create_notification(current_user, medium, value)
     end
 
 	  redirect_to :back
@@ -130,6 +149,17 @@ class LikesController < ApplicationController
   end
 
   private
+
+  def create_notification(user, medium, value)
+    case value
+      when 1
+        Notification.create(user_one_id: user.id, medium_id: medium.id, notification_type: "like")
+      when 0
+        Notification.create(user_one_id: user.id, medium_id: medium.id, notification_type: "seen")
+      when -1
+        Notification.create(user_one_id: user.id, medium_id: medium.id, notification_type: "dislike")
+    end
+  end
 
 	def find_likes
 		@likes = Like.find(session[:like_id])

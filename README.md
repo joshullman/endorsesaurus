@@ -38,7 +38,7 @@ Endorsesaurus is an application that allows users to give and receive film and t
 * As a User, I'd like to be able to see if media is currently trending
 * As a User, I'd like to be able to update media from "in progress" and like/dislike media (move from recommended to seen).
 
-##My Newsfeed
+##My Dashboard
 * ~~As a User, I'd like to be able to see what media my friends are currently watching~~
 * ~~As a User, I'd like to be able to see what media my friends have recently liked/disliked~~
 * ~~As a User, I'd like to be able to see what media my friends have recently recommended to each other~~
@@ -61,3 +61,40 @@ Endorsesaurus is an application that allows users to give and receive film and t
 * ~~As a User, I'd like to be able to see a User's points~~
 * ~~As a User, I'd like to be able to see a User's previous history (recommendations to and from/likes/dislikes)~~
 * As a User, I'd like to be able to see what a User thinks of my recommendations to him/her
+
+##Shows
+* I'd like to be able to like/seen/dislike an entire show
+* I'd like to be able to recommend an entire show
+* When I click on a show, I want to see detailed information about the show
+* I want to be able to see visually (a graph of some sort) the distribution of likes/seens/watches
+* I want to see how many seasons the show has
+* I want to see the distribution of likes/seens/watches on every season
+* I want to see how many episodes each season has
+* I want to see the distribution of likes/seens/watches on every episode
+* I want to get more information without leaving the page
+* I want to be able to like a show from this page
+* I want to be able to like an individual season
+* I want to be able to like an inidividual episode
+* I want to be able to recommend a show from this page
+* I want to be able to recommend a season from this page
+* I want to see which friends have liked/seen/disliked which seasons
+* I want to see which friends I've already recommended this show to
+* I want to see which friends have recommended this show to me
+* I want to see which friends have this media on their recommended list
+
+
+##Movies
+
+##Seasons
+
+##Episodes
+
+##Tags
+
+##Likes
+
+##Recommending
+
+##Badges
+
+
