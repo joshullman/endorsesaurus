@@ -2,6 +2,9 @@ class Show < ActiveRecord::Base
 	belongs_to :medium
 	has_many   :seasons
 
+	searchable do
+		text :title
+	end
 
 	def watch_all(user, value)
 		Like.create(user_id: user.id, medium_id: self.medium.id, value: value)
