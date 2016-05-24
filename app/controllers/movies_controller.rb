@@ -27,6 +27,10 @@ class MoviesController < ApplicationController
 
 	end
 
+	def search
+
+	end
+
 	private
 
 	def friends_like(id, value)

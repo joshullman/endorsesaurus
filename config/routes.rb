@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     end
   end
   resources :recommendations
+  get '/media/search', to: 'media#search'
   resources :media
   resources :tags
   resources :shows

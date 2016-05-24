@@ -39,6 +39,13 @@
           <li><%= render 'devise/menu/login_items' %></li>
         </ul>
       </li>
+      <li>Search: 
+        <%= form_tag('/media/search', method: :get) do |f| %>
+          <%= text_field_tag :title, params[:title] %>
+          <%= select_tag "media", options_for_select(["Movies", "Shows"], "Shows")%>
+          <%= submit_tag "Search" %>
+        <% end %>
+      </li>
       <% end %>
     </ul>
   </div>

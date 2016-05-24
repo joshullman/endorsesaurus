@@ -1,5 +1,4 @@
 class MediaController < ApplicationController
-	before_action :find_medium, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
 	def index
@@ -14,6 +13,17 @@ class MediaController < ApplicationController
 
   	@current_user_likes = current_user.user_likes
 	end
+
+  def search
+    title = params[:title]
+    media_type = params[:media]
+    if media_type == "Shows"
+      @results = Show.search {fulltext "#{title}"}.results
+    elsif media_type == "Movies"
+      @results = Movie.search {fulltext "#{title}"}.results
+    end
+    p @results
+  end
 
   # def create
   # 	title = params[:title]
@@ -87,13 +97,13 @@ class MediaController < ApplicationController
 
 	private
 
-	def find_medium
-		p params[:id]
-		@medium = Medium.find(params[:id])
-	end
+	# def find_medium
+	# 	p params[:id]
+	# 	@medium = Medium.find(params[:id])
+	# end
 
-	def medium_params
-		params.require(:medium).permit(:type, :related_id)
-	end
+	# def medium_params
+	# 	params.require(:medium).permit(:type, :related_id)
+	# end
 
 end
