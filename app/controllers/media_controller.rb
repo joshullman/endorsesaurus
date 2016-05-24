@@ -18,11 +18,12 @@ class MediaController < ApplicationController
     title = params[:title]
     media_type = params[:media]
     if media_type == "Shows"
-      @results = Show.search {fulltext "#{title}"}.results
+      @show_results = Show.search {fulltext "#{title}"}.results
     elsif media_type == "Movies"
-      @results = Movie.search {fulltext "#{title}"}.results
+      @movie_results = Movie.search {fulltext "#{title}"}.results
     end
-    p @results
+
+    @current_user_likes = current_user.user_likes
   end
 
   # def create

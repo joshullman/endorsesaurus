@@ -1,4 +1,25 @@
-<% @results.each do |result| %>
-	<%= p result.title %>
-	<br>
+<% if @movie_results %>
+	<div class="media_index_wrapper">
+		<h1>Movie Results</h1>
+		<div class="movies_index_tag_wrapper">
+			<% @movie_results.each do |movie| %>
+				<div class="media_index_element_wrapper">
+					<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
+				</div>
+			<% end %>
+		</div>
+		<br>
+	</div>
+<% else %>
+	<div class="media_index_wrapper">
+		<h1>Show Results</h1>
+		<div class="shows_index_tag_wrapper">
+			<% @show_results.each do |show| %>
+				<div class="media_index_element_wrapper">
+					<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user } %>
+				</div>
+			<% end %>
+		</div>
+		<br>
+	</div>
 <% end %>

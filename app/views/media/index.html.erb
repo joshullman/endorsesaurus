@@ -1,7 +1,7 @@
 <div class="media_index_wrapper">
-	<h1>Movies</h1>
+	<h1 class="text_center">Movies</h1>
 	<div class="movies_index_tag_wrapper">
-		<h2>Most Watched Movies</h2>
+		<h2 class="text_center">Most Watched Movies</h2>
 		<% @most_watched_movies.each do |movie| %>
 			<div class="media_index_element_wrapper">
 				Watched Count: <%= movie.medium.watched_count %>
@@ -12,7 +12,7 @@
 	<br>
 
 	<div class="movies_index_tag_wrapper">
-		<h2>Most Liked Movies</h2>
+		<h2 class="text_center">Most Liked Movies</h2>
 		<% @most_liked_movies.each do |movie| %>
 			<div class="media_index_element_wrapper">
 				Liked Count: <%= movie.medium.liked_count %>
@@ -24,7 +24,7 @@
 	<br>
 
 	<div class="movies_index_tag_wrapper">
-		<h2>Most Recommended Movies</h2>
+		<h2 class="text_center">Most Recommended Movies</h2>
 		<% @most_recommended_movies.each do |movie| %>
 			<div class="media_index_element_wrapper">
 			Rec Count: <%= movie.medium.recommended_count %>
@@ -35,9 +35,9 @@
 	</div>
 	<br>
 
-	<h1>Shows</h1>
+	<h1 class="text_center">Shows</h1>
 	<div class="shows_index_tag_wrapper">
-		<h2>Most Watched Shows</h2>
+		<h2 class="text_center">Most Watched Shows</h2>
 		<% @most_watched_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
 			Watched Count: <%= show.medium.watched_count %>
@@ -49,7 +49,7 @@
 	<br>
 
 	<div class="shows_index_tag_wrapper">
-		<h2>Most Liked Shows</h2>
+		<h2 class="text_center">Most Liked Shows</h2>
 		<% @most_liked_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
 			Liked Count: <%= show.medium.liked_count %>
@@ -61,7 +61,7 @@
 	<br>
 
 	<div class="shows_index_tag_wrapper">
-		<h2>Most Recommended Shows</h2>
+		<h2 class="text_center">Most Recommended Shows</h2>
 		<% @most_recommended_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
 			Rec Count: <%= show.medium.recommended_count %>

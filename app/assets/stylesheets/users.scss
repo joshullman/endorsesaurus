@@ -2,13 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$green: #A1DBB2;
-$yellow: #FACA66;
-$red: #F45D4C;
-$blue: #91CFCA;
-
-$font: 'Amatic SC', cursive;
-
 .endorsesaurus_container {
 	text-align: center;
 	vertical-align: middle;
@@ -51,33 +44,6 @@ $font: 'Amatic SC', cursive;
 	margin-left: 1%;
 }
 
-div a {
-  font-size: 16px;
-  padding: 5px;
-  display:inline-block;
-}
-
-ul {
-  display: inline;
-  margin: 0;
-  padding: 0;
-}
-ul li {display: inline-block;}
-ul li:hover {background: #555;}
-ul li:hover ul {display: block;}
-ul li ul {
-  position: absolute;
-  display: none;
-}
-ul li ul li { 
-	margin-top: 20px;
-  background: #555; 
-  display: block;
-  float: left; 
-}
-ul li ul li a {display:block;} 
-ul li ul li:hover {background: #666;}
-
 .recent_activity_wrapper {
 	height: 800px;
 	overflow: auto;
@@ -109,8 +75,8 @@ ul li ul li:hover {background: #666;}
 }
 
 .photo img {
-	width: 200px;
-	height: 200px;
+	width: 150px;
+	height: 150px;
 }
 
 .recent_row {

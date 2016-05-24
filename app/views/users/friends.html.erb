@@ -2,11 +2,11 @@
   <h2><%= @user.name %>'s Endorsesaurus Enclosure</h2>
 </div>
 <div class ="secondary-navbar-class">
-  <ul class="secondary-navbar-nav">
-    <li><%= link_to "Profile", @user %></li>
-    <li><%= link_to "Friends", friends_user_path(@user) %></li>
-    <li><%= link_to "Movies", movies_user_path(@user) %></li>
-    <li><%= link_to "Shows", shows_user_path(@user) %></li>
+  <ul class="secondary-navbar">
+    <li class="secondary-nav-element"><%= link_to "Profile", @user %></li>
+    <li class="secondary-nav-element"><%= link_to "Friends", friends_user_path(@user) %></li>
+    <li class="secondary-nav-element"><%= link_to "Movies", movies_user_path(@user) %></li>
+    <li class="secondary-nav-element"><%= link_to "Shows", shows_user_path(@user) %></li>
   </ul>
 </div>
 

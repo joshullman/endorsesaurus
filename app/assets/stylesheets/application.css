@@ -13,3 +13,152 @@
  *= require_tree .
  *= require_self
  */
+$green: #A1DBB2;
+$yellow: #FACA66;
+$darker_yellow: #e1b55b;
+$red: #F45D4C;
+$darker_red: #7a2e26;
+$blue: #91CFCA;
+$darker_blue #486765;
+
+$font: 'Amatic SC', cursive;
+
+.navbar-left {
+	width: 25%;
+	float: left;
+}
+
+.search_bar {
+	position: relative;
+	right: 18%;
+	left: 18%;
+}
+
+.navbar-right {
+	width: 25%;
+	float: right;
+	text-align: right;
+}
+
+.text_center {
+	text-align: center;
+}
+
+header {
+	font-family: 'Amatic SC', cursive;
+	background: #91CFCA;
+	padding: 5px;
+	font-size: 25px;
+}
+
+h1 {
+	font-family: 'Amatic SC', cursive;
+	font-size: 40px;
+}
+
+h2 {
+	font-family: 'Amatic SC', cursive;
+	font-size: 30px;
+}
+
+h3 {
+	font-family: 'Amatic SC', cursive;
+	font-size: 25px;
+}
+
+/*Main Navbar CSS*/
+.navbar-class a {
+	color: #486765;
+  font-size: 25px;
+  padding: 5px;
+  display:inline-block;
+}
+
+.navbar {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+.navbar .nav_element {display: inline-block;}
+.navbar .search {display: inline-block;}
+.navbar .nav_element:hover {background: #FACA66;}
+.navbar .nav_element:hover ul {display: block;}
+.navbar .nav_element ul {
+  position: absolute;
+  display: none;
+}
+.navbar .nav_element ul .dropdown_element { 
+  background: #FACA66; 
+  display: block;
+  float: left; 
+}
+.navbar .nav_element ul .dropdown_element a {display:block;} 
+.navbar .nav_element ul .dropdown_element:hover {background: #e1b55b;}
+
+/*Icon CSS*/
+
+
+.icons_holder a {
+  font-size: 16px;
+  padding: 5px;
+  display:inline-block;
+}
+
+.icons_holder {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+.icons_holder .current_icon {display: inline-block;}
+.icons_holder .current_icon:hover {background: #555;}
+.icons_holder .current_icon:hover .icon_slider {display: block;}
+.icons_holder .current_icon .icon_slider {
+  position: absolute;
+  display: none;
+}
+.icons_holder .current_icon .icon_slider li { 
+	margin-top: 20px;
+  background: #555; 
+  display: block;
+  float: left; 
+}
+.icons_holder .current_icon .icon_slider li a {display:block;} 
+.icons_holder .current_icon .icon_slider li:hover {background: #666;}
+
+.endorsesaurus_container {
+	text-align: center;
+	vertical-align: middle;
+	line-height: 125px;  
+	height: 150px;
+	width: 100%;
+	display: block;
+	clear: both;
+	border: 1px solid black;
+	background-color: #A1DBB2;
+}
+
+/*Secondary Nav Bar*/
+
+.secondary-navbar-class {
+	font-family: 'Amatic SC', cursive;
+	background: #91CFCA;
+	padding: 5px;
+	font-size: 25px;
+}
+
+/*Main Navbar CSS*/
+.secondary-navbar-class a {
+	color: #486765;
+  font-size: 25px;
+  padding-left: 80px;
+  padding-right: 80px;
+  display:inline-block;
+}
+
+.secondary-navbar {
+  display: inline;
+  margin: 0;
+}
+.secondary-navbar .secondary-nav-element {display: inline-block;}
+.secondary-navbar .secondary-nav-element:hover {background: #FACA66;}
+
