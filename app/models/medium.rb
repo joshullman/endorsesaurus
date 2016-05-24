@@ -55,10 +55,13 @@ class Medium < ActiveRecord::Base
 		case value
 			when 1
 				self.liked_count = self.liked_count - 1
+				self.liked_count = 0 if self.liked_count < 0
 			when 0
 				self.seen_count = self.seen_count - 1
+				self.seen_count = 0 if self.seen_count < 0
 			when -1
 				self.disliked_count = self.disliked_count - 1
+				self.disliked_count = 0 if self.disliked_count < 0
 		end
 		self.save
 	end
@@ -75,6 +78,7 @@ class Medium < ActiveRecord::Base
 
 	def decrement_recommends
 		self.recommended_count = self.recommended_count - 1
+		self.recommended_count = 0 if self.recommended_count < 0
 		self.save
 	end
 end
