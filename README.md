@@ -1,6 +1,6 @@
 #Stuff To Watch
 
-###Overview
+##Overview
 
 Here's how it works:
 
@@ -45,29 +45,29 @@ Blue - this is related to recommendations
 
 ####Icons:
 
-[]['app/images/opinion_bar.png'] - This bar shows the distribution of people's opinion of a media.  Green stands for likes, yellow stands for mehs, red stands for dislikes.
+![]('app/images/opinion_bar.png') - This bar shows the distribution of people's opinion of a media.  Green stands for likes, yellow stands for mehs, red stands for dislikes.
 
-[]['app/images/white_circle.jpeg'] - This icon means that you haven't seen this media yet!  Hover over this to select whether you liked it, thought it was ok, or disliked it.
+![]('app/images/white_circle.jpeg') - This icon means that you haven't seen this media yet!  Hover over this to select whether you liked it, thought it was ok, or disliked it.
 
-[]['app/images/green_circle.svg'] - This icon means that you like this media.  If this media is on your list and you select this icon, you will get points for participating and the users who recommended it to you will all get points :].  Hover over this and select a different color to change your mind.  Points will not be redistributed for changing your mind and you will not earn points if this media is not on your recommendation list.
+![]('app/images/green_circle.svg') - This icon means that you like this media.  If this media is on your list and you select this icon, you will get points for participating and the users who recommended it to you will all get points :].  Hover over this and select a different color to change your mind.  Points will not be redistributed for changing your mind and you will not earn points if this media is not on your recommendation list.
 
-[]['app/images/yellow_circle.png'] - This icon means that you thought this media was ok.  If this media is on your list and select this icon, you will get points for participating but those who recommended it to you will not receive any points.  Hover over this and select a different color to change your mind.  Points will not be redistributed for changing your mind and you will not earn points if this media is not on your recommendation list.
+![]('app/images/yellow_circle.png') - This icon means that you thought this media was ok.  If this media is on your list and select this icon, you will get points for participating but those who recommended it to you will not receive any points.  Hover over this and select a different color to change your mind.  Points will not be redistributed for changing your mind and you will not earn points if this media is not on your recommendation list.
 
-[]['app/images/red_circle.png'] - This icon means that you dislike this media.  If this media is on your list and you select this icon, you will get points for participating but those who recommended it to you will all lose points for their poor recommendation.  Hover over this and select a different color to change your mind.  Points will not be redistributed for changing your mind and you will not earn points if this media is not on your recommendation list.
+![]('app/images/red_circle.png') - This icon means that you dislike this media.  If this media is on your list and you select this icon, you will get points for participating but those who recommended it to you will all lose points for their poor recommendation.  Hover over this and select a different color to change your mind.  Points will not be redistributed for changing your mind and you will not earn points if this media is not on your recommendation list.
 
-[]['app/images/white_arrow.jpg'] - This icon only appears on other user's lists.  If you see a recommendation on their list that you think is worthy of recommending, click on this icon to weigh in!  If the user likes your recommendation, you will receive points!  If they think the media was ok, you will neither gain or lose points.  If they dislike the media, you will lose points.  Be thoughtful with your recommendations!
+![]('app/images/white_arrow.jpg') - This icon only appears on other user's lists.  If you see a recommendation on their list that you think is worthy of recommending, click on this icon to weigh in!  If the user likes your recommendation, you will receive points!  If they think the media was ok, you will neither gain or lose points.  If they dislike the media, you will lose points.  Be thoughtful with your recommendations!
 
-('app/images/blue_arrow.png'] - This icon means that you've already recommended this media to a friend.  If you decide that you'd rather un-recommend it that's no problem!  You can click this icon to remove your recommendation and weigh-out.
+![]('app/images/blue_arrow.png') - This icon means that you've already recommended this media to a friend.  If you decide that you'd rather un-recommend it that's no problem!  You can click this icon to remove your recommendation and weigh-out.
 
-[]['app/images/blue_r.jpg'] - This icon stands for "recommend".  Click this icon to weigh in and recommend this media to a friend or multiple friends.  Your recommendation will automatically be added to other user's lists and weighed accordingly.  If the user likes your recommendation, you will receive points!  If they think the media was ok, you will neither gain or lose points.  If they dislike the media, you will lose points.  Be thoughtful with your recommendations!
+![]('app/images/blue_r.jpg') - This icon stands for "recommend".  Click this icon to weigh in and recommend this media to a friend or multiple friends.  Your recommendation will automatically be added to other user's lists and weighed accordingly.  If the user likes your recommendation, you will receive points!  If they think the media was ok, you will neither gain or lose points.  If they dislike the media, you will lose points.  Be thoughtful with your recommendations!
 
-####Points
+####Points:
 
 Points determine how much your recommendation weighs!  The more points you have, the more your recommendation will count when you recommend media to your friends.  There are two ways to earn points and one way to lose points.  The first way to earn points is if someone likes your recommendation.  You will receive points equal to every half hour of media that they have consumed.  The second way to earn points is to watch the media your friends have recommended.  Your opinion of the media does not affect whether you receive points - you will receive points for participating in the system.  Finally, you will lose points if a user dislikes your recommendation.  This should be a rare occurance - be thoughtful with your recommendations!
 
-###User Stories
+##User Stories
 
-##Miscellaneous Media
+####Miscellaneous Media
 * ~~As a User, I'd like to be able to browse media~~
 * ~~As a User, I'd like to be able to see the poster for media~~
 * ~~As a User, I'd like to be able to see a synopsis for media~~
@@ -77,20 +77,20 @@ Points determine how much your recommendation weighs!  The more points you have,
 * ~~As a User, I'd like to be able to see how often media is disliked~~
 * As a User, I'd like to be able to see comments on media
 
-##Media I've Already Seen
+####Media I've Already Seen
 * As a User, I'd like to be able to search for media I've already seen
 * ~~As a User, I'd like to be able to like/dislike media I've seen from a search~~
 * ~~As a User, I'd like to be able to like/dislike media I've seen from another user's list~~
 * ~~As a User, I'd like to be able to like/dislike media I've seen from another user's recommendation list~~
 
-##Media I've Recommended
+####Media I've Recommended
 * ~~As a User, I'd like to be able to recommend media to a friend~~
 * ~~As a User, I'd like to be able to see what media I've recommended to a specific friend~~
 * ~~As a User, I'd like to be able to see what friends I've recommended specific media to~~
 * ~~As a User, I'd like to be able to see if my recommendation has affected a friend's list~~
 * ~~As a User, I'd like to be able to see how many points my recommendation counts for~~
 
-##Media Recommended For Me
+####Media Recommended For Me
 * ~~As a User, I'd like to be able to see what media has been recommended for me~~
 * As a User, I'd like to be able to set certain media as "in progress"
 * ~~As a User, I'd like to be able to see the aggregate point score of the users who have recommended media to me~~
@@ -99,7 +99,7 @@ Points determine how much your recommendation weighs!  The more points you have,
 * As a User, I'd like to be able to see if media is currently trending
 * As a User, I'd like to be able to update media from "in progress" and like/dislike media (move from recommended to seen).
 
-##My Dashboard
+####My Dashboard
 * ~~As a User, I'd like to be able to see what media my friends are currently watching~~
 * ~~As a User, I'd like to be able to see what media my friends have recently liked/disliked~~
 * ~~As a User, I'd like to be able to see what media my friends have recently recommended to each other~~
@@ -111,7 +111,7 @@ Points determine how much your recommendation weighs!  The more points you have,
 * As a User, I'd like to be able to hide posts from other Users
 * As a User, I'd like to be able to hide other Users posts
 
-##Profile
+####Profile
 * ~~As a User, I'd like to be able to see what media Users have already seen~~
 * ~~As a User, I'd like to be able to see what media another User and I have in common~~
 * ~~As a User, I'd like to be able to see what media has been recommended to another User~~
@@ -123,7 +123,7 @@ Points determine how much your recommendation weighs!  The more points you have,
 * ~~As a User, I'd like to be able to see a User's previous history (recommendations to and from/likes/dislikes)~~
 * As a User, I'd like to be able to see what a User thinks of my recommendations to him/her
 
-##Shows
+####Shows
 * I'd like to be able to like/seen/dislike an entire show
 * I'd like to be able to recommend an entire show
 * When I click on a show, I want to see detailed information about the show
@@ -144,18 +144,18 @@ Points determine how much your recommendation weighs!  The more points you have,
 * I want to see which friends have this media on their recommended list
 
 
-##Movies
+####Movies
 
-##Seasons
+####Seasons
 
-##Episodes
+####Episodes
 
-##Tags
+####Tags
 
-##Likes
+####Likes
 
-##Recommending
+####Recommending
 
-##Badges
+####Badges
 
 
