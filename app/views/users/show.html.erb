@@ -5,8 +5,8 @@
   <ul class="secondary-navbar">
   	<li class="secondary-nav-element"><%= link_to "Profile", @user %></li>
   	<li class="secondary-nav-element"><%= link_to "Friends", friends_user_path(@user) %></li>
-  	<li class="secondary-nav-element"><%= link_to "Movies", movies_user_path(@user) %></li>
-    <li class="secondary-nav-element"><%= link_to "Shows", shows_user_path(@user) %></li>
+  	<li class="secondary-nav-element"><%= link_to "Movie List", movies_user_path(@user) %></li>
+    <li class="secondary-nav-element"><%= link_to "Show List", shows_user_path(@user) %></li>
   </ul>
 </div>
 
@@ -28,8 +28,8 @@
 </div>
 
 <div class="two_thirds_col">
-	<h3><%= @user.name %>'s Recent Activity</h3>
-		<ul class="dashboard_recents_list">
+	<h3>Your friend's recent activity:</h3>
+	<ul class="dashboard_recents_list">
 		<% @recent_activity.each do |notification| %>
 			<% if notification.notification_type == "friends" %>
 				<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> became friends with <%= link_to notification.user_two.name, user_path(notification.user_two) %></li>
@@ -37,66 +37,64 @@
 			<% elsif notification.media_type == "Movie" %>
 				<% case notification.notification_type %>
 					<% when "like" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> liked the movie <%= link_to notification.media.title, movie_path(notification.media) %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_liked">liked</span> the movie <%= link_to notification.media.title, movie_path(notification.media) %></li>
 						<br>
 					<% when "seen" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> watched the movie <%= link_to notification.media.title, movie_path(notification.media) %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_seen">watched</span> the movie <%= link_to notification.media.title, movie_path(notification.media) %></li>
 						<br>
 					<% when "dislike" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> disliked the movie <%= link_to notification.media.title, movie_path(notification.media) %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_disliked">disliked</span> the movie <%= link_to notification.media.title, movie_path(notification.media) %></li>
 						<br>
 					<% when "recommendation" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> recommended the movie <%= link_to notification.media.title, movie_path(notification.media) %> to <%= link_to notification.user_two.name, user_path(notification.user_two) %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_recommended">recommended</span> the movie <%= link_to notification.media.title, movie_path(notification.media) %> to <%= link_to notification.user_two.name, user_path(notification.user_two) %></li>
 						<br>
 					<% when "liked rec" %>
-						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> liked <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s movie recommendation <%= link_to notification.media.title, movie_path(notification.media) %></li>
+						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> <span class="span_liked">liked</span> <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s movie recommendation <%= link_to notification.media.title, movie_path(notification.media) %></li>
 						<br>
 					<% when "seen rec" %>
-						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> watched <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s movie recommendation <%= link_to notification.media.title, movie_path(notification.media) %></li>
+						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> <span class="span_seen">watched</span> <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s movie recommendation <%= link_to notification.media.title, movie_path(notification.media) %></li>
 						<br>
 					<% when "disliked rec" %>
-						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> disliked <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s movie recommendation <%= link_to notification.media.title, movie_path(notification.media) %></li>
+						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> <span class="span_disliked">disliked</span> <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s movie recommendation <%= link_to notification.media.title, movie_path(notification.media) %></li>
 						<br>
 				<% end %>
 			<% elsif notification.media_type == "Season" %>
 				<% case notification.notification_type %>
 					<% when "like" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> liked the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_liked">liked</span> the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
 						<br>
 					<% when "seen" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> watched the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_seen">watched</span> the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
 						<br>
 					<% when "dislike" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> disliked the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_disliked">disliked</span> the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
 						<br>
 					<% when "recommendation" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> recommended the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %> to <%= link_to notification.user_two.name, user_path(notification.user_two) %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_recommended">recommended</span> the show <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %> to <%= link_to notification.user_two.name, user_path(notification.user_two) %></li>
 						<br>
 					<% when "liked rec" %>
-						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> liked <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> <span class="span_liked">liked</span> <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
 						<br>
 					<% when "seen rec" %>
-						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> watched <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> <span class="span_seen">watched</span> <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
 						<br>
 					<% when "disliked rec" %>
-						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> disliked <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
+						<li><%= link_to notification.user_two.name, user_path(notification.user_two) %> <span class="span_disliked">disliked</span> <%= link_to notification.user_one.name, user_path(notification.user_one) %>'s show recommendation <%= link_to notification.media.title, show_path(notification.media.show) %> season <%= notification.media.season_num %></li>
 						<br>
 				<% end %>
 			<% elsif notification.media_type == "Episode" %>
 				<% case notification.notification_type %>
 					<% when "like" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> liked <%= link_to notification.media.season.title, show_path(notification.media.season.show) %> season <%= notification.media.season.season_num %> episode <%= notification.media.episode_num %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_liked">liked</span> <%= link_to notification.media.season.title, show_path(notification.media.season.show) %> season <%= notification.media.season.season_num %> episode <%= notification.media.episode_num %></li>
 						<br>
 					<% when "seen" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> watched <%= link_to notification.media.season.title, show_path(notification.media.season.show) %> season <%= notification.media.season.season_num %> episode <%= notification.media.episode_num %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_seen">watched</span> <%= link_to notification.media.season.title, show_path(notification.media.season.show) %> season <%= notification.media.season.season_num %> episode <%= notification.media.episode_num %></li>
 						<br>
 					<% when "dislike" %>
-						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> disliked <%= link_to notification.media.season.title, show_path(notification.media.season.show) %> season <%= notification.media.season.season_num %> episode <%= notification.media.episode_num %></li>
+						<li><%= link_to notification.user_one.name, user_path(notification.user_one) %> <span class="span_disliked">disliked</span> <%= link_to notification.media.season.title, show_path(notification.media.season.show) %> season <%= notification.media.season.season_num %> episode <%= notification.media.episode_num %></li>
 						<br>
 				<% end %>
 			<% end %>
 		<% end %>
 	</ul>
 </div>
-
-

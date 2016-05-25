@@ -179,3 +179,21 @@ h4 {
 .secondary-navbar .secondary-nav-element {display: inline-block;}
 .secondary-navbar .secondary-nav-element:hover {background: #FACA66;}
 
+/* Spans */
+
+.span_liked {
+	color: green;
+}
+
+.span_seen {
+  color: yellow;
+}
+
+.span_disliked {
+	color: red;
+}
+
+.span_recommended {
+	color: blue;
+}
+
