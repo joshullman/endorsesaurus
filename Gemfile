@@ -34,8 +34,6 @@ gem 'omniauth-facebook'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
-gem 'css3-progress-bar-rails'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

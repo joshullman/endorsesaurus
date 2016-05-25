@@ -137,6 +137,31 @@ class User < ActiveRecord::Base
     season_count == show.seasons.count
   end
 
+  def progress(show)
+    episode_count = 0
+    unwatched_count = 0
+    liked_count = 0
+    seen_count = 0
+    disliked_count = 0
+    show.seasons.each do |season|
+      season.episodes each do |episode|
+        episode_count += 1
+        if like = Like.where(user_id: self.id, medium_id: episode.id).first
+          case like.value
+            when 1
+              liked_count += 1
+            when 0
+              seen_count += 1
+            when -1
+              disliked_count += 1
+          end
+        end
+      end
+    end
+    unwatched_count = (episode_count - liked_count - seen_count - disliked_count)
+    [unwatched_count, liked_count, seen_count, disliked_count]
+  end
+
   # FRIENDS
 
   has_many :friendships

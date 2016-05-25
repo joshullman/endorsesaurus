@@ -26,6 +26,8 @@ class ShowsController < ApplicationController
 		end
 
   	@current_user_likes = current_user.user_likes
+
+  	@current_user_progress = current_user.progress(@show)
 	end
 
 	def create

@@ -67,6 +67,11 @@ h3 {
 	font-size: 25px;
 }
 
+h4 {
+	font-family: 'Amatic SC', cursive;
+	font-size: 20px;
+}
+
 /*Main Navbar CSS*/
 .navbar-class a {
 	color: #486765;
