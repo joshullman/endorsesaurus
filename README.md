@@ -8,7 +8,8 @@ Endorsesaurus solves the age old question: What should I watch next?  Endorsesau
 
 
 
-Nav Bar:
+####Nav Bar:
+
 Movies - This link will take you to the Movies page where you can browse movies by genre, most watched, most liked, and most recommended.
 
 Shows - This link will take you to the Shows page where you can browse movies by genre, most watched, most liked, and most recommended.
@@ -19,7 +20,8 @@ Search - Use the search bar at the top of the page to search any media you want.
 
 
 
-Your Hub:
+####Your Hub:
+
 Dashboard - This page is only for you - no one else will see it.  This page shows your friends recent activity.  What are they watching?  What are they liking or disliking?  What are they liking?  Who's becoming friends with who?  You can see all of this information here!
 
 Profile - This page will show what a user has been watching, liking, friending, etc.
@@ -32,7 +34,8 @@ Show List - This page shows two things - the movies a user has liked/seen/dislik
 
 
 
-Colors:
+####Colors:
+
 Green - this stands for "liked"
 Yellow - this stands for "ok"
 Red - this stands for "disliked"
@@ -40,7 +43,8 @@ Blue - this is related to recommendations
 
 
 
-Icons:
+####Icons:
+
 []['app/images/opinion_bar.png'] - This bar shows the distribution of people's opinion of a media.  Green stands for likes, yellow stands for mehs, red stands for dislikes.
 
 []['app/images/white_circle.jpeg'] - This icon means that you haven't seen this media yet!  Hover over this to select whether you liked it, thought it was ok, or disliked it.
@@ -57,7 +61,9 @@ Icons:
 
 []['app/images/blue_r.jpg'] - This icon stands for "recommend".  Click this icon to weigh in and recommend this media to a friend or multiple friends.  Your recommendation will automatically be added to other user's lists and weighed accordingly.  If the user likes your recommendation, you will receive points!  If they think the media was ok, you will neither gain or lose points.  If they dislike the media, you will lose points.  Be thoughtful with your recommendations!
 
-Points - Points determine how much your recommendation weighs!  The more points you have, the more your recommendation will count when you recommend media to your friends.  There are two ways to earn points and one way to lose points.  The first way to earn points is if someone likes your recommendation.  You will receive points equal to every half hour of media that they have consumed.  The second way to earn points is to watch the media your friends have recommended.  Your opinion of the media does not affect whether you receive points - you will receive points for participating in the system.  Finally, you will lose points if a user dislikes your recommendation.  This should be a rare occurance - be thoughtful with your recommendations!
+####Points
+
+Points determine how much your recommendation weighs!  The more points you have, the more your recommendation will count when you recommend media to your friends.  There are two ways to earn points and one way to lose points.  The first way to earn points is if someone likes your recommendation.  You will receive points equal to every half hour of media that they have consumed.  The second way to earn points is to watch the media your friends have recommended.  Your opinion of the media does not affect whether you receive points - you will receive points for participating in the system.  Finally, you will lose points if a user dislikes your recommendation.  This should be a rare occurance - be thoughtful with your recommendations!
 
 ###User Stories
 
