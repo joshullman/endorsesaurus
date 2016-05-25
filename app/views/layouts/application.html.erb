@@ -6,7 +6,6 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="css3-progress-bar.css" />
 </head>
 <body>
 
@@ -18,6 +17,10 @@
 <% end %>
 
 <header class ="navbar-wrapper">
+  <div class="site-name">
+    <%= image_tag('derpy_dinosaur.png', size: "30") %>
+    Endorsesaurus: Tip the Scales
+  </div>
   <div class ="navbar-class">
     <% if current_user %>
       <ul class="navbar-left navbar">

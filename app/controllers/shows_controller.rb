@@ -15,6 +15,7 @@ class ShowsController < ApplicationController
 	end
 
 	def show
+
 		@seasons = @show.seasons
 
 		@season_likes = {}

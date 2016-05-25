@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
     seen_count = 0
     disliked_count = 0
     show.seasons.each do |season|
-      season.episodes each do |episode|
+      season.episodes.each do |episode|
         episode_count += 1
         if like = Like.where(user_id: self.id, medium_id: episode.id).first
           case like.value
@@ -159,8 +159,14 @@ class User < ActiveRecord::Base
       end
     end
     unwatched_count = (episode_count - liked_count - seen_count - disliked_count)
-    [unwatched_count, liked_count, seen_count, disliked_count]
+    liked_count = (liked_count.to_f / episode_count.to_f * 100).round
+    seen_count = (seen_count.to_f / episode_count.to_f * 100).round
+    disliked_count = (disliked_count.to_f / episode_count.to_f * 100).round
+    unwatched_count = (unwatched_count.to_f / episode_count.to_f * 100).round
+    results = [liked_count, seen_count, disliked_count, unwatched_count]
+    p results
   end
+
 
   # FRIENDS
 

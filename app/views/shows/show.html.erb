@@ -25,43 +25,12 @@
 	<br>
 	<img src="<%= @show.poster %>">
 	<br>
-	<br>
 </div>
-<div class="horizontal-combo-container">
-    <div class="horizontal-combo-mortice">
-        <div class="combo-fill" style="width: 20%">
-            <div class="combo-label">
-              Unwatched
-            </div>
-            <div class="fill-amount">
-              20%
-            </div>
-        </div>
-        <div class="combo-fill green" style="width: 35%">
-            <div class="combo-label green-container">
-              Liked
-            </div>
-            <div class="fill-amount green-mortice">
-              35%
-            </div>
-        </div>
-        <div class="combo-fill orange" style="width: 35%">
-            <div class="combo-label orange-container">
-              Meh
-            </div>
-            <div class="fill-amount orange-mortice">
-              35%
-            </div>
-        </div>
-        <div class="combo-fill pink" style="width: 0%">
-            <div class="combo-label pink-container">
-              Disliked
-            </div>
-            <div class="fill-amount pink-mortice">
-              0%
-            </div>
-        </div>
-    </div>
+<div class="bar_mortice" style="width: 50%">
+  <div class="progress green" style="width: <%= @current_user_progress[0] %>%;"></div>
+  <div class="progress orange" style="width: <%= @current_user_progress[1] %>%;"></div>
+  <div class="progress pink" style="width: <%= @current_user_progress[2] %>%;"></div>
+  <div class="progress blue" style="width: <%= @current_user_progress[3] %>%;"></div>
 </div>
 
 <div class ="season_wrapper">
@@ -74,13 +43,11 @@
 		<br>
 		Number of people who have watched this season: <%= season.medium.watched_count %>
 		<br>
-		Number of people who like this season: <%= season.medium.liked_count %>
-		<br>
-		Number of people who meh this season: <%= season.medium.seen_count %>
-		<br>
-		Number of people who dislike this season: <%= season.medium.disliked_count %>
-		<br>
-		Number of people who have recommended this season: <%= season.medium.recommended_count %>
+		<div class="bar_mortice" style="width: 50%">
+		  <div class="progress green" style="width: <%= season.liked %>%;"></div>
+		  <div class="progress orange" style="width: <%= season.seen %>%;"></div>
+		  <div class="progress pink" style="width: <%= season.disliked-1 %>%;"></div>
+		</div>
 		<br>
 		You have recommended this season to:
 		<br>
@@ -96,21 +63,21 @@
 			<br>
 		<% end %>
 		<br>
-		Friends who like this Seaon:
+		Friends who like this Season:
 		<br>
 		<% @season_likes[[season.medium.id, 1]].each do |person| %>
 			<%= link_to person.name, user_path(person) %>
 			<br>
 		<% end %>
 		<br>
-			Friends who have seen this Seaon:
+			Friends who have seen this Season:
 		<br>
 		<% @season_likes[[season.medium.id, 0]].each do |person| %>
 			<%= link_to person.name, user_path(person) %>
 			<br>
 		<% end %>
 		<br>
-		Friends who dislike this Seaon:
+		Friends who dislike this Season:
 		<br>
 			<% @season_likes[[season.medium.id, -1]].each do |person| %>
 			<%= link_to person.name, user_path(person) %>

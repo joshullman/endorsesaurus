@@ -24,6 +24,7 @@ $darker_blue #486765;
 
 $font: 'Amatic SC', cursive;
 
+
 .navbar-left {
 	width: 25%;
 	float: left;
@@ -45,11 +46,21 @@ $font: 'Amatic SC', cursive;
 	text-align: center;
 }
 
+.site-name {
+	color: #486765;
+}
+
+
 header {
 	font-family: 'Amatic SC', cursive;
 	background: #91CFCA;
 	padding: 5px;
 	font-size: 25px;
+}
+
+.site-name {
+	font-weight: bold;
+	text-align: center;
 }
 
 h1 {

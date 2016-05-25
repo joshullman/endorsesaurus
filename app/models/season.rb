@@ -68,4 +68,16 @@ class Season < ActiveRecord::Base
 		end
 	end
 
+	def liked
+		(self.medium.liked_count.to_f / self.medium.watched_count.to_f * 100).round
+	end
+
+	def seen
+		(self.medium.seen_count.to_f / self.medium.watched_count.to_f * 100).round
+	end
+
+	def disliked
+		(self.medium.disliked_count.to_f / self.medium.watched_count.to_f * 100).round
+	end
+
 end
