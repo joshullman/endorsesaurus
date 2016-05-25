@@ -37,8 +37,11 @@ Show List - This page shows two things - the movies a user has liked/seen/dislik
 ####Colors:
 
 Green - this stands for "liked"
+
 Yellow - this stands for "ok"
+
 Red - this stands for "disliked"
+
 Blue - this is related to recommendations
 
 
