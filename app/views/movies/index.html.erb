@@ -1,6 +1,42 @@
 <h1 class="text_center">All Movies</h1>
 
 <div class="movies_index_wrapper">
+
+	<div class="movies_index_tag_wrapper">
+		<h2 class="text_center">Most Watched Movies</h2>
+		<% @most_watched_movies.each do |movie| %>
+			<div class="media_index_element_wrapper">
+				Watched Count: <%= movie.medium.watched_count %>
+				<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
+			</div>
+		<% end %>
+	</div>
+	<br>
+
+	<div class="movies_index_tag_wrapper">
+		<h2 class="text_center">Most Liked Movies</h2>
+		<% @most_liked_movies.each do |movie| %>
+			<div class="media_index_element_wrapper">
+				Liked Count: <%= movie.medium.liked_count %>
+				<br>
+				<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
+			</div>
+		<% end %>
+	</div>
+	<br>
+
+	<div class="movies_index_tag_wrapper">
+		<h2 class="text_center">Most Recommended Movies</h2>
+		<% @most_recommended_movies.each do |movie| %>
+			<div class="media_index_element_wrapper">
+			Rec Count: <%= movie.medium.recommended_count %>
+			<br>
+			<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
+		</div>
+		<% end %>
+	</div>
+	<br>
+	
 	<% @tags.each_key do |tag| %>
 		<div class="movies_index_tag_wrapper">
 		<h3 class="text_center"><%= tag.name %></h3>
