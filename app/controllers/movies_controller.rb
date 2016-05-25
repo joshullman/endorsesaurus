@@ -32,6 +32,8 @@ class MoviesController < ApplicationController
   	@friends_seen = friends_like(med, 0)
   	@friends_dislike = friends_like(med, -1)
 
+  	@percents = @movie.percents
+
 	end
 
 	def create

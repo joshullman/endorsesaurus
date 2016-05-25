@@ -9,8 +9,11 @@ class TagsController < ApplicationController
 	end
 
 	def show
+		@percents = {}
 		@movies = @tag.movies
 		@shows = @tag.shows
+		@movies.each {|movie| @percents[movie.medium_id] = movie.percents}
+		@shows.each {|show| @percents[show.medium_id] = show.percents}
 
   	@current_user_likes = current_user.user_likes
 	end

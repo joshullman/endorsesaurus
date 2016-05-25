@@ -27,13 +27,11 @@
 	<br>
 	<img src="<%= @movie.poster %>">
 	<br>
-	Number of people who have watched this Movie: <%= @movie.medium.watched_count %>
-	<br>
-	Number of people who like this Movie: <%= @movie.medium.liked_count %>
-	<br>
-	Number of people who meh this Movie: <%= @movie.medium.seen_count %>
-	<br>
-	Number of people who dislike this Movie: <%= @movie.medium.disliked_count %>
+	<div class="bar_mortice mortice_tiny" style="width: 30%">
+	  <div class="progress progress_tiny green" style="width: <%= @percents[0] %>%;"></div>
+	  <div class="progress progress_tiny yellow" style="width: <%= @percents[1] %>%;"></div>
+	  <div class="progress progress_tiny red" style="width: <%= @percents[2] %>%;"></div>
+	</div>
 	<br>
 	Number of people who have recommended this Movie: <%= @movie.medium.recommended_count %>
 	<br>

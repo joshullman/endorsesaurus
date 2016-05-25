@@ -16,10 +16,13 @@ class MediaController < ApplicationController
   def search
     title = params[:title]
     media_type = params[:media]
+    @percents = {}
     if media_type == "Shows"
       @show_results = Show.search {fulltext "#{title}"}.results
+      @show_results.each {|show| @percents[show.medium_id] = show.percents}
     elsif media_type == "Movies"
       @movie_results = Movie.search {fulltext "#{title}"}.results
+      @movie_results.each {|movie| @percents[movie.medium_id] = movie.percents}
     end
 
     @current_user_likes = current_user.user_likes
