@@ -45,11 +45,11 @@ Blue - this is related to recommendations
 
 ####Icons:
 
-<img src="/app/assets/images/opinion_bar.png" width="15" height="15"/> - This bar shows the distribution of people's opinion of a media.  Green stands for likes, yellow stands for mehs, red stands for dislikes.
+<img src="/app/assets/images/opinion_bar.png" /> - This bar shows the distribution of people's opinion of a media.  Green stands for likes, yellow stands for mehs, red stands for dislikes.
 
 <img src="/app/assets/images/white_circle.jpeg" width="15" height="15"/> - This icon means that you haven't seen this media yet!  Hover over this to select whether you liked it, thought it was ok, or disliked it.
 
-<img src="/app/assets/images/green_circle.svg" width="15" height="15"/> - This icon means that you like this media.  If this media is on your list and you select this icon, you will get points for participating and the users who recommended it to you will all get points :].  Hover over this and select a different color to change your mind.  Points will not be redistributed for changing your mind and you will not earn points if this media is not on your recommendation list.
+<img src="/app/assets/images/green_circle.svg" width="15" height="15"/> - This icon means that you like this media.  If this media is on your list and you select this icon, you will get points for participating and the users who recommended it to you will all get points :).  Hover over this and select a different color to change your mind.  Points will not be redistributed for changing your mind and you will not earn points if this media is not on your recommendation list.
 
 <img src="/app/assets/images/yellow_circle.png" width="15" height="15"/> - This icon means that you thought this media was ok.  If this media is on your list and select this icon, you will get points for participating but those who recommended it to you will not receive any points.  Hover over this and select a different color to change your mind.  Points will not be redistributed for changing your mind and you will not earn points if this media is not on your recommendation list.
 
