@@ -4,11 +4,13 @@ class MoviesController < ApplicationController
 
 	def index
 		@all_tags = Tag.all
+  	@percents = {}
 
 		@tags = {}
 		@all_tags.each do |tag|
 			movies = tag.movies
 			@tags[tag] = movies
+			movies.each {|movie| @percents[movie.medium_id] = movie.percents}
 		end
 
 		@most_watched_movies = Medium.where(media_type: "Movie").order(watched_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
@@ -16,6 +18,11 @@ class MoviesController < ApplicationController
     @most_recommended_movies = Medium.where(media_type: "Movie").order(recommended_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
 
   	@current_user_likes = current_user.user_likes
+
+  	@most_watched_movies.each {|movie| @percents[movie.medium_id] = movie.percents }
+  	@most_liked_movies.each {|movie| @percents[movie.medium_id] = movie.percents }
+  	@most_recommended_movies.each {|movie| @percents[movie.medium_id] = movie.percents }
+
 	end
 
 	def show

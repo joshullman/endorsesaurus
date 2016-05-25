@@ -4,7 +4,7 @@
 		<div class="movies_index_tag_wrapper">
 			<% @movie_results.each do |movie| %>
 				<div class="media_index_element_wrapper">
-					<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user } %>
+					<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_likes, placeholder: movie, current_user: current_user, percent: @percents[movie.medium_id]} %>
 				</div>
 			<% end %>
 		</div>
@@ -16,7 +16,7 @@
 		<div class="shows_index_tag_wrapper">
 			<% @show_results.each do |show| %>
 				<div class="media_index_element_wrapper">
-					<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user } %>
+					<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, percent: @percents[show.medium_id] } %>
 				</div>
 			<% end %>
 		</div>
