@@ -1,12 +1,5 @@
 <%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
-<div class ="secondary-navbar-class">
-  <ul class="secondary-navbar">
-  	<li class="secondary-nav-element"><%= link_to "Profile", @user %></li>
-  	<li class="secondary-nav-element"><%= link_to "Friends", friends_user_path(@user) %></li>
-  	<li class="secondary-nav-element"><%= link_to "Movie List", movies_user_path(@user) %></li>
-    <li class="secondary-nav-element"><%= link_to "Show List", shows_user_path(@user) %></li>
-  </ul>
-</div>
+<%= render partial: 'layouts/secondary_nav_bar', locals: { user: @user } %>
 
 <div class="left_col">
 	<h3 class="text_center">Recent Show Activity:</h3>
