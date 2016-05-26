@@ -197,3 +197,110 @@ h4 {
 	color: blue;
 }
 
+/* Seen/Like/Dislike Buttons on Movies/Shows List*/
+
+.likes_button {
+	display: inline-block;
+	width: 30%;
+	background-color: green;
+	text-align: center;
+}
+
+.seen_button {
+	display: inline-block;
+	width: 30%;
+	background-color: yellow;
+	text-align: center;
+}
+
+.dislikes_button {
+	display: inline-block;
+	width: 30%;
+	background-color: red;
+	text-align: center;
+}
+
+/* Columns for Dashboard/Profile/Friends/MoviesList/ShowsList */
+
+.left_col {
+	padding-top: 5%;
+	height: 100%;
+	width: 30%;
+	float: left;
+	margin-left: 2%;
+}
+
+.center_col {
+	height: 100%;
+	width: 30%;
+	float: left;
+	margin-left: 1%;
+}
+
+.right_col {
+	height: 100%;
+	width: 30%;
+	float: left;	
+	margin-left: 1%;
+	margin-right: 2%;
+}
+
+.two_thirds_col {
+	height: 100%;
+	width: 60%;
+	float: right;
+	margin-left: 1%;
+}
+
+.title {
+	float: left;
+}
+
+.recent_row {
+	border: 1px solid black;
+}
+
+.recommendation_row {
+	border: 1px solid black;
+}
+
+.like_row {
+	border: 1px solid black;
+}
+
+.seen_row {
+	border: 1px solid black;
+}
+
+.dislike_row {
+	border: 1px solid black;
+}
+
+/* Icons */
+
+.icons img {
+	float: left;
+	height: 15px;
+	width: 15px;
+}
+
+/* Photos */
+
+.photo img {
+	width: 150px;
+	height: 150px;
+}
+
+.photo_icon img {
+	width: 50px;
+	height: 50px;
+	margin-left: auto;
+  margin-right: auto;
+}
+
+/* Friends */
+
+.friend_icon_wrapper {
+	display: inline-block;
+	text-align: center;
+}

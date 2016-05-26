@@ -28,7 +28,7 @@
 </div>
 
 <div class="two_thirds_col">
-	<h3>Your friend's recent activity:</h3>
+	<h3><%= @user.name %>'s recent activity:</h3>
 	<ul class="dashboard_recents_list">
 		<% @recent_activity.each do |notification| %>
 			<% if notification.notification_type == "friends" %>

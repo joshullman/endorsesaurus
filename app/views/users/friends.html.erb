@@ -31,13 +31,17 @@
   <h3><%= @user.name %>'s Friends</h3>
   <ul>
     <% @user.friends.each do |friend| %>
-      <li>
-        <%= link_to friend.name, friend %> 
+      <div class="friend_icon_wrapper">
+        <%= link_to image_tag('profile.jpg'), friend, class: "photo_icon"%>
+        <br>
+        <%= link_to friend.name, friend, class: "text_center" %> 
+        <br>
         <% if current_user == @user %>
-          <%= link_to "(Delete)", friendship_path(:id => friend), :method => :delete %>
+          <%= link_to "(Delete)", friendship_path(:id => friend), :method => :delete, class: "text_center" %>
         <% end %>
-      </li>
-      <br>
+        <br>
+        <br>
+      </div>
     <% end %>
   </ul>
 
@@ -45,12 +49,17 @@
       <h4>Friend Requests</h4>
       <ul>
         <% @user.requested_friendships.each do |request| %>
-          <li>
-            <%= link_to request.name, request %> 
-            <%= link_to "(Accept)", friendship_path(:id => request), :method => "put" %> 
-            <%= link_to "(Decline)", friendship_path(:id => request), :method => :delete %>
-          </li>
-          <br>
+          <div class="friend_icon_wrapper">
+            <%= link_to image_tag('profile.jpg'), request, class: "photo_icon"%>
+            <br>
+            <%= link_to request.name, request, class: "text_center" %>
+            <br>
+            <%= link_to "(Accept)", friendship_path(:id => request), :method => "put", class: "text_center" %>
+            <br>
+            <%= link_to "(Decline)", friendship_path(:id => request), :method => :delete, class: "text_center" %>
+            <br>
+            <br>
+          </div>
         <% end %>
       </ul>
   <% end %>
@@ -59,10 +68,13 @@
     <h4>Pending Requests</h4>
     <ul>
       <% @user.pending_friends.each do |request| %>
-        <li>
-          <%= link_to request.name, request %> 
-        </li>
-        <br>
+        <div class="friend_icon_wrapper">
+          <%= link_to image_tag('profile.jpg'), request, class: "photo_icon"%>
+          <br>
+          <%= link_to request.name, request, class: "text_center" %> 
+          <br>
+          <br>
+        </div>
       <% end %>
     </ul>
   <% end %>

@@ -25,8 +25,8 @@
       <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
     <% end %>
   <% end %>
-	<h3>Recent Show Activity:</h3>
 
+	<h3 class="text_center">Recent Show Activity:</h3>
 	<div class="recent_wrapper">
 		<% @recently_watched.each_key do |like| %>
 			<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: true, css_class: "recent" } %>	
@@ -36,7 +36,7 @@
 </div>
 
 <div class="center_col">
-	<h3>Show Recommendations:</h3>
+	<h3 class="text_center">Show Recommendations:</h3>
 	<div class="recommendation_wrapper">
 		<% @recs.each do |rec| %>
 			<%= render partial: 'layouts/recommended_show_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: rec, current_user: current_user, css_class: "recommendation" } %>
@@ -47,11 +47,13 @@
 
 
 <div class="right_col">
-	<h3><span class="likes_button">Likes</span> <span class="seen_button">Seen</span> <span class="dislikes_button">Dislikes</span></h3>
+	<h3>
+	<span class="likes_button">Likes</span> 
+	<span class="seen_button">Seen</span> 
+	<span class="dislikes_button">Dislikes</span></h3>
 	<div class="watched_wrapper">
 
 		<div class="likes_wrapper">
-			<h3>Likes:</h3>
 			<% if @likes[1] %>
 				<% @likes[1].each do |like| %>
 					<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: false, css_class: "like"} %>	
@@ -61,7 +63,6 @@
 		</div>
 
 		<div class="seen_wrapper">
-			<h3>Seen:</h3>
 			<% if @likes[0] %>
 				<% @likes[0].each do |seen| %>
 					<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, recent: false, css_class: "seen"} %>	
@@ -71,7 +72,6 @@
 		</div>
 
 		<div class="dislikes_wrapper">
-			<h3>Dislikes:</h3>
 			<% if @likes[-1] %>
 				<% @likes[-1].each do |dislike| %>
 					<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, recent: false, css_class: "dislike"} %>	
