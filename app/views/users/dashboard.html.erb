@@ -1,6 +1,4 @@
-<div class="endorsesaurus_container">
-	<h2><%= @user.name %>'s Endorsesaurus Enclosure</h2>
-</div>
+<%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
 <div class ="secondary-navbar-class">
   <ul class="secondary-navbar">
   	<li class="secondary-nav-element"><%= link_to "Profile", @user %></li>
@@ -11,11 +9,6 @@
 </div>
 
 <div class="left_col">
-	<div class="photo"><%= image_tag 'profile.jpg' %></div>
-	<div class=profile_info>
-		<h2><%= @user.name %></h2>
-		<h2>Points: <%= @user.points %></h2>
-	</div>
 </div>
 
 <div class="two_thirds_col">

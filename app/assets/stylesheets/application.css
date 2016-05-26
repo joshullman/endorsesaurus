@@ -142,11 +142,15 @@ h4 {
 .icons_holder .current_icon .icon_slider li a {display:block;} 
 .icons_holder .current_icon .icon_slider li:hover {background: #666;}
 
+/* Endorsesaurus */
+
+.endorsesaurus_container h2 {
+	line-height: 175px;
+}
+
 .endorsesaurus_container {
 	text-align: center;
-	vertical-align: middle;
-	line-height: 125px;  
-	height: 150px;
+	height: 200px;
 	width: 100%;
 	display: block;
 	clear: both;
@@ -223,7 +227,6 @@ h4 {
 /* Columns for Dashboard/Profile/Friends/MoviesList/ShowsList */
 
 .left_col {
-	padding-top: 5%;
 	height: 100%;
 	width: 30%;
 	float: left;
@@ -286,10 +289,36 @@ h4 {
 
 /* Photos */
 
+.user_info {
+	display: block;
+	float: left;
+	width: 18%;
+	clear: left;
+	height: 200px;
+	text-align: center;
+}
+
+.username {
+	font-family: 'Amatic SC', cursive;
+	font-weight: 700;
+	font-size: 30px;
+}
+
+.points {
+	font-family: 'Amatic SC', cursive;
+	font-weight: 700;
+	font-size: 30px;
+}
+
+.user_info img {
+	width: 100px;
+	height: 100px;
+}
+/*
 .photo img {
 	width: 150px;
 	height: 150px;
-}
+}*/
 
 .photo_icon img {
 	width: 50px;

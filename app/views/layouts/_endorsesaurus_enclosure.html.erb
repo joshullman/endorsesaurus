@@ -1,0 +1,20 @@
+<div class="endorsesaurus_container">
+	<div class="user_info">
+		<%= image_tag 'profile.jpg' %>
+		<br>
+		<span class="username"><%= user.name %></span>
+		<br>
+		<span class="points"><%= user.points %></span>
+		<br>
+			<% if current_user != user && current_user.pending_friends.include?(user)%>
+		  	Friendship Pending...
+			<% elsif current_user != user && !current_user.friends.include?(user) %>
+		    <% if current_user.requested_friendships.include?(user) %>
+		      <%= link_to "Accept Friend", friendship_path(:id => user), :method => "put" %> 
+		    <% else %>
+		      <%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %>
+		    <% end %>
+		  <% end %>
+	</div>
+	<h2><%= user.name %>'s Endorsesaurus Enclosure</h2>
+</div>
