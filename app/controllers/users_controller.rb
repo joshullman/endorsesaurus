@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
     @current_user_likes = current_user.user_likes
 
-    @recent_activity = @user.recent_activity
+    @recent_activity = @user.recent_activity(20)
   end
 
   def movies
@@ -30,7 +30,6 @@ class UsersController < ApplicationController
       redirect_to dashboard_user_path(current_user)
     else
       @user = current_user
-      @recent_activity = @user.notifications.last(10)
 
       @friends_recents = current_user.friends_recent_activity
     end

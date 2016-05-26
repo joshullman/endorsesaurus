@@ -38,9 +38,9 @@ class User < ActiveRecord::Base
     likes
   end
 
-  def recent_activity
+  def recent_activity(amount = 10)
     activities = []
-    notifications = self.notifications
+    notifications = self.notifications.last(amount)
     notifications.each do |notification|
       note = Note.new(notification)
       note.do_stuff

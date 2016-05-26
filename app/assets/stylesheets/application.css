@@ -200,7 +200,23 @@ h4 {
 	color: blue;
 }
 
+/* Dashboard/Profile */
+
+.event_wrapper {
+	border: 1px solid black;
+	text-align: center;
+	height: 100px;
+}
+
 /* Seen/Like/Dislike Buttons on Movies/Shows List*/
+
+.seen_wrapper {
+	display: none;
+}
+
+.dislikes_wrapper {
+	display: none;
+}
 
 .likes_button {
 	display: inline-block;
@@ -247,12 +263,12 @@ h4 {
 	margin-right: 2%;
 }
 
-.two_thirds_col {
+/*.two_thirds_col {
 	height: 100%;
 	width: 60%;
 	float: right;
 	margin-left: 1%;
-}
+}*/
 
 .title {
 	float: left;
@@ -279,6 +295,11 @@ h4 {
 }
 
 /* Icons */
+
+.dashboard_icons {
+	height: 45px;
+	width: 45px;
+}
 
 .icons img {
 	float: left;

@@ -36,9 +36,6 @@
 // })
 $(document).ready(function(){
 
-  $('.seen_wrapper').hide();
-  $('.dislikes_wrapper').hide();
-
   $('.likes_button').click(function(){
     $('.likes_wrapper').show();
     $('.seen_wrapper').hide();

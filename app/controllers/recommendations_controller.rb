@@ -114,7 +114,7 @@ class RecommendationsController < ApplicationController
     media_type = Medium.find(medium_id).media_type
 
     Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: medium_id).first.destroy
-    medium.find(medium_id).decrement_recommends
+    Medium.find(medium_id).decrement_recommends
 
     redirect_to :back
   end
