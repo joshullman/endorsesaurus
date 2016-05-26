@@ -12,25 +12,49 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+// THIS IS WHERE TURBOLINKS WAS
 //= require_tree .
 
-$('.rec_wrapper').on('submit', '.main_search', function(event) {
-  event.preventDefault();
-  $('.results_wrapper').remove();
-  var $form = $(event.target);
+// $('.rec_wrapper').on('submit', '.main_search', function(event) {
+//   event.preventDefault();
+//   $('.results_wrapper').remove();
+//   var $form = $(event.target);
 
-  $.ajax({
-    method: $form.attr('method'),
-    url: $form.attr('action'),
-    data: $form.serialize()
-  })
+//   $.ajax({
+//     method: $form.attr('method'),
+//     url: $form.attr('action'),
+//     data: $form.serialize()
+//   })
 
-  .done(function (response) {
-    $('.search_wrapper').append(response);
-    $('.search_form')[0].reset();
-  })
+//   .done(function (response) {
+//     $('.search_wrapper').append(response);
+//     $('.search_form')[0].reset();
+//   })
 
-  .fail(function (response) {
-  })
-})
+//   .fail(function (response) {
+//   })
+// })
+$(document).ready(function(){
+
+  $('.seen_wrapper').hide();
+  $('.dislikes_wrapper').hide();
+
+  $('.likes_button').click(function(){
+    $('.likes_wrapper').show();
+    $('.seen_wrapper').hide();
+    $('.dislikes_wrapper').hide();
+  });
+
+  $('.seen_button').click(function(){
+    $('.seen_wrapper').show();
+    $('.likes_wrapper').hide();
+    $('.dislikes_wrapper').hide();
+  });
+
+  $('.dislikes_button').click(function(){
+    $('.dislikes_wrapper').show();
+    $('.seen_wrapper').hide();
+    $('.likes_wrapper').hide();
+  });
+
+});
