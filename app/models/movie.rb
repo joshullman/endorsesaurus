@@ -1,9 +1,9 @@
 class Movie < ActiveRecord::Base
 	belongs_to :medium
 
-	searchable do
-		text :title
-	end
+	# searchable do
+	# 	text :title
+	# end
 
 	def percents
 		medium = self.medium

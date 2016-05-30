@@ -1,23 +1,24 @@
 class Medium < ActiveRecord::Base
-	has_many :recommendations
-	has_many :likes
-	has_many :shows
-	has_many :movies
-	has_many :seasons
-	has_many :episodes
-	has_many :media_tags
-	has_many :tags, through: :media_tags
+	has_one     :show
+	has_one     :movie
+	has_one     :season
+	has_one     :episode
+	belongs_to  :media_type
+	has_many    :recommendations
+	has_many    :likes
+	has_many    :media_tags
+	has_many    :tags, through: :media_tags
 
 	def find_associated_media
-		case self.media_type
-		when "Movie"
-			Movie.find(self.related_id)
-		when "Show"
-			Show.find(self.related_id)
-		when "Season"
-			Season.find(self.related_id)
-		when "Episode"
-			Episode.find(self.related_id)
+		case self.media_type_id
+		when 1
+			self.movie
+		when 2
+			self.show
+		when 3
+			self.season
+		when 4
+			self.episode
 		end
 	end
 

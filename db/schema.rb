@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519214819) do
+ActiveRecord::Schema.define(version: 20160530042754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
   end
 
   create_table "media", force: :cascade do |t|
-    t.string   "media_type"
+    t.string   "media_type_id"
     t.integer  "related_id"
     t.integer  "recommended_count", default: 0
     t.integer  "watched_count",     default: 0
@@ -66,6 +66,12 @@ ActiveRecord::Schema.define(version: 20160519214819) do
   create_table "media_tags", force: :cascade do |t|
     t.integer  "medium_id"
     t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "media_types", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
