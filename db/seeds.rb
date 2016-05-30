@@ -81,10 +81,8 @@ User.create(email: "FrogPrince@aol.com", password: "password", name: "FrogPrince
 current_user = User.all.first
 
 media = [
-	"tt1520211",
 	"tt0944947",
 	"tt0110912",
-	"tt0410975",
 	"tt0076759",
 	"tt0780536",
 	"tt2861424",
@@ -232,12 +230,12 @@ media.each do |imdb_url|
 end
 
 256.times do
-	user = 1
-	media = 1
-	value = 0
+	user = rand(32) + 1
+	media = rand(203) + 1
+	value = rand(3) - 1
 	until Like.where(user_id: user, medium_id: media).first == nil
 		user = rand(32) + 1
-		media = rand(368) + 1
+		media = rand(203) + 1
 		value = rand(3) - 1
 	end
 	med = Medium.find(media)
@@ -268,7 +266,7 @@ end
 	until sender != receiver && Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first == nil && Medium.find(media).media_type != "Episode"
 		sender = rand(32) + 1
 		receiver = rand(32) + 1
-		media = rand(368) + 1
+		media = rand(203) + 1
 	end
 
 	if Like.where(user_id: receiver, medium_id: media).first == nil && Medium.find(media).media_type == "Show"

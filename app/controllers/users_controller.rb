@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    if Integer(params[:id]) != current_user.id
+    if params[:id].to_i != current_user.id
       redirect_to dashboard_user_path(current_user)
     else
       @user = current_user

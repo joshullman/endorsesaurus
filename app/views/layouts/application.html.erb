@@ -39,7 +39,7 @@
       </ul>
       <ul class="navbar-right navbar">
         (<%= current_user.points %>)
-        <li class="nav_element"><%= link_to "Dashboard", dashboard_user_path(current_user) %>
+        <li class="nav_element"><%= link_to current_user.name, dashboard_user_path(current_user) %>
           <ul>
             <li class="dropdown_element"><%= link_to "Profile", current_user %></li>
             <li class="dropdown_element"><%= link_to "Friends", friends_user_path(current_user) %></li>
