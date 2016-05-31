@@ -4,7 +4,7 @@ RSpec.describe Tag, :type => :model do
 
   it "Associations with Media are intact" do
     tag = Tag.create!(name: "horror")
-    medium = Medium.create!(media_type_id: 1, related_id: 1)
+    medium = Medium.create!(media_type: "Movie")
     med_tag = MediaTag.create!(medium_id: medium.id, tag_id: tag.id)
 
     expect(tag.media.first).to eq(medium)
@@ -12,20 +12,18 @@ RSpec.describe Tag, :type => :model do
 
   it "movies method is intact" do
     tag = Tag.create!(name: "horror")
-    medium = Medium.create!(media_type_id: 1, related_id: 1)
+    medium = Medium.create!(media_type: "Movie")
     med_tag = MediaTag.create!(medium_id: medium.id, tag_id: tag.id)
-    movie = Movie.create!(title: "Gang Busters", medium_id: medium.id)
-    medium.update(related_id: movie.id)
+    movie = medium.create_movie!(title: "Gang Busters")
 
     expect(tag.movies.first).to eq(medium.find_associated_media)
   end
 
   it "shows method is intact" do
     tag = Tag.create!(name: "horror")
-    medium = Medium.create!(media_type_id: 2, related_id: 1)
+    medium = Medium.create!(media_type: "Show")
     med_tag = MediaTag.create!(medium_id: medium.id, tag_id: tag.id)
-    show = Show.create!(title: "Breaking Bad", medium_id: medium.id)
-    medium.update(related_id: show.id)
+    show = medium.create_show!(title: "Breaking Bad")
 
     expect(tag.shows.first).to eq(medium.find_associated_media)
   end

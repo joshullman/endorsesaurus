@@ -1,7 +1,8 @@
 class CreateMedia < ActiveRecord::Migration
   def change
     create_table :media do |t|
-    	t.integer  :media_type_id
+    	t.string   :media_type
+      t.integer  :media_id
     	t.integer  :recommended_count, default: 0
     	t.integer  :watched_count, default: 0
     	t.integer  :liked_count, default: 0

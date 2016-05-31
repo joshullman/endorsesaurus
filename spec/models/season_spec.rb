@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe Season, :type => :model do
 
   it "Associations with Media are intact" do
-    medium = Medium.create!(media_type_id: 3)
-    season = Season.create!(show_id: 1, season_num: 1, medium_id: medium.id)
-    medium.update(related_id: season.id)
+    medium = Medium.create!(media_type: "Season")
+    season = medium.create_season!(show_id: 1, season_num: 1, medium_id: medium.id)
 
     expect(season.medium).to eq(medium)
   end

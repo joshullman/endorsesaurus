@@ -3,16 +3,15 @@ class Like < ActiveRecord::Base
 	belongs_to :medium
 
 	def find_associated_media
-		medium = self.medium
-		case medium.media_type
+		case self.medium.media_type
 		when "Movie"
-			Movie.find(medium.related_id)
+			self.medium.movie
 		when "Show"
-			Show.find(medium.related_id)
+			self.medium.show
 		when "Season"
-			Season.find(medium.related_id)
+			self.medium.season
 		when "Episode"
-			Episode.find(medium.related_id)
+			self.medium.episode
 		end
 	end
 end

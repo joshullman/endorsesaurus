@@ -12,14 +12,15 @@ class Recommendation < ActiveRecord::Base
 	end
 	
 	def find_associated_media
-		medium = self.medium
-		case medium.media_type
-		when "Movie"
-			Movie.find(medium.related_id)
-		when "Show"
-			Show.find(medium.related_id)
-		when "Season"
-			Season.find(medium.related_id)
+		case self.medium.media_type
+			when "Movie"
+				self.medium.movie
+			when "Show"
+				self.medium.show
+			when "Season"
+				self.medium.season
+			when "Episode"
+				self.medium.episode
 		end
 	end
 

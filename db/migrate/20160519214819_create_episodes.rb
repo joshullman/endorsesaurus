@@ -6,7 +6,7 @@ class CreateEpisodes < ActiveRecord::Migration
     	t.string   :imdb_id
     	t.string   :medium_id
     	t.integer  :episode_num
-    	t.string   :episode_title
+    	t.string   :title
     	t.string   :plot
     	t.string   :runtime
       t.string   :released

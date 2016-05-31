@@ -80,11 +80,6 @@ User.create(email: "FrogPrince@aol.com", password: "password", name: "FrogPrince
 
 current_user = User.first
 
-MediaType.create(name: "Movie")
-MediaType.create(name: "Show")
-MediaType.create(name: "Season")
-MediaType.create(name: "Episode")
-
 media = [
 	"tt0944947",
 	"tt0110912",
@@ -131,7 +126,7 @@ media.each do |imdb_url|
 		season_num = 1
 		seasons_points = 0
 
-		show_med = Medium.create(media_type_id: 2)
+		show_med = Medium.create(media_type: "Show")
 		show = show_med.create_show(
 			title: api["Title"],
 			year: api["Year"],
@@ -160,7 +155,7 @@ media.each do |imdb_url|
 			series = JSON.parse(res.body)
 
 			break if series["Response"] != "True"
-			season_med = Medium.create(media_type_id: 3)
+			season_med = Medium.create(media_type: "Season")
 			season = season_med.create_season(
 				title: api["Title"],
 				show_id: show.id,
@@ -176,12 +171,12 @@ media.each do |imdb_url|
 					runtime = api["Runtime"].gsub(" min", "").to_i
 					points = (runtime.to_f/30).ceil
 					episodes_points += points
-					episode_med = Medium.create(media_type_id: 4)
+					episode_med = Medium.create(media_type: "Episode")
 					episode = episode_med.create_episode(
 						season_id: season.id,
 						imdb_id: api["imdbID"],
 						episode_num: api["Episode"].to_i,
-						episode_title: api["Title"],
+						title: api["Title"],
 						runtime: api["Runtime"],
 						released: api["Released"],
 						writer: api["Writer"],
@@ -202,7 +197,7 @@ media.each do |imdb_url|
 	else
 		runtime = api["Runtime"].gsub(" min", "").to_i
 		points = (runtime.to_f/30).ceil
-		movie_med = Medium.create(media_type_id: 1)
+		movie_med = Medium.create(media_type: "Movie")
 		mov = movie_med.create_movie(
 			title: api["Title"],
 			year: api["Year"],
@@ -235,9 +230,9 @@ end
 		value = rand(3) - 1
 	end
 	med = Medium.find(media)
-	if med.media_type_id == 2
+	if med.media_type == "Show"
 		show_watch_all(med.find_associated_media, user, value)
-	elsif med.media_type_id == 3
+	elsif med.media_type == "Season"
 		season_watch_all(med.find_associated_media, user, value)
 	else
 		Like.create(user_id: user, medium_id: media, value: value)
@@ -259,13 +254,15 @@ end
 	receiver = 0
 	media = 0
 
-	until sender != receiver && Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first == nil && Medium.find(media).media_type_id != 4
+	until sender != receiver && 
+	Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first == nil && 
+	Medium.find(media).media_type != "Episode"
 		sender = rand(32) + 1
 		receiver = rand(32) + 1
 		media = rand(203) + 1
 	end
 
-	if Like.where(user_id: receiver, medium_id: media).first == nil && Medium.find(media).media_type_id == 2
+	if Like.where(user_id: receiver, medium_id: media).first == nil && Medium.find(media).media_type == "Show"
 		Medium.find(media).find_associated_media.seasons.each do |season|
 			if Like.where(user_id: receiver, medium_id: season.medium.id).first == nil
 				Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: season.medium.id)
