@@ -4,6 +4,7 @@ class CreateNotifications < ActiveRecord::Migration
     	t.integer  :user_one_id
     	t.integer  :user_two_id, default: 0
     	t.integer  :medium_id, default: 0
+    	t.string   :media_type
     	t.string   :notification_type
       t.timestamps null: false
     end

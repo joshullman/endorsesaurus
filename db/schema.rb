@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "medium_id"
+    t.string   "media_type"
     t.integer  "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.integer  "user_one_id"
     t.integer  "user_two_id",       default: 0
     t.integer  "medium_id",         default: 0
+    t.string   "media_type"
     t.string   "notification_type"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
@@ -103,6 +105,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "medium_id"
+    t.string   "media_type"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

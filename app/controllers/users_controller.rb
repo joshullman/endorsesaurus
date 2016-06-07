@@ -10,11 +10,11 @@ class UsersController < ApplicationController
   end
 
   def movies
-    do_even_more_stuff("movie")
+    do_even_more_stuff("Movie")
   end
 
   def shows
-    do_even_more_stuff("series")
+    do_even_more_stuff("Season")
   end
 
   def friends
@@ -68,15 +68,11 @@ class UsersController < ApplicationController
 
   def organize_likes(media_type)
   likes_hash = {}
-  likes = Like.where(user_id: @user.id).group_by(&:value)
+  likes = Like.where(user_id: @user.id, media_type: media_type).group_by(&:value)
   likes.each_key do |key|
     likes_hash[key] = []
     likes[key].each do |like|
-      case media_type
-        when "movie"
-          likes_hash[key] << like.find_associated_media if like.medium.media_type == "Movie"
-        when "series"
-          likes_hash[key] << like.find_associated_media if like.medium.media_type == "Season"
+      likes_hash[key] << like.find_associated_media
       end
     end
   end
@@ -85,32 +81,20 @@ class UsersController < ApplicationController
 
   def find_recommendations(media_type)
     recs = []
-    recommendations = Recommendation.where(receiver_id: @user.id).group_by(&:medium_id)
+    recommendations = Recommendation.where(receiver_id: @user.id, media_type: media_type).group_by(&:medium_id)
     recommendations.each_value do |array|
       rec = Rec.new(array)
       rec.do_all_the_stuff
-      medium_type = rec.info.medium.media_type
-      case media_type
-      when "movie"
-        recs << rec if rec.info.medium.media_type == "Movie"
-      when "series"
-        recs << rec if rec.info.medium.media_type == "Season"
-      end
+      recs << rec
     end
     recs.sort_by! {|rec| rec.user_points}.reverse!
   end
 
   def find_recently_watched(media_type, num)
     recently_watched = {}
-    recents = Like.where(user_id: @user.id).last(num).reverse
-
+    recents = Like.where(user_id: @user.id, media_type: media_type).last(num).reverse
     recents.each do |like|
-      case media_type
-        when "movie"
-          recently_watched[like.find_associated_media] = like.value if like.medium.media_type == "Movie"
-        when "series"
-          recently_watched[like.find_associated_media] = like.value if like.medium.media_type == "Season"
-      end
+      recently_watched[like.find_associated_media] = like.value
     end
     recently_watched
   end
