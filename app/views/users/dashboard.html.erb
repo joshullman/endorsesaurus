@@ -1,12 +1,9 @@
 <%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
 <%= render partial: 'layouts/secondary_nav_bar', locals: { user: @user } %>
 
-<div class="left_col">
-</div>
-
 <div>
 	<h3 class="text_center">Your friend's recent activity:</h3>
-	<ul class="dashboard_recents_list">
+	<div class="dashboard_recents_list">
 		<% @friends_recents.each do |notification| %>
 			<% if notification.notification_type == "friends" %>
 			<div class="event_wrapper">

@@ -28,7 +28,7 @@ class ShowsController < ApplicationController
 	def show
 
 		@seasons = @show.seasons
-
+		@percents = @show.percents
 		@season_likes = {}
 		@season_percent = []
 		@seasons.each do |season|

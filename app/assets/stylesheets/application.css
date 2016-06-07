@@ -263,6 +263,22 @@ h4 {
 	margin-right: 2%;
 }
 
+.left_50 {
+	height: 100%;
+	width: 46%;
+	float: left;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.right_50 {
+	height: 100%;
+	width: 46%;
+	float: left;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
 /*.two_thirds_col {
 	height: 100%;
 	width: 60%;
@@ -339,6 +355,12 @@ h4 {
 	width: 150px;
 	height: 150px;
 }*/
+
+.full_poster {
+	width: 270px;
+  height: 410px;
+  border: 1px solid black;
+}
 
 .photo_icon img {
 	width: 50px;

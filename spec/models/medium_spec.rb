@@ -65,7 +65,7 @@ RSpec.describe Medium, :type => :model do
     expect(medium.recommended_by(user_two.id).first).to eq(user_one)
   end
 
-  it "recommended_by method is intact" do
+  it "recommended_to method is intact" do
     medium = Medium.create!(media_type: "Season")
     season = Season.create!(season_num: 1, medium_id: medium.id)
     user_one = User.create!(email: "blah@aol.com", password: "password")

@@ -43,17 +43,17 @@ class Season < ActiveRecord::Base
 	end
 
 	def update_likes(user, value)
-		like = Like.where(user_id: user.id, medium_id: self.medium.id)
-		old_value = like.first.value
-		like.first.value = value
-		like.first.save
+		like = Like.where(user_id: user.id, medium_id: self.medium.id).first
+		old_value = like.value
+		like.value = value
+		like.save
 		self.medium.increment_likes(value)
     self.medium.decrement_likes(old_value)
 	  self.episodes.each do |episode|
-      like = Like.where(user_id: user.id, medium_id: episode.medium.id)
-      old_value = like.first.value
-      like.first.value = value
-      like.first.save
+      like = Like.where(user_id: user.id, medium_id: episode.medium.id).first
+      old_value = like.value
+      like.value = value
+      like.save
       episode.medium.increment_likes(value)
       episode.medium.decrement_likes(old_value)
     end

@@ -134,4 +134,104 @@ RSpec.describe User, :type => :model do
 	  expect(user.friends.first).to eq(friend)
 	end
 
+	it "user_likes method is intact" do
+		user_one = User.create!(email: "blah@aol.com", password: "password")
+		season_med = Medium.create!(media_type: "Season")
+    season = season_med.create_season!(season_num: 1)
+    like = Like.create!(user_id: user_one.id, medium_id: season_med.id, value: 1)
+
+    expect(user_one.user_likes).to eq({season_med.id => 1})
+	end
+
+	# it "friends_recent_activity method is intact" do
+	# end
+
+	it "watched_all_episodes? method is intact" do
+		user_one = User.create!(email: "blah@aol.com", password: "password")
+		show_med = Medium.create(media_type: "Show")
+    show = show_med.create_show!(title: "Breaking Bad")
+		season_med = Medium.create!(media_type: "Season")
+    season = season_med.create_season!(show_id: show.id, season_num: 1)
+    episode_med = Medium.create!(media_type: "Episode")
+    episode = episode_med.create_episode!(season_id: season.id)
+    episode_med2 = Medium.create!(media_type: "Episode")
+    episode2 = episode_med2.create_episode!(season_id: season.id)
+    Like.create!(user_id: user_one.id, medium_id: episode_med.id, value: 1)
+    Like.create!(user_id: user_one.id, medium_id: episode_med2.id, value: 1)
+	  
+	  expect(user_one.watched_all_episodes?(season.id)).to eq([true, 1])
+	end
+
+	it "watched_all_seasons? method is intact" do
+		user_one = User.create!(email: "blah@aol.com", password: "password")
+		show_med = Medium.create(media_type: "Show")
+    show = show_med.create_show!(title: "Breaking Bad")
+    season_med = Medium.create!(media_type: "Season")
+    season = season_med.create_season!(show_id: show.id, season_num: 1)
+    season_med2 = Medium.create!(media_type: "Season")
+    season2 = season_med2.create_season!(show_id: show.id, season_num: 2)
+
+    Like.create!(user_id: user_one.id, medium_id: season_med.id, value: 1)
+    Like.create!(user_id: user_one.id, medium_id: season_med2.id, value: 0)
+	  
+	  expect(user_one.watched_all_seasons?(show.id)).to eq([true, nil])
+	end
+
+	it "already_recommended_show_to? method is intact" do
+		user_one = User.create!(email: "blah@aol.com", password: "password")
+	  user_two = User.create!(email: "blah2@aol.com", password: "password")
+	  show_med = Medium.create(media_type: "Show")
+    show = show_med.create_show!(title: "Breaking Bad")
+
+    season_med = Medium.create!(media_type: "Season")
+    season = season_med.create_season!(show_id: show.id, season_num: 1)
+    episode_med = Medium.create!(media_type: "Episode")
+    episode = episode_med.create_episode!(season_id: season.id)
+    episode_med2 = Medium.create!(media_type: "Episode")
+    episode2 = episode_med2.create_episode!(season_id: season.id)
+
+    season_med2 = Medium.create!(media_type: "Season")
+    season2 = season_med2.create_season!(show_id: show.id, season_num: 2)
+    episode_med3 = Medium.create!(media_type: "Episode")
+    episode = episode_med3.create_episode!(season_id: season2.id)
+    episode_med4 = Medium.create!(media_type: "Episode")
+    episode4 = episode_med4.create_episode!(season_id: season2.id)
+	  
+	  Recommendation.create!(sender_id: user_one.id, receiver_id: user_two.id, medium_id: season_med.id)
+	  Recommendation.create!(sender_id: user_one.id, receiver_id: user_two.id, medium_id: season_med2.id)
+	  expect(user_one.already_recommended_show_to?(user_two, show.id)).to eq(true)
+	end
+
+	it "progress method is intact" do
+		show_med = Medium.create(media_type: "Show")
+    show = show_med.create_show!(title: "Breaking Bad")
+
+    season_med = Medium.create!(media_type: "Season")
+    season = season_med.create_season!(show_id: show.id, season_num: 1)
+    episode_med = Medium.create!(media_type: "Episode")
+    episode = episode_med.create_episode!(season_id: season.id)
+    episode_med2 = Medium.create!(media_type: "Episode")
+    episode2 = episode_med2.create_episode!(season_id: season.id)
+
+    season_med2 = Medium.create!(media_type: "Season")
+    season2 = season_med2.create_season!(show_id: show.id, season_num: 2)
+    episode_med3 = Medium.create!(media_type: "Episode")
+    episode = episode_med3.create_episode!(season_id: season2.id)
+    episode_med4 = Medium.create!(media_type: "Episode")
+    episode4 = episode_med4.create_episode!(season_id: season2.id)
+
+    user = User.create!(email: "Blah@aol.com", password: "password")
+    like1 = Like.create!(user_id: user.id, medium_id: episode_med.id, value: 1)
+    episode_med.increment_watches
+    episode_med.increment_likes(1)
+    like2 = Like.create!(user_id: user.id, medium_id: episode_med2.id, value: 0)
+    episode_med2.increment_watches
+    episode_med2.increment_likes(0)
+    like3 = Like.create!(user_id: user.id, medium_id: episode_med3.id, value: -1)
+    episode_med3.increment_watches
+    episode_med3.increment_likes(-1)
+
+		expect(user.progress(show)).to eq([25, 25, 25, 25])
+	end
+
 end

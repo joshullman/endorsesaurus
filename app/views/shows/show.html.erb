@@ -21,18 +21,21 @@
 	<br>
 	Plot: <%= @show.plot %>
 	<br>
-	Poster: 
-	<br>
-	<img src="<%= @show.poster %>">
+	<div class="bar_mortice mortice_tiny" style="width: 266px">
+	  <div class="progress progress_tiny green" style="width: <%= @percents[0] %>%;"></div>
+	  <div class="progress progress_tiny yellow" style="width: <%= @percents[1] %>%;"></div>
+	  <div class="progress progress_tiny red" style="width: <%= @percents[2] %>%;"></div>
+	</div>
+	<img src="<%= @show.poster %>" class="full_poster">
 	<br>
 </div>
-Your Progress:
+<!-- Your Progress:
 <div class="bar_mortice" style="width: 50%">
   <div class="progress green" style="width: <%= @current_user_progress[0] %>%;"></div>
   <div class="progress yellow" style="width: <%= @current_user_progress[1] %>%;"></div>
   <div class="progress red" style="width: <%= @current_user_progress[2] %>%;"></div>
   <div class="progress blue" style="width: <%= @current_user_progress[3] %>%;"></div>
-</div>
+</div> -->
 
 <div class ="season_wrapper">
 	<% @seasons.each do |season| %>

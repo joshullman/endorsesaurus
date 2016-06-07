@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
 
     season_count = 0
     medium_ids.each do |id|
-      season_count += 1 if Recommendation.where(sender_id: user.id, receiver_id: self.id, medium_id: id).first
+      season_count += 1 if Recommendation.where(sender_id: self.id, receiver_id: user.id, medium_id: id).first
     end
 
     season_count == show.seasons.count
@@ -146,7 +146,7 @@ class User < ActiveRecord::Base
     show.seasons.each do |season|
       season.episodes.each do |episode|
         episode_count += 1
-        if like = Like.where(user_id: self.id, medium_id: episode.id).first
+        if like = Like.where(user_id: self.id, medium_id: episode.medium.id).first
           case like.value
             when 1
               liked_count += 1
@@ -164,7 +164,6 @@ class User < ActiveRecord::Base
     disliked_count = (disliked_count.to_f / episode_count.to_f * 100).round
     unwatched_count = (unwatched_count.to_f / episode_count.to_f * 100).round
     results = [liked_count, seen_count, disliked_count, unwatched_count]
-    p results
   end
 
 
