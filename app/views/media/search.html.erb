@@ -1,4 +1,4 @@
-<% if @movie_results %>
+<% if @movie_results && !@movie_results.empty? %>
 	<div class="media_index_wrapper">
 		<h1>Movie Results</h1>
 		<div class="movies_index_tag_wrapper">
@@ -10,7 +10,7 @@
 		</div>
 		<br>
 	</div>
-<% else %>
+<% elsif @show_results && !@show_results.empty? %>
 	<div class="media_index_wrapper">
 		<h1>Show Results</h1>
 		<div class="shows_index_tag_wrapper">
@@ -22,4 +22,6 @@
 		</div>
 		<br>
 	</div>
+<% else %>
+<p>No results matching your query were found :(</p>
 <% end %>

@@ -1,3 +1,14 @@
+def create_notification(user, medium, value)
+  case value
+    when 1
+      Notification.create(user_one_id: user.id, medium_id: medium.id, media_type: medium.media_type, notification_type: "like")
+    when 0
+      Notification.create(user_one_id: user.id, medium_id: medium.id, media_type: medium.media_type, notification_type: "seen")
+    when -1
+      Notification.create(user_one_id: user.id, medium_id: medium.id, media_type: medium.media_type, notification_type: "dislike")
+  end
+end
+
 def season_watch_all(season, user, value)
 	current_user = User.find(user)
 	Like.create(user_id: current_user.id, medium_id: season.medium.id, media_type: "Season", value: value)
@@ -98,6 +109,7 @@ media = [
 	"tt0116483"
 ]
 
+# Create Media
 media.each do |imdb_url|
 	url = URI.parse("http://www.omdbapi.com/\?i\=#{imdb_url}")
 	req = Net::HTTP::Get.new(url.to_s)
@@ -117,6 +129,7 @@ media.each do |imdb_url|
 		series = {"Response" => "True"}
 		season_num = 1
 		seasons_points = 0
+		total_episodes_count = 0
 
 		show_med = Medium.create(media_type: "Show")
 		show = show_med.create_show(
@@ -150,6 +163,7 @@ media.each do |imdb_url|
 			season_med = Medium.create(media_type: "Season")
 			season = season_med.create_season(
 				title: api["Title"],
+				imdb_id: api["imdbID"],
 				show_id: show.id,
 				season_num: season_num,
 			)
@@ -176,16 +190,21 @@ media.each do |imdb_url|
 						plot: api["Plot"],
 						actors: api["Actors"],
 						poster: api["Poster"],
-						points: points
+						points: points,
+						show_id: season.show.id
 					)
 					p [season_num, episode_num]
 					episode_num += 1
 				end
+			season.update(episode_count: episode_num)
 			season.update(points: episodes_points)
 			seasons_points += episodes_points
 			season_num += 1
+			total_episodes_count += episode_num
 		end
 		show.update(points: seasons_points)
+		show.update(season_count: season_num)
+		show.update(episode_count: total_episodes_count)
 	else
 		runtime = api["Runtime"].gsub(" min", "").to_i
 		points = (runtime.to_f/30).ceil
@@ -212,6 +231,7 @@ media.each do |imdb_url|
 
 end
 
+# Creating Likes
 256.times do
 	user = rand(32) + 1
 	media = rand(203) + 1
@@ -222,36 +242,32 @@ end
 		value = rand(3) - 1
 	end
 	med = Medium.find(media)
-	if med.media_type == "Show"
-		show_watch_all(med.find_associated_media, user, value)
-	elsif med.media_type == "Season"
-		season_watch_all(med.find_associated_media, user, value)
+	if med.media_type == "Show" || med.media_type == "Season"
+		med.find_associated_media.watch_all(User.find(user), value)
 	elsif med.media_type == "Episode"
 		Like.create(user_id: user, medium_id: media, media_type: "Episode", value: value)
 		med.increment_watches
 		med.increment_likes(value)
+		med.find_associated_media.season.medium.increment_watches
+		med.find_associated_media.season.medium.increment_likes(value)
+		med.find_associated_media.season.show.medium.increment_watches
+		med.find_associated_media.season.show.medium.increment_likes(value)
 	else
 		Like.create(user_id: user, medium_id: media, media_type: "Movie", value: value)
 		med.increment_watches
 		med.increment_likes(value)
 	end
-	case value
-		when 1
-			Notification.create(user_one_id: user, medium_id: media, media_type: med.media_type, notification_type: "like")
-		when 0
-			Notification.create(user_one_id: user, medium_id: media, media_type: med.media_type, notification_type: "seen")
-		when -1
-			Notification.create(user_one_id: user, medium_id: media, media_type: med.media_type, notification_type: "dislike")
-	end
+	create_notification(User.find(user), med, value)
 end
 
+# Creating Recommendations
 256.times do 
 	sender = 0
 	receiver = 0
 	media = 0
 
 	until sender != receiver && 
-	Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first == nil && 
+	!Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first && 
 	Medium.find(media).media_type != "Episode"
 		sender = rand(32) + 1
 		receiver = rand(32) + 1
@@ -259,26 +275,28 @@ end
 	end
 
 	media = Medium.find(media)
-	if Like.where(user_id: receiver, medium_id: media.id).first == nil && media.media_type == "Show"
+	if media.media_type == "Show" && User.find(receiver).watched_all_seasons?(media.find_associated_media.id)[0] != true
 		media.find_associated_media.seasons.each do |season|
-			if Like.where(user_id: receiver, medium_id: season.medium.id).first == nil
+			if User.find(receiver).watched_all_episodes?(media.find_associated_media.id)[0] != true
 				Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: season.medium.id, media_type: "Season")
 				season.medium.increment_recommends
 				media.increment_recommends
 			end
 	    Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media.id, media_type: "Show", notification_type: "recommendation")
 		end
-	elsif Like.where(user_id: receiver, medium_id: media.id).first == nil && media.media_type == "Movie"
+	elsif media.media_type == "Movie" && !Like.where(user_id: receiver, medium_id: media.id).first
 		Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media.id, media_type: "Movie")
 		media.increment_recommends
 	  Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media.id, media_type: "Movie", notification_type: "recommendation")
-	elsif Like.where(user_id: receiver, medium_id: media.id).first == nil && media.media_type == "Season"
+	elsif media.media_type == "Season" && User.find(receiver).watched_all_episodes?(media.find_associated_media.id)[0] != true
 		Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media.id, media_type: "Season")
+		media.find_associated_media.show.medium.increment_recommends
 		media.increment_recommends
 	  Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media.id, media_type: "Season", notification_type: "recommendation")
 	end
 end
 
+# Liking Recommendations
 64.times do
 	user_one = rand(32) + 1
 	until User.find(user_one).received_recs.sample != nil
@@ -286,39 +304,17 @@ end
 	end
 	value = rand(3) - 1
 	medium = User.find(user_one).received_recs.sample.medium
-	medium_points = medium.find_associated_media.points
 
-	Like.create(user_id: user_one, medium_id: medium.id, value: value)
-  medium.increment_watches
-  recommendations = Recommendation.where(receiver_id: user_one, medium_id: medium.id)
-  User.find(user_one).update_points(medium_points)
-  if !recommendations.empty? && value == 1
-    Notification.create(user_one_id: user_one, medium_id: medium.id, media_type: medium.media_type, notification_type: "like")
-    medium.increment_likes(value)
-    recommendations.map do |rec|
-      rec.sender.update_points(medium_points)
-      Recommendation.find(rec.id).destroy
-      Notification.create(user_one_id: rec.sender.id, user_two_id: user_one, medium_id: medium.id, media_type: medium.media_type, notification_type: "liked rec")
-    end
-  elsif !recommendations.empty? && value == -1
-    Notification.create(user_one_id: user_one, medium_id: medium.id, media_type: medium.media_type, notification_type: "dislike")
-    medium.increment_likes(value)
-    recommendations.map do |rec|
-      rec.sender.update_points(-medium_points)
-      Recommendation.find(rec.id).destroy
-      Notification.create(user_one_id: rec.sender.id, user_two_id: user_one, medium_id: medium.id, media_type: medium.media_type, notification_type: "disliked rec")
-    end
-  elsif !recommendations.empty? && value == 0
-    Notification.create(user_one_id: user_one, medium_id: medium.id, media_type: medium.media_type, notification_type: "seen")
-    medium.increment_likes(value)
-    recommendations.map do |rec|
-      Recommendation.find(rec.id).destroy
-      Notification.create(user_one_id: rec.sender.id, user_two_id: user_one, medium_id: medium.id, media_type: medium.media_type, notification_type: "seen rec")
-    end
-  end
+	if medium.media_type == "Season"
+		medium.find_associated_media.watch_all(User.find(user_one), value, true)
+	else
+		medium.find_associated_media.distribute_points_for_recommendations(User.find(user_one), value)
+	end
+	create_notification(User.find(user_one), medium, value)
+
 end
 
-
+# Adding Friends
 192.times do
 	user = 0
 	friend = 0

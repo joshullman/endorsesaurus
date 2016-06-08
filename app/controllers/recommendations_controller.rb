@@ -74,11 +74,11 @@ class RecommendationsController < ApplicationController
         if media_type == "Show"
           recommend_show(sender, receiver, medium.find_associated_media)
         else
-          Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium_id) if !Recommendation.where(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium_id).first
+          Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, media_type: media_type, medium_id: medium_id) if !Recommendation.where(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium_id).first
 
           medium.increment_recommends
-          medium.find_associated_media.show.medium.increment_recommends if medium.media_type == "Season"
-          Notification.create(user_one_id: sender.id, user_two_id: receiver.id, medium_id: medium_id, notification_type: "recommendation")
+          medium.find_associated_media.show.medium.increment_recommends if media_type == "Season"
+          Notification.create(user_one_id: sender.id, user_two_id: receiver.id, media_type: media_type, medium_id: medium_id, notification_type: "recommendation")
         end
       end
 
@@ -97,11 +97,11 @@ class RecommendationsController < ApplicationController
       if media_type == "Show"
         recommend_show(sender, receiver, medium.find_associated_media)
       else
-        Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: medium_id)
+        Recommendation.create(sender_id: sender, receiver_id: receiver, media_type: media_type, medium_id: medium_id)
 
         medium.increment_recommends
-        medium.find_associated_media.show.medium.increment_recommends if medium.media_type == "Season"
-        Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: medium_id, notification_type: "recommendation")
+        medium.find_associated_media.show.medium.increment_recommends if media_type == "Season"
+        Notification.create(user_one_id: sender, user_two_id: receiver, media_type: media_type, medium_id: medium_id, notification_type: "recommendation")
       end
       redirect_to :back
     end   
@@ -113,7 +113,7 @@ class RecommendationsController < ApplicationController
     medium_id = params[:medium_id]
     media_type = Medium.find(medium_id).media_type
 
-    Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: medium_id).first.destroy
+    Recommendation.where(sender_id: sender, receiver_id: receiver, media_type: media_type, medium_id: medium_id).first.destroy
     Medium.find(medium_id).decrement_recommends
 
     redirect_to :back
@@ -124,11 +124,11 @@ class RecommendationsController < ApplicationController
   def recommend_show(sender, receiver, show)
     show.seasons.each do |season|  
       medium = season.medium
-      if !Recommendation.where(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium.id).first
+      if !Recommendation.where(sender_id: sender.id, receiver_id: receiver.id, media_type: "Season", medium_id: medium.id).first
         show.medium.increment_recommends
-        Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium.id)
+        Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, media_type: "Season", medium_id: medium.id)
         medium.increment_recommends
-        Notification.create(user_one_id: sender.id, user_two_id: receiver.id, medium_id: medium.id, notification_type: "recommendation")
+        Notification.create(user_one_id: sender.id, user_two_id: receiver.id, media_type: "Season", medium_id: medium.id, notification_type: "recommendation")
       end
     end
   end

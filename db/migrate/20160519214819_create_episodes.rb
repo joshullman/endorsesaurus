@@ -2,6 +2,7 @@ class CreateEpisodes < ActiveRecord::Migration
   def change
     create_table :episodes do |t|
     	t.integer  :season_id
+      t.integer  :show_id
     	t.integer  :omdb_id
     	t.string   :imdb_id
     	t.string   :medium_id

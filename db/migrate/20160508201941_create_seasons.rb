@@ -8,6 +8,7 @@ class CreateSeasons < ActiveRecord::Migration
       t.string   :title
       t.integer  :season_num
       t.integer  :points
+      t.integer  :episode_count
 
 
       t.timestamps null: false

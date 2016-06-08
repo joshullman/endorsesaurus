@@ -220,21 +220,21 @@ h4 {
 
 .likes_button {
 	display: inline-block;
-	width: 30%;
+	width: 33%;
 	background-color: green;
 	text-align: center;
 }
 
 .seen_button {
 	display: inline-block;
-	width: 30%;
+	width: 32%;
 	background-color: yellow;
 	text-align: center;
 }
 
 .dislikes_button {
 	display: inline-block;
-	width: 30%;
+	width: 33%;
 	background-color: red;
 	text-align: center;
 }

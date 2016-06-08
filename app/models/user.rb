@@ -91,34 +91,24 @@ class User < ActiveRecord::Base
 
   def watched_all_seasons?(show_id)
     seasons = Season.where(show_id: show_id)
-    medium_ids = []
-    seasons.each do |episode|
-      medium_ids << episode.medium.id
+    array = []
+    seasons.each do |season|
+      array << self.watched_all_episodes?(season.id)
+    end
+    if array.all? {|result| result[0] == true}
+      if array.all? {|result| result[1] == 1}
+        [true, 1]
+      elsif array.all? {|result| result[1] == 0}
+        [true, 0]
+      elsif array.all? {|result| result[1] == -1}
+        [true, -1]
+      else
+        [true, nil]
+      end
+    else
+      [false, nil]
     end
 
-    liked_count = 0
-    seen_count = 0
-    disliked_count = 0
-    medium_ids.each do |id|
-      like = Like.where(user_id: self.id, medium_id: id).first
-      if like
-        case like.value
-        when 1
-          liked_count += 1
-        when 0
-          seen_count += 1
-        when -1
-          disliked_count += 1
-        end
-      end
-    end
-    watched_all = nil
-    value = nil
-    (liked_count + seen_count + disliked_count == seasons.count) ? watched_all = true : watched_all = false
-    value = 1 if liked_count == seasons.count
-    value = 0 if seen_count == seasons.count
-    value = -1 if disliked_count == seasons.count
-    [watched_all, value]
   end
 
   def already_recommended_show_to?(user, show_id)

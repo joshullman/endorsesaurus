@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
 
   create_table "episodes", force: :cascade do |t|
     t.integer  "season_id"
+    t.integer  "show_id"
     t.integer  "omdb_id"
     t.string   "imdb_id"
     t.string   "medium_id"
@@ -118,8 +119,9 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "title"
     t.integer  "season_num"
     t.integer  "points"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "episode_count"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "shows", force: :cascade do |t|
@@ -133,10 +135,12 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "plot"
     t.string   "poster"
     t.string   "imdb_id"
+    t.integer  "episode_count"
+    t.integer  "season_count"
     t.integer  "medium_id"
     t.integer  "points"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "tags", force: :cascade do |t|

@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   def shows
     do_even_more_stuff("Season")
+    p @likes
   end
 
   def friends
@@ -67,21 +68,28 @@ class UsersController < ApplicationController
   end
 
   def organize_likes(media_type)
-  likes_hash = {}
-  likes = Like.where(user_id: @user.id, media_type: media_type).group_by(&:value)
-  likes.each_key do |key|
-    likes_hash[key] = []
-    likes[key].each do |like|
-      likes_hash[key] << like.find_associated_media
+    likes_hash = {}
+    likes = @user.likes.where(media_type: media_type).group_by(&:value)
+    likes.each_key do |key|
+      likes_hash[key] = []
+      likes[key].each do |like|
+        likes_hash[key] << like.find_associated_media
       end
+      # p likes_hash
+      # if media_type == "Season"
+      #   likes_hash[key] = likes_hash[key].group_by {|season| season.show_id }
+      #   # likes_hash[key].each do |hash|
+      #   #   likes_hash[key][Show.find(hash.key)] = likes_hash[key][hash.value]
+      #   #   likes_hash[key][hash.key].delete
+      #   # end
+      # end
     end
-  end
-  likes_hash
+    likes_hash
   end
 
   def find_recommendations(media_type)
     recs = []
-    recommendations = Recommendation.where(receiver_id: @user.id, media_type: media_type).group_by(&:medium_id)
+    recommendations = @user.received_recs.where(media_type: media_type).group_by(&:medium_id)
     recommendations.each_value do |array|
       rec = Rec.new(array)
       rec.do_all_the_stuff
@@ -92,7 +100,7 @@ class UsersController < ApplicationController
 
   def find_recently_watched(media_type, num)
     recently_watched = {}
-    recents = Like.where(user_id: @user.id, media_type: media_type).last(num).reverse
+    recents = @user.likes.where(media_type: media_type).last(num).reverse
     recents.each do |like|
       recently_watched[like.find_associated_media] = like.value
     end

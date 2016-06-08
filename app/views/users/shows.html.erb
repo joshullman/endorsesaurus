@@ -21,9 +21,9 @@
 	<div class="watched_wrapper">
 
 		<div class="likes_wrapper">
-			<% if !@likes[1].empty? %>
+			<% if @likes[1] && !@likes[1].empty? %>
 				<% @likes[1].each do |like| %>
-					<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: false, css_class: "like"} %>	
+					<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, css_class: "like"} %>	
 					<br>
 				<% end %>
 			<% else %>
@@ -32,9 +32,9 @@
 		</div>
 
 		<div class="seen_wrapper">
-			<% if !@likes[0].empty? %>
+			<% if @likes[0] && !@likes[0].empty? %>
 				<% @likes[0].each do |seen| %>
-					<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, recent: false, css_class: "seen"} %>	
+					<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, css_class: "seen"} %>	
 					<br>
 				<% end %>
 			<% else %>
@@ -43,9 +43,9 @@
 		</div>
 
 		<div class="dislikes_wrapper">
-			<% if !@likes[-1].empty? %>
+			<% if @likes[-1] && !@likes[-1].empty? %>
 				<% @likes[-1].each do |dislike| %>
-					<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, recent: false, css_class: "dislike"} %>	
+					<%= render partial: 'layouts/season_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, css_class: "dislike"} %>	
 					<br>
 				<% end %>
 			<% else %>

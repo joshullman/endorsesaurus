@@ -3,17 +3,7 @@ class Season < ActiveRecord::Base
 	belongs_to :medium
 	has_many   :episodes
 
-	def watch_all(user, value)
-		if !Like.where(user_id: user.id, medium_id: self.medium.id).first
-			Like.create(user_id: user.id, medium_id: self.medium.id, value: value) 
-		else
-			like = Like.where(user_id: user.id, medium_id: self.medium.id)
-			old_value = like.first.value
-			like.first.value = value
-			like.first.save
-			self.medium.increment_likes(value)
-	    self.medium.decrement_likes(old_value)
-		end
+	def watch_all(user, value, recommendation = false)
 		self.episodes.each do |episode|
 			episode.medium.increment_watches
 			self.medium.increment_watches
@@ -22,33 +12,20 @@ class Season < ActiveRecord::Base
 			self.medium.increment_likes(value)
 			self.show.medium.increment_likes(value)
 			if !Like.where(user_id: user.id, medium_id: episode.medium.id).first
-				Like.create(user_id: user.id, medium_id: episode.medium.id, value: value) 
+				Like.create(user_id: user.id, medium_id: episode.medium.id, media_type: "Episode", value: value) 
 			else
-				like = Like.where(user_id: user.id, medium_id: episode.medium.id)
-				old_value = like.first.value
-				like.first.value = value
-				like.first.save
+				like = Like.where(user_id: user.id, medium_id: episode.medium.id).first
+				old_value = like.value
+				like.value = value
+				like.save
 				episode.medium.increment_likes(value)
 		    episode.medium.decrement_likes(old_value)
 			end
 		end
-		case value
-			when 1
-				Notification.create(user_one_id: user.id, medium_id: self.medium.id, notification_type: "like")
-			when 0
-				Notification.create(user_one_id: user.id, medium_id: self.medium.id, notification_type: "seen")
-			when -1
-				Notification.create(user_one_id: user.id, medium_id: self.medium.id, notification_type: "dislike")
-		end
+		self.distribute_points_for_recommendations(user, value) if recommendation
 	end
 
 	def update_likes(user, value)
-		like = Like.where(user_id: user.id, medium_id: self.medium.id).first
-		old_value = like.value
-		like.value = value
-		like.save
-		self.medium.increment_likes(value)
-    self.medium.decrement_likes(old_value)
 	  self.episodes.each do |episode|
       like = Like.where(user_id: user.id, medium_id: episode.medium.id).first
       old_value = like.value
@@ -57,14 +34,6 @@ class Season < ActiveRecord::Base
       episode.medium.increment_likes(value)
       episode.medium.decrement_likes(old_value)
     end
-    case value
-			when 1
-				Notification.create(user_one_id: user.id, medium_id: self.medium.id, notification_type: "like")
-			when 0
-				Notification.create(user_one_id: user.id, medium_id: self.medium.id, notification_type: "seen")
-			when -1
-				Notification.create(user_one_id: user.id, medium_id: self.medium.id, notification_type: "dislike")
-		end
 	end
 
 	def percents
@@ -91,6 +60,30 @@ class Season < ActiveRecord::Base
 			percents = [0, 0, 0]
 		end
 		percents
+	end
+
+	def distribute_points_for_recommendations(user, value)
+		medium_id = self.medium.id
+		user.update_points(self.points)
+		recommendations = Recommendation.where(receiver_id: user, medium_id: medium_id)
+    if !recommendations.empty? && value == 1
+      recommendations.map do |rec|
+        rec.sender.update_points(self.points)
+        Recommendation.find(rec.id).destroy
+        Notification.create(user_one_id: rec.sender.id, user_two_id: user.id, media_type: "Season", medium_id: medium_id, notification_type: "liked rec")
+      end
+    elsif !recommendations.empty? && value == -1
+      recommendations.map do |rec|
+        rec.sender.update_points(-self.points)
+        Recommendation.find(rec.id).destroy
+        Notification.create(user_one_id: rec.sender.id, user_two_id: user.id, media_type: "Season", medium_id: medium_id, notification_type: "disliked rec")
+      end
+    elsif !recommendations.empty? && value == 0
+      recommendations.map do |rec|
+        Recommendation.find(rec.id).destroy
+        Notification.create(user_one_id: rec.sender.id, user_two_id: user.id, media_type: "Season", medium_id: medium_id, notification_type: "seen rec")
+      end
+    end
 	end
 
 end
