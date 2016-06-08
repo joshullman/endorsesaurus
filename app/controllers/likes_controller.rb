@@ -38,11 +38,11 @@ class LikesController < ApplicationController
         season.watch_all(user, value, true)
       end
     elsif !like
-      if medium.media_type = "Movie" || medium.media_type == "Episode"
+      if medium.media_type == "Movie" || medium.media_type == "Episode"
         Like.create(user_id: current_user.id, medium_id: medium.id, media_type: medium.media_type, value: value)
         medium.increment_watches
         medium.increment_likes(value)
-      elsif medium.media_type = "Season"
+      elsif medium.media_type == "Season"
         medium.find_associated_media.watch_all(user, value)
       end
     end

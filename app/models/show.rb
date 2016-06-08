@@ -1,7 +1,7 @@
 class Show < ActiveRecord::Base
 	belongs_to  :medium
 	has_many    :seasons
-	has_many    :episodes, through: :seasons
+	has_many    :episodes
 
 	# searchable do
 	# 	text :title

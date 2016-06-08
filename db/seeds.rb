@@ -9,44 +9,6 @@ def create_notification(user, medium, value)
   end
 end
 
-def season_watch_all(season, user, value)
-	current_user = User.find(user)
-	Like.create(user_id: current_user.id, medium_id: season.medium.id, media_type: "Season", value: value)
-	season.episodes.each do |episode|
-		episode.medium.increment_watches
-		season.medium.increment_watches
-		season.show.medium.increment_watches
-		episode.medium.increment_likes(value)
-		season.medium.increment_likes(value)
-		season.show.medium.increment_likes(value)
-		Like.create(user_id: current_user.id, medium_id: episode.medium.id, media_type: "Episode", value: value)
-	end
-	case value
-		when 1
-			Notification.create(user_one_id: current_user.id, medium_id: season.medium.id, media_type: "Season", notification_type: "like")
-		when 0
-			Notification.create(user_one_id: current_user.id, medium_id: season.medium.id, media_type: "Season", notification_type: "seen")
-		when -1
-			Notification.create(user_one_id: current_user.id, medium_id: season.medium.id, media_type: "Season", notification_type: "dislike")
-	end
-end
-
-def show_watch_all(show, user, value)
-	current_user = User.find(user)
-	Like.create(user_id: current_user.id, medium_id: show.medium.id, media_type: "Show", value: value)
-	show.seasons.each do |season|
-		season_watch_all(season, current_user.id, value)
-	end
-	case value
-		when 1
-			Notification.create(user_one_id: current_user.id, medium_id: show.medium.id, media_type: "Show", notification_type: "like")
-		when 0
-			Notification.create(user_one_id: current_user.id, medium_id: show.medium.id, media_type: "Show", notification_type: "seen")
-		when -1
-			Notification.create(user_one_id: current_user.id, medium_id: show.medium.id, media_type: "Show", notification_type: "dislike")
-	end
-end
-
 User.create(email: "CaptainPlanet@aol.com", password: "password", name: "CaptainPlanet" )
 User.create(email: "Kuzy@aol.com", password: "password", name: "Kuzy")
 User.create(email: "BuffaloKing@aol.com", password: "password", name: "BuffaloKing")

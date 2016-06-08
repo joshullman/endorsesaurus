@@ -14,8 +14,7 @@ class UsersController < ApplicationController
   end
 
   def shows
-    do_even_more_stuff("Season")
-    p @likes
+    do_even_more_stuff("Episode")
   end
 
   def friends
@@ -67,24 +66,33 @@ class UsersController < ApplicationController
 
   end
 
-  def organize_likes(media_type)
+  def organize_movie_likes
     likes_hash = {}
-    likes = @user.likes.where(media_type: media_type).group_by(&:value)
+    likes = @user.likes.where(media_type: "Movie").group_by(&:value)
     likes.each_key do |key|
       likes_hash[key] = []
       likes[key].each do |like|
         likes_hash[key] << like.find_associated_media
       end
-      # p likes_hash
-      # if media_type == "Season"
-      #   likes_hash[key] = likes_hash[key].group_by {|season| season.show_id }
-      #   # likes_hash[key].each do |hash|
-      #   #   likes_hash[key][Show.find(hash.key)] = likes_hash[key][hash.value]
-      #   #   likes_hash[key][hash.key].delete
-      #   # end
-      # end
     end
     likes_hash
+  end
+
+  def organize_show_likes
+    likes_hash = {}
+    likes = @user.likes.where(media_type: "Episode").group_by(&:value)
+    likes.each_key do |key|
+      likes_hash[key] = []
+      likes[key].each do |like|
+        likes_hash[key] << like.find_associated_media
+      end
+      likes_hash[key] = likes_hash[key].group_by {|episode| episode.show_id }
+      likes_hash[key].clone.each do |show_id, array|
+        likes_hash[key][Show.find(show_id)] = likes_hash[key].delete show_id
+      end
+    end
+      p likes_hash
+      likes_hash
   end
 
   def find_recommendations(media_type)
@@ -107,16 +115,22 @@ class UsersController < ApplicationController
     recently_watched
   end
 
+  def find_user_progress(user, likes)
+  end
+
   def do_even_more_stuff(media_type)
     # Profile information
     @user = User.find(params[:id])
     @recs = find_recommendations(media_type)
     # finding the media assosciated with Likes
-    @likes = organize_likes(media_type)
+    media_type == "Movie" ? @likes = organize_movie_likes : @likes = organize_show_likes
     # finding recently watched
     @recently_watched = find_recently_watched(media_type, 5)
     #current_user information
     @current_user_likes = current_user.user_likes
+    if media_type == "Episode"
+      find_user_progress(@user, @likes)
+    end
     
     @user_likes = @user.user_likes
 

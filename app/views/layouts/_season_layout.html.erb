@@ -6,8 +6,6 @@
 	<% elsif user_likes[placeholder.medium_id] == 0 %>
 		style="background-color:yellow;"
 	<% end %>	>
-	Title: <%= link_to placeholder.show.title, show_path(placeholder.show) %>
-	<br>
 	Season: <%= placeholder.season_num %>
 	<br>
 	<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>				

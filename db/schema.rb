@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 20160519214819) do
 
   create_table "media", force: :cascade do |t|
     t.string   "media_type"
-    t.integer  "media_id"
     t.integer  "recommended_count", default: 0
     t.integer  "watched_count",     default: 0
     t.integer  "liked_count",       default: 0
