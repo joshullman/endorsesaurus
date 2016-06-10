@@ -82,17 +82,19 @@ class UsersController < ApplicationController
     likes_hash = {}
     likes = @user.likes.where(media_type: "Episode").group_by(&:value)
     likes.each_key do |key|
-      likes_hash[key] = []
+      likes_hash[key] = {}
       likes[key].each do |like|
-        likes_hash[key] << like.find_associated_media
-      end
-      likes_hash[key] = likes_hash[key].group_by {|episode| episode.show_id }
-      likes_hash[key].clone.each do |show_id, array|
-        likes_hash[key][Show.find(show_id)] = likes_hash[key].delete show_id
+        episode = like.find_associated_media
+        if !likes_hash[key][episode.show]
+          likes_hash[key][episode.show] = {}
+        end
+        if !likes_hash[key][episode.show][episode.season]
+          likes_hash[key][episode.show][episode.season] = []
+        end
+        likes_hash[key][episode.show][episode.season] << episode
       end
     end
-      p likes_hash
-      likes_hash
+    likes_hash
   end
 
   def find_recommendations(media_type)

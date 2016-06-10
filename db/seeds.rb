@@ -143,7 +143,7 @@ media.each do |imdb_url|
 					episode = episode_med.create_episode(
 						season_id: season.id,
 						imdb_id: api["imdbID"],
-						episode_num: api["Episode"].to_i,
+						episode_num: episode_num,
 						title: api["Title"],
 						runtime: api["Runtime"],
 						released: api["Released"],

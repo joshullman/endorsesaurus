@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
     season_results = []
     results = [0, 0, 0, 0]
     show.seasons.each do |season|
-      season_results << user.season_progress(season)
+      season_results << self.season_progress(season)
     end
     season_results.each do |result|
       results[0] += result[0]
