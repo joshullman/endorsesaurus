@@ -286,11 +286,38 @@ h4 {
 	margin-left: 1%;
 }*/
 
+.title_center {
+	padding-left: 35%;
+}
+
+.title_center a {
+	text-align: center;
+}
+
 .title {
 	float: left;
 }
 
+.rec_points {
+	display: inline-block;
+	float: left;
+}
+
+.icons_right {
+	display: inline-block;
+	float: right;
+}
+
 .recent_row {
+	border: 1px solid black;
+}
+
+.recommendation_row_movie {
+	padding: 15px;
+	border: 1px solid black;
+}
+
+.recommendation_row_show {
 	border: 1px solid black;
 }
 

@@ -51,7 +51,6 @@ media = [
 	"tt0076759",
 	"tt0780536",
 	"tt2861424",
-	"tt0417373",
 	"tt0082971",
 	"tt1475582",
 	"tt0407887",
@@ -158,14 +157,14 @@ media.each do |imdb_url|
 					p [season_num, episode_num]
 					episode_num += 1
 				end
-			season.update(episode_count: episode_num)
+			season.update(episode_count: episode_num-1)
 			season.update(points: episodes_points)
 			seasons_points += episodes_points
 			season_num += 1
-			total_episodes_count += episode_num
+			total_episodes_count += episode_num-1
 		end
 		show.update(points: seasons_points)
-		show.update(season_count: season_num)
+		show.update(season_count: season_num-1)
 		show.update(episode_count: total_episodes_count)
 	else
 		runtime = api["Runtime"].gsub(" min", "").to_i
@@ -195,12 +194,12 @@ end
 
 # Creating Likes
 256.times do
-	user = rand(32) + 1
-	media = rand(203) + 1
+	user = rand(User.count) + 1
+	media = rand(Medium.count) + 1
 	value = rand(3) - 1
 	until Like.where(user_id: user, medium_id: media).first == nil
-		user = rand(32) + 1
-		media = rand(203) + 1
+		user = rand(User.count) + 1
+		media = rand(Medium.count) + 1
 		value = rand(3) - 1
 	end
 	med = Medium.find(media)
@@ -231,9 +230,9 @@ end
 	until sender != receiver && 
 	!Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first && 
 	Medium.find(media).media_type != "Episode"
-		sender = rand(32) + 1
-		receiver = rand(32) + 1
-		media = rand(203) + 1
+		sender = rand(User.count) + 1
+		receiver = rand(User.count) + 1
+		media = rand(Medium.count) + 1
 	end
 
 	media = Medium.find(media)
@@ -260,9 +259,9 @@ end
 
 # Liking Recommendations
 64.times do
-	user_one = rand(32) + 1
+	user_one = rand(User.count) + 1
 	until User.find(user_one).received_recs.sample != nil
-		user_one = rand(32) + 1
+		user_one = rand(User.count) + 1
 	end
 	value = rand(3) - 1
 	medium = User.find(user_one).received_recs.sample.medium
@@ -283,8 +282,8 @@ end
 	accepted = 0
 	
 	until user != friend && Friendship.where(user_id: user, friend_id: friend).first == nil && Friendship.where(user_id: friend, friend_id: user).first == nil
-		user = rand(32) + 1
-		friend = rand(32) + 1
+		user = rand(User.count) + 1
+		friend = rand(User.count) + 1
 		accepted = rand(2) + 1
 	end
 

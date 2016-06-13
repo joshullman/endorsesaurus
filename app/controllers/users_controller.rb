@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     end
 
     def rec_by_user?(user_id)
-      @rec_by.any? {|rec| rec.sender_id == user_id}
+      @rec_by.any? {|rec| rec.id == user_id}
     end
 
     def do_all_the_stuff
@@ -119,6 +119,16 @@ class UsersController < ApplicationController
   end
 
   def find_user_progress(user, likes)
+    progress = {}
+    likes.each do |value, shows|
+      shows.each do |show, seasons|
+        progress[show.medium_id] = user.show_progress(show)
+        seasons.each do |season, episodes|
+          progress[season.medium_id] = user.season_progress(season)
+        end
+      end
+    end
+    progress
   end
 
   def do_even_more_stuff(media_type)
@@ -132,7 +142,7 @@ class UsersController < ApplicationController
     #current_user information
     @current_user_likes = current_user.user_likes
     if media_type == "Episode"
-      find_user_progress(@user, @likes)
+      @progress = find_user_progress(@user, @likes)
     end
     
     @user_likes = @user.user_likes

@@ -154,18 +154,29 @@ class User < ActiveRecord::Base
   end
 
   def show_progress(show)
-    season_results = []
-    results = [0, 0, 0, 0]
-    show.seasons.each do |season|
-      season_results << self.season_progress(season)
+    episode_count = show.episode_count
+    unwatched_count = 0
+    liked_count = 0
+    seen_count = 0
+    disliked_count = 0
+    show.episodes.each do |episode|
+      if like = Like.where(user_id: self.id, medium_id: episode.medium.id).first
+        case like.value
+          when 1
+            liked_count += 1
+          when 0
+            seen_count += 1
+          when -1
+            disliked_count += 1
+        end
+      end
     end
-    season_results.each do |result|
-      results[0] += result[0]
-      results[1] += result[1]
-      results[2] += result[2]
-      results[3] += result[3]
-    end
-    results
+    unwatched_count = (episode_count - liked_count - seen_count - disliked_count)
+    liked_count = (liked_count.to_f / episode_count.to_f * 100).round
+    seen_count = (seen_count.to_f / episode_count.to_f * 100).round
+    disliked_count = (disliked_count.to_f / episode_count.to_f * 100).round
+    unwatched_count = (unwatched_count.to_f / episode_count.to_f * 100).round
+    results = [liked_count, seen_count, disliked_count, unwatched_count]
   end
 
 
