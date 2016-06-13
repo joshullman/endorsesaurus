@@ -23,7 +23,7 @@
 		<div class="likes_wrapper">
 			<% if @likes[1] && !@likes[1].empty? %>
 				<% @likes[1].each do |like| %>
-					<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: false, css_class: "like"} %>	
+					<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, recent: false} %>	
 					<br>
 				<% end %>
 			<% else %>
@@ -34,7 +34,7 @@
 		<div class="seen_wrapper">
 			<% if @likes[0] && !@likes[0].empty? %>
 				<% @likes[0].each do |seen| %>
-					<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, recent: false, css_class: "seen"} %>	
+					<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, recent: false} %>	
 					<br>
 				<% end %>
 			<% else %>
@@ -45,7 +45,7 @@
 		<div class="dislikes_wrapper">
 			<% if @likes[-1] && !@likes[-1].empty? %>
 				<% @likes[-1].each do |dislike| %>
-					<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, recent: false, css_class: "dislike"} %>	
+					<%= render partial: 'layouts/movie_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, recent: false} %>	
 					<br>
 				<% end %>
 			<% else %>

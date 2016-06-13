@@ -23,8 +23,7 @@
 		<div class="likes_wrapper">
 			<% if @likes[1] && !@likes[1].empty? %>
 				<% @likes[1].each_pair do |show| %>
-					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, css_class: "like"} %>	
-					<br>
+					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user} %>	
 				<% end %>
 			<% else %>
 				<p>No likes to show!</p>
@@ -34,8 +33,7 @@
 		<div class="seen_wrapper">
 			<% if @likes[0] && !@likes[0].empty? %>
 				<% @likes[0].each_pair do |show| %>
-					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, css_class: "seen"} %>	
-					<br>
+					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user} %>	
 				<% end %>
 			<% else %>
 				<p>No seens to show!</p>
@@ -45,8 +43,7 @@
 		<div class="dislikes_wrapper">
 			<% if @likes[-1] && !@likes[-1].empty? %>
 				<% @likes[-1].each_pair do |show| %>
-					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, css_class: "dislike"} %>	
-					<br>
+					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user} %>	
 				<% end %>
 			<% else %>
 				<p>No dislikes to show!</p>

@@ -298,16 +298,26 @@ h4 {
 	border: 1px solid black;
 }
 
-.like_row {
+.likes_row_movie {
 	border: 1px solid black;
 }
 
-.seen_row {
+.show_wrapper {
 	border: 1px solid black;
 }
 
-.dislike_row {
+.likes_row_show {
 	border: 1px solid black;
+}
+
+.likes_row_season {
+	border: 1px solid black;
+	display: none;
+}
+
+.likes_row_episode {
+	border: 1px solid black;
+	display: none;
 }
 
 /* Icons */

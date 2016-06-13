@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.integer  "show_id"
     t.integer  "omdb_id"
     t.string   "imdb_id"
-    t.string   "medium_id"
+    t.integer  "medium_id"
     t.integer  "episode_num"
     t.string   "title"
     t.string   "plot"

@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     end
 
     def rec_by_user?(user_id)
-      @rec_by.any? {|rec| rec.id == user_id}
+      @rec_by.any? {|rec| rec.sender_id == user_id}
     end
 
     def do_all_the_stuff
@@ -99,6 +99,7 @@ class UsersController < ApplicationController
 
   def find_recommendations(media_type)
     recs = []
+    media_type = "Season" if media_type == "Episode"
     recommendations = @user.received_recs.where(media_type: media_type).group_by(&:medium_id)
     recommendations.each_value do |array|
       rec = Rec.new(array)

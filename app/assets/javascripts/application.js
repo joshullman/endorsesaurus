@@ -54,4 +54,15 @@ $(document).ready(function(){
     $('.likes_wrapper').hide();
   });
 
+  $('.likes_row_show').click(function() {
+    console.log($(this));
+    $(this).siblings().children('.likes_row_season').toggle();
+    $(this).siblings().children('.likes_row_season').siblings('.likes_row_episode').hide();
+  })
+
+  $('.likes_row_season').click(function() {
+    console.log($(this));
+    $(this).siblings('.likes_row_episode').toggle();
+  })
+
 });
