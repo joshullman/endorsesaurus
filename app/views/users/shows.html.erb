@@ -21,8 +21,8 @@
 	<div class="watched_wrapper">
 
 		<div class="likes_wrapper">
-			<% if @likes[1] && !@likes[1].empty? %>
-				<% @likes[1].each_pair do |show| %>
+			<% if @likes && !@likes.empty? %>
+				<% @likes.each_pair do |show| %>
 					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, progress: @progress} %>	
 				<% end %>
 			<% else %>
@@ -31,8 +31,8 @@
 		</div>
 
 		<div class="seen_wrapper">
-			<% if @likes[0] && !@likes[0].empty? %>
-				<% @likes[0].each_pair do |show| %>
+			<% if @seens && !@seens.empty? %>
+				<% @seens.each_pair do |show| %>
 					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, progress: @progress} %>	
 				<% end %>
 			<% else %>
@@ -41,8 +41,8 @@
 		</div>
 
 		<div class="dislikes_wrapper">
-			<% if @likes[-1] && !@likes[-1].empty? %>
-				<% @likes[-1].each_pair do |show| %>
+			<% if @dislikes && !@dislikes.empty? %>
+				<% @dislikes.each_pair do |show| %>
 					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, progress: @progress} %>	
 				<% end %>
 			<% else %>

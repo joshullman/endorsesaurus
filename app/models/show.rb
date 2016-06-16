@@ -8,16 +8,22 @@ class Show < ActiveRecord::Base
 	# end
 
 	def watch(user, value)
-		self.seasons.each do |season|
-			season.watch(user, value)
+		self.episodes.each do |episode|
+			episode.watch(user, value)
 		end
 	end
 
-	# def update_likes(user, value)
- #    self.seasons.each do |season|
- #    	season.update_likes(user, value)
- #    end
-	# end
+	def recommend_to(receivers, sender)
+		self.episodes.each do |episode|
+			episode.recommend_to(receivers, sender)
+		end
+	end
+
+	def unrecommend_to(receiver, sender)
+		self.episodes.each do |episode|
+			episode.unrecommend_to(reciever, sender)
+		end
+	end
 
 	def percents
 		medium = self.medium

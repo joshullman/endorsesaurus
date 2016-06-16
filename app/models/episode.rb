@@ -34,26 +34,45 @@ class Episode < ActiveRecord::Base
     self.show.medium.increment_likes(value)
     medium_id = self.medium.id
 		recommendations = Recommendation.where(receiver_id: user, medium_id: medium_id)
-    if !recommendations.empty? && value == 1
-      recommendations.map do |rec|
-      	user.update_points(self.points)
-        rec.sender.update_points(self.points)
-        Recommendation.find(rec.id).destroy
-        Notification.create(user_one_id: rec.sender.id, user_two_id: user.id, media_type: "Episode", medium_id: medium_id, notification_type: "liked rec")
-      end
-    elsif !recommendations.empty? && value == -1
-      recommendations.map do |rec|
-      	user.update_points(self.points)
-        rec.sender.update_points(-self.points)
-        Recommendation.find(rec.id).destroy
-        Notification.create(user_one_id: rec.sender.id, user_two_id: user.id, media_type: "Episode", medium_id: medium_id, notification_type: "disliked rec")
-      end
-    elsif !recommendations.empty? && value == 0
-      recommendations.map do |rec|
-      	user.update_points(self.points)
-        Recommendation.find(rec.id).destroy
-        Notification.create(user_one_id: rec.sender.id, user_two_id: user.id, media_type: "Episode", medium_id: medium_id, notification_type: "seen rec")
+    if !recommendations.empty?
+      user.update_points(self.points)
+      case value
+        when 1
+          recommendations.map do |rec|
+            rec.sender.update_points(self.points)
+            Recommendation.find(rec.id).destroy
+            Notification.create(user_one_id: rec.sender.id, user_two_id: user.id, media_type: "Episode", medium_id: medium_id, notification_type: "liked rec")
+          end
+        when -1
+          recommendations.map do |rec|
+            rec.sender.update_points(-self.points)
+            Recommendation.find(rec.id).destroy
+            Notification.create(user_one_id: rec.sender.id, user_two_id: user.id, media_type: "Episode", medium_id: medium_id, notification_type: "disliked rec")
+          end
+        when 0
+          recommendations.map do |rec|
+            Recommendation.find(rec.id).destroy
+            Notification.create(user_one_id: rec.sender.id, user_two_id: user.id, media_type: "Episode", medium_id: medium_id, notification_type: "seen rec")
+          end
       end
     end
 	end
+
+  def recommend_to(receivers, sender)
+    receivers.each do |receiver|
+      if !Recommendation.where(sender_id: sender.id, receiver_id: receiver, media_type: "Episode", medium_id: self.medium_id).first
+        self.medium.increment_recommends
+        self.season.medium.increment_recommends
+        self.show.medium.increment_recommends
+        Recommendation.create(sender_id: sender.id, receiver_id: receiver, media_type: "Episode", medium_id: self.medium_id)
+      end
+    end
+  end
+
+  def unrecommend_to(receiver, sender)
+    Recommendation.where(sender_id: sender.id, receiver_id: receiver, media_type: "Episode", medium_id: self.medium_id).first.destroy
+    self.medium.decrement_recommends
+    self.season.medium.decrement_recommends
+    self.show.medium.decrement_recommends
+  end
 end

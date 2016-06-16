@@ -144,6 +144,10 @@ class UsersController < ApplicationController
     if media_type == "Episode"
       @progress = find_user_progress(@user, @likes)
     end
+
+    @dislikes = @likes[-1]
+    @seens = @likes[0]
+    @likes = @likes[1]
     
     @user_likes = @user.user_likes
 
