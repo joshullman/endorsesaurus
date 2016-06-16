@@ -7,17 +7,17 @@ class Show < ActiveRecord::Base
 	# 	text :title
 	# end
 
-	def watch_all(user, value)
+	def watch(user, value)
 		self.seasons.each do |season|
-			season.watch_all(user, value)
+			season.watch(user, value)
 		end
 	end
 
-	def update_likes(user, value)
-    self.seasons.each do |season|
-    	season.update_likes(user, value)
-    end
-	end
+	# def update_likes(user, value)
+ #    self.seasons.each do |season|
+ #    	season.update_likes(user, value)
+ #    end
+	# end
 
 	def percents
 		medium = self.medium

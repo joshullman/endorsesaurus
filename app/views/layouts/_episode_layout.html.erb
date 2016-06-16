@@ -6,6 +6,6 @@
 	<% elsif user_likes[placeholder.medium_id] == 0 %>
 		style="background-color:yellow;"
 	<% end %>	>
-	Episode: <%= placeholder.episode_num %>
-	<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+	<span class="title_center">Episode: <%= placeholder.episode_num %></span>
+	<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
 </div>

@@ -308,6 +308,10 @@ h4 {
 	float: right;
 }
 
+.pill {
+	float: right;
+}
+
 .recent_row {
 	border: 1px solid black;
 }
@@ -318,6 +322,7 @@ h4 {
 }
 
 .recommendation_row_show {
+	padding: 15px;
 	border: 1px solid black;
 }
 
@@ -326,6 +331,7 @@ h4 {
 }
 
 .likes_row_movie {
+	padding: 15px;
 	border: 1px solid black;
 }
 
@@ -334,15 +340,18 @@ h4 {
 }
 
 .likes_row_show {
+	padding: 15px;
 	border: 1px solid black;
 }
 
 .likes_row_season {
+	padding: 15px;
 	border: 1px solid black;
 	display: none;
 }
 
 .likes_row_episode {
+	padding: 15px;
 	border: 1px solid black;
 	display: none;
 }
