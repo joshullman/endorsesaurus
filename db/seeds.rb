@@ -203,23 +203,11 @@ end
 		value = rand(3) - 1
 	end
 	med = Medium.find(media)
-	if med.media_type == "Show" || med.media_type == "Season"
-		med.find_associated_media.watch_all(User.find(user), value)
-	elsif med.media_type == "Episode"
-		Like.create(user_id: user, medium_id: media, media_type: "Episode", value: value)
-		med.increment_watches
-		med.increment_likes(value)
-		med.find_associated_media.season.medium.increment_watches
-		med.find_associated_media.season.medium.increment_likes(value)
-		med.find_associated_media.season.show.medium.increment_watches
-		med.find_associated_media.season.show.medium.increment_likes(value)
-	else
-		Like.create(user_id: user, medium_id: media, media_type: "Movie", value: value)
-		med.increment_watches
-		med.increment_likes(value)
-	end
+	med.find_associated_media.watch(User.find(user), value)
 	create_notification(User.find(user), med, value)
 end
+
+p "Like count - #{Like.count}"
 
 # Creating Recommendations
 256.times do 
@@ -227,35 +215,18 @@ end
 	receiver = 0
 	media = 0
 
-	until sender != receiver && 
-	!Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: media).first && 
-	Medium.find(media).media_type != "Episode"
+	until sender != receiver && !Medium.find(media).find_associated_media.recommended_to?(sender, receiver)
 		sender = rand(User.count) + 1
 		receiver = rand(User.count) + 1
 		media = rand(Medium.count) + 1
 	end
 
-	media = Medium.find(media)
-	if media.media_type == "Show" && User.find(receiver).watched_all_seasons?(media.find_associated_media.id)[0] != true
-		media.find_associated_media.seasons.each do |season|
-			if User.find(receiver).watched_all_episodes?(media.find_associated_media.id)[0] != true
-				Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: season.medium.id, media_type: "Season")
-				season.medium.increment_recommends
-				media.increment_recommends
-			end
-	    Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media.id, media_type: "Show", notification_type: "recommendation")
-		end
-	elsif media.media_type == "Movie" && !Like.where(user_id: receiver, medium_id: media.id).first
-		Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media.id, media_type: "Movie")
-		media.increment_recommends
-	  Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media.id, media_type: "Movie", notification_type: "recommendation")
-	elsif media.media_type == "Season" && User.find(receiver).watched_all_episodes?(media.find_associated_media.id)[0] != true
-		Recommendation.create(sender_id: sender, receiver_id: receiver, medium_id: media.id, media_type: "Season")
-		media.find_associated_media.show.medium.increment_recommends
-		media.increment_recommends
-	  Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: media.id, media_type: "Season", notification_type: "recommendation")
-	end
+	medium = Medium.find(media)
+	medium.find_associated_media.recommend_to([receiver], sender)
+	Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: medium.id, media_type: medium.media_type, notification_type: "recommendation")
 end
+
+p "Rec count - #{Recommendation.count}"
 
 # Liking Recommendations
 64.times do
@@ -266,11 +237,7 @@ end
 	value = rand(3) - 1
 	medium = User.find(user_one).received_recs.sample.medium
 
-	if medium.media_type == "Season"
-		medium.find_associated_media.watch_all(User.find(user_one), value, true)
-	else
-		medium.find_associated_media.distribute_points_for_recommendations(User.find(user_one), value)
-	end
+	medium.find_associated_media.watch(User.find(user_one), value)
 	create_notification(User.find(user_one), medium, value)
 
 end

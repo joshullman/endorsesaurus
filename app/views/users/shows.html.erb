@@ -4,9 +4,13 @@
 <div class="left_50">
 	<h3 class="text_center">Show Recommendations:</h3>
 	<div class="recommendation_wrapper">
-		<% @recs.each do |rec| %>
-			<%= render partial: 'layouts/recommended_show_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: rec, current_user: current_user, css_class: "recommendation" } %>
-			<br>
+		<% if @recs && !@recs.empty? %>
+			<% @recs.each do |show_rec| %>
+				<%= render partial: 'layouts/recommended_show_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: show_rec, current_user: current_user, css_class: "recommendation" } %>
+				<br>
+			<% end %>
+		<% else %>
+			<p>No recommendations to show!</p>
 		<% end %>
 	</div>
 </div>
@@ -23,31 +27,12 @@
 		<div class="likes_wrapper">
 			<% if @likes && !@likes.empty? %>
 				<% @likes.each_pair do |show| %>
-					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, progress: @progress} %>	
+					<%= render partial: 'layouts/show_layout', locals: { user: @user, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, progress: @progress} %>	
 				<% end %>
 			<% else %>
 				<p>No likes to show!</p>
 			<% end %>
 		</div>
 
-		<div class="seen_wrapper">
-			<% if @seens && !@seens.empty? %>
-				<% @seens.each_pair do |show| %>
-					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, progress: @progress} %>	
-				<% end %>
-			<% else %>
-				<p>No seens to show!</p>
-			<% end %>
-		</div>
-
-		<div class="dislikes_wrapper">
-			<% if @dislikes && !@dislikes.empty? %>
-				<% @dislikes.each_pair do |show| %>
-					<%= render partial: 'layouts/show_layout', locals: { recently_watched: @recently_watched, user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, progress: @progress} %>	
-				<% end %>
-			<% else %>
-				<p>No dislikes to show!</p>
-			<% end %>
-		</div>
 	</div>
 </div>

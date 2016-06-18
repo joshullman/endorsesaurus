@@ -9,6 +9,15 @@ class Season < ActiveRecord::Base
 		end
 	end
 
+	def recommended_to?(receiver, sender)
+		total_count = self.episodes.count
+		count = 0
+		self.episodes.each do |episode|
+			count += 1 if episode.recommended_to?(receiver, sender)
+	  end
+	  total_count == count
+  end
+
 	def recommend_to(receivers, sender)
 		self.episodes.each do |episode|
 			episode.recommend_to(receivers, sender)

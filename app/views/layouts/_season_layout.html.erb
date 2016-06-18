@@ -5,6 +5,6 @@
 		<span class="pill"><%= render partial: 'layouts/progress_pill', locals: {percents: progress[placeholder[0].medium_id]}%></span>
 	</div>
 	<% placeholder[1].each do |episode| %>
-		<%= render partial: 'layouts/episode_layout', locals: { recently_watched: recently_watched, user: user, user_likes: user_likes, current_user_likes: current_user_likes, placeholder: episode, current_user: current_user} %>				
+		<%= render partial: 'layouts/episode_layout', locals: { user: user, current_user_likes: current_user_likes, placeholder: episode, current_user: current_user} %>				
 	<% end %>
 </div>

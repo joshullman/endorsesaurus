@@ -24,9 +24,9 @@ class User < ActiveRecord::Base
   end
 
   def update_points(points)
-    self.points = self.points + points
-    self.points = 0 if self.points < 0
-    self.save
+    new_points = self.points + points
+    new_points = 0 if new_points < 0
+    self.update(points: new_points)
   end
 
   def user_likes

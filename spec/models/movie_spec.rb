@@ -20,4 +20,21 @@ RSpec.describe Movie, :type => :model do
   	expect(movie.percents).to eq([100, 0, 0])
   end
 
+  it "update_like method is intact" do
+
+  end
+
+  it "like_and_distribute_points method is intact" do
+  end
+
+  it "watch method is intact" do
+    
+  end
+
+  it "recommend_to method is intact" do
+  end
+
+  it "unrecommend_to method is intact" do
+  end
+
 end

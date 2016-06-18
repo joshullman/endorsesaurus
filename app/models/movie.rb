@@ -53,7 +53,7 @@ class Movie < ActiveRecord::Base
     self.medium.increment_watches
 		self.medium.increment_likes(value)
 		medium_id = self.medium.id
-		recommendations = Recommendation.where(receiver_id: user, medium_id: medium_id)
+		recommendations = Recommendation.where(receiver_id: user.id, medium_id: medium_id)
 		if !recommendations.empty?
 			user.update_points(self.points)
 			case value
@@ -78,17 +78,21 @@ class Movie < ActiveRecord::Base
 		end
 	end
 
+	def recommended_to?(receiver, sender)
+		!Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: self.medium_id).empty?
+	end
+
 	def recommend_to(receivers, sender)
 		receivers.each do |receiver|
-			if !Recommendation.where(sender_id: sender.id, receiver_id: receiver, media_type: "Movie", medium_id: self.medium_id).first
+			if !self.recommended_to?(receiver, sender)
 				self.medium.increment_recommends
-				Recommendation.create(sender_id: sender.id, receiver_id: receiver, media_type: "Movie", medium_id: self.medium_id)
+				Recommendation.create(sender_id: sender, receiver_id: receiver, media_type: "Movie", medium_id: self.medium_id)
 			end
 		end
 	end
 
 	def unrecommend_to(receiver, sender)
-		Recommendation.where(sender_id: sender.id, receiver_id: receiver, media_type: "Movie", medium_id: self.medium_id).first.destroy
+		Recommendation.where(sender_id: sender, receiver_id: receiver, media_type: "Movie", medium_id: self.medium_id).first.destroy
 		self.medium.decrement_recommends
 	end
 end

@@ -170,9 +170,12 @@ RSpec.describe User, :type => :model do
     season = season_med.create_season!(show_id: show.id, season_num: 1)
     season_med2 = Medium.create!(media_type: "Season")
     season2 = season_med2.create_season!(show_id: show.id, season_num: 2)
-
-    Like.create!(user_id: user_one.id, medium_id: season_med.id, value: 1)
-    Like.create!(user_id: user_one.id, medium_id: season_med2.id, value: 0)
+    episode_med = Medium.create!(media_type: "Episode")
+    episode = episode_med.create_episode!(season_id: season.id, show_id: show.id)
+    episode_med2 = Medium.create!(media_type: "Episode")
+    episode2 = episode_med2.create_episode!(season_id: season2.id, show_id: show.id)
+    like = Like.create!(user_id: user_one.id, medium_id: episode_med.id, value: -1)
+    like2 = Like.create!(user_id: user_one.id, medium_id: episode_med2.id, value: 0)
 	  
 	  expect(user_one.watched_all_seasons?(show.id)).to eq([true, nil])
 	end
@@ -202,23 +205,27 @@ RSpec.describe User, :type => :model do
 	  expect(user_one.already_recommended_show_to?(user_two, show.id)).to eq(true)
 	end
 
-	it "progress method is intact" do
-		show_med = Medium.create(media_type: "Show")
+	it "season_progress method is intact" do
+		show_med = Medium.create!(media_type: "Show")
     show = show_med.create_show!(title: "Breaking Bad")
 
     season_med = Medium.create!(media_type: "Season")
     season = season_med.create_season!(show_id: show.id, season_num: 1)
     episode_med = Medium.create!(media_type: "Episode")
-    episode = episode_med.create_episode!(season_id: season.id)
+    episode = episode_med.create_episode!(season_id: season.id, show_id: show.id)
     episode_med2 = Medium.create!(media_type: "Episode")
-    episode2 = episode_med2.create_episode!(season_id: season.id)
+    episode2 = episode_med2.create_episode!(season_id: season.id, show_id: show.id)
+
+    season.update(episode_count: 2)
 
     season_med2 = Medium.create!(media_type: "Season")
     season2 = season_med2.create_season!(show_id: show.id, season_num: 2)
     episode_med3 = Medium.create!(media_type: "Episode")
-    episode = episode_med3.create_episode!(season_id: season2.id)
+    episode = episode_med3.create_episode!(season_id: season2.id, show_id: show.id)
     episode_med4 = Medium.create!(media_type: "Episode")
-    episode4 = episode_med4.create_episode!(season_id: season2.id)
+    episode4 = episode_med4.create_episode!(season_id: season2.id, show_id: show.id)
+
+    show.update(episode_count: 4)
 
     user = User.create!(email: "Blah@aol.com", password: "password")
     like1 = Like.create!(user_id: user.id, medium_id: episode_med.id, value: 1)
@@ -231,7 +238,41 @@ RSpec.describe User, :type => :model do
     episode_med3.increment_watches
     episode_med3.increment_likes(-1)
 
-		expect(user.progress(show)).to eq([25, 25, 25, 25])
+		expect(user.season_progress(season)).to eq([50, 50, 0, 0])
+	end
+
+	it "show_progress method is intact" do
+		show_med = Medium.create!(media_type: "Show")
+    show = show_med.create_show!(title: "Breaking Bad")
+
+    season_med = Medium.create!(media_type: "Season")
+    season = season_med.create_season!(show_id: show.id, season_num: 1)
+    episode_med = Medium.create!(media_type: "Episode")
+    episode = episode_med.create_episode!(season_id: season.id, show_id: show.id)
+    episode_med2 = Medium.create!(media_type: "Episode")
+    episode2 = episode_med2.create_episode!(season_id: season.id, show_id: show.id)
+
+    season_med2 = Medium.create!(media_type: "Season")
+    season2 = season_med2.create_season!(show_id: show.id, season_num: 2)
+    episode_med3 = Medium.create!(media_type: "Episode")
+    episode = episode_med3.create_episode!(season_id: season2.id, show_id: show.id)
+    episode_med4 = Medium.create!(media_type: "Episode")
+    episode4 = episode_med4.create_episode!(season_id: season2.id, show_id: show.id)
+
+    show.update(episode_count: 4)
+
+    user = User.create!(email: "Blah@aol.com", password: "password")
+    like1 = Like.create!(user_id: user.id, medium_id: episode_med.id, value: 1)
+    episode_med.increment_watches
+    episode_med.increment_likes(1)
+    like2 = Like.create!(user_id: user.id, medium_id: episode_med2.id, value: 0)
+    episode_med2.increment_watches
+    episode_med2.increment_likes(0)
+    like3 = Like.create!(user_id: user.id, medium_id: episode_med3.id, value: -1)
+    episode_med3.increment_watches
+    episode_med3.increment_likes(-1)
+
+		expect(user.show_progress(show)).to eq([25, 25, 25, 25])
 	end
 
 end

@@ -109,7 +109,7 @@ class RecommendationsController < ApplicationController
 
   def create
     media = Medium.find(params[:medium_id]).find_associated_media
-    media.recommend_to(params[:recipients], current_user)
+    media.recommend_to(params[:recipients], current_user.id)
     params[:recipients].each do |recipient|
       Notification.create(user_one_id: current_user.id, user_two_id: recipient, media_type: media.medium.media_type, medium_id: media.medium_id, notification_type: "recommendation")
     end
@@ -137,7 +137,7 @@ class RecommendationsController < ApplicationController
 
   def destroy
     media = Medium.find(params[:medium_id]).find_associated_media
-    media.unrecommend_to(params[:recipients].first, current_user)
+    media.unrecommend_to(params[:recipients].first, current_user.id)
     note = Notification.where(user_one_id: current_user.id, user_two_id: params[:recipients].first, medium_id: params[:medium_id], notification_type: "recommendation").first
     note.destroy if note
     redirect_to :back

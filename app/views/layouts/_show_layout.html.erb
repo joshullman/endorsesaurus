@@ -6,6 +6,6 @@
 		<br>
 	</div>
 	<% placeholder[1].each do |season| %>
-		<%= render partial: 'layouts/season_layout', locals: { recently_watched: recently_watched, user: user, user_likes: user_likes, current_user_likes: current_user_likes, placeholder: season, current_user: current_user, progress: progress} %>				
+		<%= render partial: 'layouts/season_layout', locals: { user: user, current_user_likes: current_user_likes, placeholder: season, current_user: current_user, progress: progress} %>				
 	<% end %>
 </div>
