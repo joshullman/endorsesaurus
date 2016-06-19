@@ -264,8 +264,10 @@ class UsersController < ApplicationController
         progress[season.medium_id] = user.season_progress(season)
       end
     end
-    progress
+    progress = progress.sort_by {|percents| percents[1][0]}.reverse.to_h
   end
+
+
 
   def do_even_more_stuff(media_type)
     # Profile information
@@ -279,7 +281,9 @@ class UsersController < ApplicationController
     @current_user_likes = current_user.user_likes
     if media_type == "Episode"
       @progress = find_user_progress(@user, @likes)
+      @likes = @likes.sort_by {|show, season| @progress[show.medium_id]}.reverse.to_h
     end
+
 
     # @recs = organize_recs(@likes, @recs)
     
