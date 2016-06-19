@@ -80,4 +80,11 @@ $(document).ready(function(){
     $(this).siblings('.recommendation_row_episode').toggle();
   })
 
+// Expand Movie Recs jquery
+
+  $('.recommendation_row_movie').click(function() {
+    console.log($(this));
+    $(this).children('.recommendation_expanded_movie').toggle();
+  })
+
 });

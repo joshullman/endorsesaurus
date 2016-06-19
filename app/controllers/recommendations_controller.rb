@@ -62,51 +62,6 @@ class RecommendationsController < ApplicationController
     end
   end
 
-  # def create
-  #   medium_id = params[:medium_id]
-  #   medium = Medium.find(medium_id)
-  #   media_type = medium.media_type
-  #   if params[:recipients]
-
-  #     sender = current_user
-  #     params[:recipients].each do |recipient|
-  #       receiver = User.find(recipient)
-  #       if media_type == "Show"
-  #         recommend_show(sender, receiver, medium.find_associated_media)
-  #       else
-  #         Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, media_type: media_type, medium_id: medium_id) if !Recommendation.where(sender_id: sender.id, receiver_id: receiver.id, medium_id: medium_id).first
-
-  #         medium.increment_recommends
-  #         medium.find_associated_media.show.medium.increment_recommends if media_type == "Season"
-  #         Notification.create(user_one_id: sender.id, user_two_id: receiver.id, media_type: media_type, medium_id: medium_id, notification_type: "recommendation")
-  #       end
-  #     end
-
-  #     case media_type
-  #       when "Movie"
-  #         redirect_to movie_path(medium.find_associated_media)
-  #       when "Season"
-  #         redirect_to show_path(medium.find_associated_media.show)
-  #       when "Show"
-  #         redirect_to show_path(medium.find_associated_media)
-  #     end
-  #   else
-
-  #     sender = params[:sender]
-  #     receiver = params[:receiver]
-  #     if media_type == "Show"
-  #       recommend_show(sender, receiver, medium.find_associated_media)
-  #     else
-  #       Recommendation.create(sender_id: sender, receiver_id: receiver, media_type: media_type, medium_id: medium_id)
-
-  #       medium.increment_recommends
-  #       medium.find_associated_media.show.medium.increment_recommends if media_type == "Season"
-  #       Notification.create(user_one_id: sender, user_two_id: receiver, media_type: media_type, medium_id: medium_id, notification_type: "recommendation")
-  #     end
-  #     redirect_to :back
-  #   end   
-  # end
-
   def create
     media = Medium.find(params[:medium_id].to_i).find_associated_media
     recipients = params[:recipients].map {|recipient| recipient.to_i }
@@ -140,18 +95,6 @@ class RecommendationsController < ApplicationController
   end
 
 	private
-
-  # def recommend_show(sender, receiver, show)
-  #   show.seasons.each do |season|  
-  #     medium = season.medium
-  #     if !Recommendation.where(sender_id: sender.id, receiver_id: receiver.id, media_type: "Season", medium_id: medium.id).first
-  #       show.medium.increment_recommends
-  #       Recommendation.create(sender_id: sender.id, receiver_id: receiver.id, media_type: "Season", medium_id: medium.id)
-  #       medium.increment_recommends
-  #       Notification.create(user_one_id: sender.id, user_two_id: receiver.id, media_type: "Season", medium_id: medium.id, notification_type: "recommendation")
-  #     end
-  #   end
-  # end
 
 	def recommendation_params
 		params.require(:recommendation).permit(:sender_id, :receiver_id, :medium_id)

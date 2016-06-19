@@ -11,13 +11,14 @@ class UsersController < ApplicationController
 
   def movies
     @user = User.find(params[:id])
-    @watched = organize_movie_likes
-    @movie_recs = find_movie_recommendations
+    @watched = organize_movie_likes(@user)
+    @movie_recs = find_movie_recommendations(@user)
     @current_user_likes = current_user.movie_likes
     @user_likes = @user.movie_likes
     @likes = @watched[1]
     @seen = @watched[0]
     @dislikes = @watched[-1]
+    @percents = movie_percents(@movie_recs)
   end
 
   def shows
@@ -79,9 +80,9 @@ class UsersController < ApplicationController
 
   end
 
-  def find_movie_recommendations
+  def find_movie_recommendations(user)
     recs = []
-    recommendations = @user.received_recs.where(media_type: "Movie").group_by(&:medium_id)
+    recommendations = user.received_recs.where(media_type: "Movie").group_by(&:medium_id)
     recommendations.each_value do |array|
       rec = MovieRec.new(array)
       rec.do_all_the_stuff
@@ -90,9 +91,9 @@ class UsersController < ApplicationController
     recs.sort_by! {|rec| rec.user_points}.reverse!
   end
 
-  def organize_movie_likes
+  def organize_movie_likes(user)
     likes_hash = {}
-    likes = @user.likes.where(media_type: "Movie").group_by(&:value)
+    likes = user.likes.where(media_type: "Movie").group_by(&:value)
     likes.each_key do |key|
       likes_hash[key] = []
       likes[key].each do |like|
@@ -100,6 +101,14 @@ class UsersController < ApplicationController
       end
     end
     likes_hash
+  end
+
+  def movie_percents(movie_recs)
+    percents = {}
+    movie_recs.each do |rec|
+      percents[rec.info.medium_id] = rec.info.percents
+    end
+    percents
   end
 
   class EpRec
