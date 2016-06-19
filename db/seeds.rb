@@ -67,7 +67,84 @@ media = [
 	"tt0364725",
 	"tt0838283",
 	"tt0196229",
-	"tt0116483"
+	"tt0116483",
+	"tt0068646",
+	"tt0108052",
+	"tt0137523",
+	"tt0047478",
+	"tt0114369",
+	"tt0102926",
+	"tt0110413",
+	"tt0064116",
+	"tt0120815",
+	"tt0816692",
+	"tt0120689",
+	"tt0103064",
+	"tt0253474",
+	"tt0088763",
+	"tt2582802",
+	"tt0209144",
+	"tt0172495",
+	"tt0078788",
+	"tt0482571",
+	"tt0078748",
+	"tt1853728",
+	"tt0081505",
+	"tt0910970",
+	"tt0169547",
+	"tt0090605",
+	"tt0119698",
+	"tt0364569",
+	"tt0052357",
+	"tt0105236",
+	"tt0211915",
+	"tt0112573",
+	"tt0066921",
+	"tt0338013",
+	"tt0086879",
+	"tt0070735",
+	"tt0062622",
+	"tt0208092",
+	"tt0071853",
+	"tt0361748",
+	"tt0114709",
+	"tt0059578",
+	"tt0086250",
+	"tt0055630",
+	"tt0053291",
+	"tt0119217",
+	"tt1049413",
+	"tt0105695",
+	"tt0095016",
+	"tt0113277",
+	"tt0096283",
+	"tt0050212",
+	"tt0083658",
+	"tt0120735",
+	"tt0993846",
+	"tt0268978",
+	"tt0434409",
+	"tt1205489",
+	"tt0118715",
+	"tt0077416",
+	"tt0117951",
+	"tt0116282",
+	"tt0031381",
+	"tt0061512",
+	"tt0892769",
+	"tt0167404",
+	"tt0266543",
+	"tt0084787",
+	"tt0477348",
+	"tt0266697",
+	"tt0469494",
+	"tt1392190",
+	"tt0064115",
+	"tt0092005",
+	"tt1431045",
+	"tt0093779",
+	"tt0052311",
+	"tt0075686"
 ]
 
 # Create Media
@@ -193,7 +270,8 @@ media.each do |imdb_url|
 end
 
 # Creating Likes
-256.times do
+p "Creating Likes"
+384.times do
 	user = rand(User.count) + 1
 	media = rand(Medium.count) + 1
 	value = rand(3) - 1
@@ -208,7 +286,9 @@ end
 end
 
 # Creating Recommendations
-256.times do 
+p "Creating Recommendations"
+i = 1
+384.times do 
 	sender = 0
 	receiver = 0
 	media = 0
@@ -222,10 +302,13 @@ end
 	medium = Medium.find(media)
 	medium.find_associated_media.recommend_to([receiver], sender)
 	Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: medium.id, media_type: medium.media_type, notification_type: "recommendation")
+	p "completed #{i} out of 384 recommendations"
+	i += 1
 end
 
 # Liking Recommendations
-64.times do
+p "Liking Recommendations"
+128.times do
 	user_one = rand(User.count) + 1
 	until User.find(user_one).received_recs.sample != nil
 		user_one = rand(User.count) + 1
@@ -239,6 +322,7 @@ end
 end
 
 # Adding Friends
+p "Adding Friends"
 192.times do
 	user = 0
 	friend = 0

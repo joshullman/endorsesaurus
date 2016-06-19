@@ -13,18 +13,21 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @watched = organize_movie_likes
     @movie_recs = find_movie_recommendations
-    @current_user_likes = current_user.user_movie_likes
-    @user_likes = @user.user_movie_likes
+    @current_user_likes = current_user.movie_likes
+    @user_likes = @user.movie_likes
+    @likes = @watched[1]
+    @seen = @watched[0]
+    @dislikes = @watched[-1]
   end
 
   def shows
     @user = User.find(params[:id])
     @watched = organize_show_likes
     @show_recs = find_show_recommendations
-    @current_user_likes = current_user.user_show_likes
+    @current_user_likes = current_user.show_likes
     @progress = find_user_progress(@user, @watched)
     @watched = @watched.sort_by {|show, season| @progress[show.medium_id]}.reverse.to_h
-    @user_likes = @user.user_show_likes
+    @user_likes = @user.show_likes
   end
 
   def friends
@@ -277,34 +280,5 @@ class UsersController < ApplicationController
     progress = progress.sort_by {|percents| percents[1][0]}.reverse.to_h
   end
 
-
-
-  def do_even_more_stuff(media_type)
-    # Profile information
-    @user = User.find(params[:id])
-    # finding the media assosciated with Likes
-    media_type == "Movie" ? @watched = organize_movie_likes : @watched = organize_show_likes
-    media_type == "Movie" ? @movie_recs = find_movie_recommendations : @show_recs = find_show_recommendations
-    # finding recently watched
-    @recently_watched = find_recently_watched(media_type, 5)
-    #current_user information
-    media_type == "Movie" ? @current_user_likes = current_user.user_movie_likes : @current_user_likes = current_user.user_show_likes
-    if media_type == "Episode"
-      @progress = find_user_progress(@user, @watched)
-      @watched = @watched.sort_by {|show, season| @progress[show.medium_id]}.reverse.to_h
-    end
-
-
-    # @recs = organize_recs(@watched, @recs)
-    
-    if media_type == "Movie"
-      @dislikes = @watched[-1]
-      @seens = @watched[0]
-      @likes = @watched[1]
-    end
-
-    media_type == "Movie" ? @user_likes = @user.user_movie_likes : @user_likes = @user.user_show_likes
-
-  end
 
 end

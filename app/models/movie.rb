@@ -32,10 +32,10 @@ class Movie < ActiveRecord::Base
 	end
 
 	def watch(user, value)
-		if Like.where(user_id: user.id, medium_id: self.medium.id).first
-			self.update_like(user, value)
-		else
+		if Like.where(user_id: user.id, medium_id: self.medium_id).empty?
 			self.like_and_distribute_points(user, value)
+		else
+			self.update_like(user, value)
 		end
 	end
 
@@ -79,7 +79,7 @@ class Movie < ActiveRecord::Base
 	end
 
 	def recommended_to?(receiver, sender)
-		Like.where(user_id: receiver, medium_id: self.medium_id).first || Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: self.medium_id).first
+		!Like.where(user_id: receiver, medium_id: self.medium_id).empty? || !Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: self.medium_id).empty?
 	end
 
 	def recommend_to(receivers, sender)
