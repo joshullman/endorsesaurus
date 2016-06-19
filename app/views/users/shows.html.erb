@@ -21,12 +21,12 @@
 	<div class="watched_wrapper">
 
 		<div class="likes_wrapper">
-			<% if @likes && !@likes.empty? %>
-				<% @likes.each_pair do |show| %>
+			<% if @watched && !@watched.empty? %>
+				<% @watched.each_pair do |show| %>
 					<%= render partial: 'layouts/show_layout', locals: { user: @user, current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, progress: @progress} %>	
 				<% end %>
 			<% else %>
-				<p>No likes to show!</p>
+				<p>Haven't watched anything yet!</p>
 			<% end %>
 		</div>
 

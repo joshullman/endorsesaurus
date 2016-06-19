@@ -108,8 +108,10 @@ class RecommendationsController < ApplicationController
   # end
 
   def create
+    p 'I"M GETTING HERE'
     media = Medium.find(params[:medium_id].to_i).find_associated_media
     recipients = params[:recipients].map {|recipient| recipient.to_i }
+    p recipients
     media.recommend_to(recipients, current_user.id)
     recipients.each do |recipient|
       Notification.create(user_one_id: current_user.id, user_two_id: recipient, media_type: media.medium.media_type, medium_id: media.medium_id, notification_type: "recommendation")

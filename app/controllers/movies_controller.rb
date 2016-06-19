@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
     @most_liked_movies = Medium.where(media_type: "Movie").order(liked_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
     @most_recommended_movies = Medium.where(media_type: "Movie").order(recommended_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
 
-  	@current_user_likes = current_user.user_likes
+  	@current_user_likes = current_user.user_movie_likes
 
   	@most_watched_movies.each {|movie| @percents[movie.medium_id] = movie.percents }
   	@most_liked_movies.each {|movie| @percents[movie.medium_id] = movie.percents }

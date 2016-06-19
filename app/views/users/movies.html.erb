@@ -4,9 +4,13 @@
 <div class="left_50">
 	<h3 class="text_center">Movie Recommendations:</h3>
 	<div class="recommendation_wrapper">
-		<% @movie_recs.each do |rec| %>
-			<%= render partial: 'layouts/recommended_movie_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: rec, current_user: current_user, css_class: "recommendation" } %>
-			<br>
+		<% if @movie_recs && !@movie_recs.empty? %>
+			<% @movie_recs.each do |rec| %>
+				<%= render partial: 'layouts/recommended_movie_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: rec, current_user: current_user, css_class: "recommendation" } %>
+				<br>
+			<% end %>
+		<% else %>
+			<p>No Recommendations to show!</p>
 		<% end %>
 	</div>
 </div>

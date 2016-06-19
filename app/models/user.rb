@@ -29,10 +29,19 @@ class User < ActiveRecord::Base
     self.update(points: new_points)
   end
 
-  def user_likes
+  def user_movie_likes
     likes = {}
-    user_likes = Like.where(user_id: self.id)
-    user_likes.each do |like|
+    movie_likes = Like.where(user_id: self.id, media_type: "Movie")
+    movie_likes.each do |like|
+      likes[Medium.find(like.medium_id).id] = like.value
+    end
+    likes
+  end
+
+  def user_show_likes
+    likes = {}
+    movie_likes = Like.where(user_id: self.id, media_type: "Movie")
+    movie_likes.each do |like|
       likes[Medium.find(like.medium_id).id] = like.value
     end
     likes
