@@ -151,6 +151,18 @@ class User < ActiveRecord::Base
     disliked_count = (disliked_count.to_f / episode_count.to_f * 100).round
     unwatched_count = (unwatched_count.to_f / episode_count.to_f * 100).round
     results = [liked_count, seen_count, disliked_count, unwatched_count]
+    if unwatched_count + liked_count + seen_count + disliked_count > 100
+      if unwatched_count != 0
+        results[3] -= 1
+      else
+        random = rand(3)
+        until results[random] != 0
+           random = rand(3)
+         end
+         results[random] -= 1
+      end
+    end
+    results
   end
 
   def show_progress(show)
@@ -177,6 +189,18 @@ class User < ActiveRecord::Base
     disliked_count = (disliked_count.to_f / episode_count.to_f * 100).round
     unwatched_count = (unwatched_count.to_f / episode_count.to_f * 100).round
     results = [liked_count, seen_count, disliked_count, unwatched_count]
+    if unwatched_count + liked_count + seen_count + disliked_count > 100
+      if unwatched_count != 0
+        results[3] -= 1
+      else
+        random = rand(3)
+        until results[random] != 0
+           random = rand(3)
+         end
+         results[random] -= 1
+      end
+    end
+    results
   end
 
 

@@ -215,7 +215,7 @@ p "Like count - #{Like.count}"
 	receiver = 0
 	media = 0
 
-	until sender != receiver && !Medium.find(media).find_associated_media.recommended_to?(sender, receiver)
+	until sender != receiver && !Medium.find(media).find_associated_media.recommended_to?(receiver, sender)
 		sender = rand(User.count) + 1
 		receiver = rand(User.count) + 1
 		media = rand(Medium.count) + 1

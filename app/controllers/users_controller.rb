@@ -136,7 +136,7 @@ class UsersController < ApplicationController
 
   def find_show_recommendations
     recs = []
-    recommendations = @user.received_recs.where(media_type: "Episode")
+    recommendations = @user.received_recs.where(media_type: "Episode").group_by(&:medium_id)
     recommendations.each_value do |array|
       rec = ShowRec.new(array)
       rec.do_all_the_stuff

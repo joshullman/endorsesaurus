@@ -65,7 +65,7 @@ class Episode < ActiveRecord::Base
   end
 
   def recommended_to?(receiver, sender)
-    !Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: self.medium_id).empty?
+    Like.where(user_id: receiver, medium_id: self.medium_id).first || Recommendation.where(sender_id: sender, receiver_id: receiver, medium_id: self.medium_id).first
   end
 
   def recommend_to(receivers, sender)
