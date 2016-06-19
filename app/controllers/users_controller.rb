@@ -90,12 +90,12 @@ class UsersController < ApplicationController
   end
 
   class EpRec
-    attr_reader :rec_array, :user_points, :media_points, :rec_by, :info
+    attr_reader :rec_array, :rec_points, :media_points, :rec_by, :info
     def initialize(rec_array = [])
       @rec_array = rec_array
       @info = Medium.find(rec_array.first.medium_id).find_associated_media
-      @media_points = 0
-      @user_points = 0
+      @media_points = @info.points
+      @rec_points = 0
       @rec_by = []
     end
 
@@ -103,8 +103,8 @@ class UsersController < ApplicationController
       @rec_array.each {|rec| @rec_by << rec.sender}
     end
 
-    def determine_user_points
-      @rec_by.each {|user| @user_points += user.points}
+    def determine_rec_points
+      @rec_by.each {|user| @rec_points += user.points}
     end
 
     def rec_by_user?(user_id)
@@ -113,18 +113,18 @@ class UsersController < ApplicationController
 
     def do_all_the_stuff
       push_reccommenders
-      determine_user_points
+      determine_rec_points
     end
 
   end
 
   class ShowRec
-    attr_reader :ep_recs, :user_points, :media_points, :rec_by, :info
+    attr_reader :ep_recs, :rec_points, :media_points, :rec_by, :info
     def initialize(show, ep_recs = [])
       @ep_recs = ep_recs
       @info = show
       @media_points = 0
-      @user_points = 0
+      @rec_points = 0
       @rec_by = []
     end
 
@@ -132,8 +132,12 @@ class UsersController < ApplicationController
       @ep_recs.each {|ep_rec| @rec_by << ep_rec.rec_by}
     end
 
-    def determine_user_points
-      @ep_recs.each {|ep_rec| @user_points += ep_rec.user_points}
+    def determine_rec_points
+      @ep_recs.each {|ep_rec| @rec_points += ep_rec.rec_points}
+    end
+
+    def determine_media_points
+      @ep_recs.each {|ep_rec| @media_points += ep_rec.media_points}
     end
 
     def rec_by_user?(user_id)
@@ -143,7 +147,8 @@ class UsersController < ApplicationController
     def do_all_the_stuff
       push_reccommenders
       @rec_by.flatten!.uniq!
-      determine_user_points
+      determine_rec_points
+      determine_media_points
     end
 
   end
@@ -164,7 +169,7 @@ class UsersController < ApplicationController
       show_rec.do_all_the_stuff
       show_recs << show_rec
     end
-    show_recs.sort_by! {|show_rec| show_rec.user_points}.reverse!
+    show_recs.sort_by! {|show_rec| show_rec.rec_points}.reverse!
 
     # recs.sort_by! {|rec| rec.user_points}.reverse!
   end

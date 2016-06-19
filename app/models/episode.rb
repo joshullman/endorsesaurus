@@ -4,7 +4,7 @@ class Episode < ActiveRecord::Base
 	belongs_to :show
 
   def watch(user, value)
-    if Like.where(user_id: user.id, medium_id: self.medium.id).first
+    if Like.where(user_id: user.id, medium_id: self.medium_id).first
       self.update_like(user, value)
     else
       self.like_and_distribute_points(user, value)
@@ -12,7 +12,7 @@ class Episode < ActiveRecord::Base
   end
 
 	def update_like(user, value)
-		like = Like.where(user_id: user.id, medium_id: self.medium.id).first
+		like = Like.where(user_id: user.id, medium_id: self.medium_id).first
 		old_value = like.value
     like.value = value
     like.save
@@ -25,7 +25,7 @@ class Episode < ActiveRecord::Base
 	end
 
 	def like_and_distribute_points(user, value)
-		Like.create(user_id: user.id, medium_id: self.medium.id, media_type: "Episode", value: value)
+		Like.create(user_id: user.id, medium_id: self.medium_id, media_type: "Episode", value: value)
     self.medium.increment_watches
     self.season.medium.increment_watches
     self.show.medium.increment_watches
