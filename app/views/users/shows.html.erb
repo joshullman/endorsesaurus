@@ -4,8 +4,8 @@
 <div class="left_50">
 	<h3 class="text_center">Show Recommendations:</h3>
 	<div class="recommendation_wrapper">
-		<% if @recs && !@recs.empty? %>
-			<% @recs.each do |show_rec| %>
+		<% if @show_recs && !@show_recs.empty? %>
+			<% @show_recs.each do |show_rec| %>
 				<%= render partial: 'layouts/recommended_show_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: show_rec, current_user: current_user, css_class: "recommendation" } %>
 				<br>
 			<% end %>

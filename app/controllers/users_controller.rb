@@ -66,7 +66,30 @@ class UsersController < ApplicationController
 
   end
 
-  class ShowRec
+  def find_movie_recommendations
+    recs = []
+    recommendations = @user.received_recs.where(media_type: "Movie").group_by(&:medium_id)
+    recommendations.each_value do |array|
+      rec = MovieRec.new(array)
+      rec.do_all_the_stuff
+      recs << rec
+    end
+    recs.sort_by! {|rec| rec.user_points}.reverse!
+  end
+
+  def organize_movie_likes
+    likes_hash = {}
+    likes = @user.likes.where(media_type: "Movie").group_by(&:value)
+    likes.each_key do |key|
+      likes_hash[key] = []
+      likes[key].each do |like|
+        likes_hash[key] << like.find_associated_media
+      end
+    end
+    likes_hash
+  end
+
+  class EpRec
     attr_reader :rec_array, :user_points, :media_points, :rec_by, :info
     def initialize(rec_array = [])
       @rec_array = rec_array
@@ -95,54 +118,73 @@ class UsersController < ApplicationController
 
   end
 
-  def organize_movie_likes
-    likes_hash = {}
-    likes = @user.likes.where(media_type: "Movie").group_by(&:value)
-    likes.each_key do |key|
-      likes_hash[key] = []
-      likes[key].each do |like|
-        likes_hash[key] << like.find_associated_media
-      end
+  class ShowRec
+    attr_reader :ep_recs, :user_points, :media_points, :rec_by, :info
+    def initialize(show, ep_recs = [])
+      @ep_recs = ep_recs
+      @info = show
+      @media_points = 0
+      @user_points = 0
+      @rec_by = []
     end
-    likes_hash
-  end
 
-  def organize_show_likes
-    likes_hash = {}
-    likes = @user.likes.where(media_type: "Episode")
-    likes.each do |like|
-        episode = like.find_associated_media
-        if !likes_hash[episode.show]
-          likes_hash[episode.show] = {}
-        end
-        if !likes_hash[episode.show][episode.season]
-          likes_hash[episode.show][episode.season] = []
-        end
-        likes_hash[episode.show][episode.season] << episode
-      end
-    likes_hash
-  end
-
-  def find_movie_recommendations
-    recs = []
-    recommendations = @user.received_recs.where(media_type: "Movie").group_by(&:medium_id)
-    recommendations.each_value do |array|
-      rec = MovieRec.new(array)
-      rec.do_all_the_stuff
-      recs << rec
+    def push_reccommenders
+      @ep_recs.each {|ep_rec| @rec_by << ep_rec.rec_by}
     end
-    recs.sort_by! {|rec| rec.user_points}.reverse!
+
+    def determine_user_points
+      @ep_recs.each {|ep_rec| @user_points += ep_rec.user_points}
+    end
+
+    def rec_by_user?(user_id)
+      @rec_by.any? {|rec| rec.id == user_id}
+    end
+
+    def do_all_the_stuff
+      push_reccommenders
+      @rec_by.flatten!.uniq!
+      determine_user_points
+    end
+
   end
 
   def find_show_recommendations
     recs = []
     recommendations = @user.received_recs.where(media_type: "Episode").group_by(&:medium_id)
     recommendations.each_value do |array|
-      rec = ShowRec.new(array)
+      rec = EpRec.new(array)
       rec.do_all_the_stuff
       recs << rec
     end
-    recs.sort_by! {|rec| rec.user_points}.reverse!
+    organized_recs = recs.group_by {|rec| rec.info.show_id}
+    show_recs = []
+    organized_recs.each do |show_id, ep_recs|
+      show = Show.find(show_id)
+      show_rec = ShowRec.new(show, ep_recs)
+      show_rec.do_all_the_stuff
+      show_recs << show_rec
+    end
+    show_recs.sort_by! {|show_rec| show_rec.user_points}.reverse!
+
+    # recs.sort_by! {|rec| rec.user_points}.reverse!
+  end
+
+  def organize_show_likes
+    likes_hash = {}
+    likes = @user.likes.where(media_type: "Episode")
+    likes.each do |like|
+      episode = like.find_associated_media
+      if !likes_hash[episode.show]
+        likes_hash[episode.show] = {}
+      end
+      if !likes_hash[episode.show][episode.season]
+        likes_hash[episode.show][episode.season] = []
+      end
+      likes_hash[episode.show][episode.season] << episode
+      likes_hash[episode.show] = likes_hash[episode.show].sort.to_h
+      likes_hash[episode.show][episode.season] = likes_hash[episode.show][episode.season].sort_by {|x| x.episode_num}
+    end
+    likes_hash
   end
 
   def find_recently_watched(media_type, num)
@@ -165,15 +207,12 @@ class UsersController < ApplicationController
     progress
   end
 
-  def organize_recs(likes, recs)
-  end
-
   def do_even_more_stuff(media_type)
     # Profile information
     @user = User.find(params[:id])
     # finding the media assosciated with Likes
     media_type == "Movie" ? @likes = organize_movie_likes : @likes = organize_show_likes
-    media_type == "Movie" ? @recs = find_movie_recommendations : @recs = find_show_recommendations
+    media_type == "Movie" ? @movie_recs = find_movie_recommendations : @show_recs = find_show_recommendations
     # finding recently watched
     # @recently_watched = find_recently_watched(media_type, 5)
     #current_user information

@@ -207,8 +207,6 @@ end
 	create_notification(User.find(user), med, value)
 end
 
-p "Like count - #{Like.count}"
-
 # Creating Recommendations
 256.times do 
 	sender = 0
@@ -225,8 +223,6 @@ p "Like count - #{Like.count}"
 	medium.find_associated_media.recommend_to([receiver], sender)
 	Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: medium.id, media_type: medium.media_type, notification_type: "recommendation")
 end
-
-p "Rec count - #{Recommendation.count}"
 
 # Liking Recommendations
 64.times do

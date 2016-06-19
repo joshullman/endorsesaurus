@@ -43,9 +43,7 @@ class Episode < ActiveRecord::Base
       case value
         when 1
           recommendations.each do |rec|
-            p "#{rec.sender} points = #{rec.sender.points}"
             rec.sender.update_points(self.points)
-            p "#{rec.sender} updated points = #{rec.sender.points}"
             Recommendation.find(rec.id).destroy
             Notification.create(user_one_id: rec.sender.id, user_two_id: receiver.id, media_type: "Episode", medium_id: medium_id, notification_type: "liked rec")
           end
