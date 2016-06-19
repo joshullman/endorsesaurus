@@ -36,6 +36,8 @@
 // })
 $(document).ready(function(){
 
+  // Likes jquery
+
   $('.likes_button').click(function(){
     $('.likes_wrapper').show();
     $('.seen_wrapper').hide();
@@ -63,6 +65,19 @@ $(document).ready(function(){
   $('.likes_row_season').click(function() {
     console.log($(this));
     $(this).siblings('.likes_row_episode').toggle();
+  })
+
+// Recommendations jquery
+
+  $('.recommendation_row_show').click(function() {
+    console.log($(this));
+    $(this).siblings().children('.recommendation_row_season').toggle();
+    $(this).siblings().children('.recommendation_row_season').siblings('.recommendation_row_episode').hide();
+  })
+
+  $('.recommendation_row_season').click(function() {
+    console.log($(this));
+    $(this).siblings('.recommendation_row_episode').toggle();
   })
 
 });

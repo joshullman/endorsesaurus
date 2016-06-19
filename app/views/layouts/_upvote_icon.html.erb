@@ -1,0 +1,9 @@
+<ul class="icons_holder">
+	<% if user.id != current_user.id %>
+		<% if rec.rec_by_user?(current_user.id) %>
+			<li class="icons current_icon"><%= link_to image_tag('blue_arrow.png'), {action: 'destroy', controller: 'recommendations', recipients: [user.id], medium_id: rec.info.medium_id}, :method => :delete %></li>
+		<% else %>
+			<li class="icons current_icon"><%= link_to image_tag('white_arrow.jpg'), {action: 'create', controller: 'recommendations', recipients: [user.id], medium_id: rec.info.medium_id}, :method => :post %></li>
+		<% end %>
+	<% end %>
+</ul>

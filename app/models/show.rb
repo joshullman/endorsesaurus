@@ -30,7 +30,7 @@ class Show < ActiveRecord::Base
 
 	def unrecommend_to(receiver, sender)
 		self.episodes.each do |episode|
-			episode.unrecommend_to(reciever, sender)
+			episode.unrecommend_to(receiver, sender)
 		end
 	end
 

@@ -356,6 +356,23 @@ h4 {
 	display: none;
 }
 
+.recommendation_row_show {
+	padding: 15px;
+	border: 1px solid black;
+}
+
+.recommendation_row_season {
+	padding: 15px;
+	border: 1px solid black;
+	display: none;
+}
+
+.recommendation_row_episode {
+	padding: 15px;
+	border: 1px solid black;
+	display: none;
+}
+
 /* Icons */
 
 .dashboard_icons {

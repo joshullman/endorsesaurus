@@ -1,8 +1,8 @@
-<div class="recommendation_show_wrapper">
-	<div id=<%="#{rec.info.medium_id}"%> class ="recommendation_row_show">
+<div class="recommendation_season_wrapper">
+	<div id=<%="#{rec.info.medium_id}"%> class ="recommendation_row_season">
 		<span class="rec_points"><%= rec.rec_points %></span>
 		<span class="upvote_icon"><%= render partial: 'layouts/upvote_icon', locals: { user: user, current_user_likes: current_user_likes, rec: rec, current_user: current_user } %></span>
-		<span class="title_center"><%= link_to rec.info.title, show_path(rec.info) %></span>
+		<span class="title_center"><%= link_to "Season: #{rec.info.season_num}", show_path(rec.info.show) %></span>
 		<span class="icons_right"><%= rec.media_points %><%= render partial: 'layouts/rec_icons', locals: { user: user, current_user_likes: current_user_likes, rec: rec, current_user: current_user } %></span>
 		<br>
 		<% rec.rec_by.each do |recommender| %>
@@ -11,7 +11,7 @@
 		<% end %>
 		<br>
 	</div>
-	<% rec.season_recs.each do |season_rec| %>
-		<%= render partial: 'layouts/recommended_season_layout', locals: { user: user, current_user_likes: current_user_likes, rec: season_rec, current_user: current_user } %>
+	<% rec.ep_recs.each do |ep_rec| %>
+		<%= render partial: 'layouts/recommended_episode_layout', locals: { user: user, current_user_likes: current_user_likes, rec: ep_rec, current_user: current_user } %>
 	<% end %>
 </div>

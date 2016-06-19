@@ -108,37 +108,33 @@ class RecommendationsController < ApplicationController
   # end
 
   def create
-    media = Medium.find(params[:medium_id]).find_associated_media
-    media.recommend_to(params[:recipients], current_user.id)
-    params[:recipients].each do |recipient|
+    media = Medium.find(params[:medium_id].to_i).find_associated_media
+    recipients = params[:recipients].map {|recipient| recipient.to_i }
+    media.recommend_to(recipients, current_user.id)
+    recipients.each do |recipient|
       Notification.create(user_one_id: current_user.id, user_two_id: recipient, media_type: media.medium.media_type, medium_id: media.medium_id, notification_type: "recommendation")
     end
-    case media.medium.media_type
-      when "Movie"
-        if params[:recipients].length == 1
-          redirect_to :back
-        else
+    if recipients.length == 1
+      redirect_to :back
+    else
+      case media.medium.media_type
+        when "Movie"
           redirect_to movie_path(media)
-        end
-      when "Show"
-        if params[:recipients].length == 1
-          redirect_to :back
-        else
+        when "Show"
           redirect_to show_path(media)
-        end
-      when "Season" || "Episode"
-        if params[:recipients].length == 1
-          redirect_to :back
-        else
+        when "Season"
           redirect_to show_path(media.show)
-        end
-    end   
+        when "Episode"
+          redirect_to show_path(media.show)
+      end
+    end
   end
 
   def destroy
-    media = Medium.find(params[:medium_id]).find_associated_media
-    media.unrecommend_to(params[:recipients].first, current_user.id)
-    note = Notification.where(user_one_id: current_user.id, user_two_id: params[:recipients].first, medium_id: params[:medium_id], notification_type: "recommendation").first
+    media = Medium.find(params[:medium_id].to_i).find_associated_media
+    recipient = params[:recipients].first.to_i
+    media.unrecommend_to(recipient, current_user.id)
+    note = Notification.where(user_one_id: current_user.id, user_two_id: recipient, medium_id: params[:medium_id], notification_type: "recommendation").first
     note.destroy if note
     redirect_to :back
   end

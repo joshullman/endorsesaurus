@@ -78,9 +78,12 @@ class Episode < ActiveRecord::Base
   end
 
   def unrecommend_to(receiver, sender)
-    Recommendation.where(sender_id: sender, receiver_id: receiver, media_type: "Episode", medium_id: self.medium_id).first.destroy
-    self.medium.decrement_recommends
-    self.season.medium.decrement_recommends
-    self.show.medium.decrement_recommends
+    rec = Recommendation.where(sender_id: sender, receiver_id: receiver, media_type: "Episode", medium_id: self.medium_id).first
+    if rec
+      rec.destroy
+      self.medium.decrement_recommends
+      self.season.medium.decrement_recommends
+      self.show.medium.decrement_recommends
+    end
   end
 end

@@ -118,11 +118,13 @@ class UsersController < ApplicationController
 
   end
 
-  class ShowRec
+  class SeasonRec
     attr_reader :ep_recs, :rec_points, :media_points, :rec_by, :info
-    def initialize(show, ep_recs = [])
+    attr_writer :user
+    def initialize(season, ep_recs = [])
+      @user = nil
       @ep_recs = ep_recs
-      @info = show
+      @info = season
       @media_points = 0
       @rec_points = 0
       @rec_by = []
@@ -147,6 +149,45 @@ class UsersController < ApplicationController
     def do_all_the_stuff
       push_reccommenders
       @rec_by.flatten!.uniq!
+      @rec_by.delete_if {|recommender| !@info.recommended_to?(@user.id, recommender.id)}
+      determine_rec_points
+      determine_media_points
+    end
+
+  end
+
+  class ShowRec
+    attr_reader :season_recs, :rec_points, :media_points, :rec_by, :info
+    attr_writer :user
+    def initialize(show, season_recs = [])
+      @user = nil
+      @season_recs = season_recs.sort_by! {|show_rec| show_rec.rec_points}.reverse!
+      @info = show
+      @media_points = 0
+      @rec_points = 0
+      @rec_by = []
+    end
+
+    def push_reccommenders
+      @season_recs.each {|season_rec| @rec_by << season_rec.rec_by}
+    end
+
+    def determine_rec_points
+      @season_recs.each {|season_rec| @rec_points += season_rec.rec_points}
+    end
+
+    def determine_media_points
+      @season_recs.each {|season_rec| @media_points += season_rec.media_points}
+    end
+
+    def rec_by_user?(user_id)
+      @rec_by.any? {|rec| rec.id == user_id}
+    end
+
+    def do_all_the_stuff
+      push_reccommenders
+      @rec_by.flatten!.uniq!
+      @rec_by.delete_if {|recommender| !@info.recommended_to?(@user.id, recommender.id)}
       determine_rec_points
       determine_media_points
     end
@@ -161,11 +202,25 @@ class UsersController < ApplicationController
       rec.do_all_the_stuff
       recs << rec
     end
-    organized_recs = recs.group_by {|rec| rec.info.show_id}
+
+    org_season_recs = recs.group_by {|rec| rec.info.season_id}
+    season_recs = []
+    org_season_recs.each do |season_id, ep_recs|
+      season = Season.find(season_id)
+      season_rec = SeasonRec.new(season, ep_recs)
+      season_rec.user = @user
+      season_rec.do_all_the_stuff
+      season_recs << season_rec
+    end
+
+    p season_recs.first
+
+    org_show_recs = season_recs.group_by {|rec| rec.info.show_id}
     show_recs = []
-    organized_recs.each do |show_id, ep_recs|
+    org_show_recs.each do |show_id, season_recs|
       show = Show.find(show_id)
-      show_rec = ShowRec.new(show, ep_recs)
+      show_rec = ShowRec.new(show, season_recs)
+      show_rec.user = @user
       show_rec.do_all_the_stuff
       show_recs << show_rec
     end
@@ -219,7 +274,7 @@ class UsersController < ApplicationController
     media_type == "Movie" ? @likes = organize_movie_likes : @likes = organize_show_likes
     media_type == "Movie" ? @movie_recs = find_movie_recommendations : @show_recs = find_show_recommendations
     # finding recently watched
-    # @recently_watched = find_recently_watched(media_type, 5)
+    @recently_watched = find_recently_watched(media_type, 5)
     #current_user information
     @current_user_likes = current_user.user_likes
     if media_type == "Episode"
