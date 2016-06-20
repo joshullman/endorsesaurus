@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
     @most_liked_movies = Medium.where(media_type: "Movie").order(liked_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
     @most_recommended_movies = Medium.where(media_type: "Movie").order(recommended_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
 
-  	@current_user_likes = current_user.user_movie_likes
+  	@current_user_likes = current_user.movie_likes
 
   	@most_watched_movies.each {|movie| @percents[movie.medium_id] = movie.percents }
   	@most_liked_movies.each {|movie| @percents[movie.medium_id] = movie.percents }
@@ -27,7 +27,7 @@ class MoviesController < ApplicationController
 
 	def show
 		med = Movie.find(params[:id]).medium.id
-  	@current_user_likes = current_user.user_likes
+  	@current_user_likes = current_user.movie_likes
   	@friends_like = friends_like(med, 1)
   	@friends_seen = friends_like(med, 0)
   	@friends_dislike = friends_like(med, -1)
@@ -45,7 +45,7 @@ class MoviesController < ApplicationController
 	def friends_like(id, value)
 		friends = []
 		current_user.friends.each do |friend|
-			friends << friend if friend.user_likes[id] == value
+			friends << friend if friend.movie_likes[id] == value
 		end
 		friends
 	end

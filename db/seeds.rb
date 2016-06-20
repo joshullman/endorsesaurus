@@ -220,6 +220,7 @@ media.each do |imdb_url|
 						season_id: season.id,
 						imdb_id: api["imdbID"],
 						episode_num: episode_num,
+						season_num: season_num,
 						title: api["Title"],
 						runtime: api["Runtime"],
 						released: api["Released"],

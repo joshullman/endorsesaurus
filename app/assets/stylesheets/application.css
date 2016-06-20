@@ -202,10 +202,24 @@ h4 {
 
 /* Dashboard/Profile */
 
+.event_user_icon {
+
+}
+
+.user_icon {
+	float:left;
+}
+
+.event_info {
+
+}
+
 .event_wrapper {
+	margin: auto;
 	border: 1px solid black;
-	text-align: center;
-	height: 100px;
+	height: 125px;
+	width: 600px;
+	padding: 5px;
 }
 
 /* Seen/Like/Dislike Buttons on Movies/Shows List*/
@@ -241,28 +255,6 @@ h4 {
 
 /* Columns for Dashboard/Profile/Friends/MoviesList/ShowsList */
 
-.left_col {
-	height: 100%;
-	width: 30%;
-	float: left;
-	margin-left: 2%;
-}
-
-.center_col {
-	height: 100%;
-	width: 30%;
-	float: left;
-	margin-left: 1%;
-}
-
-.right_col {
-	height: 100%;
-	width: 30%;
-	float: left;	
-	margin-left: 1%;
-	margin-right: 2%;
-}
-
 .left_50 {
 	height: 100%;
 	width: 46%;
@@ -279,13 +271,6 @@ h4 {
 	margin-right: 2%;
 }
 
-/*.two_thirds_col {
-	height: 100%;
-	width: 60%;
-	float: right;
-	margin-left: 1%;
-}*/
-
 .title_center {
 	padding-left: 35%;
 }
@@ -293,6 +278,8 @@ h4 {
 .title_center a {
 	text-align: center;
 }
+
+/* Recommendation Css */
 
 .title {
 	float: left;
@@ -312,13 +299,16 @@ h4 {
 	float: right;
 }
 
-.recent_row {
-	border: 1px solid black;
-}
+
+/* user/shows user/movies Recommendation Divs */
 
 .recommendation_row_movie {
 	padding: 15px;
 	border: 1px solid black;
+}
+
+.recommendation_expanded_movie {
+	display: none;
 }
 
 .recommendation_row_show {
@@ -329,6 +319,21 @@ h4 {
 .recommendation_row {
 	border: 1px solid black;
 }
+
+.recommendation_row_season {
+	padding: 15px;
+	border: 1px solid black;
+	display: none;
+}
+
+.recommendation_row_episode {
+	padding: 15px;
+	border: 1px solid black;
+	display: none;
+}
+
+
+/* user/shows user/movies Likes Divs */
 
 .likes_row_movie {
 	padding: 15px;
@@ -353,27 +358,6 @@ h4 {
 .likes_row_episode {
 	padding: 15px;
 	border: 1px solid black;
-	display: none;
-}
-
-.recommendation_row_show {
-	padding: 15px;
-	border: 1px solid black;
-}
-
-.recommendation_row_season {
-	padding: 15px;
-	border: 1px solid black;
-	display: none;
-}
-
-.recommendation_row_episode {
-	padding: 15px;
-	border: 1px solid black;
-	display: none;
-}
-
-.recommendation_expanded_movie {
 	display: none;
 }
 
@@ -417,11 +401,6 @@ h4 {
 	width: 100px;
 	height: 100px;
 }
-/*
-.photo img {
-	width: 150px;
-	height: 150px;
-}*/
 
 .full_poster {
 	width: 270px;

@@ -19,10 +19,11 @@ ActiveRecord::Schema.define(version: 20160519214819) do
   create_table "episodes", force: :cascade do |t|
     t.integer  "season_id"
     t.integer  "show_id"
-    t.integer  "omdb_id"
-    t.string   "imdb_id"
     t.integer  "medium_id"
     t.integer  "episode_num"
+    t.integer  "season_num"
+    t.string   "omdb_id"
+    t.string   "imdb_id"
     t.string   "title"
     t.string   "plot"
     t.string   "runtime"
@@ -73,7 +74,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
 
   create_table "movies", force: :cascade do |t|
     t.integer  "medium_id"
-    t.integer  "omdb_id"
+    t.string   "omdb_id"
     t.string   "imdb_id"
     t.string   "title"
     t.string   "year"
@@ -85,7 +86,6 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "actors"
     t.string   "plot"
     t.string   "poster"
-    t.string   "media_type"
     t.integer  "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -113,12 +113,12 @@ ActiveRecord::Schema.define(version: 20160519214819) do
   create_table "seasons", force: :cascade do |t|
     t.integer  "show_id"
     t.integer  "medium_id"
-    t.integer  "omdb_id"
+    t.integer  "season_num"
+    t.integer  "episode_count"
+    t.string   "omdb_id"
     t.string   "imdb_id"
     t.string   "title"
-    t.integer  "season_num"
     t.integer  "points"
-    t.integer  "episode_count"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "plot"
     t.string   "poster"
     t.string   "imdb_id"
+    t.string   "omdb_id"
     t.integer  "episode_count"
     t.integer  "season_count"
     t.integer  "medium_id"

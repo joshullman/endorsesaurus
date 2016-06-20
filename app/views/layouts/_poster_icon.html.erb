@@ -1,5 +1,5 @@
 <div class="poster_icon_wrapper">
-	<% case media_type %>
+	<% case media.medium.media_type %>
 		<% when "Movie" %>
 			<%= link_to image_tag(media.poster), movie_path(media), class: "poster_icon" %>
 			<br>

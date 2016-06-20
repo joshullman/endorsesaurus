@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     def initialize(rec_array = [])
       @rec_array = rec_array
       @info = Medium.find(rec_array.first.medium_id).find_associated_media
-      @media_points = 0
+      @media_points = @info.points
       @user_points = 0
       @rec_by = []
     end

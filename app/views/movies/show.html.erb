@@ -23,15 +23,13 @@
 	<br>
 	Plot: <%= @movie.plot %>
 	<br>
-	Poster: 
-	<br>
-	<img src="<%= @movie.poster %>">
-	<br>
 	<div class="bar_mortice mortice_tiny" style="width: 30%">
 	  <div class="progress progress_tiny green" style="width: <%= @percents[0] %>%;"></div>
 	  <div class="progress progress_tiny yellow" style="width: <%= @percents[1] %>%;"></div>
 	  <div class="progress progress_tiny red" style="width: <%= @percents[2] %>%;"></div>
 	</div>
+	<img src="<%= @movie.poster %>">
+	<br>
 	<br>
 	Number of people who have recommended this Movie: <%= @movie.medium.recommended_count %>
 	<br>

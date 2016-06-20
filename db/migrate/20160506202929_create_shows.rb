@@ -11,6 +11,7 @@ class CreateShows < ActiveRecord::Migration
   		t.string   :plot
   		t.string   :poster
   		t.string   :imdb_id
+      t.string   :omdb_id
       t.integer  :episode_count
       t.integer  :season_count
       t.integer  :medium_id

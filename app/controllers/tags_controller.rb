@@ -5,7 +5,8 @@ class TagsController < ApplicationController
 	def index
 		@tags = Tag.all.order(:name)
 
-		@current_user_likes = current_user.user_likes
+		@current_user_movie_likes = current_user.movie_likes
+		@current_user_show_likes = current_user.show_likes
 	end
 
 	def show
@@ -15,7 +16,8 @@ class TagsController < ApplicationController
 		@movies.each {|movie| @percents[movie.medium_id] = movie.percents}
 		@shows.each {|show| @percents[show.medium_id] = show.percents}
 
-  	@current_user_likes = current_user.user_likes
+  	@current_user_movie_likes = current_user.movie_likes
+		@current_user_show_likes = current_user.show_likes
 	end
 
 	def create

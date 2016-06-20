@@ -22,7 +22,7 @@ class ShowsController < ApplicationController
   	@most_liked_shows.each {|show| @percents[show.medium_id] = show.percents }
   	@most_recommended_shows.each {|show| @percents[show.medium_id] = show.percents }
 
-		@current_user_likes = current_user.user_show_likes
+		@current_user_likes = current_user.show_likes
 	end
 
 	def show
@@ -39,7 +39,7 @@ class ShowsController < ApplicationController
 			@season_percent << season.percents
 		end
 
-  	@current_user_likes = current_user.user_likes
+  	@current_user_likes = current_user.show_likes
 
   	@current_user_progress = current_user.show_progress(@show)
 	end

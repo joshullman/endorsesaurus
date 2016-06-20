@@ -5,18 +5,13 @@
 	<h3 class="text_center">Your friend's recent activity:</h3>
 	<div class="dashboard_recents_list">
 		<% @friends_recents.each do |notification| %>
-			<% if notification.notification_type == "friends" %>
-			<div class="event_wrapper">
-				<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
-				<%= image_tag ('became_friends_2.png'), class: "dashboard_icons" %>
-				<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %>
-			</div>
-			<br>
 
-			<% elsif notification.media_type == "Movie" %>
+			<% if notification.media_type == "Movie" %>
 				<% case notification.notification_type %>
 					<% when "like" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
 							<span class="span_liked">liked</span>
 							<%= render partial: 'layouts/movie_poster_icon', locals: { movie: notification.media } %>
@@ -25,6 +20,8 @@
 
 					<% when "seen" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
 							<span class="span_seen">watched</span>
 							<%= render partial: 'layouts/movie_poster_icon', locals: { movie: notification.media } %>
@@ -33,6 +30,8 @@
 
 					<% when "dislike" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
 							<span class="span_disliked">disliked</span>
 							<%= render partial: 'layouts/movie_poster_icon', locals: { movie: notification.media } %>
@@ -41,6 +40,8 @@
 
 					<% when "recommendation" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
 							<%= image_tag ('blue_right_arrow.png'), class: "dashboard_icons" %>
 							<%= render partial: 'layouts/movie_poster_icon', locals: { movie: notification.media } %>
@@ -51,6 +52,8 @@
 
 					<% when "liked rec" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %> 
 							<span class="span_liked">liked</span> 
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
@@ -61,6 +64,8 @@
 
 					<% when "seen rec" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %> 
 							<span class="span_seen">watched</span> 
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
@@ -71,6 +76,8 @@
 
 					<% when "disliked rec" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %> 
 							<span class="span_disliked">disliked</span> 
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
@@ -85,6 +92,8 @@
 				<% case notification.notification_type %>
 					<% when "like" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %> 
 							<span class="span_liked">liked</span>
 							<%= render partial: 'layouts/season_poster_icon', locals: { season: notification.media } %>
@@ -93,6 +102,8 @@
 
 					<% when "seen" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %> 
 							<span class="span_seen">watched</span>
 							<%= render partial: 'layouts/season_poster_icon', locals: { season: notification.media } %>
@@ -101,6 +112,8 @@
 
 					<% when "dislike" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %> 
 							<span class="span_disliked">disliked</span>
 							<%= render partial: 'layouts/season_poster_icon', locals: { season: notification.media } %>
@@ -109,6 +122,8 @@
 
 					<% when "recommendation" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %> 
 							<%= image_tag ('blue_right_arrow.png'), class: "dashboard_icons" %>
 							<%= render partial: 'layouts/season_poster_icon', locals: { season: notification.media } %>
@@ -119,6 +134,8 @@
 
 					<% when "liked rec" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %> 
 							<span class="span_liked">liked</span> 
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
@@ -129,6 +146,8 @@
 
 					<% when "seen rec" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %> 
 							<span class="span_seen">watched</span> 
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
@@ -139,6 +158,8 @@
 
 					<% when "disliked rec" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %>
 							<span class="span_disliked">disliked</span> 
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
@@ -152,6 +173,8 @@
 				<% case notification.notification_type %>
 					<% when "like" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %> 
 							<span class="span_liked">liked</span>
 							<%= render partial: 'layouts/episode_poster_icon', locals: { episode: notification.media } %>
@@ -160,6 +183,8 @@
 
 					<% when "seen" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %> 
 							<span class="span_seen">watched</span> 
 							<%= render partial: 'layouts/episode_poster_icon', locals: { episode: notification.media } %>
@@ -168,8 +193,58 @@
 
 					<% when "dislike" %>
 						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
 							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %> 
 							<span class="span_disliked">disliked</span> 
+							<%= render partial: 'layouts/episode_poster_icon', locals: { episode: notification.media } %>
+						</div>
+						<br>
+
+					<% when "recommendation" %>
+						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
+							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %> 
+							<%= image_tag ('blue_right_arrow.png'), class: "dashboard_icons" %>
+							<%= render partial: 'layouts/episode_poster_icon', locals: { episode: notification.media } %>
+							<%= image_tag ('blue_right_arrow.png'), class: "dashboard_icons" %>
+							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %>
+						</div>
+						<br>
+
+					<% when "liked rec" %>
+						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
+							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %> 
+							<span class="span_liked">liked</span> 
+							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
+							's recommendation 
+							<%= render partial: 'layouts/episode_poster_icon', locals: { episode: notification.media } %>
+						</div>
+						<br>
+
+					<% when "seen rec" %>
+						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
+							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %> 
+							<span class="span_seen">watched</span> 
+							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
+							's recommendation 
+							<%= render partial: 'layouts/episode_poster_icon', locals: { episode: notification.media } %>
+						</div>
+						<br>
+
+					<% when "disliked rec" %>
+						<div class="event_wrapper">
+							<%= notification.created_at %>
+							<br>
+							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %>
+							<span class="span_disliked">disliked</span> 
+							<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
+							's recommendation 
 							<%= render partial: 'layouts/episode_poster_icon', locals: { episode: notification.media } %>
 						</div>
 						<br>
@@ -177,5 +252,5 @@
 				<% end %>
 			<% end %>
 		<% end %>
-	</ul>
+	</div>
 </div>
