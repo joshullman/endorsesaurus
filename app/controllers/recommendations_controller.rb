@@ -67,7 +67,7 @@ class RecommendationsController < ApplicationController
     recipients = params[:recipients].map {|recipient| recipient.to_i }
     media.recommend_to(recipients, current_user.id)
     recipients.each do |recipient|
-      Notification.create(user_one_id: current_user.id, user_two_id: recipient, media_type: media.medium.media_type, medium_id: media.medium_id, notification_type: "recommendation")
+      RecNote.create(sender_id: current_user.id, receiver_id: recipient, media_type: media.medium.media_type, medium_id: media.medium_id)
     end
     if recipients.length == 1
       redirect_to :back
@@ -89,7 +89,7 @@ class RecommendationsController < ApplicationController
     media = Medium.find(params[:medium_id].to_i).find_associated_media
     recipient = params[:recipients].first.to_i
     media.unrecommend_to(recipient, current_user.id)
-    note = Notification.where(user_one_id: current_user.id, user_two_id: recipient, medium_id: params[:medium_id], notification_type: "recommendation").first
+    note = RecNote.where(sender_id: current_user.id, receiver_id: recipient, medium_id: params[:medium_id]).first
     note.destroy if note
     redirect_to :back
   end

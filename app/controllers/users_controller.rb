@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
     # @current_user_likes = current_user.user_likes
 
-    @recent_activity = @user.recent_activity(20)
+    @recent_activity = @user.profile_notes(20)
   end
 
   def movies
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     else
       @user = current_user
 
-      @friends_recents = current_user.friends_recent_activity
+      @friends_recents = current_user.dashboard_notes(20)
     end
   end
 

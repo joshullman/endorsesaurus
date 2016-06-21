@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519214819) do
+ActiveRecord::Schema.define(version: 20160621182303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "actors"
     t.string   "poster"
     t.integer  "points"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "friend_notes", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -99,6 +106,15 @@ ActiveRecord::Schema.define(version: 20160519214819) do
     t.string   "notification_type"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "rec_notes", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "medium_id"
+    t.string   "media_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "recommendations", force: :cascade do |t|
@@ -172,5 +188,25 @@ ActiveRecord::Schema.define(version: 20160519214819) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "watched_notes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "medium_id"
+    t.integer  "value"
+    t.string   "media_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "watched_rec_notes", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "medium_id"
+    t.integer  "value"
+    t.integer  "points"
+    t.string   "media_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
 end

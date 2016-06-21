@@ -3,10 +3,11 @@ class Season < ActiveRecord::Base
 	belongs_to :medium
 	has_many   :episodes
 
-	def watch(user, value)
+	def watch(user, value, note = false)
 		self.episodes.each do |episode|
-			episode.watch(user, value)
+			episode.watch(user, value, note)
 		end
+		WatchedNote.create(user_id: user.id, medium_id: self.medium_id, media_type: "Season", value: value)
 	end
 
 	def recommended_to?(receiver, sender)
@@ -18,16 +19,20 @@ class Season < ActiveRecord::Base
 	  total_count == count
   end
 
-	def recommend_to(receivers, sender)
+	def recommend_to(receivers, sender, note = false)
 		self.episodes.each do |episode|
-			episode.recommend_to(receivers, sender)
+			episode.recommend_to(receivers, sender, note)
+		end
+		receivers.each do |receiver|
+			RecNote.create(sender_id: sender, receiver_id: receiver, medium_id: self.medium_id, media_type: "Season")
 		end
 	end
 
 	def unrecommend_to(receiver, sender)
 		self.episodes.each do |episode|
-			episode.unrecommend_to(receiver, sender)
+			episode.unrecommend_to(receiver, sender, false)
 		end
+		RecNote.where(sender_id: sender, receiver_id: receiver, medium_id: self.medium_id).first.destroy
 	end
 
 	def percents

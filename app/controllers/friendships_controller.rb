@@ -20,7 +20,7 @@ class FriendshipsController < ApplicationController
   @friendship.update(accepted: true)
     if @friendship.save
       redirect_to :back, :notice => "Successfully confirmed friend!"
-      Notification.create(user_one_id: @friendship.user_id, user_two_id: @friendship.friend_id, notification_type: "friends")
+      FriendNote.create(sender_id: @friendship.user_id, receiver_id: @friendship.friend_id)
     else
       redirect_to :back, :notice => "Sorry! Could not confirm friend!"
     end
@@ -29,6 +29,8 @@ class FriendshipsController < ApplicationController
   # DELETE /friendships/1
   # DELETE /friendships/1.json
   def destroy
+    note = FriendNote.where(friend_id: [current_user, params[:id]]).where(user_id: [current_user, params[:id]]).last
+    note.destroy
     @friendship = Friendship.where(friend_id: [current_user, params[:id]]).where(user_id: [current_user, params[:id]]).last
     @friendship.destroy
     flash[:notice] = "Removed friendship."

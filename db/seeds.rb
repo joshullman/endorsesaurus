@@ -1,14 +1,3 @@
-def create_notification(user, medium, value)
-  case value
-    when 1
-      Notification.create(user_one_id: user.id, medium_id: medium.id, media_type: medium.media_type, notification_type: "like")
-    when 0
-      Notification.create(user_one_id: user.id, medium_id: medium.id, media_type: medium.media_type, notification_type: "seen")
-    when -1
-      Notification.create(user_one_id: user.id, medium_id: medium.id, media_type: medium.media_type, notification_type: "dislike")
-  end
-end
-
 User.create(email: "CaptainPlanet@aol.com", password: "password", name: "CaptainPlanet" )
 User.create(email: "Kuzy@aol.com", password: "password", name: "Kuzy")
 User.create(email: "BuffaloKing@aol.com", password: "password", name: "BuffaloKing")
@@ -270,6 +259,26 @@ media.each do |imdb_url|
 
 end
 
+# Creating Recommendations
+p "Creating Recommendations"
+i = 1
+192.times do 
+	sender = 0
+	receiver = 0
+	media = 0
+
+	until sender != receiver && !Medium.find(media).find_associated_media.recommended_to?(receiver, sender)
+		sender = rand(User.count) + 1
+		receiver = rand(User.count) + 1
+		media = rand(Medium.count) + 1
+	end
+
+	medium = Medium.find(media)
+	medium.find_associated_media.recommend_to([receiver], sender)
+	p "completed #{i} out of 192 recommendations"
+	i += 1
+end
+
 # Creating Likes
 p "Creating Likes"
 384.times do
@@ -283,13 +292,12 @@ p "Creating Likes"
 	end
 	med = Medium.find(media)
 	med.find_associated_media.watch(User.find(user), value)
-	create_notification(User.find(user), med, value)
 end
 
 # Creating Recommendations
 p "Creating Recommendations"
 i = 1
-384.times do 
+192.times do 
 	sender = 0
 	receiver = 0
 	media = 0
@@ -302,8 +310,7 @@ i = 1
 
 	medium = Medium.find(media)
 	medium.find_associated_media.recommend_to([receiver], sender)
-	Notification.create(user_one_id: sender, user_two_id: receiver, medium_id: medium.id, media_type: medium.media_type, notification_type: "recommendation")
-	p "completed #{i} out of 384 recommendations"
+	p "completed #{i} out of 192 recommendations"
 	i += 1
 end
 
@@ -318,7 +325,6 @@ p "Liking Recommendations"
 	medium = User.find(user_one).received_recs.sample.medium
 
 	medium.find_associated_media.watch(User.find(user_one), value)
-	create_notification(User.find(user_one), medium, value)
 
 end
 
@@ -336,7 +342,7 @@ p "Adding Friends"
 	end
 
 	accepted == 1 ? accepted = true : accepted = false
-  Notification.create(user_one_id: user, user_two_id: friend, notification_type: "friends")
 	Friendship.create(user_id: user, friend_id: friend, accepted: accepted)
+  FriendNote.create(sender_id: user, receiver_id: friend)
 end
 
