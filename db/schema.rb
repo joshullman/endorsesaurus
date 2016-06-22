@@ -98,16 +98,6 @@ ActiveRecord::Schema.define(version: 20160621182303) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "notifications", force: :cascade do |t|
-    t.integer  "user_one_id"
-    t.integer  "user_two_id",       default: 0
-    t.integer  "medium_id",         default: 0
-    t.string   "media_type"
-    t.string   "notification_type"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-  end
-
   create_table "rec_notes", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "receiver_id"

@@ -14,21 +14,61 @@ class User < ActiveRecord::Base
     Recommendation.where(sender_id: self.id, receiver_id: id, medium_id: medium_id).first == nil ? false : true
   end
 
-  def already_recommended_show_to?(user, show_id)
+  def recommended_show_to?(user_id, show_id)
     show = Show.find(show_id)
     medium_ids = []
-    show.seasons.each do |season|
-      medium_ids << season.medium.id
+    show.episodes.each do |episode|
+      medium_ids << episode.medium_id
     end
-    recs = self.received_recs
-
-    season_count = 0
+    
+    episode_count = 0
     medium_ids.each do |id|
-      season_count += 1 if Recommendation.where(sender_id: self.id, receiver_id: user.id, medium_id: id).first
+      episode_count += 1 if !Recommendation.where(sender_id: self.id, receiver_id: user_id, medium_id: id).empty?
     end
 
-    season_count == show.seasons.count
+    episode_count == show.episode_count
   end
+
+  def recommended_season_to?(user_id, season_id)
+    season = Season.find(season_id)
+    medium_ids = []
+    season.episodes.each do |episode|
+      medium_ids << episode.medium_id
+    end
+
+    episode_count = 0
+    medium_ids.each do |id|
+      episode_count += 1 if !Recommendation.where(sender_id: self.id, receiver_id: user_id, medium_id: id).empty?
+    end
+
+    episode_count == season.episode_count
+  end
+
+  # def likes_show?(show_id)
+  #   medium_ids = []
+  #   show = Show.find(show_id)
+  #   show.episodes.each do |episode|
+  #     medium_ids << episode.medium_id
+  #   end
+  #   true_count = 0
+  #   medium_ids.each do |medium_id|
+  #     true_count += 1 if Like.where(user_id: self.id, medium_id: medium_id).first
+  #   end
+  #   true_count == show.episode_count
+  # end
+
+  # def likes_season?(season_id)
+  #   medium_ids = []
+  #   season = Season.find(season_id)
+  #   season.episodes.each do |episode|
+  #     medium_ids << episode.medium_id
+  #   end
+  #   true_count = 0
+  #   medium_ids.each do |medium_id|
+  #     true_count += 1 if Like.where(user_id: self.id, medium_id: medium_id).first
+  #   end
+  #   true_count == season.episode_count
+  # end
 
   # Likes
 
@@ -75,6 +115,7 @@ class User < ActiveRecord::Base
 
   def received_notifications
     notes = []
+    instance.class.to_s
     notes << received_recs
     notes << received_friend_notes
     notes << received_watched_rec_notes
@@ -82,11 +123,15 @@ class User < ActiveRecord::Base
   end
 
   def dashboard_notes(amount = 10)
+    # friends activity
+    # friend recommended stuff to
+    # friend watched
+    # friend watched and people got points
   end
 
   def profile_notes(amount = 10)
     notes = []
-    notes << 
+    notes
   end
 
   def recent_activity(amount = 10)

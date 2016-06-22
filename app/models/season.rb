@@ -30,7 +30,7 @@ class Season < ActiveRecord::Base
 
 	def unrecommend_to(receiver, sender)
 		self.episodes.each do |episode|
-			episode.unrecommend_to(receiver, sender, false)
+			episode.unrecommend_to(receiver, sender)
 		end
 		RecNote.where(sender_id: sender, receiver_id: receiver, medium_id: self.medium_id).first.destroy
 	end

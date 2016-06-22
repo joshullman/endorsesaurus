@@ -56,7 +56,7 @@ class Movie < ActiveRecord::Base
     self.medium.increment_watches
 		self.medium.increment_likes(value)
 		medium_id = self.medium.id
-		recommendations = Recommendation.where(receiver_id: user.id, medium_id: medium_id)
+		recommendations = user.received_recs.where(medium_id: medium_id)
 		if !recommendations.empty?
 			user.update_points(self.points)
 			case value

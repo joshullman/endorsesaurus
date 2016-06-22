@@ -22,13 +22,14 @@ class Episode < ActiveRecord::Base
     self.medium.decrement_likes(old_value)
     self.season.medium.decrement_likes(old_value)
     self.show.medium.decrement_likes(old_value)
-    WatchedNote.where(user_id: user.id, medium_id: self.medium.id).first.destroy
-    WatchedNote.create(user_id: user.id, medium_id: self.medium.id, media_type: "Episode", value: value)
+    note = WatchedNote.where(user_id: user.id, medium_id: self.medium_id).first
+    note.destroy if note
+    WatchedNote.create(user_id: user.id, medium_id: self.medium_id, media_type: "Episode", value: value)
 	end
 
 	def like_and_distribute_points(user, value, note = true)
 		Like.create(user_id: user.id, medium_id: self.medium_id, media_type: "Episode", value: value)
-    WatchedNote.create(user_id: user.id, medium_id: self.medium.id, media_type: "Episode", value: value)
+    WatchedNote.create(user_id: user.id, medium_id: self.medium.id, media_type: "Episode", value: value) if note
     self.medium.increment_watches
     self.season.medium.increment_watches
     self.show.medium.increment_watches
@@ -46,22 +47,89 @@ class Episode < ActiveRecord::Base
       case value
         when 1
           recommendations.each do |rec|
-            rec.sender.update_points(self.points)
-            Recommendation.find(rec.id).destroy
-            WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value) if note
+            if note
+              if rec.sender.recommended_show_to?(user.id, self.show_id)
+                rec.sender.update_points(self.show.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Show", medium_id: self.show_id, value: value, points: self.show.points)
+                self.destroy_show_recommendations(rec.sender, user)
+              elsif rec.sender.recommended_season_to?(user.id, self.season_id)
+                rec.sender.update_points(self.season.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Season", medium_id: self.season_id, value: value, points: self.season.points)
+                self.destroy_season_recommendations(rec.sender, user)
+              else
+                rec.sender.update_points(self.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: self.points)
+                Recommendation.find(rec.id).destroy
+              end
+            else
+              rec.sender.update_points(self.points)
+              WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: self.points)
+              Recommendation.find(rec.id).destroy
+            end
           end
         when -1
           recommendations.each do |rec|
-            rec.sender.update_points(-self.points)
-            Recommendation.find(rec.id).destroy
-            WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value) if note
+            if note
+              if rec.sender.recommended_show_to?(user.id, self.show_id)
+                rec.sender.update_points(self.show.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Show", medium_id: self.show_id, value: value, points: -self.show.points)
+                self.destroy_show_recommendations(rec.sender, user)
+              elsif rec.sender.recommended_season_to?(user.id, self.season_id)
+                rec.sender.update_points(self.season.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Season", medium_id: self.season_id, value: value, points: -self.season.points)
+                self.destroy_season_recommendations(rec.sender, user)
+              else
+                rec.sender.update_points(-self.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: -self.points)
+                Recommendation.find(rec.id).destroy
+              end
+            else
+              rec.sender.update_points(-self.points)
+              WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: -self.points)
+              Recommendation.find(rec.id).destroy
+            end
           end
         when 0
           recommendations.each do |rec|
-            Recommendation.find(rec.id).destroy
-            WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value) if note
+            if note
+              if rec.sender.recommended_show_to?(user.id, self.show_id)
+                rec.sender.update_points(self.show.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Show", medium_id: self.show_id, value: value, points: 0)
+                self.destroy_show_recommendations(rec.sender, user)
+              elsif rec.sender.recommended_season_to?(user.id, self.season_id)
+                rec.sender.update_points(self.season.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Season", medium_id: self.season_id, value: value, points: 0)
+                self.destroy_season_recommendations(rec.sender, user)
+              else
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: 0)
+                Recommendation.find(rec.id).destroy
+              end
+            else
+              WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: 0)
+              Recommendation.find(rec.id).destroy
+            end
           end
       end
+    end
+  end
+
+  def destroy_show_recommendations(sender, receiver)
+    medium_ids = []
+    self.show.episodes.each do |episode|
+      medium_ids << episode.medium_id
+    end
+    medium_ids.each do |id|
+      Recommendation.where(receiver_id: receiver.id, sender_id: sender.id, medium_id: id).first.destroy
+    end
+  end
+
+  def destroy_season_recommendations(sender, receiver)
+    medium_ids = []
+    self.season.episodes.each do |episode|
+      medium_ids << episode.medium_id
+    end
+    medium_ids.each do |id|
+      Recommendation.where(receiver_id: receiver.id, sender_id: sender.id, medium_id: id).first.destroy
     end
   end
 
@@ -84,7 +152,8 @@ class Episode < ActiveRecord::Base
   def unrecommend_to(receiver, sender)
     rec = Recommendation.where(sender_id: sender, receiver_id: receiver, media_type: "Episode", medium_id: self.medium_id).first
     if rec
-      RecNote.where(sender_id: sender, receiver_id: receiver, media_type: "Episode", medium_id: self.medium_id).first.destroy
+      note = RecNote.where(sender_id: sender, receiver_id: receiver, media_type: "Episode", medium_id: self.medium_id).first
+      note.destroy if note
       rec.destroy
       self.medium.decrement_recommends
       self.season.medium.decrement_recommends
