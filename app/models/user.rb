@@ -317,6 +317,14 @@ class User < ActiveRecord::Base
     genres = genres.sort_by {|tag, amount| amount}.reverse.to_h
   end
 
+  def shows_vs_movies
+    shows_vs_movies = {:shows => 0, :movies => 0}
+    self.likes.each do |like|
+      like.medium.media_type == "Movie" ? shows_vs_movies[:movies] += 1 : shows_vs_movies[:shows] += 1
+    end
+    shows_vs_movies
+  end
+
   private
 
   class Note

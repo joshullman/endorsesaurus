@@ -18,6 +18,10 @@
 		</div>
 		<div class="shows_vs_movies">
 			<h3 class="text_center">Shows vs Movies</h3>
+			<% @shows_vs_movies.each do |media_type, amount| %>
+				<%= media_type %>: <%= amount %>
+				<br>
+			<% end %>
 		</div>
 	</div>
 	<div class="profile_right_column">
