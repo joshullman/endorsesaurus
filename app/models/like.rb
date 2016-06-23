@@ -14,4 +14,5 @@ class Like < ActiveRecord::Base
 			self.medium.episode
 		end
 	end
+
 end

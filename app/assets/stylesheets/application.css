@@ -275,9 +275,42 @@ h4 {
 	text-align: center;
 }
 
-/* Columns for Dashboard/Profile/Friends/MoviesList/ShowsList */
+/* Profile Divs */
+.profile_left_column {
+	height: 100%;
+	width: 30%;
+	float: left;
+	margin-left: 2%;
+	margin-right: 2%;
+}
 
-.left_50 {
+.profile_right_column {
+	height: 100%;
+	width: 62%;
+	float: left;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.badges_container {
+
+}
+
+.most_liked_genres {
+
+}
+
+.likes_distribution {
+
+}
+
+.shows_vs_movies {
+
+}
+
+/* user/movies user/shows divs */
+
+.recommendations_container {
 	height: 100%;
 	width: 46%;
 	float: left;
@@ -285,7 +318,7 @@ h4 {
 	margin-right: 2%;
 }
 
-.right_50 {
+.likes_container {
 	height: 100%;
 	width: 46%;
 	float: left;

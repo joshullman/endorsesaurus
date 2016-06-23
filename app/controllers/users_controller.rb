@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
     @recent_activity = @user.profile_notes(10)
     p @recent_activity
+    @most_liked_genres = @user.most_liked_genres
   end
 
   def movies

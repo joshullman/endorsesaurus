@@ -1,9 +1,9 @@
 <%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
 <%= render partial: 'layouts/secondary_nav_bar', locals: { user: @user } %>
 
-<div>
-	<h3 class="text_center">Your friend's recent activity:</h3>
+<div class="dashboard_container">
 	<div class="dashboard_recents_list">
+	<h3 class="text_center">Your friend's recent activity:</h3>
 		<% @friends_recents.each do |note| %>
 			<% case note.note_type %>
 				<% when "RecNote" %>

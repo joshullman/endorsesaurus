@@ -306,6 +306,17 @@ class User < ActiveRecord::Base
     results
   end
 
+  def most_liked_genres
+    genres = {}
+    self.likes.where(value: 1).each do |like|
+      like.medium.media_type == "Movie" ? tags = like.medium.tags : tags = like.find_associated_media.show.medium.tags
+      tags.each do |tag|
+        genres[tag] ? genres[tag] += 1 : genres[tag] = 1
+      end
+    end
+    genres = genres.sort_by {|tag, amount| amount}.reverse.to_h
+  end
+
   private
 
   class Note

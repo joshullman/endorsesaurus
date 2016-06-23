@@ -1,33 +1,53 @@
 <%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
 <%= render partial: 'layouts/secondary_nav_bar', locals: { user: @user } %>
 
-<div>
-	<h3 class="text_center"><%= @user.name%>'s recent activity:</h3>
-	<div class="friends_recents_list">
-		<% @recent_activity.each do |note| %>
-			<% case note.note_type %>
-				<% when "RecNote" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_rec_note', locals: { note: note, user: @user } %>
-						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
-					</div>
-					<br>
-
-				<% when "WatchedRecNote" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_watched_rec_note', locals: { note: note, user: @user } %>
-						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
-					</div>
-					<br>
-
-				<% when "WatchedNote" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_watched_note', locals: { note: note, user: @user } %>
-						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
-					</div>
-					<br>
-
+<div class="dashboard_container">
+	<div class="profile_left_column">
+		<div class="badges_container">
+			<h3 class="text_center">Badges</h3>
+		</div>
+		<div class="most_liked_genres">
+			<h3 class="text_center">Most Liked Genres</h3>
+			<% @most_liked_genres.each do |genre, amount| %>
+				<%= link_to genre.name, tag_path(genre) %>: <%= amount %>
+				<br>
 			<% end %>
-		<% end %>
+		</div>
+		<div class="likes_distribution">
+			<h3 class="text_center">Likes Distribution</h3>
+		</div>
+		<div class="shows_vs_movies">
+			<h3 class="text_center">Shows vs Movies</h3>
+		</div>
+	</div>
+	<div class="profile_right_column">
+		<div class="dashboard_recents_list">
+			<h3 class="text_center"><%= @user.name %>'s Recent Activity</h3>
+			<% @recent_activity.each do |note| %>
+				<% case note.note_type %>
+					<% when "RecNote" %>
+						<div class="event_wrapper">
+							<%= render partial: 'layouts/event_rec_note', locals: { note: note, user: @user } %>
+							<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
+						</div>
+						<br>
+
+					<% when "WatchedRecNote" %>
+						<div class="event_wrapper">
+							<%= render partial: 'layouts/event_watched_rec_note', locals: { note: note, user: @user } %>
+							<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
+						</div>
+						<br>
+
+					<% when "WatchedNote" %>
+						<div class="event_wrapper">
+							<%= render partial: 'layouts/event_watched_note', locals: { note: note, user: @user } %>
+							<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
+						</div>
+						<br>
+
+				<% end %>
+			<% end %>
+		</div>
 	</div>
 </div>
