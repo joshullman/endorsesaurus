@@ -5,68 +5,25 @@
 	<h3 class="text_center"><%= @user.name%>'s recent activity:</h3>
 	<div class="friends_recents_list">
 		<% @recent_activity.each do |note| %>
-			<% case note.class.to_s %>
-				<% when "like" %>
+			<% case note.note_type %>
+				<% when "RecNote" %>
 					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_user_icon', locals: { user: notification.user_one, notification: notification } %>
-						<span class="span_liked">liked</span>
-						<%= render partial: 'layouts/poster_icon', locals: { media: notification.media } %>
+						<%= render partial: 'layouts/event_rec_note', locals: { note: note, user: @user } %>
+						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
 					</div>
 					<br>
 
-				<% when "seen" %>
+				<% when "WatchedRecNote" %>
 					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_user_icon', locals: { user: notification.user_one, notification: notification } %>
-						<span class="span_seen">watched</span>
-						<%= render partial: 'layouts/poster_icon', locals: { media: notification.media } %>
+						<%= render partial: 'layouts/event_watched_rec_note', locals: { note: note, user: @user } %>
+						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
 					</div>
 					<br>
 
-				<% when "dislike" %>
+				<% when "WatchedNote" %>
 					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_user_icon', locals: { user: notification.user_one, notification: notification } %>
-						<span class="span_disliked">disliked</span>
-						<%= render partial: 'layouts/poster_icon', locals: { media: notification.media } %>
-					</div>
-					<br>
-
-				<% when "recommendation" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_user_icon', locals: { user: notification.user_one, notification: notification } %>
-						<%= image_tag ('blue_right_arrow.png'), class: "dashboard_icons" %>
-						<%= render partial: 'layouts/poster_icon', locals: { media: notification.media } %>
-						<%= image_tag ('blue_right_arrow.png'), class: "dashboard_icons" %> 
-						<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_two } %>
-					</div>
-					<br>
-
-				<% when "liked rec" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_user_icon', locals: { user: notification.user_two, notification: notification } %> 
-						<span class="span_liked">liked</span> 
-						<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
-						's recommendation 
-						<%= render partial: 'layouts/poster_icon', locals: { media: notification.media } %>
-					</div>
-					<br>
-
-				<% when "seen rec" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_user_icon', locals: { user: notification.user_two, notification: notification } %> 
-						<span class="span_seen">watched</span> 
-						<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
-						's recommendation 
-						<%= render partial: 'layouts/poster_icon', locals: { media: notification.media } %>
-					</div>
-					<br>
-
-				<% when "disliked rec" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_user_icon', locals: { user: notification.user_two, notification: notification } %> 
-						<span class="span_disliked">disliked</span> 
-						<%= render partial: 'layouts/friend_icon', locals: { user: notification.user_one } %>
-						's recommendation 
-						<%= render partial: 'layouts/poster_icon', locals: { media: notification.media } %>
+						<%= render partial: 'layouts/event_watched_note', locals: { note: note, user: @user } %>
+						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
 					</div>
 					<br>
 

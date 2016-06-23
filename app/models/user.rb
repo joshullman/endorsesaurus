@@ -111,29 +111,26 @@ class User < ActiveRecord::Base
 
   def profile_notes(amount = 10)
     notes = []
-    notes << self.watched_notes
-    notes << self.rec_notes
-    notes << self.watched_rec_notes
-    notes = notes.flatten.sort_by {|note| note.created_at}.reverse!
-  end
+    notes << self.rec_notes.group_by {|note| note.medium_id}
+    notes << self.watched_notes.group_by {|note| note.medium_id}
+    notes << self.watched_rec_notes.group_by {|note| note.medium_id}
 
-  def recent_activity(amount = 10)
-    activities = []
-    notifications = self.notifications.last(amount)
-    notifications.each do |notification|
-      note = Note.new(notification)
-      note.do_stuff
-      activities << note
+    note_objects = []
+    notes.each do |note_hash|
+      note_hash.each do |medium_id, note_array|
+        note = Note.new(note_array, self.id)
+        note.do_stuff
+        note_objects << note
+      end
     end
-    activities.reverse!
-  end
-
-  def friends_recent_activity
-    activities = []
-    self.friends.each do |friend|
-      activities << friend.recent_activity
+    note_objects = note_objects.sort_by {|note| note.created_at }.reverse!
+    copies = []
+    note_objects.each do |note_object|
+      if note_object.note_type == "WatchedRecNote"
+        copies << note_objects.select {|note| note.note_type == "WatchedNote" && note.medium_id == note_object.medium_id}
+      end
     end
-    activities.flatten.sort {|x, y| y.created_at <=> x.created_at }
+    note_objects = note_objects - copies.flatten
   end
 
   # FRIENDS
@@ -312,24 +309,29 @@ class User < ActiveRecord::Base
   private
 
   class Note
-    attr_reader :sender, :receiver, :media_type, :notification_type, :media, :points, :created_at
-    def initialize(notification)
-      @notification = notification
-      @sender = notification.sender
-      @receiver = notification.receiver
-      @notification_type = notification.notification_type
-      @created_at = notification.created_at
+    attr_reader :note_type, :media, :medium_id, :created_at, :receivers, :senders, :user, :media_type, :value, :points
+    def initialize(notes, user_id)
+      @user_id = user_id
+      @notes = notes
+      @note_type = notes.first.class.to_s
+      @created_at = notes.first.created_at
+      @medium_id = @notes.first.medium_id
+      @media =  Medium.find(@notes.first.medium_id).find_associated_media
+      @media_type = @media.class.to_s
     end
 
     def do_stuff
-      if @notification_type != "friends"
-        @medium = Medium.find(@notification.medium_id)
-        @media_type = @medium.media_type
-        @media = @medium.find_associated_media
-        p @media
-        @points = @media.points
+      if @note_type != "WatchedNote"
+        @receivers = @notes.map {|note| note.receiver }.uniq
+        @senders = @notes.map {|note| note.sender }.uniq
+        if @note_type == "WatchedRecNote"
+          @value = @notes.first.value
+          @points = @notes.first.points
+        end
+      else
+        @value = @notes.first.value
+        @user = User.first(@notes.first.user_id)
       end
     end
-
   end
 end

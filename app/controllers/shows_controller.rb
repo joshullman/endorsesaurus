@@ -51,9 +51,9 @@ class ShowsController < ApplicationController
 
 	def friends_like(id, value)
 		friends = []
-		current_user.friends.each do |friend|
-			friends << friend if friend.user_likes[id] == value
-		end
+		# current_user.friends.each do |friend|
+		# 	friends << friend if friend.user_likes[id] == value
+		# end
 		friends
 	end
 

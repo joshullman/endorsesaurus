@@ -1,0 +1,52 @@
+<% if note.media_type == "Movie" %>
+	<div class="event_information">
+		<div class="user_icon">
+			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
+		</div>
+		<div class="event_info">
+			<% note.senders.each do |sender| %>
+				<%= link_to sender.name, user_path(sender) %>
+			<% end %>
+			recommended <%= link_to note.media.title, movie_path(note.media) %> to 
+			<% note.receivers.each do |receiver| %>
+				<%= link_to receiver.name, user_path(receiver) %>
+			<% end %>
+			<br>
+			<%= note.created_at.strftime("%d %b. %Y") %>
+		</div> 
+	</div> 
+<% elsif note.media_type == "Season" || note.media_type == "Episode" %>
+	<div class="event_information">
+		<div class="user_icon">
+			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
+		</div>
+		<div class="event_info">
+			<% note.senders.each do |sender| %>
+				<%= link_to sender.name, user_path(sender) %>
+			<% end %>
+			recommended <%= link_to note.media.title, show_path(note.media.show_id) %> to 
+			<% note.receivers.each do |receiver| %>
+				<%= link_to receiver.name, user_path(receiver) %>
+			<% end %>
+			<br>
+			<%= note.created_at.strftime("%d %b. %Y") %>
+		</div> 
+	</div> 
+<% else %>
+	<div class="event_information">
+		<div class="user_icon">
+			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
+		</div>
+		<div class="event_info">
+			<% note.senders.each do |sender| %>
+				<%= link_to sender.name, user_path(sender) %>
+			<% end %>
+			recommended <%= link_to note.media.title, show_path(note.media.id) %> to 
+			<% note.receivers.each do |receiver| %>
+				<%= link_to receiver.name, user_path(receiver) %>
+			<% end %>
+			<br>
+			<%= note.created_at.strftime("%d %b. %Y") %>
+		</div> 
+	</div> 
+<% end %>

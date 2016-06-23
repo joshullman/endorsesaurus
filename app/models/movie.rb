@@ -64,18 +64,18 @@ class Movie < ActiveRecord::Base
 					recommendations.map do |rec|
 		        rec.sender.update_points(self.points)
 		        Recommendation.find(rec.id).destroy
-		        WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Movie", medium_id: medium_id, value: 1)
+		        WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Movie", medium_id: medium_id, value: 1, points: self.points)
 		      end
 				when -1
 					recommendations.map do |rec|
 					  rec.sender.update_points(-self.points)
 					  Recommendation.find(rec.id).destroy
-					  WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Movie", medium_id: medium_id, value: -1)
+					  WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Movie", medium_id: medium_id, value: -1, points: self.points)
 					end
 				when 0
 					recommendations.map do |rec|
 					  Recommendation.find(rec.id).destroy
-					  WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Movie", medium_id: medium_id, value: 0)
+					  WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Movie", medium_id: medium_id, value: 0, points: 0)
 					end
 			end
 		end

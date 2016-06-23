@@ -72,20 +72,20 @@ class Episode < ActiveRecord::Base
             if note
               if rec.sender.recommended_show_to?(user.id, self.show_id)
                 rec.sender.update_points(self.show.points)
-                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Show", medium_id: self.show_id, value: value, points: -self.show.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Show", medium_id: self.show_id, value: value, points: self.show.points)
                 self.destroy_show_recommendations(rec.sender, user)
               elsif rec.sender.recommended_season_to?(user.id, self.season_id)
                 rec.sender.update_points(self.season.points)
-                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Season", medium_id: self.season_id, value: value, points: -self.season.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Season", medium_id: self.season_id, value: value, points: self.season.points)
                 self.destroy_season_recommendations(rec.sender, user)
               else
                 rec.sender.update_points(-self.points)
-                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: -self.points)
+                WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: self.points)
                 Recommendation.find(rec.id).destroy
               end
             else
               rec.sender.update_points(-self.points)
-              WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: -self.points)
+              WatchedRecNote.create(sender_id: rec.sender.id, receiver_id: user.id, media_type: "Episode", medium_id: medium_id, value: value, points: self.points)
               Recommendation.find(rec.id).destroy
             end
           end

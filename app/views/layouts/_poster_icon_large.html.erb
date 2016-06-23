@@ -1,0 +1,12 @@
+<div class="poster_icon_wrapper">
+	<% case media.medium.media_type %>
+		<% when "Movie" %>
+			<%= link_to image_tag(media.poster), movie_path(media), class: "poster_icon_large" %>
+		<% when "Show" %>
+			<%= link_to image_tag(media.poster), show_path(media), class: "poster_icon_large" %>
+		<% when "Season" %>
+			<%= link_to image_tag(media.show.poster), show_path(media.show), class: "poster_icon_large" %>
+		<% when "Episode" %>
+			<%= link_to image_tag(media.show.poster), show_path(media.show), class: "poster_icon_large" %>
+	<% end %>
+</div> 
