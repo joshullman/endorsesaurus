@@ -311,18 +311,27 @@ class User < ActiveRecord::Base
     self.likes.where(value: 1).each do |like|
       like.medium.media_type == "Movie" ? tags = like.medium.tags : tags = like.find_associated_media.show.medium.tags
       tags.each do |tag|
-        genres[tag] ? genres[tag] += 1 : genres[tag] = 1
+        genres[tag.name] ? genres[tag.name] += 1 : genres[tag.name] = 1
       end
     end
     genres = genres.sort_by {|tag, amount| amount}.reverse.to_h
   end
 
-  def shows_vs_movies
+  def shows_vs_movies_and_likes_distribution
+    likes = {:likes => 0, :seens => 0, :dislikes => 0}
     shows_vs_movies = {:shows => 0, :movies => 0}
     self.likes.each do |like|
+      case like.value
+        when 1
+          likes[:likes] += 1
+        when 0
+          likes[:seens] += 1
+        when -1
+          likes[:dislikes] += 1
+      end
       like.medium.media_type == "Movie" ? shows_vs_movies[:movies] += 1 : shows_vs_movies[:shows] += 1
     end
-    shows_vs_movies
+    [shows_vs_movies, likes]
   end
 
   private

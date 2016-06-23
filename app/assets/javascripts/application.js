@@ -14,6 +14,8 @@
 //= require jquery_ujs
 // THIS IS WHERE TURBOLINKS WAS
 //= require_tree .
+//= require Chart.bundle
+//= require chartkick
 
 // $('.rec_wrapper').on('submit', '.main_search', function(event) {
 //   event.preventDefault();

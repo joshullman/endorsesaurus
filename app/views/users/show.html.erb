@@ -6,22 +6,32 @@
 		<div class="badges_container">
 			<h3 class="text_center">Badges</h3>
 		</div>
+		<br>
 		<div class="most_liked_genres">
 			<h3 class="text_center">Most Liked Genres</h3>
-			<% @most_liked_genres.each do |genre, amount| %>
-				<%= link_to genre.name, tag_path(genre) %>: <%= amount %>
+			<%= pie_chart(@most_liked_genres, discrete: true) %>
+<!-- 			<% @most_liked_genres.each do |genre, amount| %>
+				<%= link_to genre, tag_path(Tag.where(name: genre).first) %>: <%= amount %>
 				<br>
-			<% end %>
+			<% end %> -->
 		</div>
+		<br>
 		<div class="likes_distribution">
 			<h3 class="text_center">Likes Distribution</h3>
+			<%= pie_chart(@likes_distribution, discrete: true) %>
+<!-- 			<% @likes_distribution.each do |like_type, amount| %>
+				<%= like_type %>: <%= amount %>
+				<br>
+			<% end %> -->
 		</div>
+		<br>
 		<div class="shows_vs_movies">
 			<h3 class="text_center">Shows vs Movies</h3>
-			<% @shows_vs_movies.each do |media_type, amount| %>
+			<%= pie_chart(@shows_vs_movies, discrete: true) %>
+<!-- 			<% @shows_vs_movies.each do |media_type, amount| %>
 				<%= media_type %>: <%= amount %>
 				<br>
-			<% end %>
+			<% end %> -->
 		</div>
 	</div>
 	<div class="profile_right_column">
