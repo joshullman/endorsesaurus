@@ -44,32 +44,6 @@ class User < ActiveRecord::Base
     episode_count == season.episode_count
   end
 
-  # def likes_show?(show_id)
-  #   medium_ids = []
-  #   show = Show.find(show_id)
-  #   show.episodes.each do |episode|
-  #     medium_ids << episode.medium_id
-  #   end
-  #   true_count = 0
-  #   medium_ids.each do |medium_id|
-  #     true_count += 1 if Like.where(user_id: self.id, medium_id: medium_id).first
-  #   end
-  #   true_count == show.episode_count
-  # end
-
-  # def likes_season?(season_id)
-  #   medium_ids = []
-  #   season = Season.find(season_id)
-  #   season.episodes.each do |episode|
-  #     medium_ids << episode.medium_id
-  #   end
-  #   true_count = 0
-  #   medium_ids.each do |medium_id|
-  #     true_count += 1 if Like.where(user_id: self.id, medium_id: medium_id).first
-  #   end
-  #   true_count == season.episode_count
-  # end
-
   # Likes
 
   has_many :likes
@@ -113,25 +87,34 @@ class User < ActiveRecord::Base
     (sent_friend_notes | received_friend_notes).sort!
   end
 
+  def watched_rec_notes
+    (sent_watched_rec_notes | received_watched_rec_notes).sort!
+  end
+
   def received_notifications
     notes = []
     instance.class.to_s
     notes << received_recs
     notes << received_friend_notes
     notes << received_watched_rec_notes
-    notes.sort!.reverse!
+    notes = notes.sort_by {|note| note.created_at }.reverse!
   end
 
   def dashboard_notes(amount = 10)
-    # friends activity
-    # friend recommended stuff to
-    # friend watched
-    # friend watched and people got points
+    friends = self.friends
+    friends_activity = []
+    friends.each do |friend|
+      friends_activity << friend.profile_notes(amount)
+    end
+    friends_activity = friends_activity.flatten.sort_by {|note| note.created_at }.reverse!
   end
 
   def profile_notes(amount = 10)
     notes = []
-    notes
+    notes << self.watched_notes
+    notes << self.rec_notes
+    notes << self.watched_rec_notes
+    notes = notes.flatten.sort_by {|note| note.created_at}.reverse!
   end
 
   def recent_activity(amount = 10)

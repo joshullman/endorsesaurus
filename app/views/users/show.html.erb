@@ -4,8 +4,8 @@
 <div>
 	<h3 class="text_center"><%= @user.name%>'s recent activity:</h3>
 	<div class="friends_recents_list">
-		<% @recent_activity.each do |notification| %>
-			<% case notification.notification_type %>
+		<% @recent_activity.each do |note| %>
+			<% case note.class.to_s %>
 				<% when "like" %>
 					<div class="event_wrapper">
 						<%= render partial: 'layouts/event_user_icon', locals: { user: notification.user_one, notification: notification } %>

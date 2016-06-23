@@ -314,19 +314,16 @@ i = 1
 	i += 1
 end
 
-# Creating Likes
-p "Creating Likes"
-192.times do
-	user = rand(User.count) + 1
-	media = rand(Medium.count) + 1
-	value = rand(3) - 1
-	until Like.where(user_id: user, medium_id: media).first == nil
-		user = rand(User.count) + 1
-		media = rand(Medium.count) + 1
-		value = rand(3) - 1
+# Liking Recommendations
+p "Liking Recommendations"
+128.times do
+	user_one = rand(User.count) + 1
+	until User.find(user_one).received_recs.sample != nil
+		user_one = rand(User.count) + 1
 	end
-	med = Medium.find(media)
-	med.find_associated_media.watch(User.find(user), value)
+	value = rand(3) - 1
+	medium = User.find(user_one).received_recs.sample.medium
+	medium.find_associated_media.watch(User.find(user_one), value)
 end
 
 # Adding Friends
