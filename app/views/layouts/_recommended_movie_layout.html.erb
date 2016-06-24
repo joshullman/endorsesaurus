@@ -2,11 +2,9 @@
 	<span class="rec_points"><%= rec.user_points %></span>
 	<span class="upvote_icon"><%= render partial: 'layouts/upvote_icon', locals: { user: user, current_user_likes: current_user_likes, rec: rec, current_user: current_user } %></span>
 	<span class="title_center"><%= link_to rec.info.title, movie_path(rec.info) %></span>
-	<span class="icons_right"><%= render partial: 'layouts/rec_icons', locals: { user: user, current_user_likes: current_user_likes, rec: rec, current_user: current_user } %></span>
+	<span class="icons_right"><%= rec.media_points %><%= render partial: 'layouts/rec_icons', locals: { user: user, current_user_likes: current_user_likes, rec: rec, current_user: current_user } %></span>
 	<br>
 	<div class="recommendation_expanded_movie">
-		<br>
-		Media Points: <%= rec.media_points %>
 		<br>
 		Year: <%= rec.info.year %>
 		<br>
@@ -28,12 +26,12 @@
 		<br>
 		Plot: <%= rec.info.plot %>
 		<br>
-		<div class="bar_mortice mortice_tiny" style="width: 74%">
+		<div class="bar_mortice mortice_tiny" style="width: 266px">
 		  <div class="progress progress_tiny green" style="width: <%= percents[0] %>%;"></div>
 		  <div class="progress progress_tiny yellow" style="width: <%= percents[1] %>%;"></div>
 		  <div class="progress progress_tiny red" style="width: <%= percents[2] %>%;"></div>
 		</div>
-		<img src="<%= rec.info.poster %>">
+		<img class="full_poster" src="<%= rec.info.poster %>">
 		<br>
 		Recommended By:
 		<br>

@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     # @current_user_likes = current_user.user_likes
 
     @recent_activity = @user.profile_notes(10)
-    p @recent_activity
     @most_liked_genres = @user.most_liked_genres
     @shows_vs_movies_and_likes_distribution = @user.shows_vs_movies_and_likes_distribution
     @shows_vs_movies = @user.shows_vs_movies_and_likes_distribution[0]
@@ -21,9 +20,9 @@ class UsersController < ApplicationController
     @current_user_likes = current_user.movie_likes
     @user_likes = @user.movie_likes
     @likes = @watched[1]
-    @seen = @watched[0]
+    @seens = @watched[0]
     @dislikes = @watched[-1]
-    @percents = movie_percents(@movie_recs)
+    @percents = movie_percents(@movie_recs, @watched)
   end
 
   def shows
@@ -108,10 +107,15 @@ class UsersController < ApplicationController
     likes_hash
   end
 
-  def movie_percents(movie_recs)
+  def movie_percents(movie_recs, watched)
     percents = {}
     movie_recs.each do |rec|
       percents[rec.info.medium_id] = rec.info.percents
+    end
+    watched.each_value do |movies_array|
+      movies_array.each do |movie|
+        percents[movie.medium_id] = movie.percents
+      end
     end
     percents
   end

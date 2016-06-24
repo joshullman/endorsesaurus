@@ -52,16 +52,16 @@ class User < ActiveRecord::Base
     likes = {}
     movie_likes = Like.where(user_id: self.id, media_type: "Movie")
     movie_likes.each do |like|
-      likes[Medium.find(like.medium_id).id] = like.value
+      likes[like.medium_id] = like.value
     end
     likes
   end
 
   def show_likes
     likes = {}
-    movie_likes = Like.where(user_id: self.id, media_type: "Movie")
-    movie_likes.each do |like|
-      likes[Medium.find(like.medium_id).id] = like.value
+    show_likes = Like.where(user_id: self.id, media_type: "Episode")
+    show_likes.each do |like|
+      likes[like.medium_id] = like.value
     end
     likes
   end

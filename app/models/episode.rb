@@ -7,11 +7,11 @@ class Episode < ActiveRecord::Base
     if Like.where(user_id: user.id, medium_id: self.medium_id).empty?
       self.like_and_distribute_points(user, value, note)
     else
-      self.update_like(user, value)
+      self.update_like(user, value, note)
     end
   end
 
-	def update_like(user, value)
+	def update_like(user, value, note = true)
 		like = Like.where(user_id: user.id, medium_id: self.medium_id).first
 		old_value = like.value
     like.value = value
@@ -24,7 +24,7 @@ class Episode < ActiveRecord::Base
     self.show.medium.decrement_likes(old_value)
     note = WatchedNote.where(user_id: user.id, medium_id: self.medium_id).first
     note.destroy if note
-    WatchedNote.create(user_id: user.id, medium_id: self.medium_id, media_type: "Episode", value: value)
+    WatchedNote.create(user_id: user.id, medium_id: self.medium_id, media_type: "Episode", value: value) if note
 	end
 
 	def like_and_distribute_points(user, value, note = true)

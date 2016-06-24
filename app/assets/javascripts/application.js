@@ -89,4 +89,11 @@ $(document).ready(function(){
     $(this).children('.recommendation_expanded_movie').toggle();
   })
 
+// Expand Movie Likes jquery
+
+$('.likes_row_movie').click(function() {
+    console.log($(this));
+    $(this).children('.likes_expanded_movie').toggle();
+  })
+
 });
