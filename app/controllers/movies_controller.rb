@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
 		@tags = {}
 		@all_tags.each do |tag|
-			movies = tag.movies
+			movies = tag.movies.take(10)
 			@tags[tag] = movies
 			movies.each {|movie| @percents[movie.medium_id] = movie.percents}
 		end
