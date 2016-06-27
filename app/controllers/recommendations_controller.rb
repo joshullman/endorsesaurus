@@ -13,7 +13,7 @@ class RecommendationsController < ApplicationController
       @already_disliked = []
 
       @friends.each do |friend|
-        @recommended_to << friend if friend.already_recommended_show_to?(current_user, @media.id)
+        @recommended_to << friend if friend.recommended_show_to?(current_user, @media.id)
         case friend.watched_all_seasons?(@media.id)
           when [true, 1]
             @already_liked << friend
