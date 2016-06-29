@@ -12,12 +12,20 @@ class TagsController < ApplicationController
 	def show
 		@percents = {}
 		@movies = @tag.movies
-		@shows = @tag.shows
+		@most_watched_movies = @movies.sort_by {|movie| movie.medium.watched_count }.reverse!
+		@most_liked_movies = @movies.sort_by {|movie| movie.medium.liked_count }.reverse!
+		@most_recommended_movies = @movies.sort_by {|movie| movie.medium.recommended_count }.reverse!
 		@movies.each {|movie| @percents[movie.medium_id] = movie.percents}
+
+		@shows = @tag.shows
+		@most_watched_shows = @shows.sort_by {|show| show.medium.watched_count }.reverse!
+    @most_liked_shows = @shows.sort_by {|show| show.medium.liked_count }.reverse!
+    @most_recommended_shows = @shows.sort_by {|show| show.medium.recommended_count }.reverse!
 		@shows.each {|show| @percents[show.medium_id] = show.percents}
 
   	@current_user_movie_likes = current_user.movie_likes
 		@current_user_show_likes = current_user.show_likes
+		@current_user_likes = @current_user_movie_likes.merge(@current_user_show_likes)
 	end
 
 	def create

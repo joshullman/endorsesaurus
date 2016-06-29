@@ -36,6 +36,8 @@ gem 'sunspot_solr'
 
 gem 'chartkick'
 
+gem 'jquery-slick-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
