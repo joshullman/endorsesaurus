@@ -1,58 +1,50 @@
-<%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
-<%= render partial: 'layouts/secondary_nav_bar', locals: { user: @user } %>
-
-<div class="left_col">
-</div>
-
-<div>
-  <h3 class="text_center"><%= @user.name %>'s Friends</h3>
-  <ul class="text_center">
-    <% @user.friends.each do |friend| %>
-      <div class="friend_icon_wrapper">
-        <%= link_to image_tag('profile.jpg'), friend, class: "photo_icon"%>
-        <br>
-        <%= link_to friend.name, friend, class: "text_center" %> 
-        <br>
-        <% if current_user == @user %>
-          <%= link_to "(Delete)", friendship_path(:id => friend), :method => :delete, class: "text_center" %>
-        <% end %>
-        <br>
-        <br>
-      </div>
-    <% end %>
-  </ul>
-
-  <% if current_user == @user %>
-      <h3 class="text_center">Friend Requests</h3>
-      <ul class="text_center">
-        <% @user.requested_friendships.each do |request| %>
-          <div class="friend_icon_wrapper">
-            <%= link_to image_tag('profile.jpg'), request, class: "photo_icon"%>
-            <br>
-            <%= link_to request.name, request, class: "text_center" %>
-            <br>
-            <%= link_to "(Accept)", friendship_path(:id => request), :method => "put", class: "text_center" %>
-            <br>
-            <%= link_to "(Decline)", friendship_path(:id => request), :method => :delete, class: "text_center" %>
-            <br>
-            <br>
-          </div>
-        <% end %>
-      </ul>
-  <% end %>
-
-   <% if current_user == @user %>
-    <h3 class="text_center">Pending Requests</h3>
-    <ul class="text_center">
-      <% @user.pending_friends.each do |request| %>
-        <div class="friend_icon_wrapper">
-          <%= link_to image_tag('profile.jpg'), request, class: "photo_icon"%>
-          <br>
-          <%= link_to request.name, request, class: "text_center" %> 
-          <br>
-          <br>
+<section class="content-2 simple col-1 col-undefined mbr-parallax-background mbr-after-navbar" id="content5-77" style="background-image: url(http://lovelace-media.imgix.net/uploads/95/51ee4f00-8007-0132-1d93-0a2c89e5f2f5.jpeg?http://lovelace-media.imgix.net/uploads/95/51ee4f00-8007-0132-1d93-0a2c89e5f2f5.jpeg?);">
+    <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(0, 0, 0);"></div>
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>CaptainPlanet's Endorsesaurus Enclosure</h3>
+                    </div>
+                </div>
+            </div>
         </div>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
+    </div>
+</section>
+<section class="mbr-section" id="header3-78">
+    <div class="mbr-section__container container mbr-section__container--first">
+        <div class="mbr-header mbr-header--wysiwyg row">
+            <div class="col-sm-12 text-center">
+                <h3 class="mbr-header__text">Captain Planet's Friends</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mbr-section" id="image2-83">
+    <div class="mbr-section__container container mbr-section__container--middle">
+        <div class="row">
+            <div class="col-sm-2">
+                <img class="img-responsive" src="http://i.stack.imgur.com/kdrpp.png" />
+                <label class="text-center">Name Here</label>
+            </div>
+            <div class="col-sm-2">
+                <img class="img-responsive" src="http://i.stack.imgur.com/kdrpp.png" />
+            </div>
+            <div class="col-sm-2">
+                <img class="img-responsive" src="http://i.stack.imgur.com/kdrpp.png" />
+            </div>
+            <div class="col-sm-2">
+                <img class="img-responsive" src="http://i.stack.imgur.com/kdrpp.png" />
+            </div>
+            <div class="col-sm-2">
+                <img class="img-responsive" src="http://i.stack.imgur.com/kdrpp.png" />
+            </div>
+            <div class="col-sm-2">
+                <img class="img-responsive" src="http://i.stack.imgur.com/kdrpp.png" />
+            </div>
+        </div>
+        <div class="divider"></div>
+    </div>
+</section>

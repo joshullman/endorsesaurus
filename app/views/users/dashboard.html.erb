@@ -1,33 +1,45 @@
-<%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
-<%= render partial: 'layouts/secondary_nav_bar', locals: { user: @user } %>
+<section class="content-2 simple col-1 col-undefined mbr-parallax-background mbr-after-navbar" id="content5-77" style="background-image: url(https://images3.alphacoders.com/213/213449.jpg);">
+    <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(0, 0, 0);"></div>
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>CaptainPlanet's Endorsesaurus Enclosure</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="dashboard_container">
-	<div class="dashboard_recents_list">
-	<h3 class="text_center">Your friend's recent activity:</h3>
-		<% @friends_recents.each do |note| %>
-			<% case note.note_type %>
-				<% when "RecNote" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_rec_note', locals: { note: note, user: @user } %>
-						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
-					</div>
-					<br>
+<section class="mbr-section" id="header3-78">
+    <div class="mbr-section__container container mbr-section__container--first">
+        <div class="mbr-header mbr-header--wysiwyg row">
+            <div class="col-sm-2">
+                <img class="img-responsive" src="http://i.stack.imgur.com/kdrpp.png" />
+            </div>
+            <div class="col-sm-8">
+                <h3 class="mbr-header__text">SubZero <span class="status">Watched</span> <span class="title">There Will Be Blood</span> and gained <span class="points">0 points</span> </h3>
+                <p class="mbr-header__subtext">July 30, 2016</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-				<% when "WatchedRecNote" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_watched_rec_note', locals: { note: note, user: @user } %>
-						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
-					</div>
-					<br>
+<section class="mbr-section" id="image2-83">
+    <div class="mbr-section__container container mbr-section__container--middle">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <figure class="mbr-figure mbr-figure--wysiwyg mbr-figure--full-width mbr-figure--caption-inside-bottom">
 
-				<% when "WatchedNote" %>
-					<div class="event_wrapper">
-						<%= render partial: 'layouts/event_watched_note', locals: { note: note, user: @user } %>
-						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
-					</div>
-					<br>
-
-			<% end %>
-		<% end %>
-	</div>
-</div>
+                    <div><img class="mbr-figure__img" src="http://static.independent.co.uk/s3fs-public/thumbnails/image/2014/03/12/16/there%20will%20be%20blood.jpg"></div>
+                    <figcaption class="mbr-figure__caption">
+                        <small class="mbr-figure__caption-small">There Will Be Blood </small>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </div>
+</section>

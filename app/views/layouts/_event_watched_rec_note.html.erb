@@ -1,121 +1,161 @@
 <% if note.media_type == "Movie" %>
-	<div class="event_information">
-		<div class="user_icon">
-			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
-		</div>
-		<div class="event_info">
+<section class="mbr-section" id="header3-78">
+	<div class="mbr-section__container container mbr-section__container--first">
+		<div class="mbr-header mbr-header--wysiwyg row">
+			<div class="col-sm-2">
+				<%= link_to image_tag('profile.jpg'), user_path(user), class: "img-responsive" %>
+			</div>
+
 			<% case note.value%>
 				<% when 1%>
+					<div class="col-sm-8">
+						<h3 class="mbr-header__text"><%= link_to note.receivers.first.name, user_path(note.receivers.first) %>  <span class="status">liked</span> <span class="title"><%= link_to note.media.title, movie_path(note.media) %></span> and 
+						<% note.senders.each do |sender| %>
+							<%= link_to sender.name, user_path(sender) %>
+						<% end %>
+						gained <span class="points"><%= note.points %> points</span></h3>
+					</div>
+				<% when 0 %>
+					<div class="col-sm-8">
+						<h3 class="mbr-header__text"><%= link_to note.receivers.first.name, user_path(note.receivers.first) %>  <span class="status">saw</span> <span class="title"><%= link_to note.media.title, movie_path(note.media) %></span> and 
+						<% note.senders.each do |sender| %>
+							<%= link_to sender.name, user_path(sender) %>
+						<% end %>
+						gained <span class="points">0 points</span></h3>
+					</div>
+				<% when -1%>
+					<div class="col-sm-8">
+						<h3 class="mbr-header__text"><%= link_to note.receivers.first.name, user_path(note.receivers.first) %>  <span class="status">disliked</span> <span class="title"><%= link_to note.media.title, movie_path(note.media) %></span> and 
+						<% note.senders.each do |sender| %>
+							<%= link_to sender.name, user_path(sender) %>
+<% end %>
+lost <span class="points"><%= note.points %> points</span></h3>
+</div>
+<% end %>
+<br>
+<p class="mbr-header__subtext"><%= note.created_at.strftime("%d %b. %Y") %></p>
+</div>
+</div>
+</section>
+
+
+			<div class="event_information">
+				<div class="user_icon">
+					<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
+				</div>
+				<div class="event_info">
+					<% case note.value%>
+					<% when 1%>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> liked <%= link_to note.media.title, movie_path(note.media) %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					gained <%= note.points %> points
-				<% when 0 %>
+					<% when 0 %>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> saw <%= link_to note.media.title, movie_path(note.media) %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					gained 0 points
-				<% when -1%>
+					<% when -1%>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> disliked <%= link_to note.media.title, movie_path(note.media) %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					lost <%= note.points %> points
-			<% end %>
-			<br>
-			<%= note.created_at.strftime("%d %b. %Y") %>
-		</div> 
-	</div> 
-<% elsif note.media_type == "Season"%>
-	<div class="event_information">
-		<div class="user_icon">
-			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
-		</div>
-		<div class="event_info">
-			<% case note.value%>
-				<% when 1%>
+					<% end %>
+					<br>
+					<%= note.created_at.strftime("%d %b. %Y") %>
+				</div> 
+			</div> 
+			<% elsif note.media_type == "Season"%>
+			<div class="event_information">
+				<div class="user_icon">
+					<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
+				</div>
+				<div class="event_info">
+					<% case note.value%>
+					<% when 1%>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> liked <%= link_to note.media.title, show_path(note.media.show_id) %> Season <%= note.media.season_num %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					gained <%= note.points %> points
-				<% when 0 %>
+					<% when 0 %>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> saw <%= link_to note.media.title, show_path(note.media.show_id) %> Season <%= note.media.season_num %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					gained 0 points
-				<% when -1%>
+					<% when -1%>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> disliked <%= link_to note.media.title, show_path(note.media.show_id) %> Season <%= note.media.season_num %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					lost <%= note.points %> points
-			<% end %>
-			<br>
-			<%= note.created_at.strftime("%d %b. %Y") %>
-		</div> 
-	</div> 
-<% elsif note.media_type == "Episode" %>
-	<div class="event_information">
-		<div class="user_icon">
-			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
-		</div>
-		<div class="event_info">
-			<% case note.value%>
-				<% when 1%>
+					<% end %>
+					<br>
+					<%= note.created_at.strftime("%d %b. %Y") %>
+				</div> 
+			</div> 
+			<% elsif note.media_type == "Episode" %>
+			<div class="event_information">
+				<div class="user_icon">
+					<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
+				</div>
+				<div class="event_info">
+					<% case note.value%>
+					<% when 1%>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> liked <%= link_to note.media.title, show_path(note.media.show_id) %> Season <%= note.media.season_num %> Episode <%= note.media.episode_num %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					gained <%= note.points %> points
-				<% when 0 %>
+					<% when 0 %>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> saw <%= link_to note.media.title, show_path(note.media.show_id) %> Season <%= note.media.season_num %> Episode <%= note.media.episode_num %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					gained 0 points
-				<% when -1%>
+					<% when -1%>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> disliked <%= link_to note.media.title, show_path(note.media.show_id) %> Season <%= note.media.season_num %> Episode <%= note.media.episode_num %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					lost <%= note.points %> points
-			<% end %>
-			<br>
-			<%= note.created_at.strftime("%d %b. %Y") %>
-		</div> 
-	</div> 
-<% else %>
-	<div class="event_information">
-		<div class="user_icon">
-			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
-		</div>
-		<div class="event_info">
-			<% case note.value%>
-				<% when 1%>
+					<% end %>
+					<br>
+					<%= note.created_at.strftime("%d %b. %Y") %>
+				</div> 
+			</div> 
+			<% else %>
+			<div class="event_information">
+				<div class="user_icon">
+					<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
+				</div>
+				<div class="event_info">
+					<% case note.value%>
+					<% when 1%>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> liked <%= link_to note.media.title, show_path(note.media) %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					gained <%= note.points %> points
-				<% when 0 %>
+					<% when 0 %>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> saw <%= link_to note.media.title, show_path(note.media) %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					gained 0 points
-				<% when -1%>
+					<% when -1%>
 					<%= link_to note.receivers.first.name, user_path(note.receivers.first) %> disliked <%= link_to note.media.title, show_path(note.media) %> and 
 					<% note.senders.each do |sender| %>
-						<%= link_to sender.name, user_path(sender) %>
+					<%= link_to sender.name, user_path(sender) %>
 					<% end %>
 					lost <%= note.points %> points
-			<% end %> 
-			<br>
-			<%= note.created_at.strftime("%d %b. %Y") %>
-		</div> 
-	</div> 
-<% end %>
+					<% end %> 
+					<br>
+					<%= note.created_at.strftime("%d %b. %Y") %>
+				</div> 
+			</div> 
+			<% end %>

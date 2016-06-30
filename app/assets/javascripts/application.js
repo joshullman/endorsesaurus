@@ -11,6 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-sprockets
+//= require SmoothScroll
+//= require jquery.mb.YTPlayer.min
+//= require jarallax
+//= require imagesloaded.pkgd.min
+//= require script
 //= require jquery_ujs
 // THIS IS WHERE TURBOLINKS WAS
 //= require_tree .

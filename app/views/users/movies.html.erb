@@ -1,60 +1,48 @@
-<%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
-<%= render partial: 'layouts/secondary_nav_bar', locals: { user: @user } %>
+<section class="content-2 simple col-1 col-undefined mbr-parallax-background mbr-after-navbar" id="content5-77" style="background-image: url(https://images8.alphacoders.com/457/457955.jpg);">
+    <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(0, 0, 0);"></div>
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3><%= current_user.name %>'s Enclosure</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="recommendations_container">
-	<h3 class="text_center">Movie Recommendations:</h3>
-	<div class="recommendation_wrapper">
-		<% if @movie_recs && !@movie_recs.empty? %>
-			<% @movie_recs.each do |rec| %>
-				<%= render partial: 'layouts/recommended_movie_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: rec, current_user: current_user, percents: @percents[rec.info.medium_id]} %>
-				<br>
-			<% end %>
-		<% else %>
-			<p>No Recommendations to show!</p>
-		<% end %>
-	</div>
-</div>
+<section class="mbr-section" id="header3-78">
+    <div class="mbr-section__container container mbr-section__container--first">
+        <div class="mbr-header mbr-header--wysiwyg row">
+            <div class="col-sm-12 text-center">
+                <h3 class="mbr-header__text">Most Watched Movies</h3>
+            </div>
+        </div>
+    </div>
+</section>
 
-
-<div class="likes_container">
-	<h3>
-	<span class="likes_button">Likes</span> 
-	<span class="seen_button">Seen</span> 
-	<span class="dislikes_button">Dislikes</span>
-	</h3>
-	<div class="watched_wrapper">
-
-		<div class="likes_wrapper">
-			<% if @likes && !@likes.empty? %>
-				<% @likes.each do |like| %>
-					<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, percents: @percents[like.medium_id]} %>	
-					<br>
-				<% end %>
-			<% else %>
-				<p>No likes to show!</p>
-			<% end %>
-		</div>
-
-		<div class="seen_wrapper">
-			<% if @seens && !@seens.empty? %>
-				<% @seens.each do |seen| %>
-					<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, percents: @percents[seen.medium_id]} %>	
-					<br>
-				<% end %>
-			<% else %>
-				<p>No seens to show!</p>
-			<% end %>
-		</div>
-
-		<div class="dislikes_wrapper">
-			<% if @dislikes && !@dislikes.empty? %>
-				<% @dislikes.each do |dislike| %>
-					<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, percents: @percents[dislike.medium_id]} %>	
-					<br>
-				<% end %>
-			<% else %>
-				<p>No dislikes to show!</p>
-			<% end %>
-		</div>
-	</div>
-</div>
+<section class="mbr-section" id="image2-83">
+    <div class="mbr-section__container container mbr-section__container--middle">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="media-info">
+                  <span class="block watch">Watch Count: 6</span>
+                </div>
+                <figure class="mbr-figure mbr-figure--wysiwyg mbr-figure--full-width mbr-figure--caption-inside-bottom">
+                    <div><img class="mbr-figure__img" src="http://ia.media-imdb.com/images/M/MV5BMTc4MjUxNDAwN15BMl5BanBnXkFtZTcwMDMwNDg3OA@@._V1_SX300.jpg"></div>
+                    <figcaption class="mbr-figure__caption">
+                        <small class="mbr-figure__caption-small">There Will Be Blood </small>
+                    </figcaption>
+                </figure>
+                <br>
+                <div class="media-info">
+                  <span class="block btn btn-default">Recommend To</span>
+                  <span class="block btn btn-default">Rate</span>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </div>
+</section>

@@ -10,3 +10,28 @@
 			<%= link_to image_tag(media.show.poster), show_path(media.show), class: "poster_icon_large" %>
 	<% end %>
 </div> 
+
+<section class="mbr-section" id="image2-83">
+    <div class="mbr-section__container container mbr-section__container--middle">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <figure class="mbr-figure mbr-figure--wysiwyg mbr-figure--full-width mbr-figure--caption-inside-bottom">
+
+                    <div>
+                    <% case media.medium.media_type %>
+                    	<% when "Movie" %>
+                    		<%= link_to image_tag(media.poster), movie_path(media), class: "mbr-figure__img" %>
+                    	<% when "Show" %>
+                    		<%= link_to image_tag(media.poster), show_path(media), class: "mbr-figure__img" %>
+                    	<% when "Season" %>
+                    		<%= link_to image_tag(media.show.poster), show_path(media.show), class: "mbr-figure__img" %>
+                    	<% when "Episode" %>
+                    		<%= link_to image_tag(media.show.poster), show_path(media.show), class: "mbr-figure__img" %>
+                    <% end %>
+                    </div>
+                </figure>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </div>
+</section>
