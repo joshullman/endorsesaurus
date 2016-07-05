@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.slick
 // THIS IS WHERE TURBOLINKS WAS
 //= require_tree .
 //= require Chart.bundle
