@@ -26,19 +26,25 @@ $darker_blue: #486765;
 
 $font: 'Amatic SC', cursive;
 
+.login_wrapper {
+	width: 100%;
+}
+
 .login_left {
-	height: 96%;
+	height: 100%;
 	width: 62%;
 	float: left;
-	margin: 2%;
+	margin-left: 1%;
+	margin-right: 2%;
 	border: 1px solid black;
 }
 
 .login_right {
-	height: 96%;
+	height: 100%;
 	width: 30%;
 	float: left;
-	margin: 2%;
+	margin-left: 2%;
+	margin-right: 1%;
 	border: 1px solid black;
 }
 
