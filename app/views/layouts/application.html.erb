@@ -29,7 +29,7 @@
         <li class="nav_element"><%= link_to "Tags", tags_path %></li>
       </ul>
       <ul class="search_bar navbar">
-        <li class="search">
+        <li class="search nav_element">
           <%= form_tag('/media/search', method: :get) do |f| %>
             <%= text_field_tag :title, params[:title] %>
             <%= select_tag "media", options_for_select(["Movies", "Shows"], "Shows")%>
@@ -38,17 +38,18 @@
         </li>
       </ul>
       <ul class="navbar-right navbar">
-        (<%= current_user.points %>)
-        <%= link_to image_tag('profile.jpg'), user_path(current_user), class: "photo_icon_small" %>
-        <li class="nav_element"><%= link_to current_user.name, dashboard_user_path(current_user) %>
-          <ul>
-            <li class="dropdown_element"><%= link_to "Profile", current_user %></li>
-            <li class="dropdown_element"><%= link_to "Friends", friends_user_path(current_user) %></li>
-            <li class="dropdown_element"><%= link_to "Movies", movies_user_path(current_user) %></li>
-            <li class="dropdown_element"><%= link_to "Shows", shows_user_path(current_user) %></li>
-            <li class="dropdown_element"><%= render 'devise/menu/registration_items' %></li>
-            <li class="dropdown_element"><%= render 'devise/menu/login_items' %></li>
-          </ul>
+        <li class="nav_element">(<%= current_user.points %>)</li>
+        <li class="nav_element"><%= link_to image_tag('profile.jpg'), user_path(current_user), class: "photo_icon_small" %></li>
+        <li class="dropdown nav_element">
+          <%= link_to current_user.name, dashboard_user_path(current_user), class: "dropbtn" %>
+          <div class="dropdown_content">
+            <%= link_to "Profile", current_user %>
+            <%= link_to "Friends", friends_user_path(current_user) %>
+            <%= link_to "Movies", movies_user_path(current_user) %>
+            <%= link_to "Shows", shows_user_path(current_user) %>
+            <%= render 'devise/menu/registration_items' %>
+            <%= render 'devise/menu/login_items' %>
+          </div>
         </li>
       </ul>
     <% end %>

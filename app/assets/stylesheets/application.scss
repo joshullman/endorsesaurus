@@ -15,7 +15,13 @@
  *= require slick
  *= require slick-theme
  */
+$red: #CB2259;
+$purple: #831E56;
+$blue: #77B29C;
+$green: #BAC17B;
+$yellow: #F4CE79;
 
+/*
 $green: #A1DBB2;
 $yellow: #FACA66;
 $darker_yellow: #e1b55b;
@@ -23,6 +29,7 @@ $red: #F45D4C;
 $darker_red: #7a2e26;
 $blue: #91CFCA;
 $darker_blue: #486765;
+*/
 
 $font: 'Amatic SC', cursive;
 
@@ -40,11 +47,10 @@ $font: 'Amatic SC', cursive;
 }
 
 .login_right {
-	height: 100%;
+	position: fixed;
+	height: 40%;
 	width: 30%;
-	float: left;
-	margin-left: 2%;
-	margin-right: 1%;
+	left: 68%;
 	border: 1px solid black;
 }
 
@@ -70,15 +76,15 @@ $font: 'Amatic SC', cursive;
 }
 
 .site-name {
-	color: #486765;
+	color: #f9f9f9;
 }
-
 
 header {
 	font-family: 'Amatic SC', cursive;
-	background: #91CFCA;
+	background: $blue;
 	padding: 5px;
 	font-size: 25px;
+	letter-spacing: 2px;
 }
 
 .site-name {
@@ -89,24 +95,80 @@ header {
 h1 {
 	font-family: 'Amatic SC', cursive;
 	font-size: 40px;
+	letter-spacing: 2px;
 }
 
 h2 {
 	font-family: 'Amatic SC', cursive;
 	font-size: 30px;
+	letter-spacing: 2px;
 }
 
 h3 {
 	font-family: 'Amatic SC', cursive;
 	font-size: 25px;
+	letter-spacing: 2px;
 }
 
 h4 {
 	font-family: 'Amatic SC', cursive;
 	font-size: 20px;
+	letter-spacing: 2px;
 }
 
 /*Main Navbar CSS*/
+.navbar-class ul {
+	list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: $blue;
+}
+
+.nav_element {
+	float: left;
+}
+
+.nav_element a, .dropbtn {
+  display: inline-block;
+  color: #f9f9f9;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav_element a:hover, .dropdown:hover .dropbtn {
+  background-color: $yellow;
+}
+
+.nav_element.dropdown {
+  display: inline-block;
+}
+
+.dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: $blue;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown_content a {
+  color: #f9f9f9;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: $yellow;}
+
+.dropdown:hover .dropdown_content {
+  display: block;
+}
+
+/*
+
 .navbar-class a {
 	color: #486765;
   font-size: 25px;
@@ -133,6 +195,8 @@ h4 {
 }
 .navbar .nav_element ul .dropdown_element a {display:block;} 
 .navbar .nav_element ul .dropdown_element:hover {background: #e1b55b;}
+
+*/
 
 /*Icon CSS*/
 
