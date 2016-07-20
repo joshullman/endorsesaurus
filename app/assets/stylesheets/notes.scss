@@ -1,3 +1,10 @@
+$red: #CB2259;
+$purple: #831E56;
+$blue: #77B29C;
+$dark_blue: #29785A;
+$green: #BAC17B;
+$yellow: #F4CE79;
+
 .event_user_icon {
 
 }
@@ -8,11 +15,13 @@
 
 .event_information {
 	float: left;
-	width: 300px;
+	width: 275px;
 }
 
 .event_wrapper {
 	margin: auto;
 	border: 1px solid #7F928A;
 	height: 250px;
+	width: 600px;
+	background-color: $dark_blue;
 }

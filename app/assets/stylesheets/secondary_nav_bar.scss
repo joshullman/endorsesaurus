@@ -5,6 +5,29 @@ $dark_blue: #29785A;
 $green: #BAC17B;
 $yellow: #F4CE79;
 
+.secondary_nav_wrapper {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.secondary_nav_bar_fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 22%;
+  height: 59px;
+  z-index: 0;
+  background-color: $blue;
+}
+
+.secondary_nav {
+  left: 22%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
 .secondary_nav_wrapper ul {
 	list-style-type: none;
   margin: 0;
