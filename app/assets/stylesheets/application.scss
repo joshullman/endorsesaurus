@@ -229,6 +229,54 @@ footer {
 
 /*Icon CSS*/
 
+.icons_wrapper {
+	list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.icon_element {
+	float: left;
+}
+
+.icon_element a, .iconbtn {
+  display: inline-block;
+  color: #f9f9f9;
+  text-align: center;
+  padding: 7px 4px;
+  text-decoration: none;
+}
+
+.icon_element a:hover, .icon_dropdown:hover .iconbtn {
+  background-color: $yellow;
+}
+
+.icon_element.icon_dropdown {
+  display: inline-block;
+}
+
+.icon_slider {
+  display: none;
+  position: absolute;
+  min-width: 15px;
+}
+
+.icon_slider a {
+  color: #f9f9f9;
+  padding: 6px 4px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.icon_slider a:hover {background-color: $yellow;}
+
+.dropdown_icon:hover .icon_slider {
+  display: block;
+}
+
+/*
 .icons_holder a {
   font-size: 16px;
   padding: 5px;
@@ -255,6 +303,8 @@ footer {
 }
 .icons_holder .current_icon .icon_slider li a {display:block;} 
 .icons_holder .current_icon .icon_slider li:hover {background: #666;}
+
+*/
 
 /* Endorsesaurus */
 
@@ -540,6 +590,11 @@ footer {
 .dashboard_icons {
 	height: 45px;
 	width: 45px;
+}
+
+.icons {
+	height: 15px;
+	width: 15px;
 }
 
 .icons img {
