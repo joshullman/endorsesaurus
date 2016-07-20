@@ -1,14 +1,13 @@
 <div id=<%="#{placeholder.id}"%> class="likes_row_movie"
 	<%if user_likes[placeholder.medium_id] == 1 %>
-		style="background-color:green;"
+		style="background-color: #BAC17B;"
 	<% elsif user_likes[placeholder.medium_id] == -1 %>
-		style="background-color:red;"
+		style="background-color: #CB2259;"
 	<% elsif user_likes[placeholder.medium_id] == 0 %>
-		style="background-color:yellow;"
+		style="background-color: #F4CE79;"
 	<% end %>	>
 	<%= link_to placeholder.title, movie_path(placeholder) %>
 	<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
-	<br>
 	<div class="likes_expanded_movie">
 		<br>
 		Year: <%= placeholder.year %>

@@ -7,7 +7,6 @@
 		<% if @show_recs && !@show_recs.empty? %>
 			<% @show_recs.each do |show_rec| %>
 				<%= render partial: 'layouts/recommended_show_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: show_rec, current_user: current_user } %>
-				<br>
 			<% end %>
 		<% else %>
 			<p>No recommendations to show!</p>

@@ -7,7 +7,6 @@
 		<% if @movie_recs && !@movie_recs.empty? %>
 			<% @movie_recs.each do |rec| %>
 				<%= render partial: 'layouts/recommended_movie_layout', locals: { user: @user, current_user_likes: @current_user_likes, rec: rec, current_user: current_user, percents: @percents[rec.info.medium_id]} %>
-				<br>
 			<% end %>
 		<% else %>
 			<p>No Recommendations to show!</p>
@@ -28,7 +27,6 @@
 			<% if @likes && !@likes.empty? %>
 				<% @likes.each do |like| %>
 					<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, percents: @percents[like.medium_id]} %>	
-					<br>
 				<% end %>
 			<% else %>
 				<p>No likes to show!</p>
@@ -39,7 +37,6 @@
 			<% if @seens && !@seens.empty? %>
 				<% @seens.each do |seen| %>
 					<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, percents: @percents[seen.medium_id]} %>	
-					<br>
 				<% end %>
 			<% else %>
 				<p>No seens to show!</p>
@@ -50,7 +47,6 @@
 			<% if @dislikes && !@dislikes.empty? %>
 				<% @dislikes.each do |dislike| %>
 					<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, percents: @percents[dislike.medium_id]} %>	
-					<br>
 				<% end %>
 			<% else %>
 				<p>No dislikes to show!</p>
