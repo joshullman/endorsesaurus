@@ -9,8 +9,10 @@ class MoviesController < ApplicationController
 		@tags = {}
 		@all_tags.each do |tag|
 			movies = tag.movies.take(10)
-			@tags[tag] = movies
-			movies.each {|movie| @percents[movie.medium_id] = movie.percents}
+			if !movies.empty?
+				@tags[tag] = movies
+				movies.each {|movie| @percents[movie.medium_id] = movie.percents}
+			end
 		end
 
 		@most_watched_movies = Medium.where(media_type: "Movie").order(watched_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}

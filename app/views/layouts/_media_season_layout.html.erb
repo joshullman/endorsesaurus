@@ -1,5 +1,7 @@
 <div id=<%="#{placeholder.id}"%> class="season_index_row">
-	<%= render partial: 'layouts/icons', locals: { current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+	<div class="media_icons">
+		<%= render partial: 'layouts/icons', locals: { current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+	</div>
 	<br>
 	Season: <%= placeholder.season_num %>
 	<br>

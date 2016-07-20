@@ -1,11 +1,11 @@
 <div id=<%="#{placeholder.id}"%> class="show_index_row">
-	<%= render partial: 'layouts/icons', locals: { current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
-	<br>
+	<div class="media_icons">
+		<%= render partial: 'layouts/icons', locals: { current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+	</div>
 	<div class="bar_mortice mortice_tiny" style="width: 131px">
 	  <div class="progress progress_tiny green" style="width: <%= percent[0] %>%;"></div>
 	  <div class="progress progress_tiny yellow" style="width: <%= percent[1] %>%;"></div>
 	  <div class="progress progress_tiny red" style="width: <%= percent[2] %>%;"></div>
 	</div>
 	<%= link_to image_tag(placeholder.poster), show_path(placeholder), class: "poster" %>
-	<br>
 </div>

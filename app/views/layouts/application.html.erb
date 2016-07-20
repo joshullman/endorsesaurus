@@ -38,8 +38,8 @@
               <div class="dropdown_content">
                 <%= link_to "Profile", current_user %>
                 <%= link_to "Friends", friends_user_path(current_user) %>
-                <%= link_to "Movies", movies_user_path(current_user) %>
-                <%= link_to "Shows", shows_user_path(current_user) %>
+                <%= link_to "Movie List", movies_user_path(current_user) %>
+                <%= link_to "Show List", shows_user_path(current_user) %>
                 <%= render 'devise/menu/registration_items' %>
                 <%= render 'devise/menu/login_items' %>
               </div>

@@ -10,8 +10,10 @@ class ShowsController < ApplicationController
 		@tags = {}
 		@all_tags.each do |tag|
 			shows = tag.shows
-			@tags[tag] = shows
-			shows.each {|show| @percents[show.medium_id] = show.percents}
+			if !shows.empty?
+				@tags[tag] = shows
+				shows.each {|show| @percents[show.medium_id] = show.percents}
+			end
 		end
 
 		@most_watched_shows = Medium.where(media_type: "Show").order(watched_count: :desc).limit(10).map {|show| show = show.find_associated_media}

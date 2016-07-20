@@ -1,5 +1,7 @@
 <div id=<%="#{placeholder.id}"%> class="movie_index_row">
-	<%= render partial: 'layouts/icons', locals: { current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+	<div class="media_icons">
+		<%= render partial: 'layouts/icons', locals: { current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+	</div>
 	<div class="bar_mortice mortice_tiny" style="width: 131px">
 	  <div class="progress progress_tiny green" style="width: <%= percent[0] %>%;"></div>
 	  <div class="progress progress_tiny yellow" style="width: <%= percent[1] %>%;"></div>
