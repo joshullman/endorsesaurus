@@ -1,0 +1,27 @@
+
+.full_poster {
+	width: 270px;
+  height: 410px;
+  border: 1px solid #7F928A;
+}
+
+.poster_icon_large img {
+	width: 150px;
+	height: 225px;
+}
+
+.poster_icon img {
+	width: 33px;
+	height: 50px;
+	margin-left: auto;
+  margin-right: auto;
+}
+
+.poster_icon_wrapper {
+	display: inline-block;
+	text-align: center;
+	float: right;
+	width: 300px;
+	height: 250px;
+	border: 1px solid black;
+}

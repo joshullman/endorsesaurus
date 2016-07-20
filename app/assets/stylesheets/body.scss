@@ -1,0 +1,29 @@
+html {
+	height: 100%;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Amatic SC', cursive;
+	letter-spacing: 2px;
+	font-size: 22px;
+	color: #f9f9f9;
+	position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #287659;
+}
+
+.body_wrapper {
+	min-height: 100%;
+	position: relative;
+}
+
+.content {
+	margin-top: 59px;
+	border-top: 1px solid #D3D3D3;
+	padding-bottom: 100px;
+	overflow: auto;
+}

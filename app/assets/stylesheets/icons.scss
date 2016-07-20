@@ -1,0 +1,74 @@
+$red: #CB2259;
+$purple: #831E56;
+$blue: #77B29C;
+$dark_blue: #29785A;
+$green: #BAC17B;
+$yellow: #F4CE79;
+
+.dashboard_icons {
+  height: 45px;
+  width: 45px;
+}
+
+.icons {
+  height: 15px;
+  width: 15px;
+}
+
+.icons img {
+  float: left;
+  height: 15px;
+  width: 15px;
+}
+
+.media_icons {
+	position: absolute;
+	padding-top: 14px;
+}
+
+.icons_wrapper {
+	list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.icon_element {
+	float: left;
+}
+
+.icon_element a, .iconbtn {
+  display: inline-block;
+  color: #f9f9f9;
+  text-align: center;
+  padding: 3px 4px;
+  text-decoration: none;
+}
+
+.icon_element:hover, .icon_dropdown:hover .iconbtn {
+  background-color: $yellow;
+}
+
+.icon_element.icon_dropdown {
+  display: inline-block;
+}
+
+.icon_slider {
+  display: none;
+  position: absolute;
+  min-width: 15px;
+}
+
+.icon_slider a {
+  color: #f9f9f9;
+  padding: 3px 4px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.icon_slider a:hover {background-color: $yellow;}
+
+.dropdown_icon:hover .icon_slider {
+  display: block;
+}

@@ -1,0 +1,31 @@
+$red: #CB2259;
+$purple: #831E56;
+$blue: #77B29C;
+$dark_blue: #29785A;
+$green: #BAC17B;
+$yellow: #F4CE79;
+
+.secondary_nav_wrapper ul {
+	list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: $blue;
+}
+
+.secondary_nav_element {
+	float: left;
+}
+
+.secondary_nav_element a {
+  display: inline-block;
+  color: #f9f9f9;
+  font-size: 25px;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.secondary_nav_element a:hover {
+  background-color: $yellow;
+}

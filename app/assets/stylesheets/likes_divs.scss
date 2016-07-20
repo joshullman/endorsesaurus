@@ -1,0 +1,37 @@
+.likes_container {
+	height: 100%;
+	width: 46%;
+	float: left;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.likes_row_movie {
+	padding: 15px;
+	border: 1px solid #7F928A;
+}
+
+.likes_expanded_movie {
+	display: none;
+}
+
+.show_wrapper {
+	border: 1px solid #7F928A;
+}
+
+.likes_row_show {
+	padding: 15px;
+	border: 1px solid #7F928A;
+}
+
+.likes_row_season {
+	padding: 15px;
+	border: 1px solid #7F928A;
+	display: none;
+}
+
+.likes_row_episode {
+	padding: 15px;
+	border: 1px solid #7F928A;
+	display: none;
+}

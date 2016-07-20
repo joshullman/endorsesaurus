@@ -1,0 +1,18 @@
+$red: #CB2259;
+$purple: #831E56;
+$blue: #77B29C;
+$dark_blue: #29785A;
+$green: #BAC17B;
+$yellow: #F4CE79;
+
+footer {
+	position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+  width: 100%;
+	background: $blue;
+	font-size: 25px;
+	border-top: 1px solid $dark_blue;
+  text-align: center;
+}

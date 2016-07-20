@@ -1,0 +1,63 @@
+.recommendations_container {
+	height: 100%;
+	width: 46%;
+	float: left;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.recommendation_row_movie {
+	padding: 15px;
+	border: 1px solid #7F928A;
+}
+
+.recommendation_expanded_movie {
+	display: none;
+}
+
+.recommendation_row_show {
+	padding: 15px;
+	border: 1px solid #7F928A;
+}
+
+.recommendation_row {
+	border: 1px solid #7F928A;
+}
+
+.recommendation_row_season {
+	padding: 15px;
+	border: 1px solid #7F928A;
+	display: none;
+}
+
+.recommendation_row_episode {
+	padding: 15px;
+	border: 1px solid #7F928A;
+	display: none;
+}
+
+.title {
+	float: left;
+}
+
+.rec_points {
+	display: inline-block;
+	float: left;
+}
+
+.icons_right {
+	display: inline-block;
+	float: right;
+}
+
+.media_points {
+	float: left;
+}
+
+.icons_container {
+	float: right;
+}
+
+.pill {
+	float: right;
+}

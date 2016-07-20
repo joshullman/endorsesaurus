@@ -1,0 +1,61 @@
+$red: #CB2259;
+$purple: #831E56;
+$blue: #77B29C;
+$dark_blue: #29785A;
+$green: #BAC17B;
+$yellow: #F4CE79;
+
+.endorsesaurus_container h2 {
+	line-height: 125px;
+}
+
+.endorsesaurus_container {
+	text-align: center;
+	height: 200px;
+	width: 100%;
+	display: block;
+	clear: both;
+	border: 1px solid #7F928A;
+	background-color: $green;
+}
+
+.inner_endorsesaurus_container {
+	text-align: center;
+	height: 150px;
+	width: 75%;
+	right: 50px;
+	margin-top: 25px;
+	margin-left: 175px;
+	margin-right: auto;
+	display: block;
+	border: 1px solid #7F928A;
+	background-color: $green;
+}
+
+.user_info {
+	display: block;
+	float: left;
+	width: 18%;
+	clear: left;
+	height: 200px;
+	text-align: center;
+}
+
+.user_info img {
+	width: 100px;
+	height: 100px;
+}
+
+.username {
+	font-family: 'Amatic SC', cursive;
+	color: #f9f9f9;
+	font-weight: 700;
+	font-size: 30px;
+}
+
+.points {
+	font-family: 'Amatic SC', cursive;
+	color: #f9f9f9;
+	font-weight: 700;
+	font-size: 30px;
+}
