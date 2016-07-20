@@ -99,12 +99,14 @@ header {
 	letter-spacing: 2px;
 	height: 59px;
 	border-bottom: 1px solid $dark_blue;
-}
-
-.navbar-wrapper {
+	z-index: 100;
 	position: fixed;
 	width: 100%;
 	top: 0px;
+}
+
+.navbar-wrapper {
+
 }
 
 .navbar-left {
@@ -186,6 +188,7 @@ header {
 
 html {
 	height: 100%;
+	padding: 0;
 	box-sizing: border-box;
 }
 
@@ -196,29 +199,33 @@ body {
 	color: #f9f9f9;
 	position: relative;
   margin: 0;
-  padding-bottom: 6rem;
-  min-height: 100%;
+  padding: 0;
+  height: 100%;
   background-color: #287659;
 }
 
-.site_body {
+.body_wrapper {
+	min-height: 100%;
+	position: relative;
+}
+
+.content {
 	margin-top: 59px;
 	border-top: 1px solid #D3D3D3;
+	padding-bottom: 100px;
+	overflow: auto;
 }
 
 /* Footer */
 
 footer {
 	position: absolute;
-  right: 0;
   bottom: 0;
   left: 0;
-  padding: 1rem;
-  font-family: 'Amatic SC', cursive;
+  height: 100px;
+  width: 100%;
 	background: $blue;
 	font-size: 25px;
-	letter-spacing: 2px;
-	color: #f9f9f9;
 	border-top: 1px solid $dark_blue;
   text-align: center;
 }
@@ -364,32 +371,6 @@ footer {
   background-color: $yellow;
 }
 
-/*
-
-.secondary-navbar-wrapper {
-	font-family: 'Amatic SC', cursive;
-	background: $blue;
-	padding: 5px;
-	font-size: 25px;
-}
-
-.secondary-navbar-class a {
-	color: #f9f9f9;
-  font-size: 25px;
-  padding-left: 80px;
-  padding-right: 80px;
-  display:inline-block;
-}
-
-.secondary-navbar {
-  display: inline;
-  margin: 0;
-}
-.secondary-navbar .secondary-nav-element {display: inline-block;}
-.secondary-navbar .secondary-nav-element:hover {background: #FACA66;}
-
-*/
-
 /* Spans */
 
 .span_liked {
@@ -463,7 +444,6 @@ footer {
 
 /* Profile Divs */
 .profile_left_column {
-	height: 100%;
 	width: 30%;
 	float: left;
 	margin-left: 2%;
@@ -471,7 +451,6 @@ footer {
 }
 
 .profile_right_column {
-	height: 100%;
 	width: 62%;
 	float: left;
 	margin-left: 2%;

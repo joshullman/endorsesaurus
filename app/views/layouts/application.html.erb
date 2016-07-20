@@ -8,71 +8,73 @@
     <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
+    <div class="body_wrapper">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
 
-    <header class="navbar-wrapper">
-      <div class="navbar-class">
-        <% if current_user %>
-          <ul class="navbar-left navbar">
-            <li class="nav_element"><%= link_to "Movies", movies_path %></li>
-            <li class="nav_element"><%= link_to "Shows", shows_path %></li>
-            <li class="nav_element"><%= link_to "Tags", tags_path %></li>
-            <li class="search nav_element">
-              <%= form_tag('/media/search', method: :get) do |f| %>
-                <%= text_field_tag :title, params[:title] %>
-                <%= select_tag "media", options_for_select(["Movies", "Shows"], "Shows")%>
-                <%= submit_tag "Search" %>
-              <% end %>
-            </li>
-          </ul>
-          <ul class="navbar-right navbar">
-            <li class="nav_element nav_points">(<%= current_user.points %>)</li>
-            <li class="nav_element nav_photo"><%= link_to image_tag('profile.jpg'), user_path(current_user), class: "photo_icon_small" %></li>
-            <li class="dropdown nav_element">
-              <%= link_to current_user.name, dashboard_user_path(current_user), class: "dropbtn" %>
-              <div class="dropdown_content">
-                <%= link_to "Profile", current_user %>
-                <%= link_to "Friends", friends_user_path(current_user) %>
-                <%= link_to "Movie List", movies_user_path(current_user) %>
-                <%= link_to "Show List", shows_user_path(current_user) %>
-                <%= render 'devise/menu/registration_items' %>
-                <%= render 'devise/menu/login_items' %>
-              </div>
-            </li>
-          </ul>
-        <% end %>
+      <header>
+        <div class="navbar-class">
+          <% if current_user %>
+            <ul class="navbar-left navbar">
+              <li class="nav_element"><%= link_to "Movies", movies_path %></li>
+              <li class="nav_element"><%= link_to "Shows", shows_path %></li>
+              <li class="nav_element"><%= link_to "Tags", tags_path %></li>
+              <li class="search nav_element">
+                <%= form_tag('/media/search', method: :get) do |f| %>
+                  <%= text_field_tag :title, params[:title] %>
+                  <%= select_tag "media", options_for_select(["Movies", "Shows"], "Shows")%>
+                  <%= submit_tag "Search" %>
+                <% end %>
+              </li>
+            </ul>
+            <ul class="navbar-right navbar">
+              <li class="nav_element nav_points">(<%= current_user.points %>)</li>
+              <li class="nav_element nav_photo"><%= link_to image_tag('profile.jpg'), user_path(current_user), class: "photo_icon_small" %></li>
+              <li class="dropdown nav_element">
+                <%= link_to current_user.name, dashboard_user_path(current_user), class: "dropbtn" %>
+                <div class="dropdown_content">
+                  <%= link_to "Profile", current_user %>
+                  <%= link_to "Friends", friends_user_path(current_user) %>
+                  <%= link_to "Movie List", movies_user_path(current_user) %>
+                  <%= link_to "Show List", shows_user_path(current_user) %>
+                  <%= render 'devise/menu/registration_items' %>
+                  <%= render 'devise/menu/login_items' %>
+                </div>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+      </header>
+
+      <div class="content">
+        <%= yield %>
+
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '170206153377410',
+              xfbml      : true,
+              version    : 'v2.6'
+            });
+          };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        </script>
       </div>
-    </header>
 
-    <div class="site_body">
-      <%= yield %>
+      <footer>
+        <p>joshullman@gmail.com | github.com/joshullman | 661-713-7322</p>
+      </footer>
     </div>
-
-    <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '170206153377410',
-          xfbml      : true,
-          version    : 'v2.6'
-        });
-      };
-
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
-
-    <footer>
-      <p>joshullman@gmail.com | github.com/joshullman | 661-713-7322</p>
-    </footer>
   </body>
 </html>

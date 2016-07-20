@@ -10,28 +10,16 @@
 		<div class="most_liked_genres">
 			<h3 class="text_center">Most Liked Genres</h3>
 			<%= pie_chart(@most_liked_genres, discrete: true) %>
-<!-- 			<% @most_liked_genres.each do |genre, amount| %>
-				<%= link_to genre, tag_path(Tag.where(name: genre).first) %>: <%= amount %>
-				<br>
-			<% end %> -->
 		</div>
 		<br>
 		<div class="likes_distribution">
 			<h3 class="text_center">Likes Distribution</h3>
 			<%= pie_chart(@likes_distribution, discrete: true) %>
-<!-- 			<% @likes_distribution.each do |like_type, amount| %>
-				<%= like_type %>: <%= amount %>
-				<br>
-			<% end %> -->
 		</div>
 		<br>
 		<div class="shows_vs_movies">
 			<h3 class="text_center">Shows vs Movies</h3>
 			<%= pie_chart(@shows_vs_movies, discrete: true) %>
-<!-- 			<% @shows_vs_movies.each do |media_type, amount| %>
-				<%= media_type %>: <%= amount %>
-				<br>
-			<% end %> -->
 		</div>
 	</div>
 	<div class="profile_right_column">
@@ -44,23 +32,21 @@
 							<%= render partial: 'layouts/event_rec_note', locals: { note: note, user: @user } %>
 							<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
 						</div>
-						<br>
 
 					<% when "WatchedRecNote" %>
 						<div class="event_wrapper">
 							<%= render partial: 'layouts/event_watched_rec_note', locals: { note: note, user: @user } %>
 							<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
 						</div>
-						<br>
 
 					<% when "WatchedNote" %>
 						<div class="event_wrapper">
 							<%= render partial: 'layouts/event_watched_note', locals: { note: note, user: @user } %>
 							<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
 						</div>
-						<br>
 
 				<% end %>
+				<br>
 			<% end %>
 		</div>
 	</div>
