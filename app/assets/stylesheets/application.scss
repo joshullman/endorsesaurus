@@ -228,6 +228,10 @@ footer {
 }
 
 /*Icon CSS*/
+.icons_div {
+	position: absolute;
+	padding-top: 14px;
+}
 
 .icons_wrapper {
 	list-style-type: none;
@@ -244,11 +248,11 @@ footer {
   display: inline-block;
   color: #f9f9f9;
   text-align: center;
-  padding: 7px 4px;
+  padding: 3px 4px;
   text-decoration: none;
 }
 
-.icon_element a:hover, .icon_dropdown:hover .iconbtn {
+.icon_element:hover, .icon_dropdown:hover .iconbtn {
   background-color: $yellow;
 }
 
@@ -264,7 +268,7 @@ footer {
 
 .icon_slider a {
   color: #f9f9f9;
-  padding: 6px 4px;
+  padding: 3px 4px;
   text-decoration: none;
   display: block;
   text-align: left;
