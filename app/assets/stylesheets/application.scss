@@ -18,6 +18,7 @@
 $red: #CB2259;
 $purple: #831E56;
 $blue: #77B29C;
+$dark_blue: #29785A;
 $green: #BAC17B;
 $yellow: #F4CE79;
 
@@ -33,58 +34,12 @@ $darker_blue: #486765;
 
 $font: 'Amatic SC', cursive;
 
-.login_wrapper {
-	width: 100%;
-}
-
-.login_left {
-	height: 100%;
-	width: 62%;
-	float: left;
-	margin-left: 1%;
-	margin-right: 2%;
-	border: 1px solid black;
-}
-
-.login_right {
-	position: fixed;
-	height: 40%;
-	width: 30%;
-	left: 68%;
-	border: 1px solid black;
-}
-
-.navbar-left {
-	width: 25%;
-	float: left;
-}
-
-.search_bar {
-	position: relative;
-	right: 22%;
-	left: 22%;
-}
-
-.navbar-right {
-	width: 25%;
-	float: right;
-	text-align: right;
-}
-
 .text_center {
 	text-align: center;
 }
 
 .site-name {
 	color: #f9f9f9;
-}
-
-header {
-	font-family: 'Amatic SC', cursive;
-	background: $blue;
-	padding: 5px;
-	font-size: 25px;
-	letter-spacing: 2px;
 }
 
 .site-name {
@@ -94,29 +49,74 @@ header {
 
 h1 {
 	font-family: 'Amatic SC', cursive;
+	color: #f9f9f9;
 	font-size: 40px;
 	letter-spacing: 2px;
 }
 
 h2 {
 	font-family: 'Amatic SC', cursive;
+	color: #f9f9f9;
 	font-size: 30px;
 	letter-spacing: 2px;
 }
 
 h3 {
 	font-family: 'Amatic SC', cursive;
+	color: #f9f9f9;
 	font-size: 25px;
 	letter-spacing: 2px;
 }
 
 h4 {
 	font-family: 'Amatic SC', cursive;
+	color: #f9f9f9;
 	font-size: 20px;
 	letter-spacing: 2px;
 }
 
 /*Main Navbar CSS*/
+
+header {
+	font-family: 'Amatic SC', cursive;
+	background: $blue;
+	font-size: 25px;
+	letter-spacing: 2px;
+	height: 59px;
+	border-bottom: 1px solid $dark_blue;
+}
+
+.navbar-wrapper {
+	position: fixed;
+	width: 100%;
+	top: 0px;
+}
+
+.navbar-left {
+	float: left;
+	height: 59px;
+}
+
+.navbar-right {
+	float: right;
+	text-align: right;
+	height: 59px;
+}
+
+.search.nav_element {
+	line-height: 22px;
+	padding: 14px 16px;
+}
+
+.nav_element.nav_points {
+	line-height: 60px;
+	color: #f9f9f9;
+}
+
+.nav_element.nav_photo {
+	line-height: 40px;
+}
+
 .navbar-class ul {
 	list-style-type: none;
   margin: 0;
@@ -167,6 +167,43 @@ h4 {
   display: block;
 }
 
+/* Body */
+
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+
+body {
+	position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  background-color: #287659;
+}
+
+.site_body {
+	margin-top: 59px;
+	border-top: 1px solid #D3D3D3;
+}
+
+/* Footer */
+
+footer {
+	position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  font-family: 'Amatic SC', cursive;
+	background: $blue;
+	font-size: 25px;
+	letter-spacing: 2px;
+	color: #f9f9f9;
+	border-top: 1px solid $dark_blue;
+  text-align: center;
+}
+
 /*
 
 .navbar-class a {
@@ -198,8 +235,30 @@ h4 {
 
 */
 
-/*Icon CSS*/
+/* Login Page */
 
+.login_wrapper {
+	width: 100%;
+}
+
+.login_left {
+	height: 100%;
+	width: 62%;
+	float: left;
+	margin-left: 1%;
+	margin-right: 2%;
+	border: 1px solid #7F928A;
+}
+
+.login_right {
+	position: fixed;
+	height: 40%;
+	width: 30%;
+	left: 68%;
+	border: 1px solid #7F928A;
+}
+
+/*Icon CSS*/
 
 .icons_holder a {
   font-size: 16px;
@@ -240,7 +299,7 @@ h4 {
 	width: 100%;
 	display: block;
 	clear: both;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 	background-color: #A1DBB2;
 }
 
@@ -253,7 +312,7 @@ h4 {
 	margin-left: 175px;
 	margin-right: auto;
 	display: block;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 	background-color: #A1DBB2;
 }
 
@@ -325,7 +384,7 @@ h4 {
 
 .event_wrapper {
 	margin: auto;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 	height: 200px;
 	width: 600px;
 	padding: 5px;
@@ -446,7 +505,7 @@ h4 {
 
 .recommendation_row_movie {
 	padding: 15px;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 }
 
 .recommendation_expanded_movie {
@@ -455,22 +514,22 @@ h4 {
 
 .recommendation_row_show {
 	padding: 15px;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 }
 
 .recommendation_row {
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 }
 
 .recommendation_row_season {
 	padding: 15px;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 	display: none;
 }
 
 .recommendation_row_episode {
 	padding: 15px;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 	display: none;
 }
 
@@ -479,7 +538,7 @@ h4 {
 
 .likes_row_movie {
 	padding: 15px;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 }
 
 .likes_expanded_movie {
@@ -487,23 +546,23 @@ h4 {
 }
 
 .show_wrapper {
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 }
 
 .likes_row_show {
 	padding: 15px;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 }
 
 .likes_row_season {
 	padding: 15px;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 	display: none;
 }
 
 .likes_row_episode {
 	padding: 15px;
-	border: 1px solid black;
+	border: 1px solid #7F928A;
 	display: none;
 }
 
@@ -524,12 +583,14 @@ h4 {
 
 .username {
 	font-family: 'Amatic SC', cursive;
+	color: #f9f9f9;
 	font-weight: 700;
 	font-size: 30px;
 }
 
 .points {
 	font-family: 'Amatic SC', cursive;
+	color: #f9f9f9;
 	font-weight: 700;
 	font-size: 30px;
 }
@@ -542,7 +603,7 @@ h4 {
 .full_poster {
 	width: 270px;
   height: 410px;
-  border: 1px solid black;
+  border: 1px solid #7F928A;
 }
 
 .photo_icon_small img {

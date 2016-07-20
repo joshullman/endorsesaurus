@@ -14,9 +14,10 @@
 .movies_index_tag_wrapper {
 	border: 1px solid black;
 	width: auto;
-	overflow-x: scroll;
 	overflow-y: hidden;
 	white-space: nowrap;
+	margin: 10px;
+	padding: 5px;
 }
 
 .shows_index_tag_wrapper {
