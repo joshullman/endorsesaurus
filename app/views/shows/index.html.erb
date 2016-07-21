@@ -2,49 +2,45 @@
 
 <div class="shows_index_wrapper">
 
-	<div class="shows_index_tag_wrapper">
-		<h2 class="text_center">Most Watched Shows</h2>
+	<h2 class="media_header">Most Viewed Shows</h2>
+	<div class="media_index_tag_wrapper">
 		<% @most_watched_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
-			Watched Count: <%= show.medium.watched_count %>
+			Views: <%= show.medium.watched_count %>
 			<br>
 			<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, percent: @percents[show.medium_id] } %>
 		</div>
 		<% end %>
 	</div>
-	<br>
 
-	<div class="shows_index_tag_wrapper">
-		<h2 class="text_center">Most Liked Shows</h2>
+	<h2 class="media_header">Most Liked Shows</h2>
+	<div class="media_index_tag_wrapper">
 		<% @most_liked_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
-			Liked Count: <%= show.medium.liked_count %>
+			Likes: <%= show.medium.liked_count %>
 			<br>
 			<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, percent: @percents[show.medium_id] } %>
 		</div>
 		<% end %>
 	</div>
-	<br>
 
-	<div class="shows_index_tag_wrapper">
-		<h2 class="text_center">Most Recommended Shows</h2>
+	<h2 class="media_header">Most Recommended Shows</h2>
+	<div class="media_index_tag_wrapper">
 		<% @most_recommended_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
-			Rec Count: <%= show.medium.recommended_count %>
+			Recommends: <%= show.medium.recommended_count %>
 			<br>
 			<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, percent: @percents[show.medium_id] } %>
 		</div>
 		<% end %>
 	</div>
-	<br>
 	
 	<% @tags.each_key do |tag| %>
-		<div class="shows_index_tag_wrapper">
-		<h3 class="text_center"><%= link_to tag.name, tag %></h3>
-		<% @tags[tag].each do |show| %>
-			<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, percent: @percents[show.medium_id] } %>
-		<% end %>
-		<br>
+		<h2 class="media_header"><%= link_to tag.name, tag %></h3>
+		<div class="media_index_tag_wrapper">
+			<% @tags[tag].each do |show| %>
+				<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, percent: @percents[show.medium_id] } %>
+			<% end %>
 		</div>
 	<% end %>
 </div>

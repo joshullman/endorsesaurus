@@ -99,7 +99,7 @@ $('.likes_row_movie').click(function() {
 
 // Adding Slick to the movies/index page
 
-  $('.movies_index_tag_wrapper').slick({
+  $('.media_index_tag_wrapper').slick({
     infinite: true,
     slidesToShow: 6,
     slidesToScroll: 6
