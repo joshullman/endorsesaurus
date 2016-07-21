@@ -3,7 +3,7 @@
 <% if !@movies.empty?%>
 
 	<div class="movies_index_tag_wrapper">
-		<h2 class="text_center">Most Watched Movies</h2>
+		<h2 class="text_center">Most Watched <%= @tag.name %> Movies</h2>
 		<% @most_watched_movies.each do |movie| %>
 			<div class="media_index_element_wrapper">
 				Watched Count: <%= movie.medium.watched_count %>
@@ -14,7 +14,7 @@
 	<br>
 
 	<div class="movies_index_tag_wrapper">
-		<h2 class="text_center">Most Liked Movies</h2>
+		<h2 class="text_center">Most Liked <%= @tag.name %> Movies</h2>
 		<% @most_liked_movies.each do |movie| %>
 			<div class="media_index_element_wrapper">
 				Liked Count: <%= movie.medium.liked_count %>
@@ -26,7 +26,7 @@
 	<br>
 
 	<div class="movies_index_tag_wrapper">
-		<h2 class="text_center">Most Recommended Movies</h2>
+		<h2 class="text_center">Most Recommended <%= @tag.name %> Movies</h2>
 		<% @most_recommended_movies.each do |movie| %>
 			<div class="media_index_element_wrapper">
 			Rec Count: <%= movie.medium.recommended_count %>
@@ -38,7 +38,7 @@
 	<br>
 
 	<div class="movies_index_tag_wrapper">
-		<h2 class="text_center">All Movies</h2>
+		<h2 class="text_center">All <%= @tag.name %> Movies</h2>
 		<% @movies.each do |movie| %>
 			<div class="movie_wrapper">
 				<%= render partial: 'layouts/media_movie_layout', locals: { current_user_likes: @current_user_movie_likes, placeholder: movie, current_user: current_user, percent: @percents[movie.medium_id] } %>
@@ -50,7 +50,7 @@
 <% if !@shows.empty? %>
 
 	<div class="shows_index_tag_wrapper">
-		<h2 class="text_center">Most Watched Shows</h2>
+		<h2 class="text_center">Most Watched <%= @tag.name %> Shows</h2>
 		<% @most_watched_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
 			Watched Count: <%= show.medium.watched_count %>
@@ -62,7 +62,7 @@
 	<br>
 
 	<div class="shows_index_tag_wrapper">
-		<h2 class="text_center">Most Liked Shows</h2>
+		<h2 class="text_center">Most Liked <%= @tag.name %> Shows</h2>
 		<% @most_liked_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
 			Liked Count: <%= show.medium.liked_count %>
@@ -74,7 +74,7 @@
 	<br>
 
 	<div class="shows_index_tag_wrapper">
-		<h2 class="text_center">Most Recommended Shows</h2>
+		<h2 class="text_center">Most Recommended <%= @tag.name %> Shows</h2>
 		<% @most_recommended_shows.each do |show| %>
 			<div class="media_index_element_wrapper">
 			Rec Count: <%= show.medium.recommended_count %>
@@ -86,7 +86,7 @@
 	<br>
 
 	<div class="seasons_index_tag_wrapper">
-		<h2 class="text_center">All Shows</h2>
+		<h2 class="text_center">All <%= @tag.name %> Shows</h2>
 		<% @shows.each do |show| %>
 			<div class="show_wrapper">
 				<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_show_likes, placeholder: show, current_user: current_user, percent: @percents[show.medium_id] } %>

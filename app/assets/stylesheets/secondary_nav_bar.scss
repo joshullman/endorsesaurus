@@ -19,6 +19,7 @@ $yellow: #F4CE79;
   height: 59px;
   z-index: 0;
   background-color: $blue;
+  border-top: 1px solid $dark_blue;
 }
 
 .secondary_nav {
@@ -26,6 +27,7 @@ $yellow: #F4CE79;
   width: 100%;
   position: absolute;
   bottom: 0;
+  border: 1px solid $dark_blue;
 }
 
 .secondary_nav_wrapper ul {
@@ -38,6 +40,7 @@ $yellow: #F4CE79;
 
 .secondary_nav_element {
 	float: left;
+  border-right: 1px solid $dark_blue
 }
 
 .secondary_nav_element a {

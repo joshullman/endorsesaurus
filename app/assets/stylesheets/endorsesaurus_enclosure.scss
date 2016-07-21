@@ -25,7 +25,7 @@ $yellow: #F4CE79;
 	top: 5%;
 	bottom: 0;
 	display: block;
-	border: 1px solid #7F928A;
+	border: 1px solid $dark_blue;
 	background-color: $green;
 	position: absolute;
 }
@@ -40,6 +40,7 @@ $yellow: #F4CE79;
 	background-color: $blue;
 	z-index: 50;
 	padding: 5px;
+	border: 1px solid $dark_blue;
 }
 
 .user_info img {

@@ -63,12 +63,12 @@ $(document).ready(function(){
     console.log($(this));
     $(this).siblings().children('.likes_row_season').toggle();
     $(this).siblings().children('.likes_row_season').siblings('.likes_row_episode').hide();
-  })
+  });
 
   $('.likes_row_season').click(function() {
     console.log($(this));
     $(this).siblings('.likes_row_episode').toggle();
-  })
+  });
 
 // Recommendations jquery
 
@@ -76,25 +76,33 @@ $(document).ready(function(){
     console.log($(this));
     $(this).siblings().children('.recommendation_row_season').toggle();
     $(this).siblings().children('.recommendation_row_season').siblings('.recommendation_row_episode').hide();
-  })
+  });
 
   $('.recommendation_row_season').click(function() {
     console.log($(this));
     $(this).siblings('.recommendation_row_episode').toggle();
-  })
+  });
 
 // Expand Movie Recs jquery
 
   $('.recommendation_row_movie').click(function() {
     console.log($(this));
     $(this).children('.recommendation_expanded_movie').toggle();
-  })
+  });
 
 // Expand Movie Likes jquery
 
 $('.likes_row_movie').click(function() {
     console.log($(this));
     $(this).children('.likes_expanded_movie').toggle();
-  })
+  });
+
+// Adding Slick to the movies/index page
+
+  $('.movies_index_tag_wrapper').slick({
+    infinite: true,
+    slidesToShow: 6,
+    slidesToScroll: 6
+  });
 
 });

@@ -40,7 +40,7 @@
 	
 	<% @tags.each_key do |tag| %>
 		<div class="shows_index_tag_wrapper">
-		<h3 class="text_center"><%= tag.name %></h3>
+		<h3 class="text_center"><%= link_to tag.name, tag %></h3>
 		<% @tags[tag].each do |show| %>
 			<%= render partial: 'layouts/media_show_layout', locals: { current_user_likes: @current_user_likes, placeholder: show, current_user: current_user, percent: @percents[show.medium_id] } %>
 		<% end %>
