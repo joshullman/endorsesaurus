@@ -1,5 +1,4 @@
 <%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
-<%= render partial: 'layouts/secondary_nav_bar', locals: { user: @user } %>
 
 <div class="recommendations_container">
 	<h3 class="text_center">Show Recommendations:</h3>
@@ -17,7 +16,7 @@
 
 <div class="likes_container">
 	<h3 class="text_center" >Show Likes:</h3>
-	<div class="watched_wrapper">
+	<div class="shows_watched_wrapper">
 
 		<div class="likes_wrapper">
 			<% if @watched && !@watched.empty? %>

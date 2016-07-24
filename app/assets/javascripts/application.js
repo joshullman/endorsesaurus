@@ -94,7 +94,7 @@ $(document).ready(function(){
 
 $('.likes_row_movie').click(function() {
     console.log($(this));
-    $(this).children('.likes_expanded_movie').toggle();
+    $(this).children('.expanded_likes_movie').toggle();
   });
 
 // Adding Slick to the movies/index page

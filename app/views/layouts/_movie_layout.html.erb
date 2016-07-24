@@ -1,41 +1,106 @@
-<div id=<%="#{placeholder.id}"%> class="likes_row_movie"
-	<%if user_likes[placeholder.medium_id] == 1 %>
-		style="background-color: #BAC17B;"
-	<% elsif user_likes[placeholder.medium_id] == -1 %>
-		style="background-color: #CB2259;"
-	<% elsif user_likes[placeholder.medium_id] == 0 %>
-		style="background-color: #F4CE79;"
-	<% end %>	>
-	<%= link_to placeholder.title, movie_path(placeholder) %>
-	<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
-	<div class="likes_expanded_movie">
-		<br>
-		Year: <%= placeholder.year %>
-		<br>
-		Rated: <%= placeholder.rated %>
-		<br>
-		Released: <%= placeholder.released %>
-		<br>
-		Runtime: <%= placeholder.runtime %>
-		<br>
-		Tags: <% placeholder.medium.tags.each do |tag| %>
-			<%= link_to tag.name,  tag_path(tag) %>
-		<% end %>
-		<br>
-		Director: <%= placeholder.director %>
-		<br>
-		Writer: <%= placeholder.writer %>
-		<br>
-		Actors: <%= placeholder.actors %>
-		<br>
-		Plot: <%= placeholder.plot %>
-		<br>
-		<div class="bar_mortice mortice_tiny" style="width: 266px">
-		  <div class="progress progress_tiny green" style="width: <%= percents[0] %>%;"></div>
-		  <div class="progress progress_tiny yellow" style="width: <%= percents[1] %>%;"></div>
-		  <div class="progress progress_tiny red" style="width: <%= percents[2] %>%;"></div>
+<% if current_user_likes[placeholder.medium_id] == 1 %>
+	<div id=<%="#{placeholder.id}"%> class="likes_row_movie" style="background-color: #BAC17B;">
+		<%= link_to placeholder.title, movie_path(placeholder) %>
+		<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
+		<div class="expanded_likes_movie">
+			<br>
+			Year: <%= placeholder.year %>
+			<br>
+			Rated: <%= placeholder.rated %>
+			<br>
+			Released: <%= placeholder.released %>
+			<br>
+			Runtime: <%= placeholder.runtime %>
+			<br>
+			Tags: <% placeholder.medium.tags.each do |tag| %>
+				<%= link_to tag.name,  tag_path(tag) %>
+			<% end %>
+			<br>
+			Director: <%= placeholder.director %>
+			<br>
+			Writer: <%= placeholder.writer %>
+			<br>
+			Actors: <%= placeholder.actors %>
+			<br>
+			Plot: <%= placeholder.plot %>
+			<br>
+			<div class="bar_mortice mortice_tiny" style="width: 266px">
+			  <div class="progress progress_tiny green" style="width: <%= percents[0] %>%;"></div>
+			  <div class="progress progress_tiny yellow" style="width: <%= percents[1] %>%;"></div>
+			  <div class="progress progress_tiny red" style="width: <%= percents[2] %>%;"></div>
+			</div>
+			<img class="full_poster" src="<%= placeholder.poster %>">
+			<br>
 		</div>
-		<img class="full_poster" src="<%= placeholder.poster %>">
-		<br>
 	</div>
-</div>
+<% elsif current_user_likes[placeholder.medium_id] == 0%>
+	<div id=<%="#{placeholder.id}"%> class="likes_row_movie" style="background-color: #F4CE79;">
+		<%= link_to placeholder.title, movie_path(placeholder) %>
+		<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
+		<div class="expanded_likes_movie">
+			<br>
+			Year: <%= placeholder.year %>
+			<br>
+			Rated: <%= placeholder.rated %>
+			<br>
+			Released: <%= placeholder.released %>
+			<br>
+			Runtime: <%= placeholder.runtime %>
+			<br>
+			Tags: <% placeholder.medium.tags.each do |tag| %>
+				<%= link_to tag.name,  tag_path(tag) %>
+			<% end %>
+			<br>
+			Director: <%= placeholder.director %>
+			<br>
+			Writer: <%= placeholder.writer %>
+			<br>
+			Actors: <%= placeholder.actors %>
+			<br>
+			Plot: <%= placeholder.plot %>
+			<br>
+			<div class="bar_mortice mortice_tiny" style="width: 266px">
+			  <div class="progress progress_tiny green" style="width: <%= percents[0] %>%;"></div>
+			  <div class="progress progress_tiny yellow" style="width: <%= percents[1] %>%;"></div>
+			  <div class="progress progress_tiny red" style="width: <%= percents[2] %>%;"></div>
+			</div>
+			<img class="full_poster" src="<%= placeholder.poster %>">
+			<br>
+		</div>
+	</div>
+<% elsif current_user_likes[placeholder.medium_id] == -1 %>
+	<div id=<%="#{placeholder.id}"%> class="likes_row_movie" style="background-color: #CB2259;">
+		<%= link_to placeholder.title, movie_path(placeholder) %>
+		<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
+		<div class="expanded_likes_movie">
+			<br>
+			Year: <%= placeholder.year %>
+			<br>
+			Rated: <%= placeholder.rated %>
+			<br>
+			Released: <%= placeholder.released %>
+			<br>
+			Runtime: <%= placeholder.runtime %>
+			<br>
+			Tags: <% placeholder.medium.tags.each do |tag| %>
+				<%= link_to tag.name,  tag_path(tag) %>
+			<% end %>
+			<br>
+			Director: <%= placeholder.director %>
+			<br>
+			Writer: <%= placeholder.writer %>
+			<br>
+			Actors: <%= placeholder.actors %>
+			<br>
+			Plot: <%= placeholder.plot %>
+			<br>
+			<div class="bar_mortice mortice_tiny" style="width: 266px">
+			  <div class="progress progress_tiny green" style="width: <%= percents[0] %>%;"></div>
+			  <div class="progress progress_tiny yellow" style="width: <%= percents[1] %>%;"></div>
+			  <div class="progress progress_tiny red" style="width: <%= percents[2] %>%;"></div>
+			</div>
+			<img class="full_poster" src="<%= placeholder.poster %>">
+			<br>
+		</div>
+	</div>
+<% end %>

@@ -1,3 +1,10 @@
+$red: #CB2259;
+$purple: #831E56;
+$blue: #77B29C;
+$dark_blue: #29785A;
+$green: #BAC17B;
+$yellow: #F4CE79;
+
 .likes_container {
 	height: 100%;
 	width: 46%;
@@ -7,31 +14,48 @@
 }
 
 .likes_row_movie {
-	padding: 15px;
-	border: 1px solid #7F928A;
+	height: 75px;
 }
 
-.likes_expanded_movie {
+.expanded_likes_movie {
 	display: none;
+	background-color: $green;
+}
+
+.likes_wrapper {
+
+}
+
+.seen_wrapper {
+
+}
+
+.dislikes_wrapper {
+
+}
+
+.shows_watched_wrapper {
+	border-bottom: 3px solid $blue;
+	border-left: 3px solid $blue;
+	border-right: 3px solid $blue;
 }
 
 .show_wrapper {
-	border: 1px solid #7F928A;
+	border-top: 3px solid $blue;
 }
 
 .likes_row_show {
-	padding: 15px;
-	border: 1px solid #7F928A;
+	height: 75px;
 }
 
 .likes_row_season {
-	padding: 15px;
-	border: 1px solid #7F928A;
+	height: 75px;
+	border-top: 3px solid $blue;
 	display: none;
 }
 
 .likes_row_episode {
-	padding: 15px;
-	border: 1px solid #7F928A;
+	height: 75px;
+	border-top: 3px solid $blue;
 	display: none;
 }

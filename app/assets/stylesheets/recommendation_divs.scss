@@ -1,4 +1,13 @@
+$red: #CB2259;
+$purple: #831E56;
+$blue: #77B29C;
+$dark_blue: #29785A;
+$green: #BAC17B;
+$yellow: #F4CE79;
+
 .recommendations_container {
+	position: relative;
+	padding-top: 7%;
 	height: 100%;
 	width: 46%;
 	float: left;
@@ -6,33 +15,39 @@
 	margin-right: 2%;
 }
 
+.recommendation_wrapper {
+	border-bottom: 3px solid $blue;
+	border-left: 3px solid $blue;
+	border-right: 3px solid $blue;
+}
+
 .recommendation_row_movie {
-	padding: 15px;
-	border: 1px solid #7F928A;
+	border-top: 3px solid $blue;
+	height: 75px;
 }
 
 .recommendation_expanded_movie {
 	display: none;
 }
 
-.recommendation_row_show {
-	padding: 15px;
-	border: 1px solid #7F928A;
+.recommendation_row {
+	border-top: 3px solid $blue;
 }
 
-.recommendation_row {
-	border: 1px solid #7F928A;
+.recommendation_row_show {
+	height: 75px;
+	border-top: 3px solid $blue;
 }
 
 .recommendation_row_season {
-	padding: 15px;
-	border: 1px solid #7F928A;
+	height: 75px;
+	border-top: 3px solid $blue;
 	display: none;
 }
 
 .recommendation_row_episode {
-	padding: 15px;
-	border: 1px solid #7F928A;
+	height: 75px;
+	border-top: 3px solid $blue;
 	display: none;
 }
 
@@ -40,21 +55,53 @@
 	float: left;
 }
 
+// .title_center {
+// 	padding-left: 35%;
+// }
+
+.title_center a {
+	text-align: center;
+}
+
 .rec_points {
+	font-size: 30px;
 	display: inline-block;
 	float: left;
+	width: 10%;
+	text-align: center;
+	height: 73px;
+	// left: 5%;
+	// padding-top: 20px;
+}
+
+.upvote_icon {
+	display: inline-block;
+	width: 10%;
+	text-align: center;
+	height: 73px;
+	float:left;
+}
+
+.rec_title {
+	float:left;
+	text-align: center;
+	height: 73px;
+	width: 60%;
+	down: 20px;
 }
 
 .icons_right {
+	height: 73px;
+	width: 19%;
 	display: inline-block;
 	float: right;
 }
 
-.media_points {
-	float: left;
+.icons_container {
+	float: right;
 }
 
-.icons_container {
+.media_points {
 	float: right;
 }
 
