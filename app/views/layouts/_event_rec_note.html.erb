@@ -1,5 +1,6 @@
 <% if note.media_type == "Movie" %>
 	<div class="event_information">
+		<div class="created_at"><%= note.created_at.strftime("%d %b. %Y") %></div>
 		<div class="user_icon">
 			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
 		</div>
@@ -12,11 +13,11 @@
 				<%= link_to receiver.name, user_path(receiver) %>
 			<% end %>
 			<br>
-			<%= note.created_at.strftime("%d %b. %Y") %>
 		</div> 
 	</div> 
 <% elsif note.media_type == "Season"%>
 	<div class="event_information">
+		<div class="created_at"><%= note.created_at.strftime("%d %b. %Y") %></div>
 		<div class="user_icon">
 			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
 		</div>
@@ -29,11 +30,11 @@
 				<%= link_to receiver.name, user_path(receiver) %>
 			<% end %>
 			<br>
-			<%= note.created_at.strftime("%d %b. %Y") %>
 		</div> 
 	</div> 
 <% elsif note.media_type == "Episode" %>
 	<div class="event_information">
+		<div class="created_at"><%= note.created_at.strftime("%d %b. %Y") %></div>
 		<div class="user_icon">
 			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
 		</div>
@@ -46,11 +47,11 @@
 				<%= link_to receiver.name, user_path(receiver) %>
 			<% end %>
 			<br>
-			<%= note.created_at.strftime("%d %b. %Y") %>
 		</div> 
 	</div> 
 <% else %>
 	<div class="event_information">
+		<div class="created_at"><%= note.created_at.strftime("%d %b. %Y") %></div>
 		<div class="user_icon">
 			<%= link_to image_tag('profile.jpg'), user_path(user), class: "photo_icon" %>
 		</div>
@@ -63,7 +64,6 @@
 				<%= link_to receiver.name, user_path(receiver) %>
 			<% end %>
 			<br>
-			<%= note.created_at.strftime("%d %b. %Y") %>
 		</div> 
 	</div> 
 <% end %>

@@ -14,15 +14,16 @@ $yellow: #F4CE79;
 }
 
 .event_information {
+	height: 100%;
 	float: left;
 	width: 45%;
-	
+	padding: 2%;
 }
 
 .event_wrapper {
 	margin: auto;
 	border: 1px solid #7F928A;
-	height: 250px;
-	width: 600px;
+	height: 375px;
+	width: 60%;
 	background-color: $dark_blue;
 }

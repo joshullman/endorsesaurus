@@ -6,6 +6,8 @@
 }
 
 .poster_icon_large img {
+	margin-left: auto;
+  margin-right: auto;
 	width: 225px;
 	height: 337px;
 }
@@ -19,6 +21,7 @@
 
 .poster_icon_wrapper {
 	display: inline-block;
+	position: relative;
 	text-align: center;
 	float: right;
 	width: 45%;
