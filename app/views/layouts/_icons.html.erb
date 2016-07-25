@@ -2,7 +2,7 @@
 	<% when 1 %>
 		<ul class="icons_wrapper">
 			<li class="icon_element dropdown_icon">
-				<%= image_tag('green_circle.svg'), class: "iconbtn icons" %>
+				<%= image_tag('green_circle.svg', class: "iconbtn icons") %>
 				<div class="icon_slider">
 					<%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: current_user.id, like: placeholder.medium_id, value: 0}, :method => :post, class: "icons" %>
 					<%= link_to image_tag('red_circle.png'), {action: 'create', controller: 'likes', user: current_user.id, like: placeholder.medium_id, value: -1}, :method => :post, class: "icons" %>
@@ -14,7 +14,7 @@
 	<% when 0 %>
 		<ul class="icons_wrapper">
 			<li class="icon_element dropdown_icon">
-				<%= image_tag('yellow_circle.png'), class: "iconbtn icons" %>
+				<%= image_tag('yellow_circle.png', class: "iconbtn icons") %>
 				<div class="icon_slider">
 					<%= link_to image_tag('green_circle.svg'), {action: 'create', controller: 'likes', user: current_user.id, like: placeholder.medium_id, value: 1}, :method => :post, class: "icons" %>
 					<%= link_to image_tag('red_circle.png'), {action: 'create', controller: 'likes', user: current_user.id, like: placeholder.medium_id, value: -1}, :method => :post, class: "icons" %>
@@ -26,7 +26,7 @@
 	<% when -1 %>
 		<ul class="icons_wrapper">
 			<li class="icon_element dropdown_icon">
-				<%= image_tag('red_circle.png'), class: "iconbtn icons" %>
+				<%= image_tag('red_circle.png', class: "iconbtn icons") %>
 				<div class="icon_slider">
 					<%= link_to image_tag('green_circle.svg'), {action: 'create', controller: 'likes', user: current_user.id, like: placeholder.medium_id, value: 1}, :method => :post, class: "icons" %>
 					<%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: current_user.id, like: placeholder.medium_id, value: 0}, :method => :post, class: "icons" %>
@@ -38,7 +38,7 @@
 	<% else %>
 		<ul class="icons_wrapper">
 			<li class="icon_element dropdown_icon">
-				<%= image_tag('white_circle.jpeg'), class: "iconbtn icons" %>
+				<%= image_tag('white_circle.jpeg', class: "iconbtn icons") %>
 				<div class="icon_slider">
 					<%= link_to image_tag('green_circle.svg'), {action: 'create', controller: 'likes', user: current_user.id, like: placeholder.medium_id, value: 1}, :method => :post, class: "icons" %>
 					<%= link_to image_tag('yellow_circle.png'), {action: 'create', controller: 'likes', user: current_user.id, like: placeholder.medium_id, value: 0}, :method => :post, class: "icons" %>
