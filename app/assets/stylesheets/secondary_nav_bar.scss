@@ -24,10 +24,11 @@ $yellow: #F4CE79;
 
 .secondary_nav {
   left: 22%;
-  width: 100%;
+  width: 78%;
   position: absolute;
   bottom: 0;
-  border: 1px solid $dark_blue;
+  border-top: 1px solid $dark_blue;
+  border-bottom: 1px solid $dark_blue;
 }
 
 .secondary_nav_wrapper ul {
