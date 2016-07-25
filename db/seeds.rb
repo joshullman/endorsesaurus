@@ -168,7 +168,7 @@ media.each do |imdb_url|
 			creator: api["Writer"],
 			actors: api["Actors"],
 			plot: api["Plot"],
-			poster: api["Poster"],
+			poster: "http://img.omdbapi.com/?i=#{imdb_url}&apikey=fd16048b",
 			imdb_id: imdb_url,
 		)
 
@@ -247,7 +247,7 @@ media.each do |imdb_url|
 			writer: api["Writer"],
 			actors: api["Actors"],
 			plot: api["Plot"],
-			poster: api["Poster"],
+			poster: "http://img.omdbapi.com/?i=#{imdb_url}&apikey=fd16048b",
 			imdb_id: imdb_url,
 			points: points
 		)
