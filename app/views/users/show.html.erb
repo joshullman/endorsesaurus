@@ -1,4 +1,3 @@
-<%= yield :charts_js %>
 <%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
 
 
@@ -15,12 +14,12 @@
 		<br>
 		<div class="likes_distribution">
 			<h3 class="text_center">Likes Distribution</h3>
-			<%= pie_chart(@likes_distribution, {discrete: true}) %>
+			<%= pie_chart(@likes_distribution) %>
 		</div>
 		<br>
 		<div class="shows_vs_movies">
 			<h3 class="text_center">Shows vs Movies</h3>
-			<%= pie_chart(@shows_vs_movies, {discrete: true}) %>
+			<%= pie_chart(@shows_vs_movies) %>
 		</div>
 	</div>
 	<div class="profile_right_column">
