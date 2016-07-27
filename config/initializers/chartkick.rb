@@ -1,0 +1,1 @@
+Chartkick.options[:html] = '<div id="" style="font-size: 14px; color: #f9f9f9;"></div>'
