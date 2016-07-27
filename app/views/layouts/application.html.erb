@@ -32,7 +32,7 @@
               </li>
             </ul>
             <ul class="navbar-right navbar">
-              <li class="nav_element nav_points">(<%= current_user.points %>)</li>
+              <li class="nav_element nav_points"><%= current_user.points %></li>
               <li class="nav_element nav_photo"><%= link_to image_tag('profile.jpg'), user_path(current_user), class: "photo_icon_small" %></li>
               <li class="dropdown nav_element">
                 <%= link_to "#{current_user.name} (1)", dashboard_user_path(current_user), class: "dropbtn" %>

@@ -96,3 +96,12 @@ header {
 .dropdown:hover .dropdown_content {
   display: block;
 }
+
+.nav_points {
+	width: 50px;
+	text-align: center;
+	background-image: url(asset-path('points_circle.png'));
+	background-size: 50px;
+	background-repeat: no-repeat;
+  background-position: center; 
+}
