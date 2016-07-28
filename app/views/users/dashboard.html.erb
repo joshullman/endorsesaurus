@@ -6,23 +6,23 @@
 		<% @friends_recents.each do |note| %>
 			<% case note.note_type %>
 				<% when "RecNote" %>
-					<div class="event_wrapper">
+					<div class="dashboard_event_wrapper">
 						<%= render partial: 'layouts/event_rec_note', locals: { note: note, user: @user } %>
-						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
+						<%= render partial: 'layouts/event_poster', locals: { media: note.media } %>
 					</div>
 					<br>
 
 				<% when "WatchedRecNote" %>
-					<div class="event_wrapper">
+					<div class="dashboard_event_wrapper">
 						<%= render partial: 'layouts/event_watched_rec_note', locals: { note: note, user: @user } %>
-						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
+						<%= render partial: 'layouts/event_poster', locals: { media: note.media } %>
 					</div>
 					<br>
 
 				<% when "WatchedNote" %>
-					<div class="event_wrapper">
+					<div class="dashboard_event_wrapper">
 						<%= render partial: 'layouts/event_watched_note', locals: { note: note, user: @user } %>
-						<%= render partial: 'layouts/poster_icon_large', locals: { media: note.media } %>
+						<%= render partial: 'layouts/event_poster', locals: { media: note.media } %>
 					</div>
 					<br>
 

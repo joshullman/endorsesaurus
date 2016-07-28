@@ -38,9 +38,9 @@
                 <%= link_to "#{current_user.name} (1)", dashboard_user_path(current_user), class: "dropbtn" %>
                 <div class="dropdown_content">
                   <%= link_to "Profile", current_user %>
-                  <%= link_to "Friends", friends_user_path(current_user) %>
                   <%= link_to "Movie List (1)", movies_user_path(current_user) %>
                   <%= link_to "Show List", shows_user_path(current_user) %>
+                  <%= link_to "Friends", friends_user_path(current_user) %>
                   <%= render 'devise/menu/registration_items' %>
                   <%= render 'devise/menu/login_items' %>
                 </div>
