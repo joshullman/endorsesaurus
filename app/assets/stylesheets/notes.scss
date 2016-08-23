@@ -10,17 +10,21 @@ $yellow: #F4CE79;
 }
 
 .user_icon {
-	float:left;
+	height: 50px;
+	width: 50px;
 }
 
 .event_information {
-	height: 100%;
-	float: left;
-	width: 45%;
 	padding: 2%;
 }
 
-.event_wrapper {
+.profile_event_wrapper {
+	margin: auto;
+	border: 1px solid #7F928A;
+	background-color: $dark_blue;
+}
+
+.dashboard_event_wrapper {
 	margin: auto;
 	border: 1px solid #7F928A;
 	height: 375px;

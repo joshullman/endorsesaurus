@@ -1,0 +1,12 @@
+<div class="event_poster_wrapper">
+	<% case media.medium.media_type %>
+		<% when "Movie" %>
+			<%= link_to image_tag(media.poster), movie_path(media), class: "event_poster" %>
+		<% when "Show" %>
+			<%= link_to image_tag(media.poster), show_path(media), class: "event_poster" %>
+		<% when "Season" %>
+			<%= link_to image_tag(media.show.poster), show_path(media.show), class: "event_poster" %>
+		<% when "Episode" %>
+			<%= link_to image_tag(media.show.poster), show_path(media.show), class: "event_poster" %>
+	<% end %>
+</div> 
