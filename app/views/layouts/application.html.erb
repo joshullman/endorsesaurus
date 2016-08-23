@@ -26,7 +26,7 @@
               <li class="search nav_element">
                 <%= form_tag('/media/search', method: :get) do |f| %>
                   <%= text_field_tag :title, params[:title] %>
-                  <%= select_tag "media", options_for_select(["Movies", "Shows"], "Shows")%>
+                  <%= select_tag "media", options_for_select(["Movies", "Shows", "Users"], "Shows")%>
                   <%= submit_tag "Search" %>
                 <% end %>
               </li>
@@ -35,10 +35,10 @@
               <li class="nav_element nav_points"><%= current_user.points %></li>
               <li class="nav_element nav_photo"><%= link_to image_tag('profile.jpg'), user_path(current_user), class: "photo_icon_small" %></li>
               <li class="dropdown nav_element">
-                <%= link_to "#{current_user.name} (1)", dashboard_user_path(current_user), class: "dropbtn" %>
+                <%= link_to "#{current_user.name}", dashboard_user_path(current_user), class: "dropbtn" %>
                 <div class="dropdown_content">
                   <%= link_to "Profile", current_user %>
-                  <%= link_to "Movie List (1)", movies_user_path(current_user) %>
+                  <%= link_to "Movie List", movies_user_path(current_user) %>
                   <%= link_to "Show List", shows_user_path(current_user) %>
                   <%= link_to "Friends", friends_user_path(current_user) %>
                   <%= render 'devise/menu/registration_items' %>
