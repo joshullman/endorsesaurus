@@ -23,6 +23,15 @@ $yellow: #F4CE79;
 	background-color: $green;
 }
 
+.watched_movie_title {
+	float:left;
+	text-align: center;
+	height: 60px;
+	width: 60%;
+	padding-left: 19%;
+	line-height: 55px;
+}
+
 .likes_wrapper {
 
 }
@@ -46,17 +55,17 @@ $yellow: #F4CE79;
 }
 
 .likes_row_show {
-	height: 60px;
+	min-height: 60px;
 }
 
 .likes_row_season {
-	height: 60px;
+	min-height: 60px;
 	border-top: 3px solid $blue;
 	display: none;
 }
 
 .likes_row_episode {
-	height: 60px;
+	min-height: 60px;
 	border-top: 3px solid $blue;
 	display: none;
 }

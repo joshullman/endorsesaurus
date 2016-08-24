@@ -36,18 +36,18 @@ $yellow: #F4CE79;
 }
 
 .recommendation_row_show {
-	height: 60px;
+	min-height: 60px;
 	border-bottom: 3px solid $blue;
 }
 
 .recommendation_row_season {
-	height: 60px;
+	min-height: 60px;
 	border-bottom: 3px solid $blue;
 	display: none;
 }
 
 .recommendation_row_episode {
-	height: 60px;
+	min-height: 60px;
 	border-bottom: 3px solid $blue;
 	display: none;
 }

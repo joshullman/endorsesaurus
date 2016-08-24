@@ -1,7 +1,13 @@
 <% if current_user_likes[placeholder.medium_id] == 1 %>
 	<div id=<%="#{placeholder.id}"%> class="likes_row_movie" style="background-color: #BAC17B;">
-		<%= link_to placeholder.title, movie_path(placeholder) %>
-		<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
+		<div class="watched_movie_title">
+			<%= link_to placeholder.title, movie_path(placeholder) %>
+		</div>
+		<div class="icons_right">
+			<div class="icons_container">
+				<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+			</div>
+		</div>
 		<div class="expanded_likes_movie">
 			<br>
 			Year: <%= placeholder.year %>
@@ -35,8 +41,14 @@
 	</div>
 <% elsif current_user_likes[placeholder.medium_id] == 0%>
 	<div id=<%="#{placeholder.id}"%> class="likes_row_movie" style="background-color: #F4CE79;">
-		<%= link_to placeholder.title, movie_path(placeholder) %>
-		<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
+		<div class="watched_movie_title">
+			<%= link_to placeholder.title, movie_path(placeholder) %>
+		</div>
+		<div class="icons_right">
+			<div class="icons_container">
+				<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+			</div>
+		</div>
 		<div class="expanded_likes_movie">
 			<br>
 			Year: <%= placeholder.year %>
@@ -70,8 +82,14 @@
 	</div>
 <% elsif current_user_likes[placeholder.medium_id] == -1 %>
 	<div id=<%="#{placeholder.id}"%> class="likes_row_movie" style="background-color: #CB2259;">
-		<%= link_to placeholder.title, movie_path(placeholder) %>
-		<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
+		<div class="watched_movie_title">
+			<%= link_to placeholder.title, movie_path(placeholder) %>
+		</div>
+		<div class="icons_right">
+			<div class="icons_container">
+				<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+			</div>
+		</div>
 		<div class="expanded_likes_movie">
 			<br>
 			Year: <%= placeholder.year %>
