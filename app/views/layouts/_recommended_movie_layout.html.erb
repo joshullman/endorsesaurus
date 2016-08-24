@@ -1,14 +1,18 @@
 <div id=<%="#{rec.info.medium_id}"%> class="recommendation_row_movie">
-	<span class="rec_points"><%= rec.user_points %></span>
-	<span class="upvote_icon"><%= render partial: 'layouts/upvote_icon', locals: { user: user, current_user_likes: current_user_likes, rec: rec, current_user: current_user } %></span>
-	<span class="rec_title"><%= link_to rec.info.title, movie_path(rec.info) %></span>
+	<div class="icons_left">
+		<div class="rec_points"><%= rec.user_points %></div>
+		<div class="upvote_icon">
+			<%= render partial: 'layouts/upvote_icon', locals: { user: user, current_user_likes: current_user_likes, rec: rec, current_user: current_user } %>
+		</div>
+	</div>
+	<div class="rec_title"><%= link_to rec.info.title, movie_path(rec.info) %></div>
 	<div class="icons_right">
+		<div class="media_points">
+			(<%= rec.media_points %>)
+		</div>
 		<div class="icons_container">
 			<%= render partial: 'layouts/rec_icons', locals: { user: user, current_user_likes: current_user_likes, rec: rec, current_user: current_user } %>
 		</div>
-		<span class="media_points">
-			(<%= rec.media_points %>)
-		</span>
 	</div>
 	<div class="recommendation_expanded_movie">
 		<br>

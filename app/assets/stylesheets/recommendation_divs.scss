@@ -77,12 +77,12 @@ $yellow: #F4CE79;
 }
 
 .upvote_icon {
-	display: inline-block;
-	width: 10%;
-	text-align: center;
-	height: 60px;
-	float:left;
-	line-height: 55px;
+	float: right;
+	line-height: 100px;
+}
+
+.icons.white_arrow {
+	line-height: 50px;
 }
 
 .rec_title {
@@ -93,10 +93,16 @@ $yellow: #F4CE79;
 	line-height: 55px;
 }
 
-.icons_right {
+.icons_left {
+	width: 20%;
 	height: 60px;
-	width: 19%;
-	display: inline-block;
+	float: left;
+	line-height: 55px;
+}
+
+.icons_right {
+	width: 20%;
+	height: 60px;
 	float: right;
 	line-height: 55px;
 }
@@ -106,9 +112,9 @@ $yellow: #F4CE79;
 }
 
 .media_points {
-	float: right;
+	float: left;
 }
 
 .pill {
-	float: right;
+	float: left;
 }

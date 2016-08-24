@@ -1,4 +1,8 @@
 <div id=<%="#{placeholder.medium_id}"%> class="likes_row_episode">
-	<span class="title_center">Episode: <%= placeholder.episode_num %></span>
-	<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %></span>
+	<div class="watched_show_title">Episode: <%= placeholder.episode_num %></div>
+	<div class="icons_right">
+		<div class="icons_container">
+			<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder, current_user: current_user } %>
+		</div>
+	</div>
 </div>

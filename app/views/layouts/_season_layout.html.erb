@@ -1,8 +1,13 @@
 <div id=<%="#{placeholder[0].medium_id}"%> class="season_wrapper">
 	<div class="likes_row_season">
-		<span class="title_center">Season: <%= placeholder[0].season_num %></span>
-		<span class="icons_right"><%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder[0], current_user: current_user }%></span>
-		<span class="pill"><%= render partial: 'layouts/progress_pill', locals: {percents: progress[placeholder[0].medium_id]}%></span>
+		<div class="watched_show_title">Season: <%= placeholder[0].season_num %></div>
+		<div class="icons_right">
+			<div class="pill">
+				<%= render partial: 'layouts/progress_pill', locals: {percents: progress[placeholder[0].medium_id]}%>
+			</div>
+			<div class="icons_container">
+				<%= render partial: 'layouts/icons', locals: { user: user, current_user_likes: current_user_likes, placeholder: placeholder[0], current_user: current_user }%>
+			</div>
 	</div>
 	<% placeholder[1].each do |episode| %>
 		<%= render partial: 'layouts/episode_layout', locals: { user: user, current_user_likes: current_user_likes, placeholder: episode, current_user: current_user} %>				
