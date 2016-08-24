@@ -24,7 +24,7 @@ $yellow: #F4CE79;
 .recommendation_row_movie {
 	display: block;
 	border-bottom: 3px solid $blue;
-	min-height: 75px;
+	min-height: 60px;
 }
 
 .recommendation_expanded_movie {
@@ -36,18 +36,18 @@ $yellow: #F4CE79;
 }
 
 .recommendation_row_show {
-	height: 75px;
+	height: 60px;
 	border-bottom: 3px solid $blue;
 }
 
 .recommendation_row_season {
-	height: 75px;
+	height: 60px;
 	border-bottom: 3px solid $blue;
 	display: none;
 }
 
 .recommendation_row_episode {
-	height: 75px;
+	height: 60px;
 	border-bottom: 3px solid $blue;
 	display: none;
 }
@@ -70,7 +70,8 @@ $yellow: #F4CE79;
 	float: left;
 	width: 10%;
 	text-align: center;
-	height: 73px;
+	height: 60px;
+	line-height: 55px;
 	// left: 5%;
 	// padding-top: 20px;
 }
@@ -79,23 +80,25 @@ $yellow: #F4CE79;
 	display: inline-block;
 	width: 10%;
 	text-align: center;
-	height: 73px;
+	height: 60px;
 	float:left;
+	line-height: 55px;
 }
 
 .rec_title {
 	float:left;
 	text-align: center;
-	height: 73px;
+	height: 60px;
 	width: 60%;
-	down: 20px;
+	line-height: 55px;
 }
 
 .icons_right {
-	height: 73px;
+	height: 60px;
 	width: 19%;
 	display: inline-block;
 	float: right;
+	line-height: 55px;
 }
 
 .icons_container {

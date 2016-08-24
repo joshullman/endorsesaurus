@@ -15,7 +15,7 @@ $yellow: #F4CE79;
 }
 
 .likes_row_movie {
-	height: 75px;
+	min-height: 60px;
 }
 
 .expanded_likes_movie {
@@ -46,17 +46,17 @@ $yellow: #F4CE79;
 }
 
 .likes_row_show {
-	height: 75px;
+	height: 60px;
 }
 
 .likes_row_season {
-	height: 75px;
+	height: 60px;
 	border-top: 3px solid $blue;
 	display: none;
 }
 
 .likes_row_episode {
-	height: 75px;
+	height: 60px;
 	border-top: 3px solid $blue;
 	display: none;
 }

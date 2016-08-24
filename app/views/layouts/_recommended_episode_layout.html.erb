@@ -1,7 +1,7 @@
 <div id=<%="#{rec.info.medium_id}"%> class="recommendation_row_episode">
 	<span class="rec_points"><%= rec.rec_points %></span>
 	<span class="upvote_icon"><%= render partial: 'layouts/upvote_icon', locals: { user: user, current_user_likes: current_user_likes, rec: rec, current_user: current_user } %></span>
-	<span class="title_center"><%= link_to "Episode: #{rec.info.episode_num}", show_path(rec.info.show) %></span>
+	<span class="rec_title"><%= link_to "Episode: #{rec.info.episode_num}", show_path(rec.info.show) %></span>
 	<div class="icons_right">
 		<span class="media_points">
 			<%= rec.media_points %>
