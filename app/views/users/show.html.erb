@@ -1,28 +1,28 @@
 <%= render partial: 'layouts/endorsesaurus_enclosure', locals: { current_user: current_user, user: @user } %>
 
 
-<div class="dashboard_container">
-	<div class="profile_left_column">
-		<div class="badges_container">
-			<h3 class="text_center">Badges</h3>
-		</div>
-		<br>
+<div class="profile_wrapper">
+
+	<div class="badges_container">
+		<h3 class="text_center">Badges</h3>
+	</div>
+
+	<div class="infographics">
 		<div class="most_liked_genres">
 			<h3 class="text_center">Most Liked Genres</h3>
 			<%= pie_chart(@most_liked_genres) %>
 		</div>
-		<br>
 		<div class="likes_distribution">
 			<h3 class="text_center">Likes Distribution</h3>
 			<%= pie_chart(@likes_distribution) %>
 		</div>
-		<br>
 		<div class="shows_vs_movies">
 			<h3 class="text_center">Shows vs Movies</h3>
 			<%= pie_chart(@shows_vs_movies) %>
 		</div>
 	</div>
-	<div class="profile_right_column">
+
+	<div class="recent_activity">
 		<div class="dashboard_recents_list">
 			<h3 class="text_center"><%= @user.name %>'s Recent Activity</h3>
 			<% @recent_activity.each do |note| %>
