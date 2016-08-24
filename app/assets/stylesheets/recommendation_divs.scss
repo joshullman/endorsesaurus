@@ -16,14 +16,15 @@ $yellow: #F4CE79;
 }
 
 .recommendation_wrapper {
-	border-bottom: 3px solid $blue;
+	border-top: 3px solid $blue;
 	border-left: 3px solid $blue;
 	border-right: 3px solid $blue;
 }
 
 .recommendation_row_movie {
-	border-top: 3px solid $blue;
-	height: 75px;
+	display: block;
+	border-bottom: 3px solid $blue;
+	min-height: 75px;
 }
 
 .recommendation_expanded_movie {
@@ -36,18 +37,18 @@ $yellow: #F4CE79;
 
 .recommendation_row_show {
 	height: 75px;
-	border-top: 3px solid $blue;
+	border-bottom: 3px solid $blue;
 }
 
 .recommendation_row_season {
 	height: 75px;
-	border-top: 3px solid $blue;
+	border-bottom: 3px solid $blue;
 	display: none;
 }
 
 .recommendation_row_episode {
 	height: 75px;
-	border-top: 3px solid $blue;
+	border-bottom: 3px solid $blue;
 	display: none;
 }
 

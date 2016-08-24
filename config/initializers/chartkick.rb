@@ -1,5 +1,5 @@
 Chartkick.options = {
-	height: "300px",
+	height: "200px",
 }
 
 Chartkick.options[:library] = {
