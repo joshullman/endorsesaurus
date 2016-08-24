@@ -64,25 +64,25 @@ $yellow: #F4CE79;
 	text-align: center;
 }
 
+.icons_left {
+	width: 20%;
+	height: 60px;
+	float: left;
+	line-height: 55px;
+}
+
 .rec_points {
 	font-size: 30px;
-	display: inline-block;
 	float: left;
-	width: 10%;
+	width: 50%;
 	text-align: center;
-	height: 60px;
-	line-height: 55px;
-	// left: 5%;
-	// padding-top: 20px;
 }
 
 .upvote_icon {
 	float: right;
-	line-height: 100px;
-}
-
-.icons.white_arrow {
-	line-height: 50px;
+	text-align: center;
+	width: 50%;
+	line-height: 30px;
 }
 
 .rec_title {
@@ -93,12 +93,6 @@ $yellow: #F4CE79;
 	line-height: 55px;
 }
 
-.icons_left {
-	width: 20%;
-	height: 60px;
-	float: left;
-	line-height: 55px;
-}
 
 .icons_right {
 	width: 20%;
