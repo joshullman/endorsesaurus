@@ -15,14 +15,13 @@
 		</div>
 	</div>
 	<div class="recommendation_expanded_movie">
+		<%= rec.info.year %>  
+		(<%= rec.info.rated %>)  
+		<%= rec.info.runtime %>
 		<br>
-		Year: <%= rec.info.year %>
 		<br>
-		Rated: <%= rec.info.rated %>
+		<%= rec.info.plot %>
 		<br>
-		Released: <%= rec.info.released %>
-		<br>
-		Runtime: <%= rec.info.runtime %>
 		<br>
 		Tags: <% rec.info.medium.tags.each do |tag| %>
 			<%= link_to tag.name,  tag_path(tag) %>
@@ -33,8 +32,6 @@
 		Writer: <%= rec.info.writer %>
 		<br>
 		Actors: <%= rec.info.actors %>
-		<br>
-		Plot: <%= rec.info.plot %>
 		<br>
 		<div class="bar_mortice mortice_tiny" style="width: 266px">
 		  <div class="progress progress_tiny green" style="width: <%= percents[0] %>%;"></div>

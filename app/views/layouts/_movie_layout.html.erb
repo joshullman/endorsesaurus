@@ -9,14 +9,13 @@
 			</div>
 		</div>
 		<div class="expanded_likes_movie">
+			<%= placeholder.year %>  
+			(<%= placeholder.rated %>)  
+			<%= placeholder.runtime %>
 			<br>
-			Year: <%= placeholder.year %>
 			<br>
-			Rated: <%= placeholder.rated %>
+			<%= placeholder.plot %>
 			<br>
-			Released: <%= placeholder.released %>
-			<br>
-			Runtime: <%= placeholder.runtime %>
 			<br>
 			Tags: <% placeholder.medium.tags.each do |tag| %>
 				<%= link_to tag.name,  tag_path(tag) %>
@@ -26,9 +25,7 @@
 			<br>
 			Writer: <%= placeholder.writer %>
 			<br>
-			Actors: <%= placeholder.actors %>
-			<br>
-			Plot: <%= placeholder.plot %>
+			Starring: <%= placeholder.actors %>
 			<br>
 			<div class="bar_mortice mortice_tiny" style="width: 266px">
 			  <div class="progress progress_tiny green" style="width: <%= percents[0] %>%;"></div>
@@ -50,14 +47,13 @@
 			</div>
 		</div>
 		<div class="expanded_likes_movie">
+			<%= placeholder.year %>  
+			(<%= placeholder.rated %>)  
+			<%= placeholder.runtime %>
 			<br>
-			Year: <%= placeholder.year %>
 			<br>
-			Rated: <%= placeholder.rated %>
+			<%= placeholder.plot %>
 			<br>
-			Released: <%= placeholder.released %>
-			<br>
-			Runtime: <%= placeholder.runtime %>
 			<br>
 			Tags: <% placeholder.medium.tags.each do |tag| %>
 				<%= link_to tag.name,  tag_path(tag) %>
@@ -67,9 +63,7 @@
 			<br>
 			Writer: <%= placeholder.writer %>
 			<br>
-			Actors: <%= placeholder.actors %>
-			<br>
-			Plot: <%= placeholder.plot %>
+			Starring: <%= placeholder.actors %>
 			<br>
 			<div class="bar_mortice mortice_tiny" style="width: 266px">
 			  <div class="progress progress_tiny green" style="width: <%= percents[0] %>%;"></div>
@@ -91,14 +85,13 @@
 			</div>
 		</div>
 		<div class="expanded_likes_movie">
+			<%= placeholder.year %>  
+			(<%= placeholder.rated %>)  
+			<%= placeholder.runtime %>
 			<br>
-			Year: <%= placeholder.year %>
 			<br>
-			Rated: <%= placeholder.rated %>
+			<%= placeholder.plot %>
 			<br>
-			Released: <%= placeholder.released %>
-			<br>
-			Runtime: <%= placeholder.runtime %>
 			<br>
 			Tags: <% placeholder.medium.tags.each do |tag| %>
 				<%= link_to tag.name,  tag_path(tag) %>
@@ -108,9 +101,8 @@
 			<br>
 			Writer: <%= placeholder.writer %>
 			<br>
-			Actors: <%= placeholder.actors %>
-			<br>
-			Plot: <%= placeholder.plot %>
+			Starring: <%= placeholder.actors %>
+			
 			<br>
 			<div class="bar_mortice mortice_tiny" style="width: 266px">
 			  <div class="progress progress_tiny green" style="width: <%= percents[0] %>%;"></div>

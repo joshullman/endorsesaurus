@@ -1,11 +1,11 @@
-<div class="movie_wrapper">
+<div class="media_show_wrapper">
 	<div class="media_movie_title">
 		<%= @movie.title %>
 	</div>
 	<div class="info_one">
 		<%= render partial: 'layouts/icons', locals: { current_user_likes: @current_user_likes, placeholder: @movie, current_user: current_user } %>
 		<%= @movie.year %>  
-		<%= @movie.rated %>  
+		(<%= @movie.rated %>)  
 		<%= @movie.runtime %>		
 	</div>
 	<br>
@@ -31,7 +31,8 @@
 		</div>
 		<img class="full_poster" src="<%= @movie.poster %>">
 	</div>
-	<br>
+</div>
+<div class="media_show_info">
 	Number of people who have recommended this Movie: <%= @movie.medium.recommended_count %>
 	<br>
 	You have recommended this Movie to:
