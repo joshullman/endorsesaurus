@@ -1,15 +1,17 @@
 <div class="movie_wrapper">
-	<%= render partial: 'layouts/icons', locals: { current_user_likes: @current_user_likes, placeholder: @movie, current_user: current_user } %>
+	<div class="media_movie_title">
+		<%= @movie.title %>
+	</div>
+	<div class="info_one">
+		<%= render partial: 'layouts/icons', locals: { current_user_likes: @current_user_likes, placeholder: @movie, current_user: current_user } %>
+		<%= @movie.year %>  
+		<%= @movie.rated %>  
+		<%= @movie.runtime %>		
+	</div>
 	<br>
-	Title: <%= @movie.title %>
-	<br>
-	Year: <%= @movie.year %>
-	<br>
-	Rated: <%= @movie.rated %>
-	<br>
-	Released: <%= @movie.released %>
-	<br>
-	Runtime: <%= @movie.runtime %>
+	<div class="media_plot">
+		<%= @movie.plot %>
+	</div>
 	<br>
 	Tags: <% @movie.medium.tags.each do |tag| %>
 		<%= link_to tag.name,  tag_path(tag) %>
@@ -19,9 +21,7 @@
 	<br>
 	Writer: <%= @movie.writer %>
 	<br>
-	Actors: <%= @movie.actors %>
-	<br>
-	Plot: <%= @movie.plot %>
+	Starring: <%= @movie.actors %>
 	<br>
 	<div class="bar_mortice mortice_tiny" style="width: 30%">
 	  <div class="progress progress_tiny green" style="width: <%= @percents[0] %>%;"></div>
