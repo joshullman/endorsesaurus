@@ -152,88 +152,88 @@ media.each do |imdb_url|
 		end
 	end
 
-	if api["Type"] == "series"
-		series = {"Response" => "True"}
-		season_num = 1
-		seasons_points = 0
-		total_episodes_count = 0
+	#  if api["Type"] == "series"
+	# 	series = {"Response" => "True"}
+	# 	season_num = 1
+	# 	seasons_points = 0
+	# 	total_episodes_count = 0
 
-		show_med = Medium.create(media_type: "Show")
-		show = show_med.create_show(
-			title: api["Title"],
-			year: api["Year"],
-			rated: api["Rated"],
-			released: api["Released"],
-			runtime: api["Runtime"],
-			creator: api["Writer"],
-			actors: api["Actors"],
-			plot: api["Plot"],
-			poster: "http://img.omdbapi.com/?i=#{imdb_url}&apikey=fd16048b",
-			imdb_id: imdb_url,
-		)
+	# 	show_med = Medium.create(media_type: "Show")
+	# 	show = show_med.create_show(
+	# 		title: api["Title"],
+	# 		year: api["Year"],
+	# 		rated: api["Rated"],
+	# 		released: api["Released"],
+	# 		runtime: api["Runtime"],
+	# 		creator: api["Writer"],
+	# 		actors: api["Actors"],
+	# 		plot: api["Plot"],
+	# 		poster: "http://img.omdbapi.com/?i=#{imdb_url}&apikey=fd16048b",
+	# 		imdb_id: imdb_url,
+	# 	)
 
-		tags.each do |tag|
-			t = Tag.where(name: tag).first
-			MediaTag.create(medium_id: show_med.id, tag_id: t.id)
-		end
-		while series["Response"] == "True"
-			episodes = {"Response" => "True"}
-			episode_num = 1
-			episodes_points = 0
+	# 	tags.each do |tag|
+	# 		t = Tag.where(name: tag).first
+	# 		MediaTag.create(medium_id: show_med.id, tag_id: t.id)
+	# 	end
+	# 	while series["Response"] == "True"
+	# 		episodes = {"Response" => "True"}
+	# 		episode_num = 1
+	# 		episodes_points = 0
 
-			url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season_num}")
-			req = Net::HTTP::Get.new(url.to_s)
-			res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
-			series = JSON.parse(res.body)
+	# 		url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season_num}")
+	# 		req = Net::HTTP::Get.new(url.to_s)
+	# 		res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
+	# 		series = JSON.parse(res.body)
 
-			break if series["Response"] != "True"
-			season_med = Medium.create(media_type: "Season")
-			season = season_med.create_season(
-				title: api["Title"],
-				imdb_id: api["imdbID"],
-				show_id: show.id,
-				season_num: season_num,
-			)
+	# 		break if series["Response"] != "True"
+	# 		season_med = Medium.create(media_type: "Season")
+	# 		season = season_med.create_season(
+	# 			title: api["Title"],
+	# 			imdb_id: api["imdbID"],
+	# 			show_id: show.id,
+	# 			season_num: season_num,
+	# 		)
 
-				while episodes["Response"] == "True"
-					url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season_num}\&Episode\=#{episode_num}")
-					req = Net::HTTP::Get.new(url.to_s)
-					res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
-					episodes = JSON.parse(res.body)
-					break if episodes["Response"] != "True"
-					runtime = api["Runtime"].gsub(" min", "").to_i
-					points = (runtime.to_f/30).ceil
-					episodes_points += points
-					episode_med = Medium.create(media_type: "Episode")
-					episode = episode_med.create_episode(
-						season_id: season.id,
-						imdb_id: api["imdbID"],
-						episode_num: episode_num,
-						season_num: season_num,
-						title: api["Title"],
-						runtime: api["Runtime"],
-						released: api["Released"],
-						writer: api["Writer"],
-						director: api["Director"],
-						plot: api["Plot"],
-						actors: api["Actors"],
-						poster: api["Poster"],
-						points: points,
-						show_id: season.show.id
-					)
-					p [season_num, episode_num]
-					episode_num += 1
-				end
-			season.update(episode_count: episode_num-1)
-			season.update(points: episodes_points)
-			seasons_points += episodes_points
-			season_num += 1
-			total_episodes_count += episode_num-1
-		end
-		show.update(points: seasons_points)
-		show.update(season_count: season_num-1)
-		show.update(episode_count: total_episodes_count)
-	else
+	# 			while episodes["Response"] == "True"
+	# 				url = URI.parse("http://www.omdbapi.com/\?t\=#{api["Title"].gsub(" ", "%20")}\&Season\=#{season_num}\&Episode\=#{episode_num}")
+	# 				req = Net::HTTP::Get.new(url.to_s)
+	# 				res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
+	# 				episodes = JSON.parse(res.body)
+	# 				break if episodes["Response"] != "True"
+	# 				runtime = api["Runtime"].gsub(" min", "").to_i
+	# 				points = (runtime.to_f/30).ceil
+	# 				episodes_points += points
+	# 				episode_med = Medium.create(media_type: "Episode")
+	# 				episode = episode_med.create_episode(
+	# 					season_id: season.id,
+	# 					imdb_id: api["imdbID"],
+	# 					episode_num: episode_num,
+	# 					season_num: season_num,
+	# 					title: api["Title"],
+	# 					runtime: api["Runtime"],
+	# 					released: api["Released"],
+	# 					writer: api["Writer"],
+	# 					director: api["Director"],
+	# 					plot: api["Plot"],
+	# 					actors: api["Actors"],
+	# 					poster: api["Poster"],
+	# 					points: points,
+	# 					show_id: season.show.id
+	# 				)
+	# 				p [season_num, episode_num]
+	# 				episode_num += 1
+	# 			end
+	# 		season.update(episode_count: episode_num-1)
+	# 		season.update(points: episodes_points)
+	# 		seasons_points += episodes_points
+	# 		season_num += 1
+	# 		total_episodes_count += episode_num-1
+	# 	end
+	# 	show.update(points: seasons_points)
+	# 	show.update(season_count: season_num-1)
+	# 	show.update(episode_count: total_episodes_count)
+	# else
 		runtime = api["Runtime"].gsub(" min", "").to_i
 		points = (runtime.to_f/30).ceil
 		movie_med = Medium.create(media_type: "Movie")
@@ -255,7 +255,7 @@ media.each do |imdb_url|
 			t = Tag.where(name: tag).first
 			MediaTag.create(medium_id: movie_med.id, tag_id: t.id)
 		end
-	end
+	# end
 
 end
 
