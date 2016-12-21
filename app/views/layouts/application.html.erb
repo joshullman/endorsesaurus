@@ -28,7 +28,7 @@
               <li class="search nav_element">
                 <%= form_tag('/media/search', method: :get) do |f| %>
                   <%= text_field_tag :title, params[:title] %>
-                  <%= select_tag "media", options_for_select(["Movies", "Shows", "Users"], "Shows")%>
+                  <%= select_tag "media", options_for_select(["Movies", "Users"], "Movies")%>
                   <%= submit_tag "Search" %>
                 <% end %>
               </li>
