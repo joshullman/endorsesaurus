@@ -1,36 +1,37 @@
-User.create(email: "CaptainPlanet@aol.com", password: "password", name: "CaptainPlanet" )
-User.create(email: "Kuzy@aol.com", password: "password", name: "Kuzy")
-User.create(email: "BuffaloKing@aol.com", password: "password", name: "BuffaloKing")
-User.create(email: "TheWizard@aol.com", password: "password", name: "TheWizard")
-User.create(email: "Banana@aol.com", password: "password", name: "Banana")
-User.create(email: "BlackWidow@aol.com", password: "password", name: "BlackWidow" )
-User.create(email: "TheSaxMan@aol.com", password: "password", name: "TheSaxMan" )
-User.create(email: "Carissi@aol.com", password: "password", name: "Carissi" )
-User.create(email: "Chompy@aol.com", password: "password", name: "Chompy" )
-User.create(email: "WolfMan@aol.com", password: "password", name: "WolfMan")
-User.create(email: "MasterMike@aol.com", password: "password", name: "MasterMike")
-User.create(email: "WhitePearl@aol.com", password: "password", name: "WhitePearl")
-User.create(email: "Kassanova@aol.com", password: "password", name: "Kassanova")
-User.create(email: "Scoobs@aol.com", password: "password", name: "Scoobs")
-User.create(email: "Chefe@aol.com", password: "password", name: "Chefe")
-User.create(email: "TheAdmiral@aol.com", password: "password", name: "TheAdmiral")
-User.create(email: "Jenga@aol.com", password: "password", name: "Jenga")
-User.create(email: "Banner@aol.com", password: "password", name: "Banner")
-User.create(email: "BigKahuna@aol.com", password: "password", name: "BigKahuna")
-User.create(email: "BennyAndTheJets@aol.com", password: "password", name: "BennyAndTheJets")
-User.create(email: "TheDragon@aol.com", password: "password", name: "TheDragon")
-User.create(email: "EZE@aol.com", password: "password", name: "EZE")
-User.create(email: "ActionHank@aol.com", password: "password", name: "ActionHank")
-User.create(email: "TheMatador@aol.com", password: "password", name: "TheMatador")
-User.create(email: "SubZero@aol.com", password: "password", name: "SubZero")
-User.create(email: "WildCard@aol.com", password: "password", name: "WildCard")
-User.create(email: "Tasty@aol.com", password: "password", name: "Tasty")
-User.create(email: "KarateKid@aol.com", password: "password", name: "KarateKid")
-User.create(email: "Boomer@aol.com", password: "password", name: "Boomer")
-User.create(email: "TomTom@aol.com", password: "password", name: "TomTom")
-User.create(email: "BrickThorn@aol.com", password: "password", name: "BrickThorn")
-User.create(email: "ChampMan@aol.com", password: "password", name: "ChampMan")
-User.create(email: "FrogPrince@aol.com", password: "password", name: "FrogPrince")
+User.create(email: "guest@aol.com", password: "password", name: "Guest Account", photo_url: "http://i.imgur.com/RmKwLcc.jpg")
+User.create(email: "CaptainPlanet@aol.com", password: "password", name: "CaptainPlanet", photo_url: "http://i.imgur.com/RugrMDh.jpg")
+User.create(email: "Kuzy@aol.com", password: "password", name: "Kuzy", photo_url: "http://i.imgur.com/SjD71UR.jpg")
+User.create(email: "BuffaloKing@aol.com", password: "password", name: "BuffaloKing", photo_url: "http://i.imgur.com/3cEejvv.jpg")
+User.create(email: "TheWizard@aol.com", password: "password", name: "TheWizard", photo_url: "http://i.imgur.com/Ppg4hKd.jpg")
+User.create(email: "Banana@aol.com", password: "password", name: "Banana", photo_url: "http://i.imgur.com/6QY1qKJ.png")
+User.create(email: "BlackWidow@aol.com", password: "password", name: "BlackWidow" , photo_url: "http://i.imgur.com/OPFPydc.jpg")
+User.create(email: "TheSaxMan@aol.com", password: "password", name: "TheSaxMan" , photo_url: "http://i.imgur.com/2VV5ScK.jpg")
+User.create(email: "Carissi@aol.com", password: "password", name: "Carissi" , photo_url: "http://i.imgur.com/PkHG0XT.jpg")
+User.create(email: "Chompy@aol.com", password: "password", name: "Chompy" , photo_url: "http://i.imgur.com/tCPOkvF.png")
+User.create(email: "WolfMan@aol.com", password: "password", name: "WolfMan", photo_url: "http://i.imgur.com/BnklBdK.jpg")
+User.create(email: "MasterMike@aol.com", password: "password", name: "MasterMike", photo_url: "http://i.imgur.com/FGxiNmR.png")
+User.create(email: "WhitePearl@aol.com", password: "password", name: "WhitePearl", photo_url: "http://i.imgur.com/xxfQIdA.jpg")
+User.create(email: "Kassanova@aol.com", password: "password", name: "Kassanova", photo_url: "http://i.imgur.com/YoWjWt3.jpg")
+User.create(email: "Scoobs@aol.com", password: "password", name: "Scoobs", photo_url: "http://i.imgur.com/8PUIERR.jpg")
+User.create(email: "Chefe@aol.com", password: "password", name: "Chefe", photo_url: "http://i.imgur.com/raVKMVk.jpg")
+User.create(email: "TheAdmiral@aol.com", password: "password", name: "TheAdmiral", photo_url: "http://i.imgur.com/RmNLOx2.jpg")
+User.create(email: "Jenga@aol.com", password: "password", name: "Jenga", photo_url: "http://i.imgur.com/7Op03Z2.jpg")
+User.create(email: "Banner@aol.com", password: "password", name: "Banner", photo_url: "http://i.imgur.com/Z3uJhnG.jpg")
+User.create(email: "BigKahuna@aol.com", password: "password", name: "BigKahuna", photo_url: "http://i.imgur.com/ZrqNQ3P.jpg")
+User.create(email: "BennyAndTheJets@aol.com", password: "password", name: "BennyAndTheJets", photo_url: "http://i.imgur.com/HtQMrhr.jpg")
+User.create(email: "TheDragon@aol.com", password: "password", name: "TheDragon", photo_url: "http://i.imgur.com/dLCOEII.jpg")
+User.create(email: "EZE@aol.com", password: "password", name: "EZE", photo_url: "http://i.imgur.com/yOPVtz3.jpg")
+User.create(email: "ActionHank@aol.com", password: "password", name: "ActionHank", photo_url: "http://i.imgur.com/QhMKoJK.jpg")
+User.create(email: "TheMatador@aol.com", password: "password", name: "TheMatador", photo_url: "http://i.imgur.com/OZTDeXO.jpg")
+User.create(email: "SubZero@aol.com", password: "password", name: "SubZero", photo_url: "http://i.imgur.com/lFN5Ciw.jpg")
+User.create(email: "WildCard@aol.com", password: "password", name: "WildCard", photo_url: "http://i.imgur.com/B9p0dd3.jpg")
+User.create(email: "Tasty@aol.com", password: "password", name: "Tasty", photo_url: "http://i.imgur.com/No6NsgX.jpg")
+User.create(email: "KarateKid@aol.com", password: "password", name: "KarateKid", photo_url: "http://i.imgur.com/imnNKGN.jpg")
+User.create(email: "Boomer@aol.com", password: "password", name: "Boomer", photo_url: "http://i.imgur.com/ohAOqzl.jpg")
+User.create(email: "TomTom@aol.com", password: "password", name: "TomTom", photo_url: "http://i.imgur.com/h3mnKXP.jpg")
+User.create(email: "BrickThorn@aol.com", password: "password", name: "BrickThorn", photo_url: "http://i.imgur.com/hRjnZ5P.jpg")
+User.create(email: "ChampMan@aol.com", password: "password", name: "ChampMan", photo_url: "http://i.imgur.com/Tpe9ILP.jpg")
+User.create(email: "FrogPrince@aol.com", password: "password", name: "FrogPrince", photo_url: "http://i.imgur.com/BKH5nxY.jpg")
 
 current_user = User.first
 
@@ -152,7 +153,7 @@ media.each do |imdb_url|
 		end
 	end
 
-	#  if api["Type"] == "series"
+	 if api["Type"] == "series"
 	# 	series = {"Response" => "True"}
 	# 	season_num = 1
 	# 	seasons_points = 0
@@ -233,7 +234,7 @@ media.each do |imdb_url|
 	# 	show.update(points: seasons_points)
 	# 	show.update(season_count: season_num-1)
 	# 	show.update(episode_count: total_episodes_count)
-	# else
+	else
 		runtime = api["Runtime"].gsub(" min", "").to_i
 		points = (runtime.to_f/30).ceil
 		movie_med = Medium.create(media_type: "Movie")
@@ -255,7 +256,7 @@ media.each do |imdb_url|
 			t = Tag.where(name: tag).first
 			MediaTag.create(medium_id: movie_med.id, tag_id: t.id)
 		end
-	# end
+	end
 
 end
 

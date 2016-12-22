@@ -8,14 +8,18 @@
 	</div>
 
 	<div class="infographics">
-		<div class="most_liked_genres">
-			<span class="text_center">Most Liked Genres</span>
-			<%= pie_chart(@most_liked_genres) %>
-		</div>
-		<div class="likes_distribution">
-			<span class="text_center">Likes Distribution</span>
-			<%= pie_chart(@likes_distribution) %>
-		</div>
+		<% if !@most_liked_genres.empty? %>
+			<div class="most_liked_genres">
+				<span class="text_center">Most Liked Genres</span>
+				<%= pie_chart(@most_liked_genres) %>
+			</div>
+		<% end %>
+		<% if !@likes_distribution.empty? %>
+			<div class="likes_distribution">
+				<span class="text_center">Likes Distribution</span>
+				<%= pie_chart(@likes_distribution) %>
+			</div>
+		<% end %>
 	</div>
 
 	<div class="recent_activity">

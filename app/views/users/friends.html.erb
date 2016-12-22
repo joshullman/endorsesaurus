@@ -8,7 +8,7 @@
   <ul class="text_center">
     <% @user.friends.each do |friend| %>
       <div class="friend_icon_wrapper">
-        <%= link_to image_tag('profile.jpg'), friend, class: "photo_icon"%>
+        <%= link_to image_tag("#{friend.photo_url}"), friend, class: "photo_icon"%>
         <br>
         <%= link_to friend.name, friend, class: "text_center" %> 
         <br>
@@ -26,7 +26,7 @@
       <ul class="text_center">
         <% @user.requested_friendships.each do |request| %>
           <div class="friend_icon_wrapper">
-            <%= link_to image_tag('profile.jpg'), request, class: "photo_icon"%>
+            <%= link_to image_tag("#{request.photo_url}"), request, class: "photo_icon"%>
             <br>
             <%= link_to request.name, request, class: "text_center" %>
             <br>
@@ -45,7 +45,7 @@
     <ul class="text_center">
       <% @user.pending_friends.each do |request| %>
         <div class="friend_icon_wrapper">
-          <%= link_to image_tag('profile.jpg'), request, class: "photo_icon"%>
+          <%= link_to image_tag("#{request.photo_url}"), request, class: "photo_icon"%>
           <br>
           <%= link_to request.name, request, class: "text_center" %> 
           <br>
