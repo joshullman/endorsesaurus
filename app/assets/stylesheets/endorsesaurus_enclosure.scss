@@ -5,6 +5,8 @@ $dark_blue: #29785A;
 $green: #BAC17B;
 $yellow: #F4CE79;
 
+$new_green: #59983B;
+
 .endorsesaurus_container h2 {
 	line-height: 125px;
 }
@@ -45,7 +47,7 @@ $yellow: #F4CE79;
 	position: absolute;
 	left: 3%;
 	top: 30%;
-	background-color: $blue;
+	background-color: $new_green;
 	z-index: 50;
 	padding: 5px;
 	border: 1px solid $dark_blue;

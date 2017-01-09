@@ -5,9 +5,12 @@ $dark_blue: #29785A;
 $green: #BAC17B;
 $yellow: #F4CE79;
 
+$new_green: #59983B;
+$new_dark_green: #47792F;
+
 header {
 	font-family: 'Amatic SC', cursive;
-	background: $blue;
+	background: $new_green;
 	font-size: 25px;
 	letter-spacing: 2px;
 	height: 59px;
@@ -52,7 +55,7 @@ header {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: $blue;
+  background-color: $new_green;
 }
 
 .nav_element {
@@ -68,7 +71,7 @@ header {
 }
 
 .nav_element a:hover, .dropdown:hover .dropbtn {
-  background-color: $yellow;
+  background-color: #47792F;
 }
 
 .nav_element.dropdown {
@@ -78,7 +81,7 @@ header {
 .dropdown_content {
   display: none;
   position: absolute;
-  background-color: $blue;
+  background-color: $new_green;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
@@ -91,7 +94,7 @@ header {
   text-align: left;
 }
 
-.dropdown-content a:hover {background-color: $yellow;}
+.dropdown-content a:hover {background-color: $new_dark_green;}
 
 .dropdown:hover .dropdown_content {
   display: block;

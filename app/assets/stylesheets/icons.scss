@@ -5,6 +5,8 @@ $dark_blue: #29785A;
 $green: #BAC17B;
 $yellow: #F4CE79;
 
+$new_dark_green: #47792F;
+
 .dashboard_icons {
   height: 45px;
   width: 45px;
@@ -46,7 +48,7 @@ $yellow: #F4CE79;
 }
 
 .icon_element:hover, .icon_dropdown:hover .iconbtn {
-  background-color: $yellow;
+  background-color: $new_dark_green;
 }
 
 .icon_element.icon_dropdown {
@@ -67,7 +69,7 @@ $yellow: #F4CE79;
   text-align: left;
 }
 
-.icon_slider a:hover {background-color: $yellow;}
+.icon_slider a:hover {background-color: $new_dark_green;}
 
 .dropdown_icon:hover .icon_slider {
   display: block;
