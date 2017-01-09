@@ -111,8 +111,8 @@ $('.likes_row_movie').click(function() {
 
   $('.media_index_tag_wrapper').slick({
     infinite: true,
-    slidesToShow: 6,
-    slidesToScroll: 6
+    slidesToShow: 8,
+    slidesToScroll: 8
   });
 
 });

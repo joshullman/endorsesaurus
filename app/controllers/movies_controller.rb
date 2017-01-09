@@ -15,9 +15,9 @@ class MoviesController < ApplicationController
 			end
 		end
 
-		@most_watched_movies = Medium.where(media_type: "Movie").order(watched_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
-    @most_liked_movies = Medium.where(media_type: "Movie").order(liked_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
-    @most_recommended_movies = Medium.where(media_type: "Movie").order(recommended_count: :desc).limit(10).map {|movie| movie = movie.find_associated_media}
+		@most_watched_movies = Medium.where(media_type: "Movie").order(watched_count: :desc).limit(24).map {|movie| movie = movie.find_associated_media}
+    @most_liked_movies = Medium.where(media_type: "Movie").order(liked_count: :desc).limit(24).map {|movie| movie = movie.find_associated_media}
+    @most_recommended_movies = Medium.where(media_type: "Movie").order(recommended_count: :desc).limit(24).map {|movie| movie = movie.find_associated_media}
 
   	@current_user_likes = current_user.movie_likes
 

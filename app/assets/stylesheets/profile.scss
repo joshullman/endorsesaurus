@@ -3,15 +3,17 @@
 }
 
 .left_column {
-	width: 20%;
+	padding-top: 5%;
+	width: 25%;
 	float: left;
 }
 .center_column {
-	width: 45%;
+	padding-top: 5%;
+	width: 40%;
 	float: left;
 }
 .right_column {
-	padding-top: 3%;
+	padding-top: 5%;
 	width: 35%;
 	float: left;
 }
@@ -20,26 +22,21 @@
 }
 
 .infographics {
-	height: 300px;
-	padding: 25px;
 }
 
 .most_liked_genres {
 	position: relative;
 	float: left;
-	width: 30%;
 }
 
 .likes_distribution {
 	position: relative;
 	float: left; 
-	width: 30%;
 }
 
 .shows_vs_movies {
 	position: relative;
 	float: left;
-	width: 30%;
 }
 
 .recent_activity {
