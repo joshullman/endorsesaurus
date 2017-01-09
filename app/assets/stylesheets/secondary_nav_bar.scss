@@ -23,6 +23,7 @@ $new_dark_green: #47792F;
   z-index: 0;
   background-color: $new_green;
   border-top: 1px solid $dark_blue;
+  border-bottom: 1px solid $dark_blue;
 }
 
 .secondary_nav {
@@ -48,6 +49,8 @@ $new_dark_green: #47792F;
 }
 
 .secondary_nav_element a {
+  font-family: 'Amatic SC', cursive;
+  letter-spacing: 2px;
   display: inline-block;
   color: #f9f9f9;
   font-size: 25px;

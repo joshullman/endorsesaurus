@@ -11,6 +11,15 @@ class UsersController < ApplicationController
     @shows_vs_movies_and_likes_distribution = @user.shows_vs_movies_and_likes_distribution
     @shows_vs_movies = @user.shows_vs_movies_and_likes_distribution[0]
     @likes_distribution = @user.shows_vs_movies_and_likes_distribution[1]
+    # putting this all on profile
+    @watched = organize_movie_likes(@user)
+    @movie_recs = find_movie_recommendations(@user)
+    @current_user_likes = current_user.movie_likes
+    @user_likes = @user.movie_likes
+    @likes = @watched[1]
+    @seens = @watched[0]
+    @dislikes = @watched[-1]
+    @percents = movie_percents(@movie_recs, @watched)
   end
 
   def movies
@@ -25,15 +34,15 @@ class UsersController < ApplicationController
     @percents = movie_percents(@movie_recs, @watched)
   end
 
-  def shows
-    @user = User.find(params[:id])
-    @watched = organize_show_likes
-    @show_recs = find_show_recommendations
-    @current_user_likes = current_user.show_likes
-    @progress = find_user_progress(@user, @watched)
-    @watched = @watched.sort_by {|show, season| @progress[show.medium_id]}.reverse.to_h
-    @user_likes = @user.show_likes
-  end
+  # def shows
+  #   @user = User.find(params[:id])
+  #   @watched = organize_show_likes
+  #   @show_recs = find_show_recommendations
+  #   @current_user_likes = current_user.show_likes
+  #   @progress = find_user_progress(@user, @watched)
+  #   @watched = @watched.sort_by {|show, season| @progress[show.medium_id]}.reverse.to_h
+  #   @user_likes = @user.show_likes
+  # end
 
   def friends
     @user = User.find(params[:id])

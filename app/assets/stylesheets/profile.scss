@@ -2,12 +2,24 @@
 
 }
 
-.badges_container {
+.left_column {
+	width: 20%;
+	float: left;
+}
+.center_column {
+	width: 45%;
+	float: left;
+}
+.right_column {
+	padding-top: 3%;
+	width: 35%;
+	float: left;
+}
 
+.badges_container {
 }
 
 .infographics {
-	width: 100%;
 	height: 300px;
 	padding: 25px;
 }
@@ -31,4 +43,5 @@
 }
 
 .recent_activity {
+	width: 50%;
 }
