@@ -1,4 +1,4 @@
-<% if current_user_likes[placeholder.medium_id] == 1 %>
+<% if user_likes[placeholder.medium_id] == 1 %>
 	<div id=<%="#{placeholder.id}"%> class="likes_row_movie" style="background-color: #BAC17B;">
 		<div class="watched_movie_title">
 			<%= link_to placeholder.title, movie_path(placeholder) %>
@@ -36,7 +36,7 @@
 			<br>
 		</div>
 	</div>
-<% elsif current_user_likes[placeholder.medium_id] == 0%>
+<% elsif user_likes[placeholder.medium_id] == 0 %>
 	<div id=<%="#{placeholder.id}"%> class="likes_row_movie" style="background-color: #F4CE79;">
 		<div class="watched_movie_title">
 			<%= link_to placeholder.title, movie_path(placeholder) %>
@@ -74,7 +74,7 @@
 			<br>
 		</div>
 	</div>
-<% elsif current_user_likes[placeholder.medium_id] == -1 %>
+<% elsif user_likes[placeholder.medium_id] == -1 %>
 	<div id=<%="#{placeholder.id}"%> class="likes_row_movie" style="background-color: #CB2259;">
 		<div class="watched_movie_title">
 			<%= link_to placeholder.title, movie_path(placeholder) %>

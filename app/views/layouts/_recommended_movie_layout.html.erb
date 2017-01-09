@@ -44,7 +44,7 @@
 		<br>
 		<% rec.rec_by.each do |recommender| %>
 			<div class="friend_icon_wrapper">
-				<%= link_to image_tag('profile.jpg'), recommender, class: "photo_icon"%>
+				<%= link_to image_tag(recommender.photo_url), recommender, class: "photo_icon"%>
 		    <br>
 		    <%= link_to recommender.name, recommender, class: "text_center" %>
 		    <br>

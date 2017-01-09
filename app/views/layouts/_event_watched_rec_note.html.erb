@@ -1,9 +1,6 @@
 <% if note.media_type == "Movie" %>
 	<div class="event_information">
 	<div class="created_at"><%= note.created_at.strftime("%d %b. %Y") %></div>
-		<div class="user_icon">
-			<%= link_to image_tag("#{user.photo_url}"), user_path(user), class: "event_photo_icon" %>
-		</div>
 		<div class="event_info">
 			<% case note.value%>
 				<% when 1%>
@@ -30,9 +27,6 @@
 <% elsif note.media_type == "Season"%>
 	<div class="event_information">
 	<div class="created_at"><%= note.created_at.strftime("%d %b. %Y") %></div>
-		<div class="user_icon">
-			<%= link_to image_tag("#{user.photo_url}"), user_path(user), class: "event_photo_icon" %>
-		</div>
 		<div class="event_info">
 			<% case note.value%>
 				<% when 1%>
@@ -59,9 +53,6 @@
 <% elsif note.media_type == "Episode" %>
 	<div class="event_information">
 	<div class="created_at"><%= note.created_at.strftime("%d %b. %Y") %></div>
-		<div class="user_icon">
-			<%= link_to image_tag("#{user.photo_url}"), user_path(user), class: "event_photo_icon" %>
-		</div>
 		<div class="event_info">
 			<% case note.value%>
 				<% when 1%>
@@ -88,9 +79,6 @@
 <% else %>
 	<div class="event_information">
 	<div class="created_at"><%= note.created_at.strftime("%d %b. %Y") %></div>
-		<div class="user_icon">
-			<%= link_to image_tag("#{user.photo_url}"), user_path(user), class: "event_photo_icon" %>
-		</div>
 		<div class="event_info">
 			<% case note.value%>
 				<% when 1%>

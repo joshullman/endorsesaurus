@@ -41,20 +41,30 @@ $(document).ready(function(){
 
   // Likes jquery
 
+  $('.recent_button').click(function(){
+    $('.recent_wrapper').show();
+    $('.likes_wrapper').hide();
+    $('.seen_wrapper').hide();
+    $('.dislikes_wrapper').hide();
+  });
+
   $('.likes_button').click(function(){
     $('.likes_wrapper').show();
+    $('.recent_wrapper').hide();
     $('.seen_wrapper').hide();
     $('.dislikes_wrapper').hide();
   });
 
   $('.seen_button').click(function(){
     $('.seen_wrapper').show();
+    $('.recent_wrapper').hide();
     $('.likes_wrapper').hide();
     $('.dislikes_wrapper').hide();
   });
 
   $('.dislikes_button').click(function(){
     $('.dislikes_wrapper').show();
+    $('.recent_wrapper').hide();
     $('.seen_wrapper').hide();
     $('.likes_wrapper').hide();
   });
