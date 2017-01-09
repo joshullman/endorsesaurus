@@ -25,69 +25,68 @@
 	</div>
 
 	<div class="center_column">
-			<div class="likes_container">
-				<h3>
-				<span class="recent_button">Recent</span> 
-				<span class="likes_button">Likes</span> 
-				<span class="seen_button">Seen</span> 
-				<span class="dislikes_button">Dislikes</span>
-				</h3>
-				<div class="watched_wrapper">
+		<div class="likes_container">
+			<h3>
+			<span class="recent_button">Recent</span> 
+			<span class="likes_button">Likes</span> 
+			<span class="seen_button">Seen</span> 
+			<span class="dislikes_button">Dislikes</span>
+			</h3>
+			<div class="watched_wrapper">
 
-					<div class="recent_wrapper">
-						<% @recent_activity.each do |note| %>
-							<% case note.note_type %>
-								<% when "RecNote" %>
-									<div class="profile_event_wrapper">
-										<%= render partial: 'layouts/event_rec_note', locals: { note: note, user: @user } %>
-									</div>
-								<% when "WatchedRecNote" %>
-									<div class="profile_event_wrapper">
-										<%= render partial: 'layouts/event_watched_rec_note', locals: { note: note, user: @user } %>
-									</div>
-								<% when "WatchedNote" %>
-									<div class="profile_event_wrapper">
-										<%= render partial: 'layouts/event_watched_note', locals: { note: note, user: @user } %>
-									</div>
-							<% end %>
+				<div class="recent_wrapper">
+					<% @recent_activity.each do |note| %>
+						<% case note.note_type %>
+							<% when "RecNote" %>
+								<div class="profile_event_wrapper">
+									<%= render partial: 'layouts/event_rec_note', locals: { note: note, user: @user } %>
+								</div>
+							<% when "WatchedRecNote" %>
+								<div class="profile_event_wrapper">
+									<%= render partial: 'layouts/event_watched_rec_note', locals: { note: note, user: @user } %>
+								</div>
+							<% when "WatchedNote" %>
+								<div class="profile_event_wrapper">
+									<%= render partial: 'layouts/event_watched_note', locals: { note: note, user: @user } %>
+								</div>
 						<% end %>
-					</div>
+					<% end %>
+				</div>
 
-					<div class="likes_wrapper">
-						<% if @likes && !@likes.empty? %>
-							<% @likes.each do |like| %>
-								<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, percents: @percents[like.medium_id]} %>	
-							<% end %>
-						<% else %>
-							<p>No likes to show!</p>
+				<div class="likes_wrapper">
+					<% if @likes && !@likes.empty? %>
+						<% @likes.each do |like| %>
+							<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: like, current_user: current_user, percents: @percents[like.medium_id]} %>	
 						<% end %>
-					</div>
+					<% else %>
+						<p>No likes to show!</p>
+					<% end %>
+				</div>
 
-					<div class="seen_wrapper">
-						<% if @seens && !@seens.empty? %>
-							<% @seens.each do |seen| %>
-								<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, percents: @percents[seen.medium_id]} %>	
-							<% end %>
-						<% else %>
-							<p>No seens to show!</p>
+				<div class="seen_wrapper">
+					<% if @seens && !@seens.empty? %>
+						<% @seens.each do |seen| %>
+							<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: seen, current_user: current_user, percents: @percents[seen.medium_id]} %>	
 						<% end %>
-					</div>
+					<% else %>
+						<p>No seens to show!</p>
+					<% end %>
+				</div>
 
-					<div class="dislikes_wrapper">
-						<% if @dislikes && !@dislikes.empty? %>
-							<% @dislikes.each do |dislike| %>
-								<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, percents: @percents[dislike.medium_id]} %>	
-							<% end %>
-						<% else %>
-							<p>No dislikes to show!</p>
+				<div class="dislikes_wrapper">
+					<% if @dislikes && !@dislikes.empty? %>
+						<% @dislikes.each do |dislike| %>
+							<%= render partial: 'layouts/movie_layout', locals: { user: @user, user_likes: @user_likes, current_user_likes: @current_user_likes, placeholder: dislike, current_user: current_user, percents: @percents[dislike.medium_id]} %>	
 						<% end %>
-					</div>
+					<% else %>
+						<p>No dislikes to show!</p>
+					<% end %>
 				</div>
 			</div>
 		</div>
 	</div>
 
-		<div class="right_column">
+	<div class="right_column">
 		<div class="recommendations_container">
 			<h3 class="text_center">Movie Recommendations:</h3>
 			<div class="recommendation_wrapper">
