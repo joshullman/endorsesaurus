@@ -21,11 +21,19 @@
         <div class="navbar-class">
           <% if current_user %>
             <ul class="navbar-left navbar">
+              <li class="nav_element"><%= link_to "Home", dashboard_user_path(current_user) %></li>
               <li class="nav_element"><%= link_to "Movies", movies_path %></li>
               <!--
               <li class="nav_element"><%= link_to "Shows", shows_path %></li>
               -->
-              <li class="nav_element"><%= link_to "Tags", tags_path %></li>
+              <li class="dropdown nav_element">
+                <%= link_to "Tags", tags_path, class: "dropbtn" %>
+                  <div class="dropdown_content">
+                    <% Tag.all.order(:name).each do |tag| %>
+                        <%= link_to tag.name, tag_path(tag) %>
+                    <% end %>
+                  </div>
+              </li>
               <li class="search nav_element">
                 <%= form_tag('/media/search', method: :get) do |f| %>
                   <%= text_field_tag :title, params[:title] %>
