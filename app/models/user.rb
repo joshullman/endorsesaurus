@@ -318,7 +318,7 @@ class User < ActiveRecord::Base
   end
 
   def shows_vs_movies_and_likes_distribution
-    likes = {:likes => 0, :seens => 0, :dislikes => 0}
+    likes = {:likes => 0, :dislikes => 0, :seens => 0 }
     shows_vs_movies = {:shows => 0, :movies => 0}
     self.likes.each do |like|
       case like.value
