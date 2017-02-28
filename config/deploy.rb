@@ -9,16 +9,6 @@ set :deploy_to, '/home/endorsesaurus/endorsesaurus'
 append :linked_files, "config/database.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads"
 
-namespace :deploy do
-	desc "reload the database with seed data"
-	task :seed do
-		on "endorsesaurus@159.203.114.32" do
-	    execute "cd #{current_path}; bundle exec rake db:seed RAILS_ENV=production"
-	  end
-	end
-end
-
-after :deploy, "deploy:seed"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
